@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "daamky",
+  "version": "1.0",
+  "name": "Daamky",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/daamky/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.daamky.ClientInitializer"
+    ]
+  },
+  "mixins": [
+    "daamky.mixins.json"
+  ],
+  "custom": {
+    "sodium:options": {
+      "mixin.features.gui.hooks.settings": false
+    }
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "fabric-api": "*",
+    "minecraft": "1.21.11"
+  },
+  "jars": [
+    {
+      "file": "META-INF/jars/baritone-1.17.0-553e402765940b4d.jar"
+    },
+    {
+      "file": "META-INF/jars/viafabricplus-4.4.15-89db8bd8b7c954bf.jar"
+    }
+  ]
+}

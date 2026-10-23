@@ -1,0 +1,362 @@
+package dev.daamky;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+public final class ModuleToggleProfileManager {
+    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
+    private static final String DEFAULT_PROFILE_NAME = "__main__";
+    private static final ConcurrentHashMap<String, Set<String>> enabledModulesByProfile = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, Set<String>> callbackEnabledModulesByProfile = new ConcurrentHashMap<>();
+    private static final ThreadLocal<String> scopedProfileName = new ThreadLocal<>();
+    private static volatile String activeProfileName = "__main__";
+    private static volatile boolean initialized;
+    private static final ModuleToggleProfileContext PROFILE_CONTEXT = new ModuleToggleProfileContext() {
+        @Override
+        public void runWithProfile(String profileName, Runnable runnable) {
+            ModuleToggleProfileManager.runWithProfile(profileName, runnable);
+        }
+
+        @Override
+        public void resetToDefaultProfile() {
+            ModuleToggleProfileManager.resetToDefaultProfile();
+        }
+
+        @Override
+        public void switchActiveProfile(String profileName) {
+            ModuleToggleProfileManager.switchActiveProfile(profileName);
+        }
+// https://t.me/pasterplace
+
+        @Override
+        public void clearProfileCallbackState(String profileName) {
+            ModuleToggleProfileManager.clearProfileCallbackState(profileName);
+        }
+
+        @Override
+        public void removeProfileState(String profileName) {
+            ModuleToggleProfileManager.removeProfileState(profileName);
+        }
+
+        @Override
+        public void saveActiveProfileState() {
+            ModuleToggleProfileManager.saveActiveProfileState();
+        }
+
+        @Override
+        public boolean isProfileScopeActive() {
+            return ModuleToggleProfileManager.isProfileScopeActive();
+        }
+
+        @Override
+        public String getScopedProfileName() {
+            return ModuleToggleProfileManager.getScopedProfileName();
+        }
+
+        @Override
+        public boolean isModuleEnabledInScope(ModuleStructure moduleStructure) {
+            return ModuleToggleProfileManager.isModuleEnabledInScope(moduleStructure);
+        }
+    };
+// https://t.me/pasterplace
+
+    private ModuleToggleProfileManager() {
+    }
+// https://t.me/pasterplace
+
+    public static ModuleToggleProfileContext getContext() {
+        return PROFILE_CONTEXT;
+    }
+// https://t.me/pasterplace
+
+    public static void saveActiveProfileState() {
+        if (ensureInitialized()) {
+            enabledModulesByProfile.put(activeProfileName, snapshotCurrentEnabledModuleNames());
+        }
+    }
+// https://t.me/pasterplace
+
+    public static void resetToDefaultProfile() {
+        if (ensureInitialized()) {
+            String previousProfileName = activeProfileName;
+            saveActiveProfileState();
+            if (!"__main__".equals(previousProfileName)) {
+                callbackEnabledModulesByProfile.remove(previousProfileName);
+            }
+
+            activeProfileName = "__main__";
+            applyProfile(activeProfileName);
+        }
+    }
+// https://t.me/pasterplace
+
+    public static void switchActiveProfile(String profileName) {
+        if (ensureInitialized() && profileName != null && !profileName.isBlank()) {
+            saveActiveProfileState();
+            activeProfileName = normalizeProfileName(profileName);
+            callbackEnabledModulesByProfile.remove(activeProfileName);
+            applyProfile(activeProfileName);
+        }
+    }
+// https://t.me/pasterplace
+
+    public static void runWithProfile(String profileName, Runnable task) {
+        if (ensureInitialized() && profileName != null && !profileName.isBlank()) {
+            String normalizedProfileName = normalizeProfileName(profileName);
+            String previousActiveProfileName = activeProfileName;
+            Object previousScopedProfileName = scopedProfileName.get();
+            List modules = ModuleRegistry.getInstance().getModules();
+            int moduleCount = modules.size();
+            boolean[] previousEnabledStates = new boolean[moduleCount];
+            enabledModulesByProfile.put(previousActiveProfileName, collectEnabledModuleNames(modules));
+
+            for (int moduleIndex = 0; moduleIndex < moduleCount; moduleIndex++) {
+                previousEnabledStates[moduleIndex] = ((ModuleStructure)modules.get(moduleIndex)).getEnabledState();
+            }
+
+            activeProfileName = normalizedProfileName;
+
+            try {
+                invokeProfileEnableCallbacks(normalizedProfileName, modules);
+                applyProfile(normalizedProfileName, modules);
+                scopedProfileName.set(normalizedProfileName);
+                task.run();
+                Set enabledModuleNames = collectEnabledModuleNames(modules);
+                enabledModulesByProfile.put(normalizedProfileName, enabledModuleNames);
+                pruneProfileCallbackModules(normalizedProfileName, enabledModuleNames);
+            } finally {
+                restoreModuleEnabledStates(modules, previousEnabledStates);
+                activeProfileName = previousActiveProfileName;
+                if (previousScopedProfileName == null) {
+                    scopedProfileName.remove();
+                } else {
+                    scopedProfileName.set((String)previousScopedProfileName);
+                }
+            }
+        } else {
+            task.run();
+        }
+    }
+// https://t.me/pasterplace
+
+    public static void clearProfileCallbackState(String profileName) {
+        if (profileName != null && !profileName.isBlank()) {
+            callbackEnabledModulesByProfile.remove(normalizeProfileName(profileName));
+        }
+    }
+// https://t.me/pasterplace
+
+    public static void removeProfileState(String profileName) {
+        if (profileName != null && !profileName.isBlank()) {
+            String normalizedProfileName = normalizeProfileName(profileName);
+            enabledModulesByProfile.remove(normalizedProfileName);
+            callbackEnabledModulesByProfile.remove(normalizedProfileName);
+        }
+    }
+// https://t.me/pasterplace
+
+    public static String getScopedProfileName() {
+        Object profileNameOverride = scopedProfileName.get();
+        return (String)(profileNameOverride != null ? profileNameOverride : "__main__");
+    }
+// https://t.me/pasterplace
+
+    public static String getActiveProfileName() {
+        Object profileNameOverride = scopedProfileName.get();
+        return (String)(profileNameOverride != null ? profileNameOverride : activeProfileName);
+    }
+// https://t.me/pasterplace
+
+    public static String getDefaultProfileName() {
+        return "__main__";
+    }
+// https://t.me/pasterplace
+
+    public static boolean isProfileAvailable(String profileName) {
+// https://t.me/pasterplace
+
+        return false;
+    }
+// https://t.me/pasterplace
+
+    public static boolean isProfileScopeActive() {
+        return scopedProfileName.get() != null;
+    }
+// https://t.me/pasterplace
+
+    public static boolean isModuleEnabledInScope(ModuleStructure moduleStructure) {
+        if (!isProfileManagedModule(moduleStructure)) {
+            return moduleStructure.getEnabledState();
+        }
+
+        Object profileNameOverride = scopedProfileName.get();
+        return profileNameOverride == null ? moduleStructure.getEnabledState() : getOrCreateProfileModuleSet((String)profileNameOverride).contains(getProfileModuleKey(moduleStructure));
+    }
+// https://t.me/pasterplace
+
+    public static boolean isModuleEnabledInProfile(String profileName, ModuleStructure moduleStructure) {
+        if (profileName != null && ensureInitialized()) {
+            String normalizedProfileName = normalizeProfileName(profileName);
+            return normalizedProfileName.equals(activeProfileName) ? moduleStructure.getEnabledState() : getOrCreateProfileModuleSet(normalizedProfileName).contains(getProfileModuleKey(moduleStructure));
+        } else {
+            return false;
+        }
+    }
+// https://t.me/pasterplace
+
+    public static void setModuleEnabledInProfile(String profileName, ModuleStructure moduleStructure, boolean enabled) {
+        if (profileName != null && ensureInitialized() && isProfileManagedModule(moduleStructure)) {
+            String normalizedProfileName = normalizeProfileName(profileName);
+            if (normalizedProfileName.equals(activeProfileName)) {
+                moduleStructure.setEnabled(enabled);
+            } else {
+                Set<String> enabledModuleNames = getOrCreateProfileModuleSet(normalizedProfileName);
+                if (enabled) {
+                    enabledModuleNames.add(getProfileModuleKey(moduleStructure));
+                } else {
+                    enabledModuleNames.remove(getProfileModuleKey(moduleStructure));
+                     Set<String> callbackEnabledModules = callbackEnabledModulesByProfile.get(normalizedProfileName);
+                    if (callbackEnabledModules != null) {
+                        callbackEnabledModules.remove(getProfileModuleKey(moduleStructure));
+                    }
+                }
+            }
+        }
+    }
+// https://t.me/pasterplace
+
+    public static Set<String> getEnabledModuleNames(String profileName) {
+        return Set.copyOf(getOrCreateProfileModuleSet(normalizeProfileName(profileName)));
+    }
+// https://t.me/pasterplace
+
+    public static boolean isProfileManagedModule(ModuleStructure module) {
+        ModuleCategory category = module.getCategory();
+        return category != ModuleCategory.RENDER && category != ModuleCategory.THEMES;
+    }
+// https://t.me/pasterplace
+
+    private static String getProfileModuleKey(ModuleStructure module) {
+        return module.getName().toLowerCase(Locale.ROOT);
+    }
+// https://t.me/pasterplace
+
+    private static void applyProfile(String profileName) {
+        applyProfile(profileName, ModuleRegistry.getInstance().getModules(), true);
+    }
+// https://t.me/pasterplace
+
+    private static Set<String> snapshotCurrentEnabledModuleNames() {
+        return collectEnabledModuleNames(ModuleRegistry.getInstance().getModules());
+    }
+// https://t.me/pasterplace
+
+    private static Set<String> collectEnabledModuleNames(List<ModuleStructure> modules) {
+        HashSet enabledModuleNames = new HashSet(Math.max(16, (int)(modules.size() / 0.75F) + 1));
+
+        for (Object moduleObject : modules) {
+            if (isProfileManagedModule((ModuleStructure)moduleObject) && ((ModuleStructure)moduleObject).getEnabledState()) {
+                enabledModuleNames.add(getProfileModuleKey((ModuleStructure)moduleObject));
+            }
+        }
+
+        return enabledModuleNames;
+    }
+// https://t.me/pasterplace
+
+    private static void applyProfile(String profileName, List<ModuleStructure> modules) {
+        applyProfile(profileName, modules, false);
+    }
+// https://t.me/pasterplace
+
+    private static void applyProfile(String profileName, List<ModuleStructure> modules, boolean invokeCallbacks) {
+        Set enabledModuleNames = getOrCreateProfileModuleSet(profileName);
+
+        for (Object moduleObject : modules) {
+            if (isProfileManagedModule((ModuleStructure)moduleObject)) {
+                boolean isEnabledInProfile = enabledModuleNames.contains(getProfileModuleKey((ModuleStructure)moduleObject));
+                if (invokeCallbacks) {
+                    ((ModuleStructure)moduleObject).setEnabled(isEnabledInProfile);
+                } else {
+                    ((ModuleStructure)moduleObject).setEnabledWithoutCallbacks(isEnabledInProfile);
+                }
+            }
+        }
+    }
+// https://t.me/pasterplace
+
+    private static void invokeProfileEnableCallbacks(String profileName, List<ModuleStructure> modules) {
+         Set<String> profileEnabledModules = getOrCreateProfileModuleSet(profileName);
+         Set<String> callbackEnabledModules = callbackEnabledModulesByProfile.computeIfAbsent(profileName, profileKey -> ConcurrentHashMap.newKeySet());
+
+         for (ModuleStructure module : modules) {
+            if (isProfileManagedModule(module)) {
+               String moduleName = getProfileModuleKey(module);
+                if (profileEnabledModules.contains(moduleName) && !callbackEnabledModules.contains(moduleName)) {
+                    callbackEnabledModules.add(moduleName);
+
+                    try {
+                        if (!module.getEnabledState()) {
+                           module.setEnabledWithoutCallbacks(true);
+                        }
+
+                        module.invokeEnableCallback();
+                        if (!module.getEnabledState()) {
+                            callbackEnabledModules.remove(moduleName);
+                        }
+                    } catch (Throwable callbackFailure) {
+                        callbackEnabledModules.remove(moduleName);
+                        callbackFailure.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+// https://t.me/pasterplace
+
+    private static Set<String> getOrCreateProfileModuleSet(String profileName) {
+        return enabledModulesByProfile.computeIfAbsent(profileName, profileKey -> ConcurrentHashMap.newKeySet());
+    }
+// https://t.me/pasterplace
+
+    private static void pruneProfileCallbackModules(String profileName, Set<String> enabledModuleNames) {
+         Set<String> callbackEnabledModules = callbackEnabledModulesByProfile.get(profileName);
+        if (callbackEnabledModules != null) {
+            callbackEnabledModules.retainAll(enabledModuleNames);
+            if (callbackEnabledModules.isEmpty()) {
+                callbackEnabledModulesByProfile.remove(profileName);
+            }
+        }
+    }
+// https://t.me/pasterplace
+
+    private static void restoreModuleEnabledStates(List<ModuleStructure> modules, boolean[] previousEnabledStates) {
+        for (int moduleIndex = 0; moduleIndex < previousEnabledStates.length; moduleIndex++) {
+            ((ModuleStructure)modules.get(moduleIndex)).setEnabledWithoutCallbacks(previousEnabledStates[moduleIndex]);
+        }
+    }
+// https://t.me/pasterplace
+
+    private static boolean ensureInitialized() {
+        ModuleRegistry moduleRegistry = ModuleRegistry.getInstance();
+        if (moduleRegistry != null && !moduleRegistry.getModules().isEmpty()) {
+            if (!initialized) {
+                enabledModulesByProfile.putIfAbsent("__main__", snapshotCurrentEnabledModuleNames());
+                initialized = true;
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+// https://t.me/pasterplace
+
+    private static String normalizeProfileName(String profileName) {
+        return profileName.toLowerCase(Locale.ROOT);
+    }
+}
+

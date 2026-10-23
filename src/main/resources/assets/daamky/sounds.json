@@ -1,0 +1,34 @@
+{
+  "click": {
+    "sounds": [
+      {
+        "name": "daamky:click",
+        "stream": false
+      }
+    ]
+  },
+  "enable": {
+    "sounds": [
+      {
+        "name": "daamky:enable",
+        "stream": false
+      }
+    ]
+  },
+  "disable": {
+    "sounds": [
+      {
+        "name": "daamky:disable",
+        "stream": false
+      }
+    ]
+  },
+  "tick": {
+    "sounds": [
+      {
+        "name": "daamky:tick",
+        "stream": false
+      }
+    ]
+  }
+}
