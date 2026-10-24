@@ -23,7 +23,6 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 public final class DaamkyWorldRender {
-    private static final String TELEGRAM_CHANNEL_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final BufferedWorldGeometry VISIBLE_LINE_GEOMETRY = new BufferedWorldGeometry(
     DrawMode.LINES, VertexFormats.POSITION_COLOR_NORMAL_LINE_WIDTH, WorldRenderPipelines.II1Il11l111II11IIl
     );
@@ -67,11 +66,9 @@ public final class DaamkyWorldRender {
     private static float CAMERA_UP_Z;
     private static final float[] BLOOM_RING_RADII = new float[]{0.0F, 0.1F, 0.24F, 0.42F, 0.64F, 0.84F, 1.0F};
     private static final float[] BLOOM_RING_ALPHA_FACTORS = new float[BLOOM_RING_RADII.length];
-// https://t.me/pasterplace
 
     private DaamkyWorldRender() {
     }
-// https://t.me/pasterplace
 
     public static void updateCameraState(Vec3d cameraPosition, float yaw, float pitch, float tickDelta) {
         CAMERA_POSITION = cameraPosition;
@@ -81,7 +78,6 @@ public final class DaamkyWorldRender {
         CAMERA_STATE_AVAILABLE = true;
         updateCameraPlaneBasis();
     }
-// https://t.me/pasterplace
 
     private static void updateCameraPlaneBasis() {
         float yawRadians = CAMERA_YAW * (float) (Math.PI / 180.0);
@@ -95,19 +91,16 @@ public final class DaamkyWorldRender {
         CAMERA_UP_Y = MathHelper.cos(pitchRadians);
         CAMERA_UP_Z = cosYaw * sinPitch;
     }
-// https://t.me/pasterplace
 
     public static void flushBufferedGeometry(Matrix4f matrix4f) {
         CAMERA_STATE_AVAILABLE = false;
         Framebuffer framebuffer = MinecraftClient.getInstance().getFramebuffer();
         renderBufferedGeometry(matrix4f, framebuffer.getColorAttachmentView(), framebuffer.getDepthAttachmentView());
     }
-// https://t.me/pasterplace
 
     public static void setLineWidthMultiplier(float lineWidthMultiplier) {
         LINE_WIDTH_MULTIPLIER = lineWidthMultiplier;
     }
-// https://t.me/pasterplace
 
     public static void flushBufferedGeometryToOutputOverride(Matrix4f matrix4f) {
         CAMERA_STATE_AVAILABLE = false;
@@ -118,7 +111,6 @@ public final class DaamkyWorldRender {
             renderBufferedGeometry(matrix4f, RenderSystem.outputColorTextureOverride, RenderSystem.outputDepthTextureOverride);
         }
     }
-// https://t.me/pasterplace
 
     private static void discardBufferedGeometry() {
         DynamicTransforms.clearSubmissions();
@@ -131,7 +123,6 @@ public final class DaamkyWorldRender {
             bloomBuffer.l1lll11l1l();
         }
     }
-// https://t.me/pasterplace
 
     private static void renderBufferedGeometry(Matrix4f matrix4f, GpuTextureView gpuTextureView, GpuTextureView gpuTextureView2) {
         boolean hasWorldGeometry = false;
@@ -139,7 +130,6 @@ public final class DaamkyWorldRender {
         for (BufferedWorldGeometry geometryBuffer : WORLD_GEOMETRY_BUFFERS) {
             hasWorldGeometry |= geometryBuffer.l1I1IlllIlI();
         }
-// https://t.me/pasterplace
 
         hasWorldGeometry |= DynamicTransforms.hasPendingDrawSubmissions();
         boolean hasBloomGeometry = false;
@@ -152,12 +142,10 @@ public final class DaamkyWorldRender {
             for (BufferedWorldGeometry geometryBuffer : WORLD_GEOMETRY_BUFFERS) {
                 geometryBuffer.IllI1l1l1();
             }
-// https://t.me/pasterplace
 
             GpuBufferSlice gpuBufferSlice = RenderSystem.getDynamicUniforms()
             .write(new Matrix4f(matrix4f), new Vector4f(1.0F, 1.0F, 1.0F, 1.0F), new Vector3f(), new Matrix4f());
             ArrayList<com.mojang.blaze3d.buffers.GpuBuffer> temporaryBuffers = new ArrayList<>();
-// https://t.me/pasterplace
 
             try {
                 RenderPass renderPass = RenderSystem.getDevice()
@@ -181,7 +169,6 @@ public final class DaamkyWorldRender {
 
                     throw renderFailure;
                 }
-// https://t.me/pasterplace
 
                 if (renderPass != null) {
                     renderPass.close();
@@ -203,37 +190,30 @@ public final class DaamkyWorldRender {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static boolean hasCameraState() {
         return CAMERA_STATE_AVAILABLE;
     }
-// https://t.me/pasterplace
 
     public static Vec3d getCameraPosition() {
         return CAMERA_POSITION;
     }
-// https://t.me/pasterplace
 
     public static float getCameraYaw() {
         return CAMERA_YAW;
     }
-// https://t.me/pasterplace
 
     public static float getCameraPitch() {
         return CAMERA_PITCH;
     }
-// https://t.me/pasterplace
 
     public static float getTickDelta() {
         return TICK_DELTA;
     }
-// https://t.me/pasterplace
 
     public static Vec3d getInterpolatedPosition(Entity entity) {
         return getInterpolatedPosition(entity, TICK_DELTA);
     }
-// https://t.me/pasterplace
 
     public static Vec3d getInterpolatedPosition(Entity entity, float partialTick) {
         return new Vec3d(
@@ -242,14 +222,12 @@ public final class DaamkyWorldRender {
         MathHelper.lerp(partialTick, entity.lastZ, entity.getZ())
         );
     }
-// https://t.me/pasterplace
 
     public static Box getInterpolatedBoundingBox(Entity entity) {
         Vec3d interpolatedPosition = getInterpolatedPosition(entity);
         return entity.getBoundingBox()
         .offset(interpolatedPosition.x - entity.getX(), interpolatedPosition.y - entity.getY(), interpolatedPosition.z - entity.getZ());
     }
-// https://t.me/pasterplace
 
     public static Vec3d getCameraLookDirection() {
         float yawRadians = CAMERA_YAW * (float) (Math.PI / 180.0);
@@ -257,33 +235,27 @@ public final class DaamkyWorldRender {
         float cosPitch = MathHelper.cos(pitchRadians);
         return new Vec3d(-MathHelper.sin(yawRadians) * cosPitch, -MathHelper.sin(pitchRadians), MathHelper.cos(yawRadians) * cosPitch);
     }
-// https://t.me/pasterplace
 
     private static BufferedWorldGeometry selectLineGeometry(boolean throughWalls) {
         return throughWalls ? THROUGH_WALL_LINE_GEOMETRY : VISIBLE_LINE_GEOMETRY;
     }
-// https://t.me/pasterplace
 
     private static BufferedWorldGeometry selectQuadGeometry(boolean throughWalls) {
         return throughWalls ? THROUGH_WALL_QUAD_GEOMETRY : VISIBLE_QUAD_GEOMETRY;
     }
-// https://t.me/pasterplace
 
     private static BufferedWorldGeometry selectAdditiveQuadGeometry(boolean throughWalls) {
         return throughWalls ? THROUGH_WALL_ADDITIVE_QUAD_GEOMETRY : VISIBLE_ADDITIVE_QUAD_GEOMETRY;
     }
-// https://t.me/pasterplace
 
     public static void beginTexturedQuadBuffer(float unusedWidth, float unusedHeight) {
         beginTexturedQuadBuffer(unusedWidth, unusedHeight, false);
     }
-// https://t.me/pasterplace
 
     public static void beginTexturedQuadBuffer(float unusedWidth, float unusedHeight, boolean unusedThroughWalls) {
 
         TEXTURED_QUAD_BUFFER = DynamicTransforms.createBufferBuilder(DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
     }
-// https://t.me/pasterplace
 
     public static void beginBloomCapture(float blurStrength, float compositeStrength, boolean throughWalls) {
         BLOOM_CAPTURE_ACTIVE = true;
@@ -291,12 +263,10 @@ public final class DaamkyWorldRender {
         BLOOM_BLUR_STRENGTH = blurStrength;
         BLOOM_COMPOSITE_STRENGTH = compositeStrength;
     }
-// https://t.me/pasterplace
 
     public static void endBloomCapture() {
         BLOOM_CAPTURE_ACTIVE = false;
     }
-// https://t.me/pasterplace
 
     public static void flushTexturedQuadBuffer() {
 
@@ -315,7 +285,6 @@ public final class DaamkyWorldRender {
             TEXTURED_QUAD_BUFFER = null;
         }
     }
-// https://t.me/pasterplace
 
     private static void appendCameraFacingTexturedQuad(float centerX, float centerY, float centerZ, float halfSize, int colorArgb) {
         int adjustedAlpha = Math.min(255, (int)((colorArgb >>> 24 & 0xFF) * TEXTURED_QUAD_OPACITY * 0.18F));
@@ -332,7 +301,6 @@ public final class DaamkyWorldRender {
             TEXTURED_QUAD_BUFFER.vertex(centerX - rightX + upX, centerY + upY, centerZ - rightZ + upZ).texture(0.0F, 0.0F).color(adjustedColorArgb);
         }
     }
-// https://t.me/pasterplace
 
     private static int interpolateArgb(int startArgb, int endArgb, float progress) {
         int startRed = startArgb >> 16 & 0xFF;
@@ -348,7 +316,6 @@ public final class DaamkyWorldRender {
         | (int)(startGreen + (endGreen - startGreen) * progress) << 8
         | (int)(startBlue + (endBlue - startBlue) * progress);
     }
-// https://t.me/pasterplace
 
     private static void drawSmoothLine(
     float startX, float startY, float startZ, float endX, float endY, float endZ, int startColorArgb, int endColorArgb, float lineLength
@@ -367,7 +334,6 @@ public final class DaamkyWorldRender {
             );
         }
     }
-// https://t.me/pasterplace
 
     private static void drawSmoothGradientQuad(Vec3d firstCorner, Vec3d secondCorner, Vec3d thirdCorner, Vec3d fourthCorner, int firstCornerColorArgb, int secondCornerColorArgb, int thirdCornerColorArgb, int fourthCornerColorArgb) {
         float strokeHalfWidth = 0.07F * SMOOTH_GEOMETRY_SCALE;
@@ -415,7 +381,6 @@ public final class DaamkyWorldRender {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static void drawLine(Vec3d startPosition, Vec3d endPosition, RgbaColor lineColor, float lineWidth, boolean throughWalls) {
         drawLine(
@@ -431,7 +396,6 @@ public final class DaamkyWorldRender {
         throughWalls
         );
     }
-// https://t.me/pasterplace
 
     public static void drawGradientLine(Vec3d startPosition, Vec3d endPosition, RgbaColor startColor, RgbaColor endColor, float lineWidth, boolean throughWalls) {
         drawLine(
@@ -447,7 +411,6 @@ public final class DaamkyWorldRender {
         throughWalls
         );
     }
-// https://t.me/pasterplace
 
     public static void drawLine(
     double startX,
@@ -490,25 +453,21 @@ public final class DaamkyWorldRender {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static void drawPolyline(List<Vec3d> points, RgbaColor lineColor, float lineWidth, boolean throughWalls) {
         for (int pointIndex = 1; pointIndex < points.size(); pointIndex++) {
             drawLine((Vec3d)points.get(pointIndex - 1), (Vec3d)points.get(pointIndex), lineColor, lineWidth, throughWalls);
         }
     }
-// https://t.me/pasterplace
 
     public static void drawCameraToPointGlow(Vec3d targetPosition, RgbaColor glowColor, float lineWidth) {
         drawCameraToPointGradientLine(targetPosition, glowColor.withAlpha(glowColor.alpha() / 4), glowColor, lineWidth);
     }
-// https://t.me/pasterplace
 
     public static void drawCameraToPointGradientLine(Vec3d targetPosition, RgbaColor startColor, RgbaColor endColor, float lineWidth) {
         Vec3d cameraOrigin = CAMERA_POSITION.add(getCameraLookDirection().multiply(0.5));
         drawGradientLine(cameraOrigin, targetPosition, startColor, endColor, lineWidth, true);
     }
-// https://t.me/pasterplace
 
     public static void drawBoxOutline(Box box, RgbaColor lineColor, float lineWidth, boolean throughWalls) {
         int colorArgb = lineColor.toArgb();
@@ -531,12 +490,10 @@ public final class DaamkyWorldRender {
         drawLine(maxX, minY, maxZ, maxX, maxY, maxZ, colorArgb, colorArgb, lineWidth, throughWalls);
         drawLine(minX, minY, maxZ, minX, maxY, maxZ, colorArgb, colorArgb, lineWidth, throughWalls);
     }
-// https://t.me/pasterplace
 
     public static void drawFilledBox(Box box, RgbaColor fillColor, boolean throughWalls) {
         drawGradientBox(box, fillColor, fillColor, throughWalls);
     }
-// https://t.me/pasterplace
 
     public static void drawGradientBox(Box box, RgbaColor bottomColor, RgbaColor topColor, boolean throughWalls) {
         if (SMOOTH_GEOMETRY_ENABLED) {
@@ -592,7 +549,6 @@ public final class DaamkyWorldRender {
             bufferBuilder.vertex(minXRelative, maxYRelative, minZRelative).color(topColorArgb);
         }
     }
-// https://t.me/pasterplace
 
     public static void drawBoxFillAndOutline(Box box, RgbaColor fillColor, RgbaColor outlineColor, float outlineWidth, boolean throughWalls) {
         if (fillColor != null && fillColor.alpha() > 0) {
@@ -603,7 +559,6 @@ public final class DaamkyWorldRender {
             drawBoxOutline(box, outlineColor, outlineWidth, throughWalls);
         }
     }
-// https://t.me/pasterplace
 
     public static void drawGradientQuad(
     Vec3d vertexA,
@@ -635,19 +590,16 @@ public final class DaamkyWorldRender {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static void drawQuad(Vec3d vertexA, Vec3d vertexB, Vec3d vertexC, Vec3d vertexD, RgbaColor color, boolean throughWalls) {
         drawGradientQuad(vertexA, vertexB, vertexC, vertexD, color, color, color, color, throughWalls);
     }
-// https://t.me/pasterplace
 
     public static void drawTriangle(
     Vec3d vertexA, Vec3d vertexB, Vec3d vertexC, RgbaColor colorA, RgbaColor colorB, RgbaColor colorC, boolean throughWalls
     ) {
         drawGradientQuad(vertexA, vertexB, vertexC, vertexC, colorA, colorB, colorC, colorC, throughWalls);
     }
-// https://t.me/pasterplace
 
     public static void drawAdditiveGradientQuad(
     Vec3d vertexA,
@@ -668,7 +620,6 @@ public final class DaamkyWorldRender {
             appendCameraRelativeVertex(bufferBuilder, vertexD, vertexDColor.toArgb());
         }
     }
-// https://t.me/pasterplace
 
     private static void appendCameraRelativeVertex(BufferBuilder bufferBuilder, Vec3d worldPosition, int colorArgb) {
         bufferBuilder.vertex(
@@ -678,12 +629,10 @@ public final class DaamkyWorldRender {
         )
         .color(colorArgb);
     }
-// https://t.me/pasterplace
 
     public static Vector3f[] getCameraPlaneBasis() {
         return new Vector3f[]{new Vector3f(CAMERA_RIGHT_X, 0.0F, CAMERA_RIGHT_Z), new Vector3f(CAMERA_UP_X, CAMERA_UP_Y, CAMERA_UP_Z)};
     }
-// https://t.me/pasterplace
 
     public static boolean shouldRenderBox(Box box) {
         Vec3d boxCenter = box.getCenter();
@@ -705,7 +654,6 @@ public final class DaamkyWorldRender {
         double distance = Math.sqrt(squaredDistance);
         return cameraForwardDistance + visibilityRadius >= distance * 0.15;
     }
-// https://t.me/pasterplace
 
     public static void drawBloomRing(Vec3d center, float radius, RgbaColor ringColor, boolean throughWalls) {
         if (!SMOOTH_GEOMETRY_ENABLED) {
@@ -746,12 +694,10 @@ public final class DaamkyWorldRender {
             }
         }
     }
-// https://t.me/pasterplace
 
     private static Vec3d getCameraPlaneOffsetPosition(Vec3d origin, Vector3f cameraRight, Vector3f cameraUp, float rightOffset, float upOffset) {
         return origin.add(cameraRight.x * rightOffset + cameraUp.x * upOffset, cameraRight.y * rightOffset + cameraUp.y * upOffset, cameraRight.z * rightOffset + cameraUp.z * upOffset);
     }
-// https://t.me/pasterplace
 
     public static void drawBillboardQuad(Vec3d center, float halfSize, RgbaColor color, boolean throughWalls) {
         Vector3f[] vector3fArray = getCameraPlaneBasis();
@@ -763,13 +709,11 @@ public final class DaamkyWorldRender {
         Vec3d bottomLeft = center.add(-cameraRight.x * halfSize + cameraUp.x * halfSize, -cameraRight.y * halfSize + cameraUp.y * halfSize, -cameraRight.z * halfSize + cameraUp.z * halfSize);
         drawQuad(topLeft, topRight, bottomRight, bottomLeft, color, throughWalls);
     }
-// https://t.me/pasterplace
 
     public static void drawCircleOutline(Vec3d center, double radius, RgbaColor lineColor, float lineWidth, int segmentCount, boolean throughWalls) {
         double previousX = center.x + radius;
         double previousZ = center.z;
         int colorArgb = lineColor.toArgb();
-// https://t.me/pasterplace
 
         for (int segmentIndex = 1; segmentIndex <= segmentCount; segmentIndex++) {
             double angleRadians = segmentIndex * Math.PI * 2.0 / segmentCount;
@@ -780,7 +724,6 @@ public final class DaamkyWorldRender {
             previousZ = currentZ;
         }
     }
-// https://t.me/pasterplace
 
     public static void drawRing(
     Vec3d center, double outerRadius, double innerRadius, RgbaColor outerColor, RgbaColor innerColor, int segmentCount, boolean useAdditiveGeometry, boolean throughWalls
@@ -799,7 +742,6 @@ public final class DaamkyWorldRender {
             }
         }
     }
-// https://t.me/pasterplace
 
     static {
         for (int var0 = 0; var0 < BLOOM_RING_RADII.length; var0++) {

@@ -10,13 +10,10 @@ import java.util.concurrent.CompletableFuture;
 import net.minecraft.client.MinecraftClient;
 
 public final class Friend {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final List<String> ROOT_COMMANDS = List.of("help", "friend", "bind", "toggle", "config", "rct", "tp", "gps", "macros", "neuro");
-// https://t.me/pasterplace
 
    private Friend() {
    }
-// https://t.me/pasterplace
 
    public static CompletableFuture<Suggestions> suggestCommands(String input, int cursorPosition) {
       String inputPrefix = input.substring(0, Math.min(cursorPosition, input.length()));
@@ -34,13 +31,11 @@ public final class Friend {
 
       return suggestionsBuilder.buildFuture();
    }
-// https://t.me/pasterplace
 
    private static List<String> suggestCommandArguments(String[] textArray, int argumentIndex) {
       if (argumentIndex == 0) {
          return ROOT_COMMANDS;
       }
-// https://t.me/pasterplace
 
       String commandName = textArray[0].toLowerCase(Locale.ROOT);
       String subcommandArgument = textArray.length > 1 ? textArray[1].toLowerCase(Locale.ROOT) : "";
@@ -91,7 +86,6 @@ public final class Friend {
          default -> List.of();
       };
    }
-// https://t.me/pasterplace
 
    private static List<String> getOnlinePlayerNames() {
       MinecraftClient client = MinecraftClient.getInstance();
@@ -109,7 +103,6 @@ public final class Friend {
       arrayList.sort(String.CASE_INSENSITIVE_ORDER);
       return arrayList;
    }
-// https://t.me/pasterplace
 
    private static List<String> getModuleNames() {
       ArrayList arrayList = new ArrayList();

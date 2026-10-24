@@ -20,16 +20,13 @@ import net.minecraft.network.state.ConfigurationStates;
 import net.minecraft.text.Text;
 
 public final class BotLoginPacketHandler extends BotPacketListenerInvocationHandler {
-    private static final String p3c7a43fd = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private BotLoginPacketHandler(ClientConnection clientConnection, MinecraftClient client, BotSession disconnect, BotSessionProfile l1lll11l1l) {
       super(client, clientConnection, disconnect, l1lll11l1l, new HashMap<>());
    }
-// https://t.me/pasterplace
 
    static ClientLoginPacketListener II1Il11l111II11IIl(ClientConnection clientConnection, MinecraftClient client, BotSession disconnect, BotSessionProfile l1lll11l1l) {
       return new BotLoginPacketHandler(clientConnection, client, disconnect, l1lll11l1l).createProxy(ClientLoginPacketListener.class);
    }
-// https://t.me/pasterplace
 
    @Override
    protected boolean handleLoginOrConfigurationPacket(Packet<?> packet) {
@@ -46,11 +43,9 @@ public final class BotLoginPacketHandler extends BotPacketListenerInvocationHand
 
          this.completeLogin(loginSuccessPacket);
       }
-// https://t.me/pasterplace
 
       return true;
    }
-// https://t.me/pasterplace
 
    private void completeLogin(LoginSuccessS2CPacket loginSuccessS2CPacket) {
       this.disconnect.setConnectionStatus(BotSession.BotConnectionStatus.LOADING);

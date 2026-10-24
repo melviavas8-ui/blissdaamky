@@ -29,7 +29,6 @@ import net.minecraft.network.packet.s2c.play.PlayerRotationS2CPacket;
 import net.minecraft.util.math.Vec3d;
 
 public final class BotClientPlayHandler {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final int MAX_PENDING_PACKETS = 4096;
    private static final EntityPosition DEFAULT_ENTITY_POSITION = new EntityPosition(Vec3d.ZERO, Vec3d.ZERO, 0.0F, 0.0F);
    private static int CLIENT_STATE_ISOLATION_DEPTH;
@@ -53,7 +52,6 @@ public final class BotClientPlayHandler {
    private boolean hasEntityPosition;
    private boolean clientViewActive;
    private long nextJoinRetryAtMillis;
-// https://t.me/pasterplace
 
    BotClientPlayHandler(
       MinecraftClient client,
@@ -68,57 +66,46 @@ public final class BotClientPlayHandler {
       this.botSession = disconnect;
       this.profileContext = i1lIIII1III1lIlIl1l3;
    }
-// https://t.me/pasterplace
 
    public static boolean isClientStateIsolationActive() {
       return CLIENT_STATE_ISOLATION_DEPTH > 0;
    }
-// https://t.me/pasterplace
 
    public static boolean isClientViewStateIsolationActive() {
       return CLIENT_VIEW_ISOLATION_DEPTH > 0;
    }
-// https://t.me/pasterplace
 
    boolean hasPlayNetworkHandler() {
       return this.playNetworkHandler != null;
    }
-// https://t.me/pasterplace
 
    boolean hasWorldAndPlayer() {
       return this.player != null && this.world != null;
    }
-// https://t.me/pasterplace
 
    boolean hasEntityPosition() {
       return this.hasEntityPosition;
    }
-// https://t.me/pasterplace
 
    boolean isPlayNetworkHandlerLoaded() {
       return this.playNetworkHandler != null && this.playNetworkHandler.isLoaded();
    }
-// https://t.me/pasterplace
 
    void setGameJoinPacket(GameJoinS2CPacket gameJoinS2CPacket) {
       this.pendingGameJoinPacket = gameJoinS2CPacket;
    }
-// https://t.me/pasterplace
 
    void setViewDistance(int viewDistance) {
       this.viewDistance = viewDistance;
    }
-// https://t.me/pasterplace
 
    void setScreenTitle(String screenTitle) {
       this.screenTitle = screenTitle == null ? "" : screenTitle;
    }
-// https://t.me/pasterplace
 
    String getScreenTitle() {
       return this.screenTitle;
    }
-// https://t.me/pasterplace
 
    void queuePacket(Packet<? super ClientPlayPacketListener> packet) {
       if (this.pendingPackets.size() >= 4096) {
@@ -127,7 +114,6 @@ public final class BotClientPlayHandler {
 
       this.pendingPackets.add(packet);
    }
-// https://t.me/pasterplace
 
    void applyPacket(Packet<? super ClientPlayPacketListener> packet, boolean updateRenderState) {
       this.runWithClientState(() -> {
@@ -138,7 +124,6 @@ public final class BotClientPlayHandler {
          }
       }, updateRenderState);
    }
-// https://t.me/pasterplace
 
    boolean initializePlaySession() {
       if (this.playNetworkHandler != null) {
@@ -152,7 +137,6 @@ public final class BotClientPlayHandler {
       if (System.currentTimeMillis() < this.nextJoinRetryAtMillis) {
          return false;
       }
-// https://t.me/pasterplace
 
       EntityPosition entityPosition = this.entityPosition;
       boolean hadSavedPosition = this.hasEntityPosition;
@@ -198,7 +182,6 @@ public final class BotClientPlayHandler {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    void markClientLoaded() {
       if (this.playNetworkHandler != null && !this.playNetworkHandler.isLoaded()) {
@@ -207,14 +190,12 @@ public final class BotClientPlayHandler {
          listenerAccessor.daamky$setLevelLoadTracker(null);
       }
    }
-// https://t.me/pasterplace
 
    void tick() {
       if (this.playNetworkHandler != null && this.world != null) {
          this.runInIsolatedClientState(this.playNetworkHandler::tick);
       }
    }
-// https://t.me/pasterplace
 
    void tickClientWorld(Input input, BooleanSupplier booleanSupplier, Runnable runnable) {
       this.runInIsolatedClientState(() -> this.profileContext.runWithProfile(this.botSession.getUsername(), () -> {
@@ -233,7 +214,6 @@ public final class BotClientPlayHandler {
          runnable.run();
       }));
    }
-// https://t.me/pasterplace
 
    void runWithPlaySession(Runnable runnable) {
       if (this.player != null && this.world != null) {
@@ -244,7 +224,6 @@ public final class BotClientPlayHandler {
          }
       }
    }
-// https://t.me/pasterplace
 
    boolean runWithProfile(String username, Runnable runnable) {
       if (this.player != null && this.world != null) {
@@ -253,14 +232,12 @@ public final class BotClientPlayHandler {
          } else {
             this.runInIsolatedClientState(() -> this.profileContext.runWithProfile(username, runnable));
          }
-// https://t.me/pasterplace
 
          return true;
       } else {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    boolean enterClientView() {
       if (!this.initializePlaySession()) {
@@ -298,37 +275,30 @@ public final class BotClientPlayHandler {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    void leaveClientView() {
       this.clientViewActive = false;
    }
-// https://t.me/pasterplace
 
    ClientWorld getClientWorld() {
       return this.world;
    }
-// https://t.me/pasterplace
 
    ClientPlayerEntity getClientPlayer() {
       return this.player;
    }
-// https://t.me/pasterplace
 
    Entity getCameraEntity() {
       return (Entity)(this.cameraEntity != null ? this.cameraEntity : this.player);
    }
-// https://t.me/pasterplace
 
    ClientPlayerInteractionManager getInteractionManager() {
       return this.interactionManager;
    }
-// https://t.me/pasterplace
 
    Screen getClientScreen() {
       return this.getVisibleScreen();
    }
-// https://t.me/pasterplace
 
    boolean runWithScreenRestored(Runnable runnable) {
       if (this.initializePlaySession() && this.world != null && this.player != null) {
@@ -342,12 +312,10 @@ public final class BotClientPlayHandler {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    boolean isPlayNetworkHandler(Object packetListener) {
       return packetListener != null && packetListener == this.playNetworkHandler;
    }
-// https://t.me/pasterplace
 
    EntityPosition applyPlayerPosition(PlayerPositionLookS2CPacket playerPositionLookS2CPacket) {
       this.entityPosition = EntityPosition.apply(
@@ -356,7 +324,6 @@ public final class BotClientPlayHandler {
       this.hasEntityPosition = true;
       return this.entityPosition;
    }
-// https://t.me/pasterplace
 
    void applyPlayerRotation(PlayerRotationS2CPacket playerRotationS2CPacket) {
       float yaw = playerRotationS2CPacket.relativeYaw()
@@ -367,12 +334,10 @@ public final class BotClientPlayHandler {
          : playerRotationS2CPacket.pitch();
       this.entityPosition = new EntityPosition(this.entityPosition.position(), this.entityPosition.deltaMovement(), yaw, pitch);
    }
-// https://t.me/pasterplace
 
    private void runInIsolatedClientState(Runnable runnable) {
       this.runWithClientState(runnable, false);
    }
-// https://t.me/pasterplace
 
    private void runWithClientState(Runnable runnable, boolean updateRenderState) {
       if (this.isClientStateCurrent()) {
@@ -404,7 +369,6 @@ public final class BotClientPlayHandler {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void setClientState(boolean updateRenderState) {
       if (this.client.world != this.world) {
@@ -425,7 +389,6 @@ public final class BotClientPlayHandler {
          .daamky$setCameraEntity((Entity)(this.cameraEntity != null ? this.cameraEntity : this.player));
       this.client.currentScreen = this.clientViewActive ? this.getVisibleScreen() : null;
    }
-// https://t.me/pasterplace
 
    private void captureClientState() {
       this.world = this.client.world;
@@ -442,7 +405,6 @@ public final class BotClientPlayHandler {
          this.hasEntityPosition = true;
       }
    }
-// https://t.me/pasterplace
 
    private void syncPlayerPosition() {
       if (this.hasEntityPosition && this.player != null) {
@@ -453,24 +415,20 @@ public final class BotClientPlayHandler {
          this.player.updateLastAngles();
       }
    }
-// https://t.me/pasterplace
 
    private Screen getVisibleScreen() {
       return filterScreen(this.savedScreen);
    }
-// https://t.me/pasterplace
 
    private static Screen filterScreen(Screen screen) {
       return screen instanceof LevelLoadingScreen ? null : screen;
    }
-// https://t.me/pasterplace
 
    private boolean isClientStateCurrent() {
       return this.client.world == this.world
          && this.client.player == this.player
          && this.client.interactionManager == this.interactionManager;
    }
-// https://t.me/pasterplace
 
    void reset() {
       this.clientViewActive = false;
@@ -484,7 +442,6 @@ public final class BotClientPlayHandler {
       this.savedScreen = null;
       this.resetTrackedPosition();
    }
-// https://t.me/pasterplace
 
    private void resetTrackedPosition() {
       this.entityPosition = DEFAULT_ENTITY_POSITION;

@@ -9,7 +9,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
 public final class TargetHUD extends HudElementPosition {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float DEFAULT_WIDTH = 92.0F;
    private static final float DEFAULT_HEIGHT = 26.0F;
    private LivingEntity visibleTarget;
@@ -19,26 +18,22 @@ public final class TargetHUD extends HudElementPosition {
    private float damageTrailRatio;
    private float absorptionRatio;
    private float hurtOverlayAlpha;
-// https://t.me/pasterplace
 
    public TargetHUD() {
       super("Target HUD", "target", 9999.0F, 9999.0F);
       this.elementWidth = 92.0F;
       this.elementHeight = 26.0F;
    }
-// https://t.me/pasterplace
 
    @Override
    public void clampPositionToScreen(float viewportWidth, float viewportHeight) {
       this.setPosition(viewportWidth * 0.5F + 18.0F, viewportHeight * 0.5F + 18.0F);
    }
-// https://t.me/pasterplace
 
    private LivingEntity resolveTarget(boolean allowLocalPlayerFallback) {
       if (CLIENT.player == null) {
          return null;
       }
-// https://t.me/pasterplace
 
       Aura aura = Aura.getRegisteredAura();
       if (aura != null && aura.isEnabled() && aura.getTarget() != null) {
@@ -54,7 +49,6 @@ public final class TargetHUD extends HudElementPosition {
 
       return allowLocalPlayerFallback ? CLIENT.player : null;
    }
-// https://t.me/pasterplace
 
    @Override
    public void updateAnimation(float frameDelta) {
@@ -86,13 +80,11 @@ public final class TargetHUD extends HudElementPosition {
          this.hurtOverlayAlpha = interpolate(this.hurtOverlayAlpha, this.currentTarget.hurtTime > 0 ? 1.0F : 0.0F, 14.0F, frameDelta);
       }
    }
-// https://t.me/pasterplace
 
    @Override
    public boolean isVisibleInCurrentScreen(boolean chatScreenOpen) {
       return this.visibleTarget != null;
    }
-// https://t.me/pasterplace
 
    @Override
    public void render(HudRenderContext renderContext, float opacity) {

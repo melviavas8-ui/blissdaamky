@@ -16,7 +16,6 @@ import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.ClientConnection;
 
 public final class SavedBots {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final BotSessionRegistry sessionStore = new BotSessionRegistry();
    private static final BotSessionSwitcher sessionSwitcher = new BotSessionSwitcher();
    private static final BalancePayoutTracker balancePayoutTracker = new BalancePayoutTracker();
@@ -135,7 +134,6 @@ public final class SavedBots {
       public void restorePreviousSession() {
          SavedBots.restorePreviousSession();
       }
-// https://t.me/pasterplace
 
       @Override
       public boolean isActiveSessionReady() {
@@ -152,66 +150,53 @@ public final class SavedBots {
          return SavedBots.getSwitchNoticeAlpha();
       }
    };
-// https://t.me/pasterplace
 
    private SavedBots() {
    }
-// https://t.me/pasterplace
 
    public static float getSwitchNoticeAlpha() {
       return sessionSwitcher.getSwitchNoticeAlpha();
    }
-// https://t.me/pasterplace
 
    public static List<BotSession> getSavedSessions() {
       return List.copyOf(sessionStore.registeredSessions);
    }
-// https://t.me/pasterplace
 
    public static BotSession createSession(String username, String serverAddress, int serverPort) {
       return sessionStore.createSession(username, serverAddress, serverPort);
    }
-// https://t.me/pasterplace
 
    public static boolean addOfflineSession(String username) {
       return sessionStore.addOfflineSession(username);
    }
-// https://t.me/pasterplace
 
    public static JsonArray serializeOfflineSessions() {
       return sessionStore.serializeOfflineSessions();
    }
-// https://t.me/pasterplace
 
    public static void loadOfflineSessions(JsonArray jsonArray) {
       sessionStore.loadOfflineSessions(jsonArray);
    }
-// https://t.me/pasterplace
 
    public static BotSession findSession(String username) {
       return sessionStore.findSession(username);
    }
-// https://t.me/pasterplace
 
    public static String getRoleForUsername(String username) {
       return sessionStore.getRoleForUsername(username);
    }
-// https://t.me/pasterplace
 
    public static void setRoleForUsername(String username, String role) {
       sessionStore.setRoleForUsername(username, role);
    }
-// https://t.me/pasterplace
 
    public static JsonObject serializeRoles() {
       return sessionStore.serializeRoles();
    }
-// https://t.me/pasterplace
 
    public static void loadRoles(JsonObject jsonObject) {
       sessionStore.loadRoles(jsonObject);
    }
-// https://t.me/pasterplace
 
    public static JsonObject serializeSettings() {
       JsonObject rootSettings = new JsonObject();
@@ -234,12 +219,10 @@ public final class SavedBots {
          sessionSettings.add("modules", enabledModuleNames);
          sessionSettingsByUsername.add(((BotSession)session).getUsername(), sessionSettings);
       }
-// https://t.me/pasterplace
 
       rootSettings.add("botSettings", sessionSettingsByUsername);
       return rootSettings;
    }
-// https://t.me/pasterplace
 
    public static void loadSettings(JsonObject jsonObject) {
       if (jsonObject != null) {
@@ -301,7 +284,6 @@ public final class SavedBots {
          }
       }
    }
-// https://t.me/pasterplace
 
    public static boolean removeSessionByUsername(String username) {
       BotSession disconnect = sessionStore.findSession(username);
@@ -315,7 +297,6 @@ public final class SavedBots {
       ModuleToggleProfileManager.removeProfileState(username);
       return true;
    }
-// https://t.me/pasterplace
 
    public static boolean switchToSession(String username) {
       boolean switchedToSession = false;
@@ -329,42 +310,34 @@ public final class SavedBots {
 
       return switchedToSession;
    }
-// https://t.me/pasterplace
 
    public static void restorePreviousSession() {
       sessionSwitcher.restorePreviousSession();
    }
-// https://t.me/pasterplace
 
    public static BotSession getActiveSession() {
       return sessionSwitcher.activeDisconnect();
    }
-// https://t.me/pasterplace
 
    public static boolean isActiveSessionReady() {
       return sessionSwitcher.isActiveDisconnectReady();
    }
-// https://t.me/pasterplace
 
    public static boolean ownsActiveSessionObject(Object sessionObject) {
       return sessionSwitcher.owns(sessionObject);
    }
-// https://t.me/pasterplace
 
    public static boolean isSwitchingToSession(BotSession disconnect) {
       return sessionSwitcher.isSwitchingTo(disconnect);
    }
-// https://t.me/pasterplace
 
    public static void runWithSessionStateIsolation(Runnable runnable) {
       sessionSwitcher.runWithClientStateIsolation(runnable);
    }
-// https://t.me/pasterplace
 
    static boolean isManuallyDisconnected(BotSession disconnect) {
       return sessionStore.isIgnoredSession(disconnect);
    }
-// https://t.me/pasterplace
 
    public static void tickConnections() {
       sessionStore.tickSessions();
@@ -372,53 +345,43 @@ public final class SavedBots {
       sessionSwitcher.tickSavedConnection();
       balancePayoutTracker.processPayouts(sessionStore.registeredSessions);
    }
-// https://t.me/pasterplace
 
    public static long getScoreboardBalance(BotSession disconnect) {
       return balancePayoutTracker.getSessionBalance(disconnect);
    }
-// https://t.me/pasterplace
 
    public static boolean isBalancePayoutEnabled() {
       return balancePayoutTracker.isPayoutEnabled();
    }
-// https://t.me/pasterplace
 
    public static void setBalancePayoutEnabled(boolean enabled) {
       balancePayoutTracker.setPayoutEnabled(enabled);
    }
-// https://t.me/pasterplace
 
    public static void resetPayoutTracking() {
       balancePayoutTracker.payCurrentBalances(sessionStore.registeredSessions);
    }
-// https://t.me/pasterplace
 
    public static String getPayoutRecipient() {
       return balancePayoutTracker.getPayoutRecipient();
    }
-// https://t.me/pasterplace
 
    public static void setPayoutRecipient(String recipientUsername) {
       balancePayoutTracker.setPayoutRecipient(recipientUsername == null ? "" : recipientUsername.trim());
    }
-// https://t.me/pasterplace
 
    public static long getMinimumPayoutAmount() {
       return balancePayoutTracker.getMinimumPayoutAmount();
    }
-// https://t.me/pasterplace
 
    public static void setMinimumPayoutAmount(long minimumPayoutAmount) {
       balancePayoutTracker.setMinimumPayoutAmount(Math.max(0L, minimumPayoutAmount));
    }
-// https://t.me/pasterplace
 
    public static void shutdownSessions() {
       sessionStore.disconnectAllSessions();
       sessionSwitcher.restorePreviousSession();
    }
-// https://t.me/pasterplace
 
    public static BotSession createRandomSession() {
       ThreadLocalRandom random = ThreadLocalRandom.current();
@@ -444,7 +407,6 @@ public final class SavedBots {
 
       return sessionStore.createTemporarySession(generatedUsername);
    }
-// https://t.me/pasterplace
 
    public static void removeSession(BotSession disconnect) {
       if (disconnect != null) {
@@ -453,7 +415,6 @@ public final class SavedBots {
          ModuleToggleProfileManager.removeProfileState(disconnect.getUsername());
       }
    }
-// https://t.me/pasterplace
 
    public static boolean configureSessionForCurrentServer(BotSession disconnect) {
       ServerInfo serverInfo = MinecraftClient.getInstance().getCurrentServerEntry();
@@ -465,63 +426,51 @@ public final class SavedBots {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    static void registerBotClientConnection(ClientConnection clientConnection) {
       botClientConnections.add(clientConnection);
    }
-// https://t.me/pasterplace
 
    static void unregisterBotClientConnection(ClientConnection clientConnection) {
       botClientConnections.remove(clientConnection);
    }
-// https://t.me/pasterplace
 
    public static boolean isBotClientConnection(ClientConnection clientConnection) {
       return clientConnection != null && botClientConnections.contains(clientConnection);
    }
-// https://t.me/pasterplace
 
    public static boolean isDisconnectSessionView(Object viewObject) {
       return viewObject instanceof DisconnectSessionView;
    }
-// https://t.me/pasterplace
 
    static void registerOfflineSession(BotSession disconnect) {
       sessionStore.registerSession(disconnect);
    }
-// https://t.me/pasterplace
 
    static void finalizeSessionDisconnect(BotSession disconnect) {
       sessionSwitcher.clearQueuedDisconnect(disconnect);
       sessionStore.registerSessionIfAbsent(disconnect);
    }
-// https://t.me/pasterplace
 
    static void queueSessionDisconnect(BotSession disconnect) {
       sessionSwitcher.queueDisconnect(disconnect);
    }
-// https://t.me/pasterplace
 
    public static boolean isValidUsername(String username) {
       return username != null && USERNAME_PATTERN.matcher(username).matches();
    }
-// https://t.me/pasterplace
 
    public static SavedBots.SavedBotSessionRegistry getSessionRegistry() {
       return sessionRegistry;
    }
-// https://t.me/pasterplace
 
    public static SavedBotSessionRepository getSessionRepository() {
       return sessionRepository;
    }
-// https://t.me/pasterplace
 
    public static SavedBotServiceAccess getServiceAccess() {
       return serviceAccess;
    }
-// https://t.me/pasterplace
 
    static {
       DisconnectListenerRegistry.II1Il11l111II11IIl(new DisconnectScreenListener() {
@@ -542,7 +491,6 @@ public final class SavedBots {
          }
       });
    }
-// https://t.me/pasterplace
 
    public static final class SavedBotSessionRegistry {
       private SavedBotSessionRegistry() {
@@ -561,7 +509,6 @@ public final class SavedBots {
             SavedBots.removeSessionByUsername(disconnect.getUsername());
          }
       }
-// https://t.me/pasterplace
 
       public String getCurrentServerAddress() {
          ServerInfo serverInfo = MinecraftClient.getInstance().getCurrentServerEntry();
@@ -576,7 +523,6 @@ public final class SavedBots {
          if (this.getCurrentServerAddress() == null) {
             return 0;
          }
-// https://t.me/pasterplace
 
          int offlineSessionCount = 0;
 

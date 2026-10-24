@@ -30,10 +30,8 @@ import net.minecraft.world.RaycastContext.FluidHandling;
 import net.minecraft.world.RaycastContext.ShapeType;
 
 public final class ExplosionDamageCalculator {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private ExplosionDamageCalculator() {
    }
-// https://t.me/pasterplace
 
    private static double calculateExposure(Vec3d explosionPosition, LivingEntity targetEntity, Box targetBounds, BlockPos forcedObsidianBlock, Set<BlockPos> ignoredBlocks) {
       double xSampleSpacing = 1.0 / ((targetBounds.maxX - targetBounds.minX) * 2.0 + 1.0);
@@ -63,7 +61,6 @@ public final class ExplosionDamageCalculator {
 
       return totalSampleCount == 0 ? 0.0 : (double)visibleSampleCount / totalSampleCount;
    }
-// https://t.me/pasterplace
 
    private static boolean isVisibleRay(Vec3d rayStart, Vec3d rayEnd, LivingEntity targetEntity, BlockPos forcedObsidianBlock, Set<BlockPos> ignoredBlocks) {
       if (forcedObsidianBlock == null && ignoredBlocks.isEmpty()) {
@@ -83,12 +80,10 @@ public final class ExplosionDamageCalculator {
          }, world -> Boolean.TRUE);
       }
    }
-// https://t.me/pasterplace
 
    public static float calculateDamage(Vec3d explosionPosition, LivingEntity targetEntity, Box targetBounds, BlockPos forcedObsidianBlock, BlockPos ignoredBlock) {
       return calculateDamage(explosionPosition, targetEntity, targetBounds, forcedObsidianBlock, ignoredBlock == null ? Set.of() : Set.of(ignoredBlock));
    }
-// https://t.me/pasterplace
 
    public static float calculateDamage(Vec3d explosionPosition, LivingEntity targetEntity, Box targetBounds, BlockPos forcedObsidianBlock, Set<BlockPos> ignoredBlocks) {
       Set effectiveIgnoredBlocks = ignoredBlocks == null ? Set.of() : ignoredBlocks;
@@ -123,7 +118,6 @@ public final class ExplosionDamageCalculator {
          totalProtection += getEnchantmentLevel(targetEntity, armorStack, Enchantments.PROTECTION);
          totalProtection += getEnchantmentLevel(targetEntity, armorStack, Enchantments.BLAST_PROTECTION) * 2;
       }
-// https://t.me/pasterplace
 
       totalProtection = MathHelper.clamp(totalProtection, 0, 20);
       damageAfterArmor *= 1.0F - totalProtection / 25.0F;
@@ -135,22 +129,18 @@ public final class ExplosionDamageCalculator {
 
       return Math.max(0.0F, damageAfterArmor);
    }
-// https://t.me/pasterplace
 
    public static float calculateDamage(Vec3d explosionPosition, LivingEntity targetEntity, Box targetBounds, BlockPos ignoredBlock) {
       return calculateDamage(explosionPosition, targetEntity, targetBounds, null, ignoredBlock == null ? Set.of() : Set.of(ignoredBlock));
    }
-// https://t.me/pasterplace
 
    public static float calculateDamage(Vec3d explosionPosition, LivingEntity targetEntity, Box targetBounds) {
       return calculateDamage(explosionPosition, targetEntity, targetBounds, null, Set.of());
    }
-// https://t.me/pasterplace
 
    public static float calculateDamage(Vec3d explosionPosition, LivingEntity targetEntity) {
       return calculateDamage(explosionPosition, targetEntity, targetEntity.getBoundingBox(), null, Set.of());
    }
-// https://t.me/pasterplace
 
    private static int getEnchantmentLevel(LivingEntity targetEntity, ItemStack armorStack, RegistryKey<Enchantment> enchantmentKey) {
       if (armorStack.isEmpty()) {

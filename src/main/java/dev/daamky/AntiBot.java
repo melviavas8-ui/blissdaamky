@@ -15,7 +15,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class AntiBot extends ModuleStructure {
-    private static final String p6910df33 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiToggleSetting l1I1IlllIlI = new MultiToggleSetting("Проверки")
       .addOption("Нет в табе", true)
       .addOption("Нулевой пинг", false)
@@ -24,19 +23,16 @@ public final class AntiBot extends ModuleStructure {
       .addOption("Без брони и невидимый", false)
       .addOption("Появился рядом", false);
    private final Map<UUID, Integer> IllI1l1l1 = new ConcurrentHashMap<>();
-// https://t.me/pasterplace
 
    public AntiBot() {
       super("AntiBot", "Не даёт модулям атаковать ботов античита", ModuleCategory.COMBAT);
       this.addSetting(this.l1I1IlllIlI);
    }
-// https://t.me/pasterplace
 
    public static boolean II1Il11l111II11IIl(Entity entity) {
       AntiBot moduleStructure = (AntiBot)ModuleRegistry.getInstance().getModuleByClass(AntiBot.class);
       return moduleStructure != null && moduleStructure.isEnabled() && moduleStructure.l1I1IlllIlI(entity);
    }
-// https://t.me/pasterplace
 
    private boolean l1I1IlllIlI(Entity entity) {
       if (entity instanceof PlayerEntity player && entity != CLIENT.player && CLIENT.getNetworkHandler() != null) {
@@ -66,7 +62,6 @@ public final class AntiBot extends ModuleStructure {
          if (this.l1I1IlllIlI.isOptionEnabled("Без брони и невидимый") && player.isInvisible() && II1Il11l111II11IIl(player)) {
             return true;
          }
-// https://t.me/pasterplace
 
          if (!this.l1I1IlllIlI.isOptionEnabled("Появился рядом")) {
             return false;
@@ -78,7 +73,6 @@ public final class AntiBot extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private static boolean II1Il11l111II11IIl(PlayerEntity playerEntity) {
       return playerEntity.getEquippedStack(EquipmentSlot.HEAD).isEmpty()
@@ -86,7 +80,6 @@ public final class AntiBot extends ModuleStructure {
          && playerEntity.getEquippedStack(EquipmentSlot.LEGS).isEmpty()
          && playerEntity.getEquippedStack(EquipmentSlot.FEET).isEmpty();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -99,14 +92,12 @@ public final class AntiBot extends ModuleStructure {
          this.IllI1l1l1.keySet().removeIf(uUID -> CLIENT.world.getPlayerByUuid(uUID) == null);
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
    public void II1Il11l111II11IIl(EventWorldChange eventWorldChange) {
       this.IllI1l1l1.clear();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override

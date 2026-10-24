@@ -23,16 +23,13 @@ import net.minecraft.world.RaycastContext.FluidHandling;
 import net.minecraft.world.RaycastContext.ShapeType;
 
 public final class BlockRaycastUtils {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final MinecraftClient client = MinecraftClient.getInstance();
    private static final Direction[] BLOCK_FACE_ORDER = new Direction[]{
       Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST, Direction.DOWN
    };
-// https://t.me/pasterplace
 
    private BlockRaycastUtils() {
    }
-// https://t.me/pasterplace
 
    private static boolean addCandidateBlock(
       LinkedHashSet<BlockPos> visitedBlocks, BlockPos candidateBlockPos, BlockPos excludedBlockPos, double reachDistance, Predicate<BlockPos> candidatePredicate
@@ -46,7 +43,6 @@ public final class BlockRaycastUtils {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private static boolean canReachBlockFace(
       BlockRaycastUtils.RaycastBlockHit targetFaceHit,
@@ -75,14 +71,12 @@ public final class BlockRaycastUtils {
 
             return false;
          }
-// https://t.me/pasterplace
 
          return false;
       }
 
       return false;
    }
-// https://t.me/pasterplace
 
    private static BlockHitResult rayCastBlockPosition(BlockPos targetBlockPos) {
       BlockState blockState = client.world.getBlockState(targetBlockPos);
@@ -99,7 +93,6 @@ public final class BlockRaycastUtils {
             )
          );
    }
-// https://t.me/pasterplace
 
    public static BlockRaycastUtils.RaycastResult findBlockRaycastPath(BlockPos targetBlockPos, boolean placementMode, double reachDistance, boolean allowReservedBlocks, Predicate<BlockPos> candidatePredicate) {
       if (client.world != null
@@ -179,21 +172,18 @@ public final class BlockRaycastUtils {
                }
             }
          }
-// https://t.me/pasterplace
 
          return bestRaycastPath;
       } else {
          return null;
       }
    }
-// https://t.me/pasterplace
 
    private static boolean isHitWithinReachAndFacing(BlockRaycastUtils.RaycastBlockHit faceHit, double reachDistance) {
       Vec3d playerEyePosition = client.player.getEyePos();
       return playerEyePosition.squaredDistanceTo(faceHit.hitPosition()) <= reachDistance * reachDistance
          && playerEyePosition.subtract(faceHit.hitPosition()).dotProduct(Vec3d.of(faceHit.side().getVector())) > 0.001;
    }
-// https://t.me/pasterplace
 
    private static List<BlockRaycastUtils.RaycastBlockHit> getBlockFaceHits(BlockPos targetBlockPos, Box blockShapeBounds, double reachDistance) {
       ArrayList faceHits = new ArrayList();
@@ -207,7 +197,6 @@ public final class BlockRaycastUtils {
 
       return faceHits;
    }
-// https://t.me/pasterplace
 
    private static BlockRaycastUtils.RaycastBlockHit createBlockFaceHit(BlockPos targetBlockPos, Direction direction, Box box) {
       double hitX = (box.minX + box.maxX) * 0.5;
@@ -237,12 +226,10 @@ public final class BlockRaycastUtils {
          targetBlockPos.toImmutable(), direction, new Vec3d(targetBlockPos.getX() + hitX, targetBlockPos.getY() + hitY, targetBlockPos.getZ() + hitZ)
       );
    }
-// https://t.me/pasterplace
 
    private static boolean isObsidianOrBedrock(BlockState blockState) {
       return blockState.isOf(Blocks.OBSIDIAN) || blockState.isOf(Blocks.BEDROCK);
    }
-// https://t.me/pasterplace
 
    private static BlockHitResult rayCastReplacingVisitedBlocks(Vec3d rayStart, Vec3d rayEnd, BlockPos virtualObsidianPos, Set<BlockPos> visitedBlocks) {
       return (BlockHitResult)BlockView.raycast(rayStart, rayEnd, client.world, (clientWorld, raycastBlockPos) -> {
@@ -256,7 +243,6 @@ public final class BlockRaycastUtils {
          return clientWorld.raycastBlock(rayStart, rayEnd, raycastBlockPos, voxelShape, raycastBlockState);
       }, clientWorld -> null);
    }
-// https://t.me/pasterplace
 
    private static BlockRaycastUtils.RaycastResult searchRaycastPath(
       BlockPos targetBlockPos,
@@ -281,7 +267,6 @@ public final class BlockRaycastUtils {
          if (visitedBlockPositions.isEmpty()) {
             return new BlockRaycastUtils.RaycastResult(visitedBlockPositions, null);
          }
-// https://t.me/pasterplace
 
          BlockPos obstructionBlockPos = null;
 
@@ -306,7 +291,6 @@ public final class BlockRaycastUtils {
 
       return null;
    }
-// https://t.me/pasterplace
 
    private static boolean isValidRaycastCandidate(BlockPos candidateBlockPos, BlockPos excludedBlockPos, double reachDistance, Predicate<BlockPos> candidatePredicate) {
       if (candidateBlockPos.equals(excludedBlockPos)) {
@@ -320,7 +304,6 @@ public final class BlockRaycastUtils {
          && client.player.getEyePos().squaredDistanceTo(Vec3d.ofCenter(candidateBlockPos)) <= reachDistance * reachDistance
          && candidatePredicate.test(candidateBlockPos);
    }
-// https://t.me/pasterplace
 
    private record RaycastBlockHit(BlockPos hitBlockPos, Direction side, Vec3d hitPosition) {
 
@@ -330,10 +313,8 @@ public final class BlockRaycastUtils {
          this.hitPosition = hitPosition;
       }
    }
-// https://t.me/pasterplace
 
     public record RaycastResult(Set<BlockPos> visitedBlocks, BlockPos hitBlock) {
-// https://t.me/pasterplace
 
       public RaycastResult(Set<BlockPos> visitedBlocks, BlockPos hitBlock) {
           LinkedHashSet<BlockPos> immutableVisitedBlocks = new LinkedHashSet<>();

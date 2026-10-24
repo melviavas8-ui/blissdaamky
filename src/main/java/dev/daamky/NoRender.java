@@ -1,7 +1,6 @@
 package dev.daamky;
 
 public final class NoRender extends ModuleStructure {
-    private static final String p697cfd81 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    public static final String l1I1IlllIlI = "Огонь";
    public static final String IllI1l1l1 = "Тряска камеры";
    public static final String l1lll11l1l = "Анимация тотема";
@@ -41,13 +40,11 @@ public final class NoRender extends ModuleStructure {
       .addOption("Броня", false)
       .addOption("Стрелы в игроке", true)
       .addOption("Заморозка", true);
-// https://t.me/pasterplace
 
    public NoRender() {
       super("NoRender", "Убирает лишние визуальные эффекты", ModuleCategory.RENDER);
       this.addSetting(this.l11IllI1I11);
    }
-// https://t.me/pasterplace
 
    public static boolean II1Il11l111II11IIl(String optionName) {
       NoRender module = (NoRender)ModuleRegistry.getInstance().getModuleByClass(NoRender.class);

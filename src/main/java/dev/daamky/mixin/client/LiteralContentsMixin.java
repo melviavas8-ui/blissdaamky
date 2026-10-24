@@ -15,11 +15,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Literal.class)
 public abstract class LiteralContentsMixin {
-    private static final String pc3a1bd40 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Shadow
    @Final
    private String string;
-// https://t.me/pasterplace
 
    @Inject(method = "visit(Lnet/minecraft/text/StringVisitable$Visitor;)Ljava/util/Optional;", at = @At("HEAD"), cancellable = true)
    private <T> void daamky$protectVisit(Visitor<T> visitor, CallbackInfoReturnable<Optional<T>> callbackInfo) {
@@ -28,7 +26,6 @@ public abstract class LiteralContentsMixin {
          callbackInfo.setReturnValue(visitor.accept(protectedText));
       }
    }
-// https://t.me/pasterplace
 
    @Inject(
       method = "visit(Lnet/minecraft/text/StringVisitable$StyledVisitor;Lnet/minecraft/text/Style;)Ljava/util/Optional;",

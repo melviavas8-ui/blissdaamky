@@ -17,7 +17,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class AutoPotion extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float THROW_PITCH_DEGREES = 88.0F;
    private final MultiOptionSetting useMode = new MultiOptionSetting("Режим", "Взрывные", "Взрывные", "Питьевые");
    private final MultiToggleSetting throwEffectSettings = new MultiToggleSetting("Зелья")
@@ -43,7 +42,6 @@ public final class AutoPotion extends ModuleStructure {
    private int throwAttemptTicks;
    private boolean refillAfterPotionUsePending;
    private RegistryEntry<StatusEffect> lastPotionEffectUsed;
-// https://t.me/pasterplace
 
    public AutoPotion() {
       super("AutoPotion", "Кидает взрывные зелья или пополняет слот с питьевыми", ModuleCategory.COMBAT);
@@ -66,13 +64,11 @@ public final class AutoPotion extends ModuleStructure {
          this.delayMillis
       );
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return this.useMode.getValue();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onUpdate(EventUpdate eventUpdate) {
@@ -130,7 +126,6 @@ public final class AutoPotion extends ModuleStructure {
          this.activePotionSlot = -1;
       }
    }
-// https://t.me/pasterplace
 
    private int findBestSplashPotionSlot() {
       float health = CombatUtils.getEffectiveHealth((LivingEntity)CLIENT.player);
@@ -140,7 +135,6 @@ public final class AutoPotion extends ModuleStructure {
             return healingPotionSlot;
          }
       }
-// https://t.me/pasterplace
 
       if (this.throwEffectSettings.isOptionEnabled("Регенерация")
          && health <= this.healingHealthThreshold.getValue() + 4.0F
@@ -169,7 +163,6 @@ public final class AutoPotion extends ModuleStructure {
          ? this.findSplashPotionSlot(StatusEffects.FIRE_RESISTANCE)
          : -1;
    }
-// https://t.me/pasterplace
 
    private void refillPotionSlot() {
       int hotbarSlot = this.hotbarSlotSetting.getValue().intValue() - 1;
@@ -193,7 +186,6 @@ public final class AutoPotion extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private int findReplacementPotionSlot(int hotbarSlot) {
       int fallbackPotionSlot = -1;
@@ -216,7 +208,6 @@ public final class AutoPotion extends ModuleStructure {
 
       return fallbackPotionSlot;
    }
-// https://t.me/pasterplace
 
    private RegistryEntry<StatusEffect> getStatusEffectByName(String effectName) {
       return switch (effectName) {
@@ -227,7 +218,6 @@ public final class AutoPotion extends ModuleStructure {
          default -> StatusEffects.INSTANT_HEALTH;
       };
    }
-// https://t.me/pasterplace
 
    private int findPotionSlotForEffect(RegistryEntry<StatusEffect> registryEntry, int excludedSlot) {
       for (int inventorySlot = 0; inventorySlot < 36; inventorySlot++) {
@@ -241,7 +231,6 @@ public final class AutoPotion extends ModuleStructure {
 
       return -1;
    }
-// https://t.me/pasterplace
 
    private RegistryEntry<StatusEffect> getFirstPotionEffect(ItemStack potionStack) {
        PotionContentsComponent potionContents = potionStack.get(DataComponentTypes.POTION_CONTENTS);
@@ -257,7 +246,6 @@ public final class AutoPotion extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean containsPotionEffect(ItemStack potionStack, RegistryEntry<StatusEffect> registryEntry) {
        PotionContentsComponent potionContents = potionStack.get(DataComponentTypes.POTION_CONTENTS);
@@ -273,7 +261,6 @@ public final class AutoPotion extends ModuleStructure {
 
       return false;
    }
-// https://t.me/pasterplace
 
    private int findSplashPotionSlot(RegistryEntry<StatusEffect> registryEntry) {
       return InventoryUtils.findHotbarSlot(potionStack -> {
@@ -291,12 +278,10 @@ public final class AutoPotion extends ModuleStructure {
                return true;
             }
          }
-// https://t.me/pasterplace
 
          return false;
       });
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override

@@ -19,10 +19,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftMixin {
-    private static final String pe9deb304 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Shadow
    public ClientPlayerEntity player;
-// https://t.me/pasterplace
 
    @Inject(method = "tick()V", at = @At("HEAD"))
    private void daamky$onTick(CallbackInfo callbackInfo) {
@@ -31,7 +29,6 @@ public abstract class MinecraftMixin {
          ClientInitializer.getEventBus().post(EventTick.get());
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "joinWorld(Lnet/minecraft/client/world/ClientWorld;)V", at = @At("HEAD"))
    private void daamky$onSetLevel(ClientWorld newWorld, CallbackInfo callbackInfo) {

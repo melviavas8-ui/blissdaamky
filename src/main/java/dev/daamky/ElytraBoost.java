@@ -10,7 +10,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class ElytraBoost extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final double DEFAULT_BOOST_MULTIPLIER = 1.5;
     private final MultiOptionSetting modeSetting = new MultiOptionSetting(
     "Режим", "Статичный", "Статичный", "Динамический", "Кастом", "ReallyWorld", "RW 1.21", "BravoHvH", "Super Firework", "Advanced", "Advanced Stable"
@@ -29,14 +28,12 @@ public final class ElytraBoost extends ModuleStructure {
     private static final float[] bravoPitchMultipliers = new float[]{1.61F, 1.66F, 1.76F, 1.84F, 1.87F, 1.93F, 1.98F, 2.05F, 2.04F};
     private int timerAlternationCounter;
     private boolean elytraTimerActive;
-// https://t.me/pasterplace
 
     public ElytraBoost() {
         super("ElytraBoost", "Ускоряет буст фейерверка на элитрах", ModuleCategory.MOVEMENT);
         this.boostStrengthSetting.visibleWhen(() -> this.modeSetting.isSelected("Статичный") || this.modeSetting.isSelected("Super Firework"));
 
         for (int settingIndex = 0; settingIndex < 9; settingIndex++) {
-// https://t.me/pasterplace
 
             this.customYawBoostSettings[settingIndex] = new FloatSetting("Yaw 0-5", 1.52F + settingIndex * 0.01F, 1.5F, 3.0F, 0.01F);
             this.customPitchBoostSettings[settingIndex] = new FloatSetting("Pitch " + settingIndex * 5 + "-" + (settingIndex * 5 + 5), 1.51F + settingIndex * 0.01F, 1.5F, 3.0F, 0.01F);
@@ -51,13 +48,11 @@ public final class ElytraBoost extends ModuleStructure {
         this.addSettings(this.customPitchBoostSettings);
         this.addSettings(this.elytraTimerEnabled, this.elytraTimerMultiplier, this.cooldown);
     }
-// https://t.me/pasterplace
 
     @Override
     public String getDisplayInfo() {
         return this.modeSetting.getValue();
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.FAST)
     @Override
@@ -65,7 +60,6 @@ public final class ElytraBoost extends ModuleStructure {
         this.timerAlternationCounter = 0;
         this.elytraTimerActive = false;
     }
-// https://t.me/pasterplace
 
     @EventTarget
     @Allow2Generation(level = GenerationLevel.FAST)
@@ -79,7 +73,6 @@ public final class ElytraBoost extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static Vec3d getConfiguredBoostDirection() {
         ElytraBoost elytraBoostModule = (ElytraBoost)ModuleRegistry.getInstance().getModuleByClass(ElytraBoost.class);
@@ -90,7 +83,6 @@ public final class ElytraBoost extends ModuleStructure {
         ? elytraBoostModule.calculateModeBoostVector()
         : null;
     }
-// https://t.me/pasterplace
 
     public static Vec3d adjustDynamicBoostDirection(Vec3d originalDirection) {
         ElytraBoost elytraBoostModule = (ElytraBoost)ModuleRegistry.getInstance().getModuleByClass(ElytraBoost.class);
@@ -111,13 +103,11 @@ public final class ElytraBoost extends ModuleStructure {
             return originalDirection;
         }
     }
-// https://t.me/pasterplace
 
     public static Vec3d getRotationDirectionVector() {
         Rotation rotation = RotationPriorityManager.getInstance().getCurrentRotation();
         return Vec3d.fromPolar(rotation.getPitch(), rotation.getYaw());
     }
-// https://t.me/pasterplace
 
     private Vec3d calculateModeBoostVector() {
         Rotation rotation = RotationPriorityManager.getInstance().getCurrentRotation();
@@ -166,7 +156,6 @@ public final class ElytraBoost extends ModuleStructure {
 
         return new Vec3d(horizontalBoost, verticalBoost, horizontalBoost);
     }
-// https://t.me/pasterplace
 
     @EventTarget
     @Allow2Generation(level = GenerationLevel.FAST)
@@ -179,7 +168,6 @@ public final class ElytraBoost extends ModuleStructure {
             });
         }
     }
-// https://t.me/pasterplace
 
     public static float getElytraTimerMultiplier() {
         ElytraBoost elytraBoostModule = (ElytraBoost)ModuleRegistry.getInstance().getModuleByClass(ElytraBoost.class);
@@ -187,7 +175,6 @@ public final class ElytraBoost extends ModuleStructure {
         ? elytraBoostModule.timerAlternationCounter % 2 == 0 ? elytraBoostModule.elytraTimerMultiplier.getValue() : elytraBoostModule.cooldown.getValue()
         : 1.0F;
     }
-// https://t.me/pasterplace
 
     private static int getAngleSectorIndex(float angleDegrees) {
         float foldedAngleDegrees = Math.abs(MathHelper.wrapDegrees(angleDegrees));
@@ -201,14 +188,12 @@ public final class ElytraBoost extends ModuleStructure {
 
         return MathHelper.clamp((int)(foldedAngleDegrees / 5.0F), 0, 8);
     }
-// https://t.me/pasterplace
 
     private static double calculateSuperFireworkMultiplier(float yawDegrees, float pitchDegrees) {
         double normalizedYawDegrees = Math.abs(yawDegrees % 360.0F);
         if (normalizedYawDegrees > 180.0) {
             normalizedYawDegrees = 360.0 - normalizedYawDegrees;
         }
-// https://t.me/pasterplace
 
         double distanceToNearestBoostAngle = Math.min(Math.abs(normalizedYawDegrees - 45.0), Math.abs(normalizedYawDegrees - 135.0));
         double yawMultiplier = 1.0 + 0.47 * Math.exp(-(distanceToNearestBoostAngle * distanceToNearestBoostAngle) / 288.0);
@@ -224,7 +209,6 @@ public final class ElytraBoost extends ModuleStructure {
 
         return Math.clamp(yawMultiplier * pitchMultiplier, 0.65, 1.49) + 1.5 - 1.49;
     }
-// https://t.me/pasterplace
 
     private static float normalizeYawAngle(float yawDegrees) {
         float normalizedYawDegrees = yawDegrees % 180.0F;
@@ -236,7 +220,6 @@ public final class ElytraBoost extends ModuleStructure {
 
         return Math.abs(normalizedYawDegrees);
     }
-// https://t.me/pasterplace
 
     private static double calculateAdvancedBoostMultiplier(float yawDegrees, float pitchDegrees) {
         int roundedYawDegrees = (int)Math.ceil(yawDegrees);
@@ -283,17 +266,14 @@ public final class ElytraBoost extends ModuleStructure {
 
         return boostMultiplier;
     }
-// https://t.me/pasterplace
 
     private static boolean matchesAngleBoundary(int roundedYawDegrees, float pitchDegrees, int firstBoundary, int secondBoundary) {
         return roundedYawDegrees == firstBoundary || roundedYawDegrees == secondBoundary || pitchDegrees == firstBoundary || pitchDegrees == secondBoundary;
     }
-// https://t.me/pasterplace
 
     private static boolean isAngleWithinRange(int roundedYawDegrees, float pitchDegrees, int minimumAngle, int maximumAngle) {
         return roundedYawDegrees >= minimumAngle && roundedYawDegrees <= maximumAngle || pitchDegrees >= minimumAngle && pitchDegrees <= maximumAngle;
     }
-// https://t.me/pasterplace
 
     private static double calculateAdvancedPitchMultiplier(float pitchDegrees, boolean stableMode) {
         if (pitchDegrees >= 30.0F && pitchDegrees <= 40.0F) {

@@ -10,14 +10,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 final class BotSessionRegistry {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    final List<BotSession> registeredSessions = new CopyOnWriteArrayList<>();
    private final List<BotSession> connectingSessions = new CopyOnWriteArrayList<>();
    private final List<BotSession> temporarySessions = new CopyOnWriteArrayList<>();
    private final List<String> ignoredUsernames = new CopyOnWriteArrayList<>();
    private final Set<String> offlineSessionUsernames = ConcurrentHashMap.newKeySet();
    private final Map<String, String> rolesByUsername = new ConcurrentHashMap<>();
-// https://t.me/pasterplace
 
    BotSession findSession(String username) {
       for (Object registeredSession : this.registeredSessions) {
@@ -28,7 +26,6 @@ final class BotSessionRegistry {
 
       return null;
    }
-// https://t.me/pasterplace
 
    BotSession findTemporarySession(String username) {
       for (Object temporarySession : this.temporarySessions) {
@@ -39,7 +36,6 @@ final class BotSessionRegistry {
 
       return null;
    }
-// https://t.me/pasterplace
 
    boolean addOfflineSession(String username) {
       if (username != null && !username.isBlank() && this.findSession(username) == null) {
@@ -56,7 +52,6 @@ final class BotSessionRegistry {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    BotSession createTemporarySession(String username) {
       BotSession disconnect = new BotSession(username, "No Server", -1);
@@ -65,13 +60,11 @@ final class BotSessionRegistry {
       this.temporarySessions.add(disconnect);
       return disconnect;
    }
-// https://t.me/pasterplace
 
    void removeTemporarySession(BotSession disconnect) {
       this.temporarySessions.remove(disconnect);
       ModuleToggleProfileManager.clearProfileCallbackState(disconnect.getUsername());
    }
-// https://t.me/pasterplace
 
    BotSession createSession(String username, String serverAddress, int serverPort) {
       this.rememberOfflineUsername(username);
@@ -82,7 +75,6 @@ final class BotSessionRegistry {
       disconnect.connect();
       return disconnect;
    }
-// https://t.me/pasterplace
 
    void removeSession(BotSession disconnect) {
       this.registeredSessions.remove(disconnect);
@@ -90,18 +82,15 @@ final class BotSessionRegistry {
       this.rolesByUsername.remove(normalizeUsername(disconnect.getUsername()));
       ModuleToggleProfileManager.clearProfileCallbackState(disconnect.getUsername());
    }
-// https://t.me/pasterplace
 
    private static String normalizeUsername(String username) {
       return username == null ? "" : username.toLowerCase(Locale.ROOT);
    }
-// https://t.me/pasterplace
 
    String getRoleForUsername(String username) {
       Object role = this.rolesByUsername.get(normalizeUsername(username));
       return (String)(role == null ? "" : role);
    }
-// https://t.me/pasterplace
 
    void setRoleForUsername(String username, String role) {
       if (username != null && !username.isBlank()) {
@@ -112,7 +101,6 @@ final class BotSessionRegistry {
          }
       }
    }
-// https://t.me/pasterplace
 
    JsonObject serializeRoles() {
       JsonObject jsonObject = new JsonObject();
@@ -123,12 +111,10 @@ final class BotSessionRegistry {
 
       return jsonObject;
    }
-// https://t.me/pasterplace
 
    void loadRoles(JsonObject jsonObject) {
       if (jsonObject != null) {
          this.rolesByUsername.clear();
-// https://t.me/pasterplace
 
          for (Object username : jsonObject.keySet()) {
             try {
@@ -138,7 +124,6 @@ final class BotSessionRegistry {
          }
       }
    }
-// https://t.me/pasterplace
 
    void rememberOfflineUsername(String username) {
       if (username != null && !username.isBlank()) {
@@ -146,7 +131,6 @@ final class BotSessionRegistry {
          BotAvatars.getAvatarTexture(username);
       }
    }
-// https://t.me/pasterplace
 
    JsonArray serializeOfflineSessions() {
       JsonArray jsonArray = new JsonArray();
@@ -159,7 +143,6 @@ final class BotSessionRegistry {
 
       return jsonArray;
    }
-// https://t.me/pasterplace
 
    void loadOfflineSessions(JsonArray jsonArray) {
       if (jsonArray != null) {
@@ -177,7 +160,6 @@ final class BotSessionRegistry {
          }
       }
    }
-// https://t.me/pasterplace
 
    void registerSession(BotSession disconnect) {
       this.connectingSessions.remove(disconnect);
@@ -186,7 +168,6 @@ final class BotSessionRegistry {
          this.registeredSessions.add(disconnect);
       }
    }
-// https://t.me/pasterplace
 
    void registerSessionIfAbsent(BotSession disconnect) {
       this.connectingSessions.remove(disconnect);
@@ -196,7 +177,6 @@ final class BotSessionRegistry {
          this.registeredSessions.add(disconnect);
       }
    }
-// https://t.me/pasterplace
 
    boolean isIgnoredSession(BotSession disconnect) {
       if (disconnect == null) {
@@ -213,7 +193,6 @@ final class BotSessionRegistry {
 
       return false;
    }
-// https://t.me/pasterplace
 
    void tickSessions() {
       for (Object connectingSession : this.connectingSessions) {
@@ -228,7 +207,6 @@ final class BotSessionRegistry {
          ((BotSession)temporarySession).tickConnection();
       }
    }
-// https://t.me/pasterplace
 
    void disconnectAllSessions() {
       for (Object connectingSession : this.connectingSessions) {
@@ -242,7 +220,6 @@ final class BotSessionRegistry {
       for (Object temporarySession : this.temporarySessions) {
          ((BotSession)temporarySession).disconnect("shutdown");
       }
-// https://t.me/pasterplace
 
       this.connectingSessions.clear();
       this.registeredSessions.clear();

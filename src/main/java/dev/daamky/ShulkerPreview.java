@@ -12,20 +12,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 
 public final class ShulkerPreview extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private final BooleanSetting showItemName = new BooleanSetting("Название", true);
     private final BooleanSetting showEmptySlots = new BooleanSetting("Пустые", false);
     private ItemStack pendingPreviewStack = ItemStack.EMPTY;
     private int cursorX;
     private int cursorY;
     private long previewRequestedAtMillis;
-// https://t.me/pasterplace
 
     public ShulkerPreview() {
         super("ShulkerPreview", "Показывает содержимое шалкера при наведении", ModuleCategory.RENDER);
         this.addSettings(this.showItemName, this.showEmptySlots);
     }
-// https://t.me/pasterplace
 
     public static boolean requestPreview(ItemStack candidateStack, int cursorX, int cursorY) {
         ModuleStructure registeredModule = ModuleRegistry.getInstance().getModuleByClass(ShulkerPreview.class);
@@ -39,7 +36,6 @@ public final class ShulkerPreview extends ModuleStructure {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     private boolean isPreviewableShulker(ItemStack candidateStack) {
         if (candidateStack != null && !candidateStack.isEmpty()) {
@@ -56,7 +52,6 @@ public final class ShulkerPreview extends ModuleStructure {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     public void renderPreview(EventDisplay eventDisplay) {
@@ -77,7 +72,6 @@ public final class ShulkerPreview extends ModuleStructure {
             float slotSize = 18.0F * itemScale;
             float titleHeight = this.showItemName.getValue() ? 12.0F : 0.0F;
             float gridWidth = slotSize * 9.0F;
-// https://t.me/pasterplace
 
             float panelWidth = gridWidth + 10.0F;
             gridWidth = slotSize * 3.0F;
@@ -140,7 +134,7 @@ public final class ShulkerPreview extends ModuleStructure {
 
             GuiEventRenderer.flushAndStartRootLayer(drawContext);
             drawContext.getMatrices().pushMatrix();
-            drawContext.getMatrices().scale(1.0F / itemScale);
+            drawContext.getMatrices().scale(itemScale);
 
             for (int itemIndex = 0; itemIndex < 27; itemIndex++) {
                 ItemStack slotStack = previewSlots.get(itemIndex);

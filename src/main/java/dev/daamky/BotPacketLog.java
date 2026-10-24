@@ -13,22 +13,18 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.packet.Packet;
 
 public final class BotPacketLog {
-    private static final String p70856863 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final long II1Il11l111II11IIl = 25000L;
     private static final ConcurrentLinkedQueue<String> l1I1IlllIlI = new ConcurrentLinkedQueue<>();
     private static volatile long IllI1l1l1;
     private static volatile boolean l1lll11l1l;
-// https://t.me/pasterplace
 
     private BotPacketLog() {
     }
-// https://t.me/pasterplace
 
     public static void II1Il11l111II11IIl(String packetDirection, Object sessionContext, Packet<?> packet) {
         try {
             long currentTimeMillis = System.currentTimeMillis();
             String simpleName = packet.getClass().getSimpleName();
-// https://t.me/pasterplace
 
             long logStartTimeMillis = IllI1l1l1;
             if (logStartTimeMillis == 0L || currentTimeMillis - logStartTimeMillis > 25000L) {
@@ -40,7 +36,6 @@ public final class BotPacketLog {
         } catch (Throwable logFailure) {
         }
     }
-// https://t.me/pasterplace
 
     private static void II1Il11l111II11IIl() {
         if (!l1lll11l1l) {
@@ -57,7 +52,6 @@ public final class BotPacketLog {
             }
         }
     }
-// https://t.me/pasterplace
 
     private static void l1I1IlllIlI() {
         if (!l1I1IlllIlI.isEmpty()) {

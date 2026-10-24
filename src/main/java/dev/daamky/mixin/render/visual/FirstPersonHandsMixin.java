@@ -25,7 +25,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(HeldItemRenderer.class)
 public abstract class FirstPersonHandsMixin {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Shadow
    private float equipProgressMainHand;
    @Shadow
@@ -40,13 +39,11 @@ public abstract class FirstPersonHandsMixin {
    private boolean daamky$positionApplied;
    @Unique
    private boolean daamky$mainHand;
-// https://t.me/pasterplace
 
    @Shadow
    private void renderArmHoldingItem(MatrixStack matrices, OrderedRenderCommandQueue commandQueue, int light, float equipProgress, float swingProgress, Arm arm) {
       throw new AssertionError();
    }
-// https://t.me/pasterplace
 
    @Inject(method = "renderFirstPersonItem", at = @At("HEAD"))
    private void daamky$renderOffhandInspectAnimation(
@@ -73,7 +70,6 @@ public abstract class FirstPersonHandsMixin {
             this.daamky$mainHand = false;
             this.daamky$positionApplied = false;
             WingsAnimationController.setFirstPersonAnimationActive(true);
-// https://t.me/pasterplace
 
             try {
                this.renderArmHoldingItem(matrices, commandQueue, light, 1.0F - inspectionProgress, 0.0F, oppositeArm);
@@ -84,7 +80,6 @@ public abstract class FirstPersonHandsMixin {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "renderFirstPersonItem", at = @At("HEAD"))
    private void daamky$prepareHand(
@@ -116,7 +111,6 @@ public abstract class FirstPersonHandsMixin {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Unique
    private void daamky$applyPosition(MatrixStack matrices) {
@@ -126,25 +120,21 @@ public abstract class FirstPersonHandsMixin {
          this.daamky$positionApplied = true;
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "applyEatOrDrinkTransformation", at = @At("HEAD"))
    private void daamky$eatPosition(MatrixStack matrices, float tickDelta, Arm arm, ItemStack heldItemStack, PlayerEntity player, CallbackInfo callbackInfo) {
       this.daamky$applyPosition(matrices);
    }
-// https://t.me/pasterplace
 
    @Inject(method = "applyBrushTransformation", at = @At("HEAD"))
    private void daamky$brushPosition(MatrixStack matrices, float tickDelta, Arm arm, PlayerEntity player, CallbackInfo callbackInfo) {
       this.daamky$applyPosition(matrices);
    }
-// https://t.me/pasterplace
 
    @Inject(method = "applyEquipOffset", at = @At("HEAD"))
    private void daamky$armPosition(MatrixStack matrices, Arm arm, float equipProgress, CallbackInfo callbackInfo) {
       this.daamky$applyPosition(matrices);
    }
-// https://t.me/pasterplace
 
    @Inject(method = "swingArm", at = @At("HEAD"), cancellable = true)
    private void daamky$swingArm(float swingProgress, MatrixStack matrices, int handSign, Arm arm, CallbackInfo callbackInfo) {
@@ -158,7 +148,6 @@ public abstract class FirstPersonHandsMixin {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "renderArmHoldingItem", at = @At("HEAD"))
    private void daamky$playerArm(MatrixStack matrices, OrderedRenderCommandQueue commandQueue, int light, float equipProgress, float swingProgress, Arm arm, CallbackInfo callbackInfo) {
@@ -168,7 +157,6 @@ public abstract class FirstPersonHandsMixin {
          this.daamky$positionApplied = true;
       }
    }
-// https://t.me/pasterplace
 
    @Inject(
       method = "renderFirstPersonItem",

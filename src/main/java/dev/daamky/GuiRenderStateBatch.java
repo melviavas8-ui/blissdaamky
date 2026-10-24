@@ -12,7 +12,6 @@ import net.minecraft.client.texture.TextureSetup;
 import org.jspecify.annotations.Nullable;
 
 public final class GuiRenderStateBatch implements SimpleGuiElementRenderState {
-    private static final String p881a05cd = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final int II1Il11l111II11IIl = 4096;
    private final List<SimpleGuiElementRenderState> l1I1IlllIlI = new ArrayList<>(32);
    private int[] IllI1l1l1 = new int[128];
@@ -24,7 +23,6 @@ public final class GuiRenderStateBatch implements SimpleGuiElementRenderState {
    private int intValue;
    private int Ill111IlI11l;
    private int I1l11IIlIIIll1l1lI1II;
-// https://t.me/pasterplace
 
    void II1Il11l111II11IIl(RenderPipeline renderPipeline, TextureSetup textureSetup, @Nullable ScreenRect screenRect) {
       this.l1lll11l1l = renderPipeline;
@@ -36,7 +34,6 @@ public final class GuiRenderStateBatch implements SimpleGuiElementRenderState {
       this.Ill111IlI11l = Integer.MIN_VALUE;
       this.I1l11IIlIIIll1l1lI1II = Integer.MIN_VALUE;
    }
-// https://t.me/pasterplace
 
    boolean l1I1IlllIlI(RenderPipeline renderPipeline, TextureSetup textureSetup, @Nullable ScreenRect screenRect) {
       return this.l1I1IlllIlI.size() < 4096
@@ -44,7 +41,6 @@ public final class GuiRenderStateBatch implements SimpleGuiElementRenderState {
          && Objects.equals(this.l1IIl11lI, screenRect)
          && this.lIIl11l111lIIl1ll.equals(textureSetup);
    }
-// https://t.me/pasterplace
 
    boolean intersectsAny(int left, int top, int right, int bottom) {
       if (left < this.Ill111IlI11l && right > this.l11lIlIIll1III1 && top < this.I1l11IIlIIIll1l1lI1II && bottom > this.intValue) {
@@ -59,14 +55,12 @@ public final class GuiRenderStateBatch implements SimpleGuiElementRenderState {
                return true;
             }
          }
-// https://t.me/pasterplace
 
          return false;
       } else {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    void II1Il11l111II11IIl(SimpleGuiElementRenderState simpleGuiElementRenderState, int left, int top, int right, int bottom) {
       int vertexArrayIndex = this.l1I1IlllIlI.size() << 2;
@@ -84,14 +78,12 @@ public final class GuiRenderStateBatch implements SimpleGuiElementRenderState {
       this.Ill111IlI11l = Math.max(this.Ill111IlI11l, right);
       this.I1l11IIlIIIll1l1lI1II = Math.max(this.I1l11IIlIIIll1l1lI1II, bottom);
    }
-// https://t.me/pasterplace
 
    void II1Il11l111II11IIl() {
       this.I1lIIII1III1lIlIl1l = new ScreenRect(
          this.l11lIlIIll1III1, this.intValue, this.Ill111IlI11l - this.l11lIlIIll1III1, this.I1l11IIlIIIll1l1lI1II - this.intValue
       );
    }
-// https://t.me/pasterplace
 
    public void setupVertices(VertexConsumer vertices) {
       List items = this.l1I1IlllIlI;
@@ -101,22 +93,18 @@ public final class GuiRenderStateBatch implements SimpleGuiElementRenderState {
          ((SimpleGuiElementRenderState)items.get(elementIndex)).setupVertices(vertices);
       }
    }
-// https://t.me/pasterplace
 
    public RenderPipeline pipeline() {
       return this.l1lll11l1l;
    }
-// https://t.me/pasterplace
 
    public TextureSetup textureSetup() {
       return this.lIIl11l111lIIl1ll;
    }
-// https://t.me/pasterplace
 
    public @Nullable ScreenRect scissorArea() {
       return this.l1IIl11lI;
    }
-// https://t.me/pasterplace
 
    public @Nullable ScreenRect bounds() {
       return this.I1lIIII1III1lIlIl1l;

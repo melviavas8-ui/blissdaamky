@@ -6,13 +6,10 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 
 public final class EmojiTextRenderer {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    public static final float EMOJI_RENDER_SCALE = 1.45F;
-// https://t.me/pasterplace
 
    private EmojiTextRenderer() {
    }
-// https://t.me/pasterplace
 
    private static List<EmojiTextRenderer.EmojiRun> createTextRuns(String inputText, float fontScale) {
       ArrayList textRuns = new ArrayList();
@@ -50,7 +47,6 @@ public final class EmojiTextRenderer {
       flushTextRun(textRuns, textBuffer, fontScale);
       return textRuns;
    }
-// https://t.me/pasterplace
 
    private static void flushTextRun(List<EmojiTextRenderer.EmojiRun> items, StringBuilder stringBuilder, float fontScale) {
       if (!stringBuilder.isEmpty()) {
@@ -59,7 +55,6 @@ public final class EmojiTextRenderer {
          stringBuilder.setLength(0);
       }
    }
-// https://t.me/pasterplace
 
    public static float measureTextWidth(String inputText, float fontScale) {
       float totalWidth = 0.0F;
@@ -70,7 +65,6 @@ public final class EmojiTextRenderer {
 
       return totalWidth;
    }
-// https://t.me/pasterplace
 
    public static boolean isEmojiOnlyText(String inputText) {
       List emojiRuns = createTextRuns(inputText.strip(), 1.0F);
@@ -86,13 +80,11 @@ public final class EmojiTextRenderer {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    public static List<EmojiTextRenderer.EmojiLineLayout> layoutLines(String inputText, float fontScale, float maximumLineWidth) {
       ArrayList lines = new ArrayList();
       ArrayList currentLineRuns = new ArrayList();
       float currentLineWidth = 0.0F;
-// https://t.me/pasterplace
 
       for (Object textRun : createTextRuns(inputText, fontScale)) {
          if ("\n".equals(((EmojiTextRenderer.EmojiRun)textRun).text())) {
@@ -107,14 +99,12 @@ public final class EmojiTextRenderer {
                if (((EmojiTextRenderer.EmojiRun)textRun).text() != null && ((EmojiTextRenderer.EmojiRun)textRun).text().equals(" ")
                   )
                 {
-// https://t.me/pasterplace
                   continue;
                }
             }
 
             if (((EmojiTextRenderer.EmojiRun)textRun).text() != null && ((EmojiTextRenderer.EmojiRun)textRun).width() > maximumLineWidth) {
                String remainingText = ((EmojiTextRenderer.EmojiRun)textRun).text();
-// https://t.me/pasterplace
 
                while (!remainingText.isEmpty()) {
                   int maximumFragmentLength = 1;
@@ -144,7 +134,6 @@ public final class EmojiTextRenderer {
       lines.add(new EmojiTextRenderer.EmojiLineLayout(currentLineRuns, currentLineWidth));
       return lines;
    }
-// https://t.me/pasterplace
 
    public static void renderLine(
       DrawContext drawContext, EmojiTextRenderer.EmojiLineLayout lineLayout, float startX, float baselineY, float fontScale, int textColor, float opacity
@@ -164,7 +153,6 @@ public final class EmojiTextRenderer {
          cursorX += ((EmojiTextRenderer.EmojiRun)run).width();
       }
    }
-// https://t.me/pasterplace
 
    public static void renderEmoji(DrawContext drawContext, Emoji.EmojiEntry emojiEntry, float x, float y, float size, float opacity) {
       Identifier identifier = Emoji.getEmojiTextureIdentifier(emojiEntry);
@@ -178,7 +166,6 @@ public final class EmojiTextRenderer {
          TextureQuadBuilder.at(identifier, x, y - size * 0.5F, size, size).opacity(opacity).render(drawContext);
       }
    }
-// https://t.me/pasterplace
 
    public static String truncateText(String inputText, float fontScale, float maximumWidth) {
       if (measureTextWidth(inputText, fontScale) <= maximumWidth) {
@@ -193,7 +180,6 @@ public final class EmojiTextRenderer {
 
       return truncatedText + "...";
    }
-// https://t.me/pasterplace
 
    public record EmojiLineLayout(List<EmojiTextRenderer.EmojiRun> runs, float width) {
 
@@ -202,7 +188,6 @@ public final class EmojiTextRenderer {
          this.width = width;
       }
    }
-// https://t.me/pasterplace
 
    public record EmojiRun(String text, Emoji.EmojiEntry emoji, float width) {
 

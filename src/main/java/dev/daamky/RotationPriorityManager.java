@@ -11,7 +11,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public final class RotationPriorityManager {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final RotationPriorityManager INSTANCE = new RotationPriorityManager();
    private Rotation currentRotation;
    private Rotation rotationSnapshot;
@@ -22,16 +21,13 @@ public final class RotationPriorityManager {
    private float previousBodyYaw;
    private boolean bodyYawOverrideEnabled;
    private Rotation lastMotionRotation;
-// https://t.me/pasterplace
 
    private RotationPriorityManager() {
    }
-// https://t.me/pasterplace
 
    public static RotationPriorityManager getInstance() {
       return INSTANCE;
    }
-// https://t.me/pasterplace
 
    public void requestRotation(
       Rotation requestedRotation, FocusMode focusMode, float weight, int priority, boolean persistent, Object owner
@@ -44,29 +40,24 @@ public final class RotationPriorityManager {
          }
       }
    }
-// https://t.me/pasterplace
 
    public void requestRotation(Rotation requestedRotation, FocusMode focusMode, int priority, Object owner) {
       this.requestRotation(requestedRotation, focusMode, 45.0F, priority, false, owner);
    }
-// https://t.me/pasterplace
 
    public void clearRotationRequest(Object owner) {
       if (this.pendingRotationRequest != null && this.pendingRotationRequest.owner() == owner) {
          this.pendingRotationRequest = null;
       }
    }
-// https://t.me/pasterplace
 
    public boolean hasCurrentRotation() {
       return this.currentRotation != null;
    }
-// https://t.me/pasterplace
 
    public boolean isFocusedBy(Object owner) {
       return this.activeRotationRequest != null && this.activeRotationRequest.owner() == owner && !this.returningToPlayerRotation;
    }
-// https://t.me/pasterplace
 
    public Rotation getCurrentRotation() {
       if (this.currentRotation != null) {
@@ -78,58 +69,48 @@ public final class RotationPriorityManager {
          ? new Rotation(0.0F, 0.0F)
          : new Rotation(clientPlayerEntity.getYaw(), clientPlayerEntity.getPitch());
    }
-// https://t.me/pasterplace
 
    public Rotation getLastMotionRotation() {
       if (this.lastMotionRotation != null) {
          return this.lastMotionRotation;
       }
-// https://t.me/pasterplace
 
       ClientPlayerEntity clientPlayerEntity = MinecraftClient.getInstance().player;
       return clientPlayerEntity == null
          ? new Rotation(0.0F, 0.0F)
          : new Rotation(clientPlayerEntity.getYaw(), clientPlayerEntity.getPitch());
    }
-// https://t.me/pasterplace
 
    public Rotation getRotationSnapshot() {
       return this.rotationSnapshot != null ? this.rotationSnapshot : this.getCurrentRotation();
    }
-// https://t.me/pasterplace
 
    public float resolveYaw(float fallbackYaw) {
       return this.currentRotation != null && this.activeRotationRequest != null && this.activeRotationRequest.focusMode() != FocusMode.NONE
          ? this.currentRotation.getYaw()
          : fallbackYaw;
    }
-// https://t.me/pasterplace
 
    public Vec3d resolveLookVector(Vec3d fallbackLookVector) {
       return this.currentRotation != null ? Vec3d.fromPolar(this.currentRotation.getPitch(), this.currentRotation.getYaw()) : fallbackLookVector;
    }
-// https://t.me/pasterplace
 
    public boolean isBodyYawOverrideActive() {
       return this.bodyYawOverrideEnabled && this.currentRotation != null;
    }
-// https://t.me/pasterplace
 
    public float getInterpolatedYaw(float tickDelta) {
       Rotation previousRotation = this.getRotationSnapshot();
       return MathHelper.lerpAngleDegrees(tickDelta, previousRotation.getYaw(), this.getCurrentRotation().getYaw());
    }
-// https://t.me/pasterplace
 
    public float getInterpolatedPitch(float tickDelta) {
       return MathHelper.lerp(tickDelta, this.getRotationSnapshot().getPitch(), this.getCurrentRotation().getPitch());
    }
-// https://t.me/pasterplace
 
    public float getInterpolatedBodyYaw(float tickDelta) {
       return MathHelper.lerpAngleDegrees(tickDelta, this.previousBodyYaw, this.currentBodyYaw);
    }
-// https://t.me/pasterplace
 
    private void updateBodyYaw(ClientPlayerEntity clientPlayerEntity) {
       this.previousBodyYaw = this.currentBodyYaw;
@@ -154,7 +135,6 @@ public final class RotationPriorityManager {
          }
       }
    }
-// https://t.me/pasterplace
 
    public void reset() {
       this.currentRotation = null;
@@ -164,7 +144,6 @@ public final class RotationPriorityManager {
       this.returningToPlayerRotation = false;
       this.bodyYawOverrideEnabled = false;
    }
-// https://t.me/pasterplace
 
    @EventTarget(priority = 4)
    public void onUpdate(EventUpdate eventUpdate) {
@@ -222,7 +201,6 @@ public final class RotationPriorityManager {
          this.updateBodyYaw(clientPlayerEntity);
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget(priority = 4)
    public void onMotion(EventMotion eventMotion) {
@@ -235,7 +213,6 @@ public final class RotationPriorityManager {
          this.lastMotionRotation = new Rotation(eventMotion.yaw(), eventMotion.pitch());
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget(priority = 4)
    public void onInput(EventInput eventInput) {
@@ -276,13 +253,11 @@ public final class RotationPriorityManager {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onWorldChange(EventWorldChange eventWorldChange) {
       this.reset();
    }
-// https://t.me/pasterplace
 
    private static double movementInputToYaw(float playerYaw, float forwardInput, float strafeInput) {
       float yawRadians = playerYaw * (float) (Math.PI / 180.0);
@@ -292,7 +267,6 @@ public final class RotationPriorityManager {
       double movementZ = forwardInput * cosineYaw + strafeInput * sineYaw;
       return Math.toDegrees(Math.atan2(movementZ, movementX));
    }
-// https://t.me/pasterplace
 
    public record RotationTarget(Rotation rotation, FocusMode focusMode, float weight, int priority, boolean persistent, Object owner) {
 

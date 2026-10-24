@@ -11,7 +11,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class ElytraDesync extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiOptionSetting mode = new MultiOptionSetting("Режим", "Реал", "Реал", "Пакет");
    private final FloatSetting yawStrength = new FloatSetting("Сила yaw", 25.0F, 5.0F, 60.0F, 1.0F);
    private final FloatSetting swaySpeed = new FloatSetting("Скорость виляния", 0.35F, 0.05F, 1.0F, 0.05F);
@@ -25,7 +24,6 @@ public final class ElytraDesync extends ModuleStructure {
    private float lastAppliedPitchOffset;
    private float lastPacketYaw = Float.NaN;
    private float lastPacketPitch = Float.NaN;
-// https://t.me/pasterplace
 
    public ElytraDesync() {
       super("ElytraDesync", "Ломает перегон врага на элитре", ModuleCategory.MOVEMENT);
@@ -35,20 +33,17 @@ public final class ElytraDesync extends ModuleStructure {
          this.mode, this.yawStrength, this.swaySpeed, this.modifyPitch, this.pitchStrength, this.minimumSpeed, this.onlyWhenPlayerNearby, this.nearbyPlayerRange
       );
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return this.mode.getValue();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
    protected void onEnable() {
       this.resetOscillationState();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -56,14 +51,12 @@ public final class ElytraDesync extends ModuleStructure {
       this.restorePlayerRotation();
       this.resetOscillationState();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
    public void onWorldChange(EventWorldChange eventWorldChange) {
       this.resetOscillationState();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -87,7 +80,6 @@ public final class ElytraDesync extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -111,14 +103,12 @@ public final class ElytraDesync extends ModuleStructure {
                == this.lastPacketPitch) {
                adjustedPitch += 1.0E-4F;
             }
-// https://t.me/pasterplace
 
             eventMotion.setPitch(adjustedPitch);
             this.lastPacketPitch = adjustedPitch;
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean canApplyDesync() {
       if (CLIENT.player.isGliding() && !(MovementUtils.getHorizontalSpeed() * 20.0 < this.minimumSpeed.getValue().floatValue())) {
@@ -139,7 +129,6 @@ public final class ElytraDesync extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private void restorePlayerRotation() {
       if (CLIENT.player != null && (this.lastAppliedYawOffset != 0.0F || this.lastAppliedPitchOffset != 0.0F)) {
@@ -150,7 +139,6 @@ public final class ElytraDesync extends ModuleStructure {
       this.lastAppliedYawOffset = 0.0F;
       this.lastAppliedPitchOffset = 0.0F;
    }
-// https://t.me/pasterplace
 
    private void resetOscillationState() {
       this.oscillationPhase = 0.0;

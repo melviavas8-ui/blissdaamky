@@ -14,17 +14,14 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 
 public final class ClickThrough extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final BooleanSetting signsSetting = new BooleanSetting("Таблички", true);
    private final BooleanSetting bannersSetting = new BooleanSetting("Баннеры", true);
    private final BooleanSetting itemFramesSetting = new BooleanSetting("Рамки", true);
-// https://t.me/pasterplace
 
    public ClickThrough() {
       super("ClickThrough", "ПКМ сквозь таблички, рамки и баннеры открывает контейнер за ними", ModuleCategory.PLAYER);
       this.addSettings(this.signsSetting, this.bannersSetting, this.itemFramesSetting);
    }
-// https://t.me/pasterplace
 
    public static void updateCrosshairTarget() {
       ClickThrough moduleStructure = (ClickThrough)ModuleRegistry.getInstance().getModuleByClass(ClickThrough.class);
@@ -32,7 +29,6 @@ public final class ClickThrough extends ModuleStructure {
          moduleStructure.updateTargetedBlock();
       }
    }
-// https://t.me/pasterplace
 
    private void updateTargetedBlock() {
       if (this.hasActiveClientWorld() && CLIENT.world != null && !CLIENT.player.isSneaking()) {
@@ -61,7 +57,6 @@ public final class ClickThrough extends ModuleStructure {
                return;
             }
          }
-// https://t.me/pasterplace
 
          Vec3d eyePosition = CLIENT.player.getEyePos();
          Vec3d lookDirection = CLIENT.player.getRotationVec(1.0F);
@@ -89,13 +84,11 @@ public final class ClickThrough extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean isTransparentBlock(BlockState blockState) {
       return this.signsSetting.getValue() && blockState.isIn(BlockTags.ALL_SIGNS)
          || this.bannersSetting.getValue() && blockState.isIn(BlockTags.BANNERS);
    }
-// https://t.me/pasterplace
 
    private boolean isContainerBlock(BlockPos blockPosition, BlockState blockState) {
       return blockState.getBlock() instanceof EnderChestBlock

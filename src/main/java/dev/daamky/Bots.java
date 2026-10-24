@@ -9,7 +9,6 @@ import net.minecraft.client.input.CharInput;
 import net.minecraft.client.input.KeyInput;
 
 public final class Bots {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float LAYOUT_FLOAT_5_0 = 5.0F;
    private static final float LAYOUT_FLOAT_11_5 = 11.5F;
    private static final float LAYOUT_FLOAT_7_5 = 7.5F;
@@ -59,7 +58,6 @@ public final class Bots {
    private float detailsPanelTop;
    private float detailsPanelHeight;
    private float detailsPanelWidth;
-// https://t.me/pasterplace
 
    public void updateAnimationState(float deltaSeconds) {
       this.frameDeltaSeconds = deltaSeconds;
@@ -84,7 +82,6 @@ public final class Bots {
          this.selectedBot = null;
       }
    }
-// https://t.me/pasterplace
 
    public void render(
       DrawContext drawContext,
@@ -130,37 +127,30 @@ public final class Bots {
          }
       }
    }
-// https://t.me/pasterplace
 
    private float getSearchFieldTop() {
       return this.panelTop + 11.5F + 7.5F;
    }
-// https://t.me/pasterplace
 
    private float getBulkActionsTop() {
       return this.getSearchFieldTop() + 13.0F + 4.0F;
    }
-// https://t.me/pasterplace
 
    private float getBotListTop() {
       return this.getBulkActionsTop() + 12.0F + 9.0F;
    }
-// https://t.me/pasterplace
 
    private float getBotNameSearchWidth() {
       return this.panelWidth - 10.0F - 13.0F - 4.0F;
    }
-// https://t.me/pasterplace
 
    private float getBulkActionButtonWidth() {
       return (this.panelWidth - 10.0F - 4.0F) * 0.5F;
    }
-// https://t.me/pasterplace
 
    private float getBotListVisibleHeight() {
       return this.panelTop + this.panelHeight - this.getBotListTop();
    }
-// https://t.me/pasterplace
 
    private void drawBotList(DrawContext drawContext, float mouseX, float mouseY, long nowMs, float panelAlpha) {
       SavedBots.SavedBotSessionRegistry botRegistry = SavedBots.getSessionRegistry();
@@ -224,7 +214,6 @@ public final class Bots {
       } finally {
          drawContext.disableScissor();
       }
-// https://t.me/pasterplace
 
       float botListTop = this.getBotListTop();
       float botListHeight = this.getBotListVisibleHeight();
@@ -304,62 +293,50 @@ public final class Bots {
          }
       }
    }
-// https://t.me/pasterplace
 
    private float getDetailsPanelLeft() {
       return this.detailsPanelLeft + 4.0F;
    }
-// https://t.me/pasterplace
 
    private float getDetailsPanelHeight() {
       return this.detailsPanelHeight - 4.0F - 8.0F;
    }
-// https://t.me/pasterplace
 
    private float getConnectionActionsTop() {
       return this.detailsPanelTop + 11.5F + 7.5F + 0.5F;
    }
-// https://t.me/pasterplace
 
    private float getBotManagementButtonTop() {
       return this.detailsPanelTop + (this.getBulkActionsTop() - this.panelTop);
    }
-// https://t.me/pasterplace
 
    private float getSettingsRowsTop() {
       return this.detailsPanelTop + (this.getBotListTop() - this.panelTop);
    }
-// https://t.me/pasterplace
 
    private float getSettingRowCenterY(int settingIndex) {
       return this.getSettingsRowsTop() + 11.0F * (settingIndex + 0.5F);
    }
-// https://t.me/pasterplace
 
    private float getDetailsTabsTop() {
       return this.getSettingsRowsTop() + 33.0F + 4.5F;
    }
-// https://t.me/pasterplace
 
    private float getDetailsTabWidth() {
       return 46.0F;
    }
-// https://t.me/pasterplace
 
    private float getModuleListTop() {
       return this.getDetailsTabsTop() + 12.0F + 4.0F;
    }
-// https://t.me/pasterplace
 
    private float getChatInputTop() {
       return this.detailsPanelTop + this.detailsPanelWidth - 13.0F - 2.0F;
    }
-// https://t.me/pasterplace
 
    private float getChatHistoryHeight() {
       return this.getChatInputTop() - 4.0F - this.getModuleListTop();
    }
-// https://t.me/pasterplace
 
    private void drawDetailsPanel(DrawContext drawContext, float mouseX, float mouseY, long nowMs, float panelAlpha) {
       float entranceProgress = easeOutCubic((float)(nowMs - this.panelAnimationStartedAtMs - 60L) / 320.0F);
@@ -497,7 +474,6 @@ public final class Bots {
                } finally {
                   drawContext.disableScissor();
                }
-// https://t.me/pasterplace
 
                this.chatMessageField.render(drawContext, detailsLeft, this.getChatInputTop(), detailsHeight, 13.0F, nowMs, detailsAlpha);
                this.drawToast(drawContext, contentCenterX, contentTop, nowMs, detailsAlpha);
@@ -505,7 +481,6 @@ public final class Bots {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void drawToggleRow(DrawContext drawContext, String label, int settingIndex, float toggleProgress, float left, float panelWidth, float alpha) {
       float rowCenterY = this.getSettingRowCenterY(settingIndex);
@@ -515,7 +490,6 @@ public final class Bots {
          .render(drawContext);
       this.drawToggleSwitch(drawContext, toggleProgress, left + panelWidth - 13.0F, rowCenterY, alpha);
    }
-// https://t.me/pasterplace
 
    private void drawModuleList(
       DrawContext drawContext, float mouseX, float mouseY, BotSession botSession, float left, float top, float width, float height, float alpha
@@ -561,7 +535,6 @@ public final class Bots {
          drawContext.disableScissor();
       }
    }
-// https://t.me/pasterplace
 
    private static int countEnabledModules(BotSession disconnect) {
       int enabledModuleCount = 0;
@@ -574,7 +547,6 @@ public final class Bots {
 
       return enabledModuleCount;
    }
-// https://t.me/pasterplace
 
    private void drawToast(DrawContext drawContext, float toastLeft, float toastTop, long nowMs, float panelAlpha) {
       if (!this.toastMessage.isEmpty()) {
@@ -590,13 +562,11 @@ public final class Bots {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void showToast(String message) {
       this.toastMessage = message;
       this.toastShownAtMs = System.currentTimeMillis();
    }
-// https://t.me/pasterplace
 
    private void drawActionButton(
       DrawContext drawContext,
@@ -638,7 +608,6 @@ public final class Bots {
          )
          .render(drawContext);
    }
-// https://t.me/pasterplace
 
    private static int connectionStatusColor(BotSession.BotConnectionStatus status, float alpha) {
       return switch (status) {
@@ -647,7 +616,6 @@ public final class Bots {
          default -> RgbaColor.rgba(240, 200, 80, (int)(255.0F * alpha)).toArgb();
       };
    }
-// https://t.me/pasterplace
 
    private void drawToggleSwitch(DrawContext drawContext, float value, float left, float centerY, float alpha) {
       float trackTop = centerY - 3.5F;
@@ -670,7 +638,6 @@ public final class Bots {
          .color(RgbaColor.rgba(255, 255, 255, (int)(255.0F * alpha)))
          .render(drawContext);
    }
-// https://t.me/pasterplace
 
    public boolean mouseClicked(float mouseX, float mouseY, int mouseButton) {
       if (mouseButton != 0) {
@@ -762,7 +729,6 @@ public final class Bots {
                   this.selectedBot = null;
                   return true;
                }
-// https://t.me/pasterplace
 
                if (containsPoint(mouseX, mouseY, detailsPanelLeft, this.getDetailsTabsTop(), this.getDetailsTabWidth(), 12.0F)) {
                   this.modulesTabSelected = false;
@@ -780,7 +746,6 @@ public final class Bots {
                    if (moduleIndex >= 0 && moduleIndex < moduleEntries.size()) {
                       moduleEntries.get(moduleIndex).l1lll11l1l();
                   }
-// https://t.me/pasterplace
 
                   return true;
                } else if (containsPoint(mouseX, mouseY, detailsPanelLeft, this.getSettingsRowsTop(), detailsPanelHeight, 11.0F)) {
@@ -801,7 +766,6 @@ public final class Bots {
          return true;
       }
    }
-// https://t.me/pasterplace
 
    public boolean mouseScrolled(float mouseX, float mouseY, double scrollAmount) {
       if (containsPoint(mouseX, mouseY, this.panelLeft, this.getBotListTop(), this.panelWidth, this.getBotListVisibleHeight())) {
@@ -821,7 +785,6 @@ public final class Bots {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    public boolean keyPressed(KeyInput keyInput) {
       if (this.botNameSearchField.isFocused()) {
@@ -830,7 +793,6 @@ public final class Bots {
          return this.chatMessageField.isFocused() ? this.chatMessageField.keyPressed(keyInput) : false;
       }
    }
-// https://t.me/pasterplace
 
    public boolean charTyped(CharInput charInput) {
       if (this.botNameSearchField.isFocused()) {
@@ -839,18 +801,15 @@ public final class Bots {
          return this.chatMessageField.isFocused() ? this.chatMessageField.charTyped(charInput) : false;
       }
    }
-// https://t.me/pasterplace
 
    public boolean hasFocusedInput() {
       return this.botNameSearchField.isFocused() || this.chatMessageField.isFocused();
    }
-// https://t.me/pasterplace
 
    public void clearInputFocus() {
       this.botNameSearchField.setFocused(false);
       this.chatMessageField.setFocused(false);
    }
-// https://t.me/pasterplace
 
    private void addBotFromSearch(String enteredUsername) {
       String username = enteredUsername.trim();
@@ -867,7 +826,6 @@ public final class Bots {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void sendChatMessage(String enteredMessage) {
       String message = enteredMessage.trim();
@@ -886,7 +844,6 @@ public final class Bots {
          }
       }
    }
-// https://t.me/pasterplace
 
    private float updateHoverAnimation(float[] animationValues, int animationIndex, boolean hovered) {
       float targetValue = hovered ? 1.0F : 0.0F;
@@ -901,17 +858,14 @@ public final class Bots {
       animationValues[animationIndex] = currentValue;
       return smoothstep(currentValue);
    }
-// https://t.me/pasterplace
 
    private static float smoothstep(float value) {
       return value * value * (3.0F - 2.0F * value);
    }
-// https://t.me/pasterplace
 
    private static float easeOutCubic(float value) {
       return 1.0F - (float)Math.pow(1.0F - Math.clamp(value, 0.0F, 1.0F), 3.0);
    }
-// https://t.me/pasterplace
 
    private static boolean containsPoint(float mouseX, float mouseY, float left, float top, float width, float height) {
       return mouseX >= left && mouseX <= left + width && mouseY >= top && mouseY <= top + height;

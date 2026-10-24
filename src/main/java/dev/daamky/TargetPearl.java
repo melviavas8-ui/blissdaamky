@@ -24,7 +24,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class TargetPearl extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final double PEARL_LAUNCH_SPEED = 1.5;
    private static final double PEARL_DRAG_FACTOR = 0.99;
    private static final double PEARL_GRAVITY_PER_TICK = 0.03;
@@ -45,13 +44,11 @@ public final class TargetPearl extends ModuleStructure {
    private int restoreSlotDelayTicks;
    private LivingEntity lastAuraTarget;
    private long lastAuraTargetTimeMillis;
-// https://t.me/pasterplace
 
    public TargetPearl() {
       super("TargetPearl", "Бросает эндер-жемчуг следом за убегающей целью", ModuleCategory.PLAYER);
       this.addSettings(this.targetAuraOnly, this.maxTargetDistance, this.minimumFlightDistance, this.trajectoryAccuracy, this.pearlSwapMode);
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -62,17 +59,14 @@ public final class TargetPearl extends ModuleStructure {
       this.pearlHotbarSlot = -1;
       this.restoreSlotDelayTicks = 0;
    }
-// https://t.me/pasterplace
 
    private static boolean isEnderPearl(ItemStack stack) {
       return stack.isOf(Items.ENDER_PEARL);
    }
-// https://t.me/pasterplace
 
    private boolean hasPearlAvailable() {
       return isEnderPearl(CLIENT.player.getOffHandStack()) || InventoryUtils.findHotbarSlot(TargetPearl::isEnderPearl) != -1;
    }
-// https://t.me/pasterplace
 
    private void cancelAimAndScheduleRestore() {
       this.aimRotation = null;
@@ -81,7 +75,6 @@ public final class TargetPearl extends ModuleStructure {
          this.restoreSlotDelayTicks = 2;
       }
    }
-// https://t.me/pasterplace
 
    private void restoreHotbarSlot() {
       if (this.pearlHotbarSlot != -1 && InventoryUtils.canSwapInventorySlots()) {
@@ -92,7 +85,6 @@ public final class TargetPearl extends ModuleStructure {
       this.originalHotbarSlot = -1;
       this.restoreSlotDelayTicks = 0;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onUpdate(EventUpdate eventUpdate) {
@@ -105,7 +97,6 @@ public final class TargetPearl extends ModuleStructure {
          if (this.restoreSlotDelayTicks > 0 && --this.restoreSlotDelayTicks == 0) {
             this.restoreHotbarSlot();
          }
-// https://t.me/pasterplace
 
          Aura aura = Aura.getInstance();
          if (aura != null && aura.isEnabled() && aura.getTarget() != null) {
@@ -151,7 +142,6 @@ public final class TargetPearl extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -184,7 +174,6 @@ public final class TargetPearl extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void findTargetPearl() {
       if (this.predictionCooldown.hasElapsed(500L)
@@ -222,7 +211,6 @@ public final class TargetPearl extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private Rotation calculateAimRotation(Vec3d predictedHitPosition) {
       Vec3d playerEyePosition = CLIENT.player.getEyePos();
@@ -253,7 +241,6 @@ public final class TargetPearl extends ModuleStructure {
 
       return Float.isNaN(bestPitch) ? null : this.optimizeAimRotation(playerEyePosition, predictedHitPosition, targetYaw, bestPitch, this.trajectoryAccuracy.getValue().floatValue());
    }
-// https://t.me/pasterplace
 
    private Rotation optimizeAimRotation(Vec3d startPosition, Vec3d targetPosition, float targetYaw, float initialPitch, double maximumError) {
       float bestYaw = targetYaw;
@@ -284,7 +271,6 @@ public final class TargetPearl extends ModuleStructure {
 
       return bestError <= maximumError ? new Rotation(MathHelper.wrapDegrees(bestYaw), bestPitch) : null;
    }
-// https://t.me/pasterplace
 
    private double calculateTrajectoryError(Vec3d startPosition, Vec3d targetPosition, float yaw, float pitch) {
       Vec3d playerVelocity = CLIENT.player.getVelocity();
@@ -294,7 +280,6 @@ public final class TargetPearl extends ModuleStructure {
       Vec3d predictedImpactPosition = this.simulatePearlTrajectory(startPosition.subtract(0.0, 0.1, 0.0), pearlVelocity);
       return predictedImpactPosition == null ? Double.MAX_VALUE : predictedImpactPosition.distanceTo(targetPosition);
    }
-// https://t.me/pasterplace
 
    private Vec3d simulatePearlTrajectory(Vec3d initialPosition, Vec3d initialVelocity) {
       Vec3d currentPosition = initialPosition;
@@ -315,11 +300,9 @@ public final class TargetPearl extends ModuleStructure {
             return null;
          }
       }
-// https://t.me/pasterplace
 
       return null;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override

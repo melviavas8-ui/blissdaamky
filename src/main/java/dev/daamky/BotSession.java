@@ -38,7 +38,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 
 public final class BotSession implements SavedBotSession {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final int MAX_RECONNECT_ATTEMPTS = 100;
     private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss");
     private final String username;
@@ -66,7 +65,6 @@ public final class BotSession implements SavedBotSession {
     private volatile long lastLobbyNavigationAt;
     private int lastHandledScreenSyncId = -1;
     private long nextLobbyNavigationAt;
-// https://t.me/pasterplace
 
     BotSession(String username, String serverAddress, int serverPort) {
         this.username = username;
@@ -75,7 +73,6 @@ public final class BotSession implements SavedBotSession {
         this.botSessionProfile = SettingFactoryRegistry.II1Il11l111II11IIl(serverAddress);
         this.moduleProfile = new ModuleProfile(username);
     }
-// https://t.me/pasterplace
 
     public void connect() {
         this.manuallyDisconnected = false;
@@ -91,7 +88,6 @@ public final class BotSession implements SavedBotSession {
         connectionThread.setDaemon(true);
         connectionThread.start();
     }
-// https://t.me/pasterplace
 
     void updateServerAddressAndReconnect(String serverAddress, int serverPort) {
         ClientConnection clientConnection = this.clientConnection;
@@ -104,7 +100,6 @@ public final class BotSession implements SavedBotSession {
             this.connect();
         }
     }
-// https://t.me/pasterplace
 
     private void connectToServer() {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
@@ -117,7 +112,6 @@ public final class BotSession implements SavedBotSession {
                 this.setConnectionStatus(BotSession.BotConnectionStatus.DISCONNECTED);
                 return;
             }
-// https://t.me/pasterplace
 
             ClientConnection clientConnection = new ClientConnection(NetworkSide.CLIENTBOUND);
             ClientConnection.connect((InetSocketAddress)resolvedSocketAddress.get(), NetworkingBackend.remote(minecraftClient.options.shouldUseNativeTransport()), clientConnection)
@@ -136,7 +130,6 @@ public final class BotSession implements SavedBotSession {
             exception.printStackTrace();
         }
     }
-// https://t.me/pasterplace
 
     public void tickConnection() {
         if (this.isOfflineOrDisconnected() && this.reconnectAtMillis != 0L && System.currentTimeMillis() >= this.reconnectAtMillis) {
@@ -159,7 +152,6 @@ public final class BotSession implements SavedBotSession {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public boolean sendChatMessage(String message) {
@@ -179,7 +171,6 @@ public final class BotSession implements SavedBotSession {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public void disconnect(String reason) {
@@ -193,41 +184,34 @@ public final class BotSession implements SavedBotSession {
         this.keyBindingStateSnapshot.clear();
         this.setConnectionStatus(BotSession.BotConnectionStatus.DISCONNECTED);
     }
-// https://t.me/pasterplace
 
     public void disconnectFromServer() {
         this.disconnect("disconnect");
     }
-// https://t.me/pasterplace
 
     void setConnectionStatus(BotSession.BotConnectionStatus newStatus) {
         BotSession.BotConnectionStatus previousStatus = this.connectionStatus;
         this.connectionStatus = newStatus;
         DisconnectListenerRegistry.II1Il11l111II11IIl(this, previousStatus, newStatus);
     }
-// https://t.me/pasterplace
 
     void setJoinedSession(Joined joinedSession) {
         this.joinedSession = joinedSession;
     }
-// https://t.me/pasterplace
 
     boolean ownsSessionObject(Object sessionObject) {
         return this.joinedSession != null && this.joinedSession.isCameraEntity(sessionObject);
     }
-// https://t.me/pasterplace
 
     boolean hasPlayerControlContext() {
         return this.joinedSession != null && this.joinedSession.enterClientWorld();
     }
-// https://t.me/pasterplace
 
     void resetPlayerLoadedState() {
         if (this.joinedSession != null) {
             this.joinedSession.resetClientWorldState();
         }
     }
-// https://t.me/pasterplace
 
     void appendSessionHistory(String message) {
         synchronized (this.sessionHistory) {
@@ -238,7 +222,6 @@ public final class BotSession implements SavedBotSession {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public List<BotSessionLogEntry> getSessionHistory() {
@@ -246,7 +229,6 @@ public final class BotSession implements SavedBotSession {
             return List.copyOf(this.sessionHistory);
         }
     }
-// https://t.me/pasterplace
 
     void appendChatMessage(Text message) {
         if (message != null) {
@@ -257,12 +239,10 @@ public final class BotSession implements SavedBotSession {
             }
         }
     }
-// https://t.me/pasterplace
 
     List<Text> getChatMessages() {
         return this.chatMessages;
     }
-// https://t.me/pasterplace
 
     void handleDisconnection(String reason) {
         if (this.autoReconnectEnabled && !this.manuallyDisconnected && this.serverPort > 0) {
@@ -278,18 +258,15 @@ public final class BotSession implements SavedBotSession {
             MinecraftClient.getInstance().execute(() -> ClientChatLogger.l1I1IlllIlI("Bot " + this.username + " disconnected: " + reason));
         }
     }
-// https://t.me/pasterplace
 
     KeyBindingStateSnapshot getKeyBindingStateSnapshot() {
         return this.keyBindingStateSnapshot;
     }
-// https://t.me/pasterplace
 
     @Override
     public String getUsername() {
         return this.username;
     }
-// https://t.me/pasterplace
 
     @Override
     public String getServerAddress() {
@@ -297,40 +274,33 @@ public final class BotSession implements SavedBotSession {
         ? "No Server"
         : this.serverAddress + ":" + this.serverPort;
     }
-// https://t.me/pasterplace
 
     @Override
     public String getStatusName() {
         return this.connectionStatus.name().toLowerCase(Locale.ROOT);
     }
-// https://t.me/pasterplace
 
     @Override
     public BotSession.BotConnectionStatus getConnectionStatus() {
         return this.connectionStatus;
     }
-// https://t.me/pasterplace
 
     @Override
     public boolean isOnline() {
         return this.connectionStatus == BotSession.BotConnectionStatus.ONLINE;
     }
-// https://t.me/pasterplace
 
     public boolean isOfflineOrDisconnected() {
         return this.connectionStatus == BotSession.BotConnectionStatus.OFFLINE || this.connectionStatus == BotSession.BotConnectionStatus.DISCONNECTED;
     }
-// https://t.me/pasterplace
 
     public boolean hasOnlineStatus() {
         return this.isOnline();
     }
-// https://t.me/pasterplace
 
     public boolean isAutoReconnectEnabled() {
         return this.autoReconnectEnabled;
     }
-// https://t.me/pasterplace
 
     public void setAutoReconnectEnabled(boolean enabled) {
         this.autoReconnectEnabled = enabled;
@@ -338,12 +308,10 @@ public final class BotSession implements SavedBotSession {
             this.reconnectAtMillis = 0L;
         }
     }
-// https://t.me/pasterplace
 
     public ModuleProfile getModuleProfile() {
         return this.moduleProfile;
     }
-// https://t.me/pasterplace
 
     public List<String> getFormattedSessionHistory() {
         ArrayList formattedHistory = new ArrayList();
@@ -354,17 +322,14 @@ public final class BotSession implements SavedBotSession {
 
         return formattedHistory;
     }
-// https://t.me/pasterplace
 
     public ClientWorld getSessionWorld() {
         return this.getClientWorld();
     }
-// https://t.me/pasterplace
 
     public ClientPlayerEntity getPlayer() {
         return this.getSessionPlayer();
     }
-// https://t.me/pasterplace
 
     public String getDetailedStatus() {
         return switch (this.connectionStatus) {
@@ -386,58 +351,47 @@ public final class BotSession implements SavedBotSession {
             }
         };
     }
-// https://t.me/pasterplace
 
     public String getLastDisconnectReason() {
         return this.lastDisconnectReason;
     }
-// https://t.me/pasterplace
 
     public boolean isExcludedFromSavedSessionRegistry() {
         return this.excludedFromSavedSessionRegistry;
     }
-// https://t.me/pasterplace
 
     void setExcludedFromSavedSessionRegistry(boolean suppressed) {
         this.excludedFromSavedSessionRegistry = suppressed;
     }
-// https://t.me/pasterplace
 
     ClientWorld getClientWorld() {
         return this.joinedSession != null ? this.joinedSession.getClientWorld() : null;
     }
-// https://t.me/pasterplace
 
     ClientPlayerEntity getSessionPlayer() {
         return this.joinedSession != null ? this.joinedSession.getClientPlayer() : null;
     }
-// https://t.me/pasterplace
 
     Entity getCameraEntity() {
         return this.joinedSession != null ? this.joinedSession.getCameraEntity() : null;
     }
-// https://t.me/pasterplace
 
     ClientPlayerInteractionManager getInteractionManager() {
         return this.joinedSession != null ? this.joinedSession.getInteractionManager() : null;
     }
-// https://t.me/pasterplace
 
     Screen getCurrentScreen() {
         return this.joinedSession != null ? this.joinedSession.getCurrentScreen() : null;
     }
-// https://t.me/pasterplace
 
     boolean runOnSessionThread(Runnable runnable) {
         return this.joinedSession != null && this.joinedSession.runWithScreenRestored(runnable);
     }
-// https://t.me/pasterplace
 
     @Override
     public boolean hasActivePlayerSession() {
         return this.isOnline() && this.getClientWorld() != null && this.getCameraEntity() != null;
     }
-// https://t.me/pasterplace
 
     public long getScoreboardBalance() {
         ClientWorld clientWorld = this.getClientWorld();
@@ -449,7 +403,6 @@ public final class BotSession implements SavedBotSession {
         String scoreboardPlayerName = sessionPlayer != null ? sessionPlayer.getNameForScoreboard() : this.username;
         return dev.daamky.ScoreboardBalanceParser.findBalanceInScoreboard(clientWorld.getScoreboard(), scoreboardPlayerName);
     }
-// https://t.me/pasterplace
 
     public void configureTargetLobby(int lobbyNumber, String lobbyPassword) {
         this.targetLobbyNumber = lobbyNumber;
@@ -458,12 +411,10 @@ public final class BotSession implements SavedBotSession {
         this.connectionPhase = lobbyNumber > 0 ? BotSession.ConnectionPhase.AUTHENTICATING : BotSession.ConnectionPhase.IDLE;
         this.lastAuthenticationCommandAt = 0L;
     }
-// https://t.me/pasterplace
 
     public int getTargetLobbyNumber() {
         return this.targetLobbyNumber;
     }
-// https://t.me/pasterplace
 
     public boolean isConfiguredLobbyReady() {
         return this.connectionStatus == BotSession.BotConnectionStatus.ONLINE
@@ -471,7 +422,6 @@ public final class BotSession implements SavedBotSession {
         && this.getSessionPlayer() != null
         && System.currentTimeMillis() - this.lastLobbyNavigationAt > 3000L;
     }
-// https://t.me/pasterplace
 
     public void returnToServerSelector() {
         if (this.sendChatMessage("/hub")) {
@@ -482,18 +432,15 @@ public final class BotSession implements SavedBotSession {
             this.nextLobbyNavigationAt = this.lastLobbyNavigationAt + 4000L;
         }
     }
-// https://t.me/pasterplace
 
     void onGameJoinOrRespawn() {
         if (this.connectionPhase == BotSession.ConnectionPhase.IN_SERVER_LOBBY) {
             this.connectionPhase = BotSession.ConnectionPhase.SELECTING_SERVER;
             this.targetLobbyFound = false;
         }
-// https://t.me/pasterplace
 
         this.updateLobbyNavigationState();
     }
-// https://t.me/pasterplace
 
     void updateLobbyNavigationState() {
         this.lastLobbyNavigationAt = System.currentTimeMillis();
@@ -503,7 +450,6 @@ public final class BotSession implements SavedBotSession {
             this.connectionPhase = BotSession.ConnectionPhase.IN_SERVER_LOBBY;
         }
     }
-// https://t.me/pasterplace
 
     void handleServerMessage(String message) {
         if (message != null && !message.isBlank()) {
@@ -520,12 +466,10 @@ public final class BotSession implements SavedBotSession {
                 this.lastHandledScreenSyncId = -1;
                 this.nextLobbyNavigationAt = System.currentTimeMillis() + 5000L;
             }
-// https://t.me/pasterplace
 
             this.handleAuthenticationMessage(message);
         }
     }
-// https://t.me/pasterplace
 
     private void handleAuthenticationMessage(String message) {
         if (this.targetLobbyNumber > 0 && this.connectionPhase == BotSession.ConnectionPhase.AUTHENTICATING) {
@@ -545,7 +489,6 @@ public final class BotSession implements SavedBotSession {
             }
         }
     }
-// https://t.me/pasterplace
 
     void handleLobbySelection(ClientPlayerEntity clientPlayerEntity, ClientPlayerInteractionManager clientPlayerInteractionManager) {
         if (this.targetLobbyNumber > 0 && clientPlayerEntity != null && clientPlayerInteractionManager != null) {
@@ -603,7 +546,6 @@ public final class BotSession implements SavedBotSession {
             }
         }
     }
-// https://t.me/pasterplace
 
     private static int findMatchingSlot(ScreenHandler containerScreenHandler, Predicate<String> namePredicate) {
         int containerSlotCount = Math.max(0, containerScreenHandler.slots.size() - 36);
@@ -617,7 +559,6 @@ public final class BotSession implements SavedBotSession {
 
         return -1;
     }
-// https://t.me/pasterplace
 
     private enum ConnectionPhase {
         IDLE,
@@ -630,7 +571,6 @@ public final class BotSession implements SavedBotSession {
             return new BotSession.ConnectionPhase[]{IDLE, AUTHENTICATING, SELECTING_SERVER, IN_SERVER_LOBBY};
         }
     }
-// https://t.me/pasterplace
 
     public enum BotConnectionStatus {
         OFFLINE("Оффлайн"),

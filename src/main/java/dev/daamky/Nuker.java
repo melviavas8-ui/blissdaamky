@@ -12,18 +12,15 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class Nuker extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final FloatSetting radiusSetting = new FloatSetting("Радиус", 4.0F, 1.0F, 5.5F, 0.5F, "бл.");
    private final BooleanSetting avoidBreakingBelowPlayerSetting = new BooleanSetting("Не ломать под ногами", true);
    private final BooleanSetting rotationSetting = new BooleanSetting("Ротация", true);
    private BlockPos targetBlockPos;
-// https://t.me/pasterplace
 
    public Nuker() {
       super("Nuker", "Ломает блоки вокруг игрока", ModuleCategory.PLAYER);
       this.addSettings(this.radiusSetting, this.avoidBreakingBelowPlayerSetting, this.rotationSetting);
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -50,7 +47,6 @@ public final class Nuker extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -65,7 +61,6 @@ public final class Nuker extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private BlockPos findTargetBlock() {
       BlockPos playerBlockPos = CLIENT.player.getBlockPos();
@@ -87,11 +82,9 @@ public final class Nuker extends ModuleStructure {
             }
          }
       }
-// https://t.me/pasterplace
 
       return nearestBlockPos;
    }
-// https://t.me/pasterplace
 
    private boolean canBreakBlock(BlockPos targetBlockPos) {
       BlockState blockState = CLIENT.world.getBlockState(targetBlockPos);
@@ -103,7 +96,6 @@ public final class Nuker extends ModuleStructure {
             : CLIENT.player.getEyePos().distanceTo(Vec3d.ofCenter(targetBlockPos)) <= this.radiusSetting.getValue().floatValue();
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override

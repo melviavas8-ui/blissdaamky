@@ -14,7 +14,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class Speed extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiOptionSetting movementMode = new MultiOptionSetting("Режим", "Collision");
    private final FloatSetting vanillaSpeed = new FloatSetting("Скорость", 1.2F, 0.3F, 3.0F, 0.05F);
    private final FloatSetting reallyWorld2Boost = new FloatSetting("Сила буста", 0.08F, 0.01F, 0.12F, 0.005F);
@@ -30,7 +29,6 @@ public final class Speed extends ModuleStructure {
    private int verticalCollisionTicks;
    private double smoothedVelocityX;
    private double smoothedVelocityZ;
-// https://t.me/pasterplace
 
    public Speed() {
       super("Speed", "Ускоряет передвижение", ModuleCategory.MOVEMENT);
@@ -56,13 +54,11 @@ public final class Speed extends ModuleStructure {
          this.requireElytra
       );
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return this.movementMode.getValue();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -80,7 +76,6 @@ public final class Speed extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void handleMovementUpdate(EventUpdate eventUpdate) {
@@ -133,7 +128,6 @@ public final class Speed extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    public static float getReallyWorldSpeedMultiplier() {
       Speed speedModule = (Speed)ModuleRegistry.getInstance().getModuleByClass(Speed.class);
@@ -144,7 +138,6 @@ public final class Speed extends ModuleStructure {
          ? 1.7F
          : 1.0F;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -154,7 +147,6 @@ public final class Speed extends ModuleStructure {
       this.smoothedVelocityX = 0.0;
       this.smoothedVelocityZ = 0.0;
    }
-// https://t.me/pasterplace
 
    private void applyCollisionSpeed() {
       if (!CLIENT.player.getAbilities().flying
@@ -190,7 +182,6 @@ public final class Speed extends ModuleStructure {
          this.resetCollisionVelocity();
       }
    }
-// https://t.me/pasterplace
 
    private LivingEntity findCollisionTarget() {
       Box searchBounds = CLIENT.player.getBoundingBox().expand(this.targetSearchRadius.getValue().floatValue());
@@ -214,17 +205,14 @@ public final class Speed extends ModuleStructure {
             }
          }
       }
-// https://t.me/pasterplace
 
       return nearestTarget;
    }
-// https://t.me/pasterplace
 
    private void resetCollisionVelocity() {
       this.smoothedVelocityX = 0.0;
       this.smoothedVelocityZ = 0.0;
    }
-// https://t.me/pasterplace
 
    private void applyReallyWorld2Boost() {
       Box searchBounds = CLIENT.player.getBoundingBox().expand(1.0);

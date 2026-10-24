@@ -3,7 +3,6 @@ package dev.daamky;
 import net.minecraft.client.gui.DrawContext;
 
 public final class ClickGuiSidebar {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final String[] TAB_LABELS = new String[]{"Modules", "Visuals", "Client", "Social"};
    private static final ModuleCategory[][] TAB_CATEGORIES = new ModuleCategory[][]{
       {ModuleCategory.COMBAT, ModuleCategory.MOVEMENT, ModuleCategory.PLAYER, ModuleCategory.WORLD},
@@ -23,12 +22,10 @@ public final class ClickGuiSidebar {
    private float panelTop;
    private float panelWidth;
    private float frameDeltaSeconds = 0.016F;
-// https://t.me/pasterplace
 
    public void setFrameDeltaSeconds(float frameDeltaSeconds) {
       this.frameDeltaSeconds = frameDeltaSeconds;
    }
-// https://t.me/pasterplace
 
    public void render(DrawContext drawContext, float mouseX, float mouseY, float sidebarX, float sidebarY, float sidebarWidth, float animationProgress) {
       if (!(animationProgress <= 0.0F)) {
@@ -43,7 +40,6 @@ public final class ClickGuiSidebar {
                .color(Accent.getDeepTextColor((int)(150.0F * animationProgress)))
                .render(drawContext);
             rowY += 11.0F;
-// https://t.me/pasterplace
 
             for (ModuleCategory category : TAB_CATEGORIES[tabIndex]) {
                int categoryOrdinal = category.ordinal();
@@ -115,7 +111,6 @@ public final class ClickGuiSidebar {
          }
       }
    }
-// https://t.me/pasterplace
 
    public boolean handleClick(float mouseX, float mouseY, int button) {
       if (button != 0) {
@@ -138,17 +133,14 @@ public final class ClickGuiSidebar {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    public ModuleCategory getSelectedCategory() {
       return this.selectedCategory;
    }
-// https://t.me/pasterplace
 
    public ModuleCategory getPreviousCategory() {
       return this.previousCategory;
    }
-// https://t.me/pasterplace
 
    public ModuleCategory getDisplayCategory() {
       if (this.selectedCategory != null) {
@@ -157,7 +149,6 @@ public final class ClickGuiSidebar {
          return this.previousCategory != null ? this.previousCategory : ModuleCategory.COMBAT;
       }
    }
-// https://t.me/pasterplace
 
    public static String getTabName(ModuleCategory moduleCategory) {
       for (int tabIndex = 0; tabIndex < TAB_LABELS.length; tabIndex++) {
@@ -170,7 +161,6 @@ public final class ClickGuiSidebar {
 
       return "";
    }
-// https://t.me/pasterplace
 
    public void setCategory(ModuleCategory moduleCategory) {
       if (moduleCategory != null) {

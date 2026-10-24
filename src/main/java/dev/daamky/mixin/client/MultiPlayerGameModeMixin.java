@@ -25,7 +25,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ClientPlayerInteractionManager.class)
 public abstract class MultiPlayerGameModeMixin {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Inject(method = "breakBlock(Lnet/minecraft/util/math/BlockPos;)Z", at = @At("HEAD"))
    private void daamky$onDestroyBlock(BlockPos blockPosition, CallbackInfoReturnable<Boolean> callbackInfo) {
       ClientWorld clientWorld = MinecraftClient.getInstance().world;
@@ -33,7 +32,6 @@ public abstract class MultiPlayerGameModeMixin {
          AutoQuest.onBlockMined(clientWorld.getBlockState(blockPosition));
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "attackEntity(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/entity/Entity;)V", at = @At("HEAD"), cancellable = true)
    private void daamky$onAttackHead(PlayerEntity attackingPlayer, Entity targetEntity, CallbackInfo callbackInfo) {
@@ -45,7 +43,6 @@ public abstract class MultiPlayerGameModeMixin {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Inject(
       method = "interactBlock(Lnet/minecraft/client/network/ClientPlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/hit/BlockHitResult;)Lnet/minecraft/util/ActionResult;",
@@ -63,7 +60,6 @@ public abstract class MultiPlayerGameModeMixin {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "attackEntity(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/entity/Entity;)V", at = @At("TAIL"))
    private void daamky$onAttackTail(PlayerEntity attackingPlayer, Entity targetEntity, CallbackInfo callbackInfo) {
@@ -71,7 +67,6 @@ public abstract class MultiPlayerGameModeMixin {
          ClientInitializer.getEventBus().post(new EventAttack(targetEntity, true));
       }
    }
-// https://t.me/pasterplace
 
    @Inject(
       method = "interactItem(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;",

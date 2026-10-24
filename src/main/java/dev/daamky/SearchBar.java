@@ -6,7 +6,6 @@ import net.minecraft.client.input.CharInput;
 import net.minecraft.client.input.KeyInput;
 
 public final class SearchBar {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private float searchBarX = Float.MAX_VALUE;
    private static final float SEARCH_BAR_HEIGHT = 11.5F;
    private static final float SEARCH_BAR_WIDTH = 80.0F;
@@ -29,12 +28,10 @@ public final class SearchBar {
    private float clearButtonY;
    private float clearButtonSize;
    private float frameDeltaSeconds = 0.016F;
-// https://t.me/pasterplace
 
    public float getSearchBarX() {
       return this.searchBarX;
    }
-// https://t.me/pasterplace
 
    public void updateVisibilityAnimation(float frameDeltaSeconds) {
       this.frameDeltaSeconds = frameDeltaSeconds;
@@ -47,7 +44,6 @@ public final class SearchBar {
          this.visibilityProgress = 0.0F;
       }
    }
-// https://t.me/pasterplace
 
    public void renderSearchBar(
       DrawContext drawContext, float mouseX, float mouseY, float panelX, float panelY, float panelWidth, float panelHeight, float opacity
@@ -150,7 +146,6 @@ public final class SearchBar {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void renderCaret(DrawContext drawContext, float caretX, float caretY, int caretColor, float opacity) {
       if (!(this.visibilityProgress <= 0.01F)) {
@@ -166,7 +161,6 @@ public final class SearchBar {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void ensureCaretVisible(float availableTextWidth) {
       this.caretIndex = Math.clamp(this.caretIndex, 0, this.searchText.length());
@@ -188,11 +182,9 @@ public final class SearchBar {
          this.visibleTextStartIndex--;
       }
    }
-// https://t.me/pasterplace
 
    private int findWordStartBeforeCaret(int caretIndex) {
       int wordStartIndex = Math.clamp(caretIndex, 0, this.searchText.length());
-// https://t.me/pasterplace
 
       while (wordStartIndex > 0 && this.searchText.charAt(wordStartIndex - 1) == ' ') {
          wordStartIndex--;
@@ -204,7 +196,6 @@ public final class SearchBar {
 
       return wordStartIndex;
    }
-// https://t.me/pasterplace
 
    private int findWordEndAfterCaret(int caretIndex) {
       int scanIndex = Math.clamp(caretIndex, 0, this.searchText.length());
@@ -220,7 +211,6 @@ public final class SearchBar {
 
       return scanIndex;
    }
-// https://t.me/pasterplace
 
    private void replaceTextRange(int startIndex, int endIndex, String replacementText) {
       int rangeStart = Math.clamp(Math.min(startIndex, endIndex), 0, this.searchText.length());
@@ -229,7 +219,6 @@ public final class SearchBar {
       this.caretIndex = rangeStart + replacementText.length();
       this.lastInputMillis = System.currentTimeMillis();
    }
-// https://t.me/pasterplace
 
    private void moveCaretFromMouse(float mouseX) {
       this.visibleTextStartIndex = Math.clamp(this.visibleTextStartIndex, 0, this.searchText.length());
@@ -248,7 +237,6 @@ public final class SearchBar {
       this.caretIndex = nearestCaretIndex;
       this.lastInputMillis = System.currentTimeMillis();
    }
-// https://t.me/pasterplace
 
    public boolean onMouseClick(float mouseX, float mouseY, int button) {
       if (button == 0) {
@@ -272,14 +260,12 @@ public final class SearchBar {
             this.moveCaretFromMouse(mouseX);
             return true;
          }
-// https://t.me/pasterplace
 
          this.updateEnabledState(false);
       }
 
       return false;
    }
-// https://t.me/pasterplace
 
    public boolean onKeyInput(KeyInput keyInput) {
       if (keyInput.hasCtrl() && keyInput.getKeycode() == 70) {
@@ -362,7 +348,6 @@ public final class SearchBar {
                   }
                }
             }
-// https://t.me/pasterplace
 
             return true;
          } else {
@@ -370,7 +355,6 @@ public final class SearchBar {
          }
       }
    }
-// https://t.me/pasterplace
 
    public boolean onCharacterInput(CharInput charInput) {
       if (!this.enabled) {
@@ -385,12 +369,10 @@ public final class SearchBar {
          }
       }
    }
-// https://t.me/pasterplace
 
    public String getSearchText() {
       return this.searchText;
    }
-// https://t.me/pasterplace
 
    public void setSearchText(String searchText) {
       this.searchText = searchText == null ? "" : searchText;
@@ -398,17 +380,14 @@ public final class SearchBar {
       this.visibleTextStartIndex = 0;
       this.lastInputMillis = System.currentTimeMillis();
    }
-// https://t.me/pasterplace
 
    public boolean isEnabled() {
       return this.enabled;
    }
-// https://t.me/pasterplace
 
    public void setEnabled(boolean enabled) {
       this.updateEnabledState(enabled);
    }
-// https://t.me/pasterplace
 
    private void updateEnabledState(boolean enabled) {
       if (this.enabled != enabled) {

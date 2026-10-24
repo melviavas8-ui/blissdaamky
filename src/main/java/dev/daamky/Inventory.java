@@ -5,26 +5,22 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 
 public final class Inventory extends HudElementPosition {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float SLOT_SIZE = 11.0F;
    private static final float SLOT_GAP = 1.5F;
    private static final float PANEL_INNER_PADDING = 5.0F;
    private static final float HEADER_HEIGHT = 15.0F;
    private final float[] slotAnimationProgress = new float[27];
-// https://t.me/pasterplace
 
    public Inventory() {
       super("Inventory", "inventory", 9999.0F, 9999.0F);
       this.elementWidth = 121.0F;
       this.elementHeight = 59.0F;
    }
-// https://t.me/pasterplace
 
    @Override
    public boolean isVisibleInCurrentScreen(boolean isEditorPreview) {
       return CLIENT.player != null;
    }
-// https://t.me/pasterplace
 
    @Override
    public void updateAnimation(float deltaTime) {
@@ -38,7 +34,6 @@ public final class Inventory extends HudElementPosition {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Override
    public void render(HudRenderContext renderContext, float opacity) {
@@ -91,7 +86,6 @@ public final class Inventory extends HudElementPosition {
                if (opacity > 0.4F) {
                   renderContext.postRenderCallbacks().add(() -> BrokkeIcons.drawItemStack(drawContext, renderedItemCopy, renderedItemX, renderedItemY, renderedItemSize));
                }
-// https://t.me/pasterplace
 
                if (slotItem.getCount() > 1) {
                   String stackCountText = String.valueOf(slotItem.getCount());

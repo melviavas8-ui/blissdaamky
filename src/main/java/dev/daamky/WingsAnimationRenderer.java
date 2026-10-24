@@ -22,22 +22,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import org.joml.Vector3f;
 
 public final class WingsAnimationRenderer {
-    private static final String p8fb345b6 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final WingsAnimationRenderer II1Il11l111II11IIl = new WingsAnimationRenderer();
     private static final long l1I1IlllIlI = System.currentTimeMillis();
     private static final float IllI1l1l1 = 0.95f;
     private static final Vector3f l1lll11l1l = new Vector3f(0.35f, 1.0f, 0.55f).normalize();
     private final Map<Integer, PetAnimationState> animationStates = new HashMap<>();
-// https://t.me/pasterplace
 
     private WingsAnimationRenderer() {
     }
-// https://t.me/pasterplace
 
     public static WingsAnimationRenderer II1Il11l111II11IIl() {
         return II1Il11l111II11IIl;
     }
-// https://t.me/pasterplace
 
     @EventTarget
     public void II1Il11l111II11IIl(EventRender3D eventRender3D) {

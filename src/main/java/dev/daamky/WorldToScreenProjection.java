@@ -10,7 +10,6 @@ import org.joml.Quaternionf;
 import org.joml.Vector4f;
 
 public final class WorldToScreenProjection {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final Matrix4f PROJECTION_MATRIX = new Matrix4f();
     private static final Matrix4f VIEW_MATRIX = new Matrix4f();
     private static final Matrix4f VIEW_PROJECTION_MATRIX = new Matrix4f();
@@ -18,34 +17,28 @@ public final class WorldToScreenProjection {
     private static boolean projectionMatrixUpdatePending;
     private static long lastProjectionMatrixUpdateTick = -1L;
     private static long projectionMatrixUpdateTick;
-// https://t.me/pasterplace
 
     private WorldToScreenProjection() {
     }
-// https://t.me/pasterplace
 
     public static void setProjectionMatrix(Matrix4f matrix4f) {
         PROJECTION_MATRIX.set(matrix4f);
 
     }
-// https://t.me/pasterplace
 
     public static void markProjectionMatrixUpdated() {
         projectionMatrixUpdateTick++;
     }
-// https://t.me/pasterplace
 
     public static float getTickDelta() {
         MinecraftClient client = MinecraftClient.getInstance();
         return client.getRenderTickCounter().getTickProgress(false);
     }
-// https://t.me/pasterplace
 
     public static Vec3d getCameraPosition() {
         Camera camera = MinecraftClient.getInstance().gameRenderer.getCamera();
         return camera.getCameraPos();
     }
-// https://t.me/pasterplace
 
     private static boolean updateViewProjectionMatrix() {
         MinecraftClient client = MinecraftClient.getInstance();
@@ -67,12 +60,10 @@ public final class WorldToScreenProjection {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     public static WorldToScreenProjection.ScreenPoint project(Vec3d worldPosition) {
         return project(worldPosition.x, worldPosition.y, worldPosition.z);
     }
-// https://t.me/pasterplace
 
     public static WorldToScreenProjection.ScreenPoint project(double worldX, double worldY, double worldZ) {
         if (!updateViewProjectionMatrix()) {
@@ -90,12 +81,10 @@ public final class WorldToScreenProjection {
         float screenY = (1.0F - normalizedY) * 0.5F * GuiEventRenderer.getScreenHeight();
         return new WorldToScreenProjection.ScreenPoint(screenX, screenY, clipW, inFront);
     }
-// https://t.me/pasterplace
 
     public static Vec3d getInterpolatedPosition(Entity entity) {
         return entity.getLerpedPos(getTickDelta());
     }
-// https://t.me/pasterplace
 
     public static WorldToScreenProjection.ScreenBounds getEntityScreenBounds(Entity entity, double boundsExpansion) {
         Vec3d interpolatedPosition = getInterpolatedPosition(entity);
@@ -122,7 +111,6 @@ public final class WorldToScreenProjection {
 
         return new WorldToScreenProjection.ScreenBounds(minScreenX, minScreenY, maxScreenX - minScreenX, maxScreenY - minScreenY);
     }
-// https://t.me/pasterplace
 
     public static boolean isInsideViewport(WorldToScreenProjection.ScreenPoint screenPoint, float screenMargin) {
         return screenPoint != null
@@ -132,7 +120,6 @@ public final class WorldToScreenProjection {
         && screenPoint.x() < GuiEventRenderer.getScreenWidth() + screenMargin
         && screenPoint.y() < GuiEventRenderer.getScreenHeight() + screenMargin;
     }
-// https://t.me/pasterplace
 
     public record ScreenPoint(float x, float y, float depth, boolean inFront) {
 
@@ -143,7 +130,6 @@ public final class WorldToScreenProjection {
             this.inFront = inFront;
         }
     }
-// https://t.me/pasterplace
 
     public record ScreenBounds(float left, float top, float right, float bottom) {
 
@@ -161,7 +147,6 @@ public final class WorldToScreenProjection {
         public float top() {
             return this.top + this.bottom * 0.5F;
         }
-// https://t.me/pasterplace
 
         public float right() {
             return this.left;

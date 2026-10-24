@@ -16,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ChatInputSuggestor.class)
 public abstract class CommandSuggestionsMixin {
-    private static final String p3967d4fb = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Shadow
    @Final
    private TextFieldWidget textField;
@@ -27,15 +26,12 @@ public abstract class CommandSuggestionsMixin {
    private CompletableFuture<Suggestions> pendingSuggestions;
    @Shadow
    private boolean completingSuggestions;
-// https://t.me/pasterplace
 
    @Shadow
    public abstract void show(boolean visible);
-// https://t.me/pasterplace
 
    @Shadow
    public abstract void clearWindow();
-// https://t.me/pasterplace
 
    @Inject(method = "refresh", at = @At("HEAD"), cancellable = true)
    private void daamky$clientCommands(CallbackInfo callbackInfo) {
@@ -46,7 +42,6 @@ public abstract class CommandSuggestionsMixin {
             this.textField.setSuggestion(null);
             this.clearWindow();
          }
-// https://t.me/pasterplace
 
          this.messages.clear();
          int cursorIndex = this.textField.getCursor();

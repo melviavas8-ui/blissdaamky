@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class ModuleToggleProfileManager {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final String DEFAULT_PROFILE_NAME = "__main__";
     private static final ConcurrentHashMap<String, Set<String>> enabledModulesByProfile = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<String, Set<String>> callbackEnabledModulesByProfile = new ConcurrentHashMap<>();
@@ -29,7 +28,6 @@ public final class ModuleToggleProfileManager {
         public void switchActiveProfile(String profileName) {
             ModuleToggleProfileManager.switchActiveProfile(profileName);
         }
-// https://t.me/pasterplace
 
         @Override
         public void clearProfileCallbackState(String profileName) {
@@ -61,23 +59,19 @@ public final class ModuleToggleProfileManager {
             return ModuleToggleProfileManager.isModuleEnabledInScope(moduleStructure);
         }
     };
-// https://t.me/pasterplace
 
     private ModuleToggleProfileManager() {
     }
-// https://t.me/pasterplace
 
     public static ModuleToggleProfileContext getContext() {
         return PROFILE_CONTEXT;
     }
-// https://t.me/pasterplace
 
     public static void saveActiveProfileState() {
         if (ensureInitialized()) {
             enabledModulesByProfile.put(activeProfileName, snapshotCurrentEnabledModuleNames());
         }
     }
-// https://t.me/pasterplace
 
     public static void resetToDefaultProfile() {
         if (ensureInitialized()) {
@@ -91,7 +85,6 @@ public final class ModuleToggleProfileManager {
             applyProfile(activeProfileName);
         }
     }
-// https://t.me/pasterplace
 
     public static void switchActiveProfile(String profileName) {
         if (ensureInitialized() && profileName != null && !profileName.isBlank()) {
@@ -101,7 +94,6 @@ public final class ModuleToggleProfileManager {
             applyProfile(activeProfileName);
         }
     }
-// https://t.me/pasterplace
 
     public static void runWithProfile(String profileName, Runnable task) {
         if (ensureInitialized() && profileName != null && !profileName.isBlank()) {
@@ -140,14 +132,12 @@ public final class ModuleToggleProfileManager {
             task.run();
         }
     }
-// https://t.me/pasterplace
 
     public static void clearProfileCallbackState(String profileName) {
         if (profileName != null && !profileName.isBlank()) {
             callbackEnabledModulesByProfile.remove(normalizeProfileName(profileName));
         }
     }
-// https://t.me/pasterplace
 
     public static void removeProfileState(String profileName) {
         if (profileName != null && !profileName.isBlank()) {
@@ -156,36 +146,29 @@ public final class ModuleToggleProfileManager {
             callbackEnabledModulesByProfile.remove(normalizedProfileName);
         }
     }
-// https://t.me/pasterplace
 
     public static String getScopedProfileName() {
         Object profileNameOverride = scopedProfileName.get();
         return (String)(profileNameOverride != null ? profileNameOverride : "__main__");
     }
-// https://t.me/pasterplace
 
     public static String getActiveProfileName() {
         Object profileNameOverride = scopedProfileName.get();
         return (String)(profileNameOverride != null ? profileNameOverride : activeProfileName);
     }
-// https://t.me/pasterplace
 
     public static String getDefaultProfileName() {
         return "__main__";
     }
-// https://t.me/pasterplace
 
     public static boolean isProfileAvailable(String profileName) {
-// https://t.me/pasterplace
 
         return false;
     }
-// https://t.me/pasterplace
 
     public static boolean isProfileScopeActive() {
         return scopedProfileName.get() != null;
     }
-// https://t.me/pasterplace
 
     public static boolean isModuleEnabledInScope(ModuleStructure moduleStructure) {
         if (!isProfileManagedModule(moduleStructure)) {
@@ -195,7 +178,6 @@ public final class ModuleToggleProfileManager {
         Object profileNameOverride = scopedProfileName.get();
         return profileNameOverride == null ? moduleStructure.getEnabledState() : getOrCreateProfileModuleSet((String)profileNameOverride).contains(getProfileModuleKey(moduleStructure));
     }
-// https://t.me/pasterplace
 
     public static boolean isModuleEnabledInProfile(String profileName, ModuleStructure moduleStructure) {
         if (profileName != null && ensureInitialized()) {
@@ -205,7 +187,6 @@ public final class ModuleToggleProfileManager {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     public static void setModuleEnabledInProfile(String profileName, ModuleStructure moduleStructure, boolean enabled) {
         if (profileName != null && ensureInitialized() && isProfileManagedModule(moduleStructure)) {
@@ -226,33 +207,27 @@ public final class ModuleToggleProfileManager {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static Set<String> getEnabledModuleNames(String profileName) {
         return Set.copyOf(getOrCreateProfileModuleSet(normalizeProfileName(profileName)));
     }
-// https://t.me/pasterplace
 
     public static boolean isProfileManagedModule(ModuleStructure module) {
         ModuleCategory category = module.getCategory();
         return category != ModuleCategory.RENDER && category != ModuleCategory.THEMES;
     }
-// https://t.me/pasterplace
 
     private static String getProfileModuleKey(ModuleStructure module) {
         return module.getName().toLowerCase(Locale.ROOT);
     }
-// https://t.me/pasterplace
 
     private static void applyProfile(String profileName) {
         applyProfile(profileName, ModuleRegistry.getInstance().getModules(), true);
     }
-// https://t.me/pasterplace
 
     private static Set<String> snapshotCurrentEnabledModuleNames() {
         return collectEnabledModuleNames(ModuleRegistry.getInstance().getModules());
     }
-// https://t.me/pasterplace
 
     private static Set<String> collectEnabledModuleNames(List<ModuleStructure> modules) {
         HashSet enabledModuleNames = new HashSet(Math.max(16, (int)(modules.size() / 0.75F) + 1));
@@ -265,12 +240,10 @@ public final class ModuleToggleProfileManager {
 
         return enabledModuleNames;
     }
-// https://t.me/pasterplace
 
     private static void applyProfile(String profileName, List<ModuleStructure> modules) {
         applyProfile(profileName, modules, false);
     }
-// https://t.me/pasterplace
 
     private static void applyProfile(String profileName, List<ModuleStructure> modules, boolean invokeCallbacks) {
         Set enabledModuleNames = getOrCreateProfileModuleSet(profileName);
@@ -286,7 +259,6 @@ public final class ModuleToggleProfileManager {
             }
         }
     }
-// https://t.me/pasterplace
 
     private static void invokeProfileEnableCallbacks(String profileName, List<ModuleStructure> modules) {
          Set<String> profileEnabledModules = getOrCreateProfileModuleSet(profileName);
@@ -315,12 +287,10 @@ public final class ModuleToggleProfileManager {
             }
         }
     }
-// https://t.me/pasterplace
 
     private static Set<String> getOrCreateProfileModuleSet(String profileName) {
         return enabledModulesByProfile.computeIfAbsent(profileName, profileKey -> ConcurrentHashMap.newKeySet());
     }
-// https://t.me/pasterplace
 
     private static void pruneProfileCallbackModules(String profileName, Set<String> enabledModuleNames) {
          Set<String> callbackEnabledModules = callbackEnabledModulesByProfile.get(profileName);
@@ -331,14 +301,12 @@ public final class ModuleToggleProfileManager {
             }
         }
     }
-// https://t.me/pasterplace
 
     private static void restoreModuleEnabledStates(List<ModuleStructure> modules, boolean[] previousEnabledStates) {
         for (int moduleIndex = 0; moduleIndex < previousEnabledStates.length; moduleIndex++) {
             ((ModuleStructure)modules.get(moduleIndex)).setEnabledWithoutCallbacks(previousEnabledStates[moduleIndex]);
         }
     }
-// https://t.me/pasterplace
 
     private static boolean ensureInitialized() {
         ModuleRegistry moduleRegistry = ModuleRegistry.getInstance();
@@ -353,7 +321,6 @@ public final class ModuleToggleProfileManager {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     private static String normalizeProfileName(String profileName) {
         return profileName.toLowerCase(Locale.ROOT);

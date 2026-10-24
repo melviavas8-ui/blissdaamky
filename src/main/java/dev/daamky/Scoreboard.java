@@ -19,7 +19,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.ColorHelper;
 
 public final class Scoreboard extends HudElementPosition {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final Comparator<ScoreboardEntry> SCORE_ENTRY_ORDER = Comparator.comparing(ScoreboardEntry::value)
       .reversed()
       .thenComparing(ScoreboardEntry::owner, String.CASE_INSENSITIVE_ORDER);
@@ -35,20 +34,17 @@ public final class Scoreboard extends HudElementPosition {
    private final List<Scoreboard.ScoreboardLayout> scoreboardRows = new ArrayList<>();
    private float panelWidth = 120.0F;
    private float panelHeight = 30.0F;
-// https://t.me/pasterplace
 
    public Scoreboard() {
       super("Scoreboard", "scoreboard", 9999.0F, 9999.0F);
       this.elementWidth = this.panelWidth;
       this.elementHeight = this.panelHeight;
    }
-// https://t.me/pasterplace
 
    @Override
    public void clampPositionToScreen(float screenWidth, float screenHeight) {
       this.setPosition(screenWidth - this.elementWidth - 6.0F, screenHeight * 0.5F - this.elementHeight * 0.5F);
    }
-// https://t.me/pasterplace
 
    public static ScoreboardObjective getDisplayedObjective() {
       if (CLIENT.world != null && CLIENT.player != null) {
@@ -67,7 +63,6 @@ public final class Scoreboard extends HudElementPosition {
          return null;
       }
    }
-// https://t.me/pasterplace
 
    @Override
    public void updateAnimation(float tickDelta) {
@@ -95,7 +90,6 @@ public final class Scoreboard extends HudElementPosition {
       }
 
       float contentWidth = this.headerWidth;
-// https://t.me/pasterplace
 
       for (Object scoreboardRow : this.scoreboardRows) {
          contentWidth = Math.max(
@@ -104,7 +98,6 @@ public final class Scoreboard extends HudElementPosition {
                + (((Scoreboard.ScoreboardLayout)scoreboardRow).scoreWidth() > 0.0F ? 12.0F + ((Scoreboard.ScoreboardLayout)scoreboardRow).scoreWidth() : 0.0F)
          );
       }
-// https://t.me/pasterplace
 
       float targetPanelWidth = 14.0F + Math.max(80.0F, contentWidth);
       float targetPanelHeight = 18.0F + (this.scoreboardRows.isEmpty() ? 0.0F : 4.0F + this.scoreboardRows.size() * 8.0F);
@@ -113,13 +106,11 @@ public final class Scoreboard extends HudElementPosition {
       this.elementWidth = this.panelWidth;
       this.elementHeight = this.panelHeight;
    }
-// https://t.me/pasterplace
 
    @Override
    public boolean isVisibleInCurrentScreen(boolean chatScreenOpen) {
       return chatScreenOpen || !this.headerEntries.isEmpty();
    }
-// https://t.me/pasterplace
 
    @Override
    public void render(HudRenderContext renderContext, float visibilityAlpha) {
@@ -162,7 +153,6 @@ public final class Scoreboard extends HudElementPosition {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static void renderEntries(HudRenderContext renderContext, List<Scoreboard.RenderedScoreboardEntry> renderedEntries, float x, float y, float alpha) {
       DrawContext drawContext = renderContext.drawContext();
@@ -199,7 +189,6 @@ public final class Scoreboard extends HudElementPosition {
          cursorX += ((Scoreboard.RenderedScoreboardEntry)renderedEntry).width();
       }
    }
-// https://t.me/pasterplace
 
    private static float measureRenderedEntries(List<Scoreboard.RenderedScoreboardEntry> renderedEntries) {
       float totalWidth = 0.0F;
@@ -210,7 +199,6 @@ public final class Scoreboard extends HudElementPosition {
 
       return totalWidth;
    }
-// https://t.me/pasterplace
 
    private static List<Scoreboard.RenderedScoreboardEntry> toRenderedEntries(Text sourceText) {
       ArrayList renderedEntries = new ArrayList();
@@ -226,7 +214,6 @@ public final class Scoreboard extends HudElementPosition {
       }, Style.EMPTY);
       return renderedEntries;
    }
-// https://t.me/pasterplace
 
    private static void appendFormattedText(List<Scoreboard.RenderedScoreboardEntry> renderedEntries, String formattedText, int initialArgbColor, int defaultArgbColor, Style style) {
       StringBuilder segmentBuffer = new StringBuilder();
@@ -251,7 +238,6 @@ public final class Scoreboard extends HudElementPosition {
 
       appendTextSegments(renderedEntries, segmentBuffer, currentArgbColor, style);
    }
-// https://t.me/pasterplace
 
    private static void appendTextSegments(List<Scoreboard.RenderedScoreboardEntry> renderedEntries, StringBuilder textBuffer, int argbColor, Style style) {
       if (!textBuffer.isEmpty()) {
@@ -280,7 +266,6 @@ public final class Scoreboard extends HudElementPosition {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static Scoreboard.RenderedScoreboardEntry createRenderedEntry(String segmentText, int argbColor, Style style, boolean useMinecraftFont) {
       float renderedWidth = useMinecraftFont
@@ -288,7 +273,6 @@ public final class Scoreboard extends HudElementPosition {
          : BrokkeIcons.measureTextWidth(segmentText, 5.7F);
       return new Scoreboard.RenderedScoreboardEntry(segmentText, argbColor, style, useMinecraftFont, renderedWidth * 1.25F);
    }
-// https://t.me/pasterplace
 
    private record ScoreboardLayout(List<Scoreboard.RenderedScoreboardEntry> nameLines, List<Scoreboard.RenderedScoreboardEntry> scoreLines, float nameWidth, float scoreWidth) {
 
@@ -299,7 +283,6 @@ public final class Scoreboard extends HudElementPosition {
          this.scoreWidth = scoreWidth;
       }
    }
-// https://t.me/pasterplace
 
    private record RenderedScoreboardEntry(String segmentText, int argbColor, Style style, boolean useMinecraftFont, float width) {
 

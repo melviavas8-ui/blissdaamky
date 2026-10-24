@@ -19,18 +19,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
-    private static final String p5b4a2443 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Inject(method = "jump()V", at = @At("HEAD"))
    private void daamky$onJumpFromGround(CallbackInfo callbackInfo) {
       JumpCircle.addCircleForLocalPlayer((LivingEntity)(Object)this);
    }
-// https://t.me/pasterplace
 
    @ModifyExpressionValue(method = "jump()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getYaw()F"))
    private float daamky$jumpYaw(float yaw) {
       return (Object)this == MinecraftClient.getInstance().player ? RotationPriorityManager.getInstance().resolveYaw(yaw) : yaw;
    }
-// https://t.me/pasterplace
 
    @Inject(method = "tickCramming()V", at = @At("HEAD"), cancellable = true)
    private void daamky$noPush(CallbackInfo callbackInfo) {
@@ -38,7 +35,6 @@ public abstract class LivingEntityMixin {
          callbackInfo.cancel();
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "calcGlidingVelocity", at = @At("RETURN"), cancellable = true)
    private void daamky$elytraVelocity(Vec3d originalVelocity, CallbackInfoReturnable<Vec3d> callbackInfo) {
@@ -49,7 +45,6 @@ public abstract class LivingEntityMixin {
          }
       }
    }
-// https://t.me/pasterplace
 
    @ModifyExpressionValue(
       method = "calcGlidingVelocity",
@@ -58,7 +53,6 @@ public abstract class LivingEntityMixin {
    private Vec3d daamky$glideLook(Vec3d rotationVector) {
       return (Object)this == MinecraftClient.getInstance().player ? ElytraBoost.adjustDynamicBoostDirection(ElytraTarget.getSilentRotationDirection(rotationVector)) : rotationVector;
    }
-// https://t.me/pasterplace
 
    @ModifyExpressionValue(method = "calcGlidingVelocity", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;getPitch()F"))
    private float daamky$glidePitch(float pitch) {

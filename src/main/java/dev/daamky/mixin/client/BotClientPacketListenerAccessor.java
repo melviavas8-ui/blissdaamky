@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface BotClientPacketListenerAccessor {
    @Invoker("setLoaded")
    void daamky$setClientLoaded(boolean loaded);
-// https://t.me/pasterplace
 
    @Accessor("chunkLoadProgress")
    void daamky$setLevelLoadTracker(ClientChunkLoadProgress levelLoadProgress);

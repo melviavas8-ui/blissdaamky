@@ -20,7 +20,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class ElytraTarget extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final Stopwatch fireworkSwapStopwatch = new Stopwatch();
    private final BooleanSetting autoFireworks = new BooleanSetting("Автофейерверки", true);
    private final BooleanSetting smartFireworks = new BooleanSetting("Умные фейерверки", true);
@@ -40,7 +39,6 @@ public final class ElytraTarget extends ModuleStructure {
    private double freezePeakY = Double.NaN;
    private boolean isFrozenInAir;
    private Vec3d freezePosition = Vec3d.ZERO;
-// https://t.me/pasterplace
 
    public ElytraTarget() {
       super("ElytraTarget", "Наводится на цели на элитрах с предиктом", ModuleCategory.COMBAT);
@@ -61,33 +59,27 @@ public final class ElytraTarget extends ModuleStructure {
          this.freezeDistance
       );
    }
-// https://t.me/pasterplace
 
    public static ElytraTarget getInstance() {
       return ModuleRegistry.getInstance().getModuleByClass(ElytraTarget.class);
    }
-// https://t.me/pasterplace
 
    public static boolean isElytraTargetModuleEnabled() {
       ElytraTarget elytraTargetModule = getInstance();
       return elytraTargetModule != null && elytraTargetModule.isEnabled();
    }
-// https://t.me/pasterplace
 
    public float getTargetRange() {
       return this.maximumTargetDistance.getValue();
    }
-// https://t.me/pasterplace
 
    public LivingEntity getTarget() {
       return this.targetEntity;
    }
-// https://t.me/pasterplace
 
    public Vec3d getTargetPosition() {
       return this.targetPredictionPosition;
    }
-// https://t.me/pasterplace
 
    public boolean isTargetingWhileGliding() {
       return this.isEnabled()
@@ -96,12 +88,10 @@ public final class ElytraTarget extends ModuleStructure {
          && CLIENT.player.isGliding()
          && RotationPriorityManager.getInstance().isFocusedBy(this);
    }
-// https://t.me/pasterplace
 
    private static boolean isSilentElytraRotationActive() {
       return CLIENT.player != null && CLIENT.player.isGliding() && RotationPriorityManager.getInstance().hasCurrentRotation();
    }
-// https://t.me/pasterplace
 
    public static Vec3d getSilentRotationDirection(Vec3d requestedDirection) {
       if (!isSilentElytraRotationActive()) {
@@ -111,12 +101,10 @@ public final class ElytraTarget extends ModuleStructure {
       Rotation currentRotation = RotationPriorityManager.getInstance().getCurrentRotation();
       return Vec3d.fromPolar(currentRotation.getPitch(), currentRotation.getYaw());
    }
-// https://t.me/pasterplace
 
    public static float getSilentRotationPitch(float requestedPitch) {
       return !isSilentElytraRotationActive() ? requestedPitch : RotationPriorityManager.getInstance().getCurrentRotation().getPitch();
    }
-// https://t.me/pasterplace
 
    public boolean isCurrentTarget(LivingEntity candidateTarget) {
       return this.isEnabled()
@@ -125,13 +113,11 @@ public final class ElytraTarget extends ModuleStructure {
          && CLIENT.player != null
          && CLIENT.player.isGliding();
    }
-// https://t.me/pasterplace
 
    public Vec3d getPredictedPositionOrCurrent(LivingEntity target) {
       Vec3d predictedPosition = this.predictTargetPosition(target);
       return predictedPosition != null ? predictedPosition : target.getEntityPos();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -141,14 +127,12 @@ public final class ElytraTarget extends ModuleStructure {
       this.restorePreviousHotbarSlot();
       RotationPriorityManager.getInstance().clearRotationRequest(this);
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
    public void onWorldChange(EventWorldChange eventWorldChange) {
       this.setEnabled(false);
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onUpdate(EventUpdate eventUpdate) {
@@ -185,7 +169,6 @@ public final class ElytraTarget extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -197,7 +180,6 @@ public final class ElytraTarget extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -234,7 +216,6 @@ public final class ElytraTarget extends ModuleStructure {
          this.resetFreezeState();
       }
    }
-// https://t.me/pasterplace
 
    private LivingEntity getAuraPlayerTarget(Aura auraModule) {
       if (auraModule == null) {
@@ -244,7 +225,6 @@ public final class ElytraTarget extends ModuleStructure {
       LivingEntity target = auraModule.getTarget();
       return target instanceof PlayerEntity ? target : null;
    }
-// https://t.me/pasterplace
 
    private void updateRotationRequest(LivingEntity target) {
       if (target != null && CLIENT.player.isGliding()) {
@@ -267,13 +247,11 @@ public final class ElytraTarget extends ModuleStructure {
          RotationPriorityManager.getInstance().clearRotationRequest(this);
       }
    }
-// https://t.me/pasterplace
 
    private Vec3d predictTargetPosition(LivingEntity target) {
       if (target == null) {
          return null;
       }
-// https://t.me/pasterplace
 
       if (this.predictionMode.isSelected("Движение")) {
          if (target instanceof PlayerEntity) {
@@ -286,7 +264,6 @@ public final class ElytraTarget extends ModuleStructure {
          return target.getTrackedPosition().getPos().add(0.0, target.getHeight() * 0.5, 0.0);
       }
    }
-// https://t.me/pasterplace
 
    private void trySmartFirework(LivingEntity target) {
       if (CLIENT.player.isGliding()) {
@@ -301,7 +278,6 @@ public final class ElytraTarget extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private long getFireworkDelayMillis(LivingEntity target, double targetDistance) {
       long baseDelayMillis = (long)(this.fireworkDelaySeconds.getValue() * 1000.0F);
@@ -315,18 +291,15 @@ public final class ElytraTarget extends ModuleStructure {
          return this.isBelowTargetThreshold() ? (long)((float)baseDelayMillis * 0.78F) : baseDelayMillis;
       }
    }
-// https://t.me/pasterplace
 
    private boolean isBelowTargetThreshold() {
       return CLIENT.player.getY()
          < (this.targetEntity != null ? this.targetEntity.getY() + 2.0 : CLIENT.world.getSeaLevel());
    }
-// https://t.me/pasterplace
 
    private boolean isTargetMovingFaster(PlayerEntity targetPlayer) {
       return CLIENT.player.getVelocity().horizontalLengthSquared() + 1.0E-4 < targetPlayer.getVelocity().horizontalLengthSquared();
    }
-// https://t.me/pasterplace
 
    private void useFirework() {
       if (this.fireworkSwapState == 0) {
@@ -353,17 +326,14 @@ public final class ElytraTarget extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean wasAttackedThisTick() {
       return CLIENT.player.age == this.lastAttackAge;
    }
-// https://t.me/pasterplace
 
    public boolean isFireworkSequenceActive() {
       return this.isEnabled() && this.fireworkSwapState != 0;
    }
-// https://t.me/pasterplace
 
    private void advanceFireworkSwap() {
       if (this.fireworkSwapState != 0) {
@@ -387,7 +357,6 @@ public final class ElytraTarget extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void requestStartGliding() {
       if (this.hasElytraEquipped() && CLIENT.player.isSprinting() && CLIENT.player.input.hasForwardMovement()) {
@@ -396,13 +365,11 @@ public final class ElytraTarget extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean hasElytraEquipped() {
       ItemStack chestStack = CLIENT.player.getEquippedStack(EquipmentSlot.CHEST);
       return chestStack.isOf(Items.ELYTRA);
    }
-// https://t.me/pasterplace
 
    private void restorePreviousHotbarSlot() {
       if (this.previousHotbarSlot != -1 && CLIENT.player != null && CLIENT.interactionManager != null) {
@@ -413,13 +380,11 @@ public final class ElytraTarget extends ModuleStructure {
       this.previousHotbarSlot = -1;
       this.fireworkSwapState = 0;
    }
-// https://t.me/pasterplace
 
    private void clearTarget() {
       this.targetEntity = null;
       this.targetPredictionPosition = Vec3d.ZERO;
    }
-// https://t.me/pasterplace
 
    private void resetFreezeState() {
       this.isFrozenInAir = false;

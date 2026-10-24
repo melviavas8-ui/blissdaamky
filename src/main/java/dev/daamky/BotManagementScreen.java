@@ -18,7 +18,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class BotManagementScreen extends Screen {
-    private static final String TELEGRAM_ATTRIBUTION_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float LEFT_PANE_WIDTH = 240.0F;
    private static final float RIGHT_PANE_WIDTH = 240.0F;
    private static final float PANEL_WIDTH = 480.0F;
@@ -112,12 +111,10 @@ public class BotManagementScreen extends Screen {
    private float mouseX;
    private float mouseY;
    private static final Map<String, String> serverHostLabelCache = new HashMap<>();
-// https://t.me/pasterplace
 
    public BotManagementScreen() {
       super(Text.literal("Bots"));
    }
-// https://t.me/pasterplace
 
    protected void init() {
       super.init();
@@ -130,7 +127,6 @@ public class BotManagementScreen extends Screen {
          }
       }
    }
-// https://t.me/pasterplace
 
    private float getOpenAnimationProgress() {
       long nowMillis = System.currentTimeMillis();
@@ -143,37 +139,30 @@ public class BotManagementScreen extends Screen {
 
       return 1.0F - (float)Math.pow(1.0F - progress, 3.0);
    }
-// https://t.me/pasterplace
 
    private boolean isTransitionActive() {
       return this.screenClosingStartedAt >= 0L || System.currentTimeMillis() - this.screenOpenedAt < 180L;
    }
-// https://t.me/pasterplace
 
    private static float getViewportWidth() {
       return GuiEventRenderer.getScreenWidth();
    }
-// https://t.me/pasterplace
 
    private static float getViewportHeight() {
       return GuiEventRenderer.getScreenHeight();
    }
-// https://t.me/pasterplace
 
    private static float getPanelLeft() {
       return (getViewportWidth() - 480.0F) / 2.0F;
    }
-// https://t.me/pasterplace
 
    private static float getPanelTop() {
       return (getViewportHeight() - 320.0F) / 2.0F;
    }
-// https://t.me/pasterplace
 
    private static float scaleMouseCoordinate(double windowCoordinate) {
       return (float)windowCoordinate * MinecraftClient.getInstance().getWindow().getScaleFactor() / 2.0F;
    }
-// https://t.me/pasterplace
 
    public void render(DrawContext drawContext, int mouseX, int mouseY, float tickDelta) {
       MinecraftClient client = MinecraftClient.getInstance();
@@ -206,18 +195,15 @@ public class BotManagementScreen extends Screen {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static int applyAlpha(int colorArgb, float alphaMultiplier) {
       int scaledAlpha = Math.round((colorArgb >>> 24 & 0xFF) * Math.clamp(alphaMultiplier, 0.0F, 1.0F));
       return scaledAlpha << 24 | colorArgb & 16777215;
    }
-// https://t.me/pasterplace
 
    private static void drawRoundedRect(DrawContext drawContext, float x, float y, float width, float height, float cornerRadius, int colorArgb) {
       RoundedGradientRectBuilder.at(x, y, width, height).cornerRadius(cornerRadius).color(colorArgb).render(drawContext);
    }
-// https://t.me/pasterplace
 
    private static void drawCenteredText(DrawContext drawContext, String label, float x, float y, float width, float fontSize, int colorArgb) {
       GuiTextBuilder.createAt(Medium.DEFAULT_FONT, label, x, y + width / 2.0F, fontSize)
@@ -225,7 +211,6 @@ public class BotManagementScreen extends Screen {
          .color(colorArgb)
          .render(drawContext);
    }
-// https://t.me/pasterplace
 
    private static void drawCenteredSmallText(DrawContext drawContext, String label, float x, float y, float width, float fontSize, int colorArgb) {
       GuiTextBuilder.createAt(Medium.ICON_FONT, label, x, y + width / 2.0F, fontSize)
@@ -233,12 +218,10 @@ public class BotManagementScreen extends Screen {
          .color(colorArgb)
          .render(drawContext);
    }
-// https://t.me/pasterplace
 
    private static float measureTextWidth(String textToMeasure, float fontSize) {
       return Medium.DEFAULT_FONT.measureWidth(textToMeasure, fontSize);
    }
-// https://t.me/pasterplace
 
    private void renderPanelContents(DrawContext drawContext, float panelX, float panelY, float animationAlpha) {
       BotServerIcon.tick();
@@ -318,7 +301,6 @@ public class BotManagementScreen extends Screen {
             float avatarY = panelY + 4.0F + 4.0F;
             TextureQuadBuilder.at(identifier, avatarX, avatarY, 15.0F, 15.0F).cornerRadius(3.0F).opacity(animationAlpha).render(drawContext);
          }
-// https://t.me/pasterplace
 
          float selectedUsernameX = panelX + 240.0F + 4.0F + 23.0F + 8.0F;
          drawCenteredText(drawContext, this.selectedBotSession.getUsername(), selectedUsernameX, panelY + 4.0F, 23.0F, 6.0F, applyAlpha(-1, animationAlpha));
@@ -358,7 +340,6 @@ public class BotManagementScreen extends Screen {
             applyAlpha(PRIMARY_TEXT_COLOR, animationAlpha)
          );
       }
-// https://t.me/pasterplace
 
       float detailsPanelX = panelX + 244.0F;
       float disconnectHistoryTop = panelY + 39.0F + 130.5F + 4.0F;
@@ -406,7 +387,6 @@ public class BotManagementScreen extends Screen {
          this.chatMessageField.setFocused(false);
       }
    }
-// https://t.me/pasterplace
 
    private void renderSavedBotRow(
       DrawContext drawContext, SavedBotSession session, int rowIndex, float listX, float clipTop, float clipBottom, float animationAlpha, long nowMillis
@@ -534,7 +514,6 @@ public class BotManagementScreen extends Screen {
       } else if (!roleLabel.isEmpty()) {
          roleBadgeWidth = measureTextWidth(roleLabel, 5.0F) + 8.0F;
       }
-// https://t.me/pasterplace
 
       float roleBadgeGap = roleBadgeWidth > 0.0F ? roleBadgeWidth + 6.0F : 0.0F;
       boolean showBalance = hasBalance;
@@ -568,7 +547,6 @@ public class BotManagementScreen extends Screen {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static String formatSessionBalance(SavedBotSession disconnect) {
       if (disconnect instanceof BotSession disconnectRecord && disconnect.isOnline()) {
@@ -578,7 +556,6 @@ public class BotManagementScreen extends Screen {
          return "";
       }
    }
-// https://t.me/pasterplace
 
    private void renderDisconnectHistory(DrawContext drawContext, float panelX, float panelY, float animationAlpha) {
       List<BotSessionLogEntry> disconnectEntries = this.selectedBotSession.getSessionHistory();
@@ -630,7 +607,6 @@ public class BotManagementScreen extends Screen {
                );
             }
          }
-// https://t.me/pasterplace
 
          float historyViewportHeight = 99.5F;
          float totalAnimatedHeight = 0.0F;
@@ -668,7 +644,6 @@ public class BotManagementScreen extends Screen {
 
                   drawCenteredText(drawContext, historyEntry.displayText(), timestampX, rowY, historyLineHeight, 6.0F, applyAlpha(-1, rowTextAlpha));
                }
-// https://t.me/pasterplace
 
                rowY += historyLineHeight * rowOpacity;
             }
@@ -677,7 +652,6 @@ public class BotManagementScreen extends Screen {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static String truncateTextToWidth(String textToTruncate, float fontSize, float maxWidth) {
       if (textToTruncate != null && !textToTruncate.isEmpty() && !(maxWidth <= 0.0F)) {
@@ -702,17 +676,14 @@ public class BotManagementScreen extends Screen {
          return "";
       }
    }
-// https://t.me/pasterplace
 
    private static float getSessionListContentHeight(int sessionCount) {
       return sessionCount <= 0 ? 0.0F : sessionCount * 25.0F - 2.0F;
    }
-// https://t.me/pasterplace
 
    private static float getSessionListMaxScroll(int sessionCount) {
       return Math.max(0.0F, getSessionListContentHeight(sessionCount) - 231.0F);
    }
-// https://t.me/pasterplace
 
    private List<SavedBotSession> filterSessions(List<SavedBotSession> sessions) {
       String query = this.sessionSearchField.getText().trim();
@@ -731,17 +702,14 @@ public class BotManagementScreen extends Screen {
 
       return filteredSessions;
    }
-// https://t.me/pasterplace
 
    private List<SavedBotSession> getFilteredSessions() {
       return this.filterSessions(SavedBots.getSessionRepository().getAllSessions());
    }
-// https://t.me/pasterplace
 
    private static String getServerHostLabel(String serverAddress) {
       return serverAddress != null && !"No Server".equalsIgnoreCase(serverAddress) ? serverHostLabelCache.computeIfAbsent(serverAddress, BotManagementScreen::formatServerHost) : "";
    }
-// https://t.me/pasterplace
 
    private static String formatServerHost(String serverAddress) {
       int portSeparatorIndex = serverAddress.indexOf(58);
@@ -759,7 +727,6 @@ public class BotManagementScreen extends Screen {
 
       return hostname;
    }
-// https://t.me/pasterplace
 
    private static List<String> wrapText(String textToWrap, float maxLineWidth) {
       List<String> wrappedLines = new ArrayList<>();
@@ -794,7 +761,6 @@ public class BotManagementScreen extends Screen {
 
       return wrappedLines;
    }
-// https://t.me/pasterplace
 
    private void sendChatMessage() {
       String message = this.chatMessageField.getText();
@@ -804,7 +770,6 @@ public class BotManagementScreen extends Screen {
 
       this.chatMessageField.setText("");
    }
-// https://t.me/pasterplace
 
    private void clearSearchFocus() {
       this.chatMessageField.setFocused(false);
@@ -812,7 +777,6 @@ public class BotManagementScreen extends Screen {
       this.newSessionUsernameField.setFocused(false);
       this.sessionSearchField.setFocused(false);
    }
-// https://t.me/pasterplace
 
    private void beginRoleEdit(SavedBotSession i1I1lI1Illl1I1Il2) {
       this.saveRoleEdit();
@@ -821,7 +785,6 @@ public class BotManagementScreen extends Screen {
       this.clearSearchFocus();
       this.roleEditField.setFocused(true);
    }
-// https://t.me/pasterplace
 
    private void saveRoleEdit() {
       if (this.editingRoleUsername != null && SavedBots.findSession(this.editingRoleUsername) != null) {
@@ -830,14 +793,12 @@ public class BotManagementScreen extends Screen {
 
       this.cancelRoleEdit();
    }
-// https://t.me/pasterplace
 
    private void cancelRoleEdit() {
       this.editingRoleUsername = null;
       this.roleEditField.setText("");
       this.roleEditField.setFocused(false);
    }
-// https://t.me/pasterplace
 
    private void addSavedSession() {
       String username = this.newSessionUsernameField.getText().trim();
@@ -847,7 +808,6 @@ public class BotManagementScreen extends Screen {
          this.sessionListScrollOffset = 0.0F;
       }
    }
-// https://t.me/pasterplace
 
    private void connectSelectedSession() {
       String serverAddress = this.serverAddressField.getText().trim();
@@ -877,12 +837,10 @@ public class BotManagementScreen extends Screen {
       this.serverAddressField.setText("");
       this.serverAddressField.setFocused(false);
    }
-// https://t.me/pasterplace
 
    private static boolean containsPoint(float mouseX, float mouseY, float left, float top, float width, float height) {
       return mouseX >= left && mouseX <= left + width && mouseY >= top && mouseY <= top + height;
    }
-// https://t.me/pasterplace
 
    public boolean mouseClicked(Click click, boolean doubleClick) {
       if (this.isTransitionActive()) {
@@ -897,7 +855,6 @@ public class BotManagementScreen extends Screen {
       float sessionListBottom = sessionListTop + 231.0F;
       if (click.button() == 1) {
          List<SavedBotSession> filteredSessions = this.getFilteredSessions();
-// https://t.me/pasterplace
 
          for (int rightClickRowIndex = 0; rightClickRowIndex < filteredSessions.size(); rightClickRowIndex++) {
             float rightClickRowY = sessionListTop + rightClickRowIndex * 25.0F - this.sessionListScrollOffset;
@@ -974,7 +931,6 @@ public class BotManagementScreen extends Screen {
                return true;
             }
          }
-// https://t.me/pasterplace
 
          float rightPanelButtonX = panelLeft + 319.0F;
          float rightPanelButtonY = panelTop + 4.0F;
@@ -1022,7 +978,6 @@ public class BotManagementScreen extends Screen {
          return super.mouseClicked(click, doubleClick);
       }
    }
-// https://t.me/pasterplace
 
    private SearchTextField getFocusedTextField() {
       if (this.roleEditField.isFocused()) {
@@ -1037,7 +992,6 @@ public class BotManagementScreen extends Screen {
          return this.sessionSearchField.isFocused() ? this.sessionSearchField : null;
       }
    }
-// https://t.me/pasterplace
 
    public boolean keyPressed(KeyInput keyInput) {
       if (this.isTransitionActive()) {
@@ -1059,7 +1013,6 @@ public class BotManagementScreen extends Screen {
          return super.keyPressed(keyInput);
       }
    }
-// https://t.me/pasterplace
 
    public boolean charTyped(CharInput charInput) {
       if (this.isTransitionActive()) {
@@ -1069,7 +1022,6 @@ public class BotManagementScreen extends Screen {
       SearchTextField l1I1IIl111Il1l1l = this.getFocusedTextField();
       return l1I1IIl111Il1l1l != null ? l1I1IIl111Il1l1l.charTyped(charInput) : super.charTyped(charInput);
    }
-// https://t.me/pasterplace
 
    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalScroll, double verticalScroll) {
       if (this.isTransitionActive()) {
@@ -1096,26 +1048,21 @@ public class BotManagementScreen extends Screen {
          }
       }
    }
-// https://t.me/pasterplace
 
    public void renderBackground(DrawContext drawContext, int mouseX, int mouseY, float tickDelta) {
    }
-// https://t.me/pasterplace
 
    public boolean shouldPause() {
       return false;
    }
-// https://t.me/pasterplace
 
    public boolean shouldCloseOnEsc() {
       return false;
    }
-// https://t.me/pasterplace
 
    public BotSessionInfo getSelectedSessionInfo() {
       return this.selectedBotSession;
    }
-// https://t.me/pasterplace
 
    public void close() {
       if (this.screenClosingStartedAt < 0L) {
@@ -1123,13 +1070,11 @@ public class BotManagementScreen extends Screen {
          BotPictureInPictureRenderer.INSTANCE.closePictureInPicture();
       }
    }
-// https://t.me/pasterplace
 
    public void removed() {
       BotPictureInPictureRenderer.INSTANCE.closePictureInPicture();
       super.removed();
    }
-// https://t.me/pasterplace
 
    private record DisconnectHistoryRow(String groupName, String displayText, float animationProgress) {
 
@@ -1139,7 +1084,6 @@ public class BotManagementScreen extends Screen {
          this.animationProgress = animationProgress;
       }
    }
-// https://t.me/pasterplace
 
    private static final class SmoothedValue {
       float currentValue;
@@ -1149,12 +1093,10 @@ public class BotManagementScreen extends Screen {
          if (Math.abs(targetValue - this.currentValue) < 0.001F) {
             this.currentValue = targetValue;
          }
-// https://t.me/pasterplace
 
          return this.currentValue;
       }
    }
-// https://t.me/pasterplace
 
    private static final class SessionRowAnimation {
       final long createdAtMillis;
@@ -1165,7 +1107,6 @@ public class BotManagementScreen extends Screen {
       SessionRowAnimation(long createdAtMillis) {
          this.createdAtMillis = createdAtMillis;
       }
-// https://t.me/pasterplace
 
       float getFadeInProgress(long nowMillis) {
          float linearProgress = Math.clamp((float)(nowMillis - this.createdAtMillis) / 220.0F, 0.0F, 1.0F);

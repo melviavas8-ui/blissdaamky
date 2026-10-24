@@ -11,7 +11,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class WindHop extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiOptionSetting mode = new MultiOptionSetting(
       "Режим", "При использовании", "При использовании", "По бинду", "Автоматический"
    );
@@ -21,25 +20,21 @@ public final class WindHop extends ModuleStructure {
    private Hand pendingHand;
    private int pendingHotbarSlot = -1;
    private int rotationWaitTicks;
-// https://t.me/pasterplace
 
    public WindHop() {
       super("WindHop", "Бросает заряд ветра под ноги", ModuleCategory.MOVEMENT);
       this.keybind.visibleWhen(() -> this.mode.isSelected("По бинду"));
       this.addSettings(this.mode, this.keybind);
    }
-// https://t.me/pasterplace
 
    public static WindHop getInstance() {
       return ModuleRegistry.getInstance().getModuleByClass(WindHop.class);
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return this.mode.getValue();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -48,14 +43,12 @@ public final class WindHop extends ModuleStructure {
       this.clearPendingUse();
       RotationPriorityManager.getInstance().clearRotationRequest(this);
    }
-// https://t.me/pasterplace
 
    private void clearPendingUse() {
       this.pendingHand = null;
       this.pendingHotbarSlot = -1;
       this.rotationWaitTicks = 0;
    }
-// https://t.me/pasterplace
 
    public boolean interceptWindChargeUse(PlayerEntity playerEntity, Hand hand) {
       if (this.isEnabled()
@@ -76,7 +69,6 @@ public final class WindHop extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -88,7 +80,6 @@ public final class WindHop extends ModuleStructure {
          this.windChargeRequested = true;
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -115,7 +106,6 @@ public final class WindHop extends ModuleStructure {
          this.clearPendingUse();
       }
    }
-// https://t.me/pasterplace
 
    private void performPendingWindChargeUse() {
       this.rotationWaitTicks++;
@@ -127,7 +117,6 @@ public final class WindHop extends ModuleStructure {
          if (priority2.isFocusedBy(this) && !(priority2.getLastMotionRotation().getPitch() < 89.0F)) {
             Rotation lIll1Il1lll111l11l1I1llllI22 = priority2.getLastMotionRotation();
             this.usingRotation = true;
-// https://t.me/pasterplace
 
             try {
                if (this.pendingHand == Hand.OFF_HAND) {

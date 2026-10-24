@@ -12,10 +12,8 @@ import net.minecraft.world.RaycastContext.FluidHandling;
 import net.minecraft.world.RaycastContext.ShapeType;
 
 public final class RotationUtils {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private RotationUtils() {
    }
-// https://t.me/pasterplace
 
    public static Rotation lookAt(Vec3d origin, Vec3d target) {
       double deltaX = target.x - origin.x;
@@ -26,20 +24,17 @@ public final class RotationUtils {
       float pitch = (float)(-Math.toDegrees(Math.atan2(deltaY, horizontalDistance)));
       return new Rotation(MathHelper.wrapDegrees(yaw), MathHelper.clamp(pitch, -90.0F, 90.0F));
    }
-// https://t.me/pasterplace
 
    public static Rotation lookAt(Vec3d targetPosition) {
       MinecraftClient client = MinecraftClient.getInstance();
       return lookAt(client.player.getEyePos(), targetPosition);
    }
-// https://t.me/pasterplace
 
    public static double mouseSensitivityStep() {
       MinecraftClient client = MinecraftClient.getInstance();
       double sensitivityFactor = (Double)client.options.getMouseSensitivity().getValue() * 0.6F + 0.2F;
       return sensitivityFactor * sensitivityFactor * sensitivityFactor * 8.0 * 0.15;
    }
-// https://t.me/pasterplace
 
    public static Rotation snapToSensitivityGrid(
       Rotation currentRotation, Rotation targetRotation
@@ -53,7 +48,6 @@ public final class RotationUtils {
          currentRotation.getYaw() + yawDelta, MathHelper.clamp(currentRotation.getPitch() + pitchDelta, -90.0F, 90.0F)
       );
    }
-// https://t.me/pasterplace
 
    public static Rotation limitRotationChange(
       Rotation currentRotation, Rotation targetRotation, float maxYawStep, float maxPitchStep
@@ -66,7 +60,6 @@ public final class RotationUtils {
          currentRotation.getYaw() + clampedYawDelta, MathHelper.clamp(currentRotation.getPitch() + clampedPitchDelta, -90.0F, 90.0F)
       );
    }
-// https://t.me/pasterplace
 
    public static Vec3d closestPointOnBox(Vec3d point, Box bounds) {
       double clampedX = MathHelper.clamp(point.x, bounds.minX, bounds.maxX);
@@ -74,19 +67,16 @@ public final class RotationUtils {
       double clampedZ = MathHelper.clamp(point.z, bounds.minZ, bounds.maxZ);
       return new Vec3d(clampedX, clampedY, clampedZ);
    }
-// https://t.me/pasterplace
 
    public static double distanceToBox(Vec3d point, Box bounds) {
       return point.distanceTo(closestPointOnBox(point, bounds));
    }
-// https://t.me/pasterplace
 
    public static float angularDistance(Rotation currentRotation, Vec3d origin, Vec3d target) {
       Rotation targetRotation = lookAt(origin, target);
       return Math.abs(currentRotation.yawDeltaTo(targetRotation))
          + Math.abs(currentRotation.pitchDeltaTo(targetRotation)) * 0.5F;
    }
-// https://t.me/pasterplace
 
    public static boolean hasLineOfSight(Vec3d origin, Vec3d target) {
       MinecraftClient client = MinecraftClient.getInstance();
@@ -98,7 +88,6 @@ public final class RotationUtils {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    public static Vec3d getAimPoint(Entity entity, Vec3d observerPosition, boolean allowThroughWalls) {
       Box targetBounds = entity.getBoundingBox();
@@ -113,7 +102,6 @@ public final class RotationUtils {
       if (!allowThroughWalls && !hasLineOfSight(observerPosition, initialAimPoint)) {
          Vec3d bestVisiblePoint = null;
          double bestDistanceSquared = Double.MAX_VALUE;
-// https://t.me/pasterplace
 
          for (int xSampleIndex = 0; xSampleIndex <= 2; xSampleIndex++) {
             for (int ySampleIndex = 0; ySampleIndex <= 4; ySampleIndex++) {
@@ -139,7 +127,6 @@ public final class RotationUtils {
          return initialAimPoint;
       }
    }
-// https://t.me/pasterplace
 
    public static boolean isLookingAtEntity(Rotation rotation, Entity entity, double reach) {
       MinecraftClient client = MinecraftClient.getInstance();

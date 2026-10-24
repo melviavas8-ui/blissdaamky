@@ -3,10 +3,8 @@ package dev.daamky;
 import net.minecraft.client.gui.DrawContext;
 
 public final class GuiPanelRenderer {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private GuiPanelRenderer() {
     }
-// https://t.me/pasterplace
 
     public static void renderPanel(
     DrawContext drawContext,
@@ -51,7 +49,6 @@ public final class GuiPanelRenderer {
                 .color(Accent.getTintedBackgroundColor((int)(200.0F * opacity)))
                 .render(drawContext);
             }
-// https://t.me/pasterplace
 
             RoundedGradientRectBuilder accentOverlayBuilder = RoundedGradientRectBuilder.at(x, y, width, height).cornerRadius(cornerRadius);
             if (glassStyle) {
@@ -67,12 +64,10 @@ public final class GuiPanelRenderer {
             .render(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     public static float smoothInterpolate(float startValue, float targetValue, float interpolationSpeed, float frameDelta) {
         return startValue + (targetValue - startValue) * (1.0F - (float)Math.exp(-interpolationSpeed * frameDelta));
     }
-// https://t.me/pasterplace
 
     public static RgbaColor getHealthColor(float healthRatio, int alpha) {
         float clampedHealthRatio = Math.clamp(healthRatio, 0.0F, 1.0F);

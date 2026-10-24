@@ -14,7 +14,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class Velocity extends ModuleStructure {
-    private static final String pe5c2381b = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiOptionSetting l1I1IlllIlI = new MultiOptionSetting("Режим", "ReallyWorld", "Отмена", "Процент", "ReallyWorld", "Прыжок");
    private final FloatSetting IllI1l1l1 = new FloatSetting("Горизонталь", 0.0F, 0.0F, 100.0F, 1.0F, "%");
    private final FloatSetting l1lll11l1l = new FloatSetting("Вертикаль", 0.0F, 0.0F, 100.0F, 1.0F, "%");
@@ -23,7 +22,6 @@ public final class Velocity extends ModuleStructure {
    private volatile int I1lIIII1III1lIlIl1l;
    private volatile boolean l11lIlIIll1III1;
    private volatile int intValue;
-// https://t.me/pasterplace
 
    public Velocity() {
       super("Velocity", "Уменьшает или убирает отдачу от ударов", ModuleCategory.COMBAT);
@@ -31,7 +29,6 @@ public final class Velocity extends ModuleStructure {
       this.l1lll11l1l.visibleWhen(() -> this.l1I1IlllIlI.isSelected("Процент"));
       this.addSettings(this.l1I1IlllIlI, this.IllI1l1l1, this.l1lll11l1l, this.lIIl11l111lIIl1ll, this.l1IIl11lI);
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
@@ -39,7 +36,6 @@ public final class Velocity extends ModuleStructure {
          ? Math.round(this.IllI1l1l1.getValue()) + "% " + Math.round(this.l1lll11l1l.getValue()) + "%"
          : this.l1I1IlllIlI.getValue();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void II1Il11l111II11IIl(EventPacket eventPacket) {
@@ -104,7 +100,6 @@ public final class Velocity extends ModuleStructure {
                            if (this.l1I1IlllIlI.isSelected("Прыжок") || this.l1I1IlllIlI.isSelected("ReallyWorld")) {
                               return;
                            }
-// https://t.me/pasterplace
 
                            eventPacket.cancel();
                            double horizontalKnockbackScale = this.l1I1IlllIlI.isSelected("Процент") ? this.IllI1l1l1.getValue().floatValue() / 100.0 : 0.0;
@@ -136,7 +131,6 @@ public final class Velocity extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)

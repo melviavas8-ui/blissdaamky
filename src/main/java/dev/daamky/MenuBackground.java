@@ -9,7 +9,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
 abstract class MenuBackground extends Screen {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final AvatarTexture BACKGROUND_TEXTURE = Avatar.create("menu_background");
     private static final AvatarTexture BLURRED_BACKGROUND_TEXTURE = Avatar.create("menu_background_blur");
     private float backgroundImageX;
@@ -31,25 +30,20 @@ abstract class MenuBackground extends Screen {
     protected float mouseY;
     protected float viewportWidth;
     protected float viewportHeight;
-// https://t.me/pasterplace
 
     protected float getScreenScale() {
         return 1.35F;
     }
-// https://t.me/pasterplace
 
     MenuBackground(String screenTitle) {
         super(Text.literal(screenTitle));
     }
-// https://t.me/pasterplace
 
     protected abstract void drawContent(DrawContext drawContext, float contentAnimationProgress, long renderTimeMillis);
-// https://t.me/pasterplace
 
     protected boolean handleContentClick(float mouseX, float mouseY, int mouseButton) {
         return false;
     }
-// https://t.me/pasterplace
 
     protected void init() {
         super.init();
@@ -60,7 +54,6 @@ abstract class MenuBackground extends Screen {
         this.transitionStartedAtMillis = -1L;
         this.nextScreen = null;
     }
-// https://t.me/pasterplace
 
     protected void transitionTo(Screen screen) {
         if (this.transitionStartedAtMillis < 0L) {
@@ -68,18 +61,15 @@ abstract class MenuBackground extends Screen {
             this.nextScreen = screen;
         }
     }
-// https://t.me/pasterplace
 
     protected boolean isTransitioning() {
         return this.transitionStartedAtMillis >= 0L;
     }
-// https://t.me/pasterplace
 
     protected float easeOutCubic(float startDelayMillis, float durationMillis) {
         float progress = Math.clamp(((float)(this.frameTimeMillis - this.screenOpenedAtMillis) - startDelayMillis) / durationMillis, 0.0F, 1.0F);
         return 1.0F - (float)Math.pow(1.0F - progress, 3.0);
     }
-// https://t.me/pasterplace
 
     protected float easeOutBack(float startDelayMillis, float durationMillis) {
         float progress = Math.clamp(((float)(this.frameTimeMillis - this.screenOpenedAtMillis) - startDelayMillis) / durationMillis, 0.0F, 1.0F);
@@ -87,7 +77,6 @@ abstract class MenuBackground extends Screen {
         float overshootOffset = progress - 1.0F;
         return 1.0F + 2.4F * overshootOffset * overshootOffset * overshootOffset + 1.4F * overshootOffset * overshootOffset;
     }
-// https://t.me/pasterplace
 
     protected float getTransitionProgress() {
         if (this.transitionStartedAtMillis < 0L) {
@@ -97,12 +86,10 @@ abstract class MenuBackground extends Screen {
         float progress = Math.clamp((float)(this.frameTimeMillis - this.transitionStartedAtMillis) / 180.0F, 0.0F, 1.0F);
         return progress * progress;
     }
-// https://t.me/pasterplace
 
     protected void markTextChanged(String animationKey) {
         this.textChangeTimestamps.put(animationKey, this.frameTimeMillis);
     }
-// https://t.me/pasterplace
 
     protected float getTextChangeScale(String animationKey) {
         Long lastChange = this.textChangeTimestamps.get(animationKey);
@@ -113,7 +100,6 @@ abstract class MenuBackground extends Screen {
         float elapsedProgress = (float)(this.frameTimeMillis - lastChange) / 220.0F;
         return elapsedProgress >= 1.0F ? 1.0F : 1.0F - 0.06F * (float)Math.sin(elapsedProgress * Math.PI);
     }
-// https://t.me/pasterplace
 
     protected void pushPivotScale(DrawContext drawContext, float pivotX, float pivotY, float scale) {
         drawContext.getMatrices().pushMatrix();
@@ -121,12 +107,10 @@ abstract class MenuBackground extends Screen {
         drawContext.getMatrices().scale(scale, scale);
         drawContext.getMatrices().translate(-pivotX, -pivotY);
     }
-// https://t.me/pasterplace
 
     protected void popTransformMatrix(DrawContext drawContext) {
         drawContext.getMatrices().popMatrix();
     }
-// https://t.me/pasterplace
 
     public void render(DrawContext drawContext, int mouseX, int mouseY, float tickDelta) {
         MinecraftClient client = MinecraftClient.getInstance();
@@ -149,7 +133,6 @@ abstract class MenuBackground extends Screen {
                 drawContext.getMatrices().pushMatrix();
                 drawContext.getMatrices().scale(2.0F / windowScaleFactor * this.getScreenScale());
                 GuiRenderStateBatcher.beginBatching(drawContext);
-// https://t.me/pasterplace
 
                 try {
                     this.renderBackgroundImage(drawContext, this.frameTimeMillis);
@@ -161,15 +144,12 @@ abstract class MenuBackground extends Screen {
             }
         }
     }
-// https://t.me/pasterplace
 
     public void renderBackground(DrawContext drawContext, int mouseX, int mouseY, float tickDelta) {
     }
-// https://t.me/pasterplace
 
     public void renderInGameBackground(DrawContext drawContext) {
     }
-// https://t.me/pasterplace
 
     public boolean mouseClicked(Click click, boolean doubleClick) {
         if (this.transitionStartedAtMillis >= 0L) {
@@ -183,7 +163,6 @@ abstract class MenuBackground extends Screen {
         ? true
         : super.mouseClicked(click, doubleClick);
     }
-// https://t.me/pasterplace
 
     private void renderBackgroundImage(DrawContext drawContext, long renderTimeMillis) {
         RoundedGradientRectBuilder.at(0.0F, 0.0F, this.viewportWidth, this.viewportHeight)
@@ -211,12 +190,10 @@ abstract class MenuBackground extends Screen {
         TextureQuadBuilder.at(BACKGROUND_TEXTURE, this.backgroundImageX, this.backgroundImageY, this.backgroundImageWidth, this.backgroundImageHeight)
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     protected boolean isMouseWithin(float left, float top, float width, float height) {
         return this.mouseX >= left && this.mouseX <= left + width && this.mouseY >= top && this.mouseY <= top + height;
     }
-// https://t.me/pasterplace
 
     protected float getHoverProgress(String animationKey, boolean hovered) {
         float progress = this.textHoverProgress.getOrDefault(animationKey, 0.0F);
@@ -224,7 +201,6 @@ abstract class MenuBackground extends Screen {
         this.textHoverProgress.put(animationKey, progress);
         return progress;
     }
-// https://t.me/pasterplace
 
     protected void drawBlurredPanel(
     DrawContext drawContext, float x, float y, float width, float height, float cornerRadius, float opacity, RgbaColor l1I1IlllIlI4
@@ -250,7 +226,6 @@ abstract class MenuBackground extends Screen {
             .render(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     protected void drawGlassPanel(
     DrawContext drawContext, float x, float y, float width, float height, float cornerRadius, float panelOpacity, float highlightOpacity
@@ -261,14 +236,12 @@ abstract class MenuBackground extends Screen {
         .color(RgbaColor.rgba(255, 255, 255, (int)(22.0F * highlightOpacity * panelOpacity)))
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     protected void drawAccentPanel(DrawContext drawContext, float x, float y, float width, float height, float cornerRadius) {
         this.drawBlurredPanel(
         drawContext, x, y, width, height, Accent.getInstance().getCornerRadius(), cornerRadius, RgbaColor.rgba(0, 0, 0, 50)
         );
     }
-// https://t.me/pasterplace
 
     protected void drawCenteredText(DrawContext drawContext, String label, float centerX, float centerY, float fontSize, RgbaColor l1I1IlllIlI4) {
         GuiTextBuilder.createAt(Medium.ICON_FONT, label, centerX, centerY, fontSize)
@@ -277,7 +250,6 @@ abstract class MenuBackground extends Screen {
         .color(l1I1IlllIlI4)
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     protected void drawText(
     DrawContext drawContext,

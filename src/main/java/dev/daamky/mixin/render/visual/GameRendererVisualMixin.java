@@ -24,7 +24,6 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(GameRenderer.class)
 public abstract class GameRendererVisualMixin {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Shadow
    @Final
    private MinecraftClient client;
@@ -34,12 +33,10 @@ public abstract class GameRendererVisualMixin {
    @Shadow
    @Final
    private BufferBuilderStorage buffers;
-// https://t.me/pasterplace
 
    @Shadow
    private void bobView(MatrixStack matrices, float tickDelta) {
    }
-// https://t.me/pasterplace
 
    @Inject(method = "tiltViewWhenHurt", at = @At("HEAD"), cancellable = true)
    private void daamky$noHurtCam(MatrixStack matrices, float tickDelta, CallbackInfo callbackInfo) {
@@ -47,7 +44,6 @@ public abstract class GameRendererVisualMixin {
          callbackInfo.cancel();
       }
    }
-// https://t.me/pasterplace
 
    @Redirect(
       method = "renderWorld",
@@ -58,7 +54,6 @@ public abstract class GameRendererVisualMixin {
          this.bobView(matrices, tickDelta);
       }
    }
-// https://t.me/pasterplace
 
    @ModifyArg(
       method = "getBasicProjectionMatrix",
@@ -70,7 +65,6 @@ public abstract class GameRendererVisualMixin {
       float framebufferHeight = this.client.getWindow().getFramebufferHeight();
       return framebufferHeight <= 0.0F ? aspectRatio : AspectRatio.II1Il11l111II11IIl(framebufferWidth, framebufferHeight) / framebufferHeight;
    }
-// https://t.me/pasterplace
 
    @ModifyArgs(
       method = "renderWorld",
@@ -81,7 +75,6 @@ public abstract class GameRendererVisualMixin {
       int framebufferHeight = (Integer)arguments.get(1);
       arguments.set(0, Math.max(1, Math.round(AspectRatio.l1I1IlllIlI(framebufferWidth, framebufferHeight))));
    }
-// https://t.me/pasterplace
 
    @Inject(
       method = "renderHand",
@@ -93,7 +86,6 @@ public abstract class GameRendererVisualMixin {
          HandsCapture.setOutputOverride(true);
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "renderHand", at = @At("RETURN"))
    private void daamky$handsCaptureEnd(float tickDelta, boolean renderHands, Matrix4f modelViewMatrix, CallbackInfo callbackInfo) {
@@ -102,7 +94,6 @@ public abstract class GameRendererVisualMixin {
          this.buffers.getEntityVertexConsumers().draw();
          HandsCapture.setOutputOverride(false);
       }
-// https://t.me/pasterplace
 
       HandsCapture.renderCapturedTrails();
    }

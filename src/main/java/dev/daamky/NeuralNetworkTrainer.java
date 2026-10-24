@@ -10,7 +10,6 @@ import java.util.function.IntPredicate;
 import java.util.stream.IntStream;
 
 public final class NeuralNetworkTrainer {
-    private static final String pc434e70d = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final int MAX_WINDOW_LENGTH = 64;
    private static final int WINDOW_STRIDE = 32;
    private static final int WINDOW_OVERLAP = 16;
@@ -29,7 +28,6 @@ public final class NeuralNetworkTrainer {
    public volatile float trainingLoss = Float.NaN;
    public volatile float validationLoss = Float.NaN;
    public volatile float bestValidationLoss = Float.NaN;
-// https://t.me/pasterplace
 
    public NeuralNetworkTrainer(RecurrentMixtureDensityModel model) {
       this.model = model;
@@ -42,7 +40,6 @@ public final class NeuralNetworkTrainer {
          this.secondMoments[parameterIndex] = new float[this.parameters[parameterIndex].length];
       }
    }
-// https://t.me/pasterplace
 
    public void initializeInputNormalization(List<float[][]> trainingSequences) {
       int featureCount = this.model.inputSize;
@@ -68,7 +65,6 @@ public final class NeuralNetworkTrainer {
          this.model.inputStandardDeviation[featureIndex] = (float)Math.max(0.001, Math.sqrt(Math.max(0.0, variance)));
       }
    }
-// https://t.me/pasterplace
 
    public float train(List<float[][]> inputSequences, List<float[][]> targetSequences, int epochCount, float initialLearningRate, IntPredicate shouldStop, Consumer<String> statusConsumer) {
       ArrayList windows = new ArrayList();
@@ -77,14 +73,12 @@ public final class NeuralNetworkTrainer {
          float[][] normalizedInputs = this.normalizeSequence((float[][])inputSequences.get(sequenceIndex));
          Object targets = (float[][])targetSequences.get(sequenceIndex);
          int sequenceLength = normalizedInputs.length;
-// https://t.me/pasterplace
 
          for (int windowStart = 0; windowStart < sequenceLength; windowStart += 32) {
             int windowEnd = Math.min(sequenceLength, windowStart + 64);
             if (windowEnd - windowStart < 8) {
                break;
             }
-// https://t.me/pasterplace
 
             int overlapStart = windowStart == 0 ? 0 : Math.max(0, windowStart - 16);
             float[][] windowInputs = new float[windowEnd - overlapStart][];
@@ -177,11 +171,9 @@ public final class NeuralNetworkTrainer {
       for (int parameterIndex = 0; parameterIndex < this.parameters.length; parameterIndex++) {
          System.arraycopy(bestParameters[parameterIndex], 0, this.parameters[parameterIndex], 0, this.parameters[parameterIndex].length);
       }
-// https://t.me/pasterplace
 
       return bestValidationLoss;
    }
-// https://t.me/pasterplace
 
    private static NeuralNetworkTrainer.TrainingWindow augmentTrainingWindow(NeuralNetworkTrainer.TrainingWindow window, Random random) {
       float[][] noisyInputs = new float[window.inputs.length][];
@@ -195,7 +187,6 @@ public final class NeuralNetworkTrainer {
 
       return new NeuralNetworkTrainer.TrainingWindow(noisyInputs, window.targets, window.predictionOffset);
    }
-// https://t.me/pasterplace
 
    private float calculateAverageLoss(List<NeuralNetworkTrainer.TrainingWindow> windows) {
       double negativeLogLikelihoodSum = 0.0;
@@ -209,11 +200,9 @@ public final class NeuralNetworkTrainer {
 
       return (float)(negativeLogLikelihoodSum / Math.max(1L, predictionCount));
    }
-// https://t.me/pasterplace
 
    private float[][] normalizeSequence(float[][] sequence) {
       float[][] normalizedSequence = new float[sequence.length][this.model.inputSize];
-// https://t.me/pasterplace
 
       for (int rowIndex = 0; rowIndex < sequence.length; rowIndex++) {
          this.model.normalizeInput(sequence[rowIndex], normalizedSequence[rowIndex]);
@@ -221,7 +210,6 @@ public final class NeuralNetworkTrainer {
 
       return normalizedSequence;
    }
-// https://t.me/pasterplace
 
    private double[] calculateWindowLossAndGradients(NeuralNetworkTrainer.TrainingWindow window, float[][] parameterGradients) {
       int sequenceLength = window.inputs.length;
@@ -235,7 +223,6 @@ public final class NeuralNetworkTrainer {
       float[][] candidateActivations = new float[sequenceLength][hiddenSize];
       float[][] candidateRecurrentSums = new float[sequenceLength][hiddenSize];
       float[][] outputLogits = new float[sequenceLength][outputSize];
-// https://t.me/pasterplace
 
       for (int timeStep = 0; timeStep < sequenceLength; timeStep++) {
          this.model
@@ -308,7 +295,6 @@ public final class NeuralNetworkTrainer {
          }
 
          float[] inputValues = window.inputs[reverseTimeStep];
-// https://t.me/pasterplace
 
          for (int hiddenIndex = 0; hiddenIndex < hiddenSize; hiddenIndex++) {
             gateBiasGradients[hiddenIndex] += updateGateGradients[hiddenIndex];
@@ -342,7 +328,6 @@ public final class NeuralNetworkTrainer {
 
       return new double[]{totalNegativeLogLikelihood, predictionCount};
    }
-// https://t.me/pasterplace
 
    private static double mixtureDensityLossAndGradient(float[] mixtureLogits, float[] target, float[] logitGradients, int mixtureCount) {
       double maximumMixtureLogit = Double.NEGATIVE_INFINITY;
@@ -398,7 +383,6 @@ public final class NeuralNetworkTrainer {
 
       return -componentLogNormalizer;
    }
-// https://t.me/pasterplace
 
    private void applyAdamUpdate(float[][] gradients, float gradientScale, float learningRate) {
       double gradientNormSquared = 0.0;
@@ -432,7 +416,6 @@ public final class NeuralNetworkTrainer {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static float[][] createZeroMatrixLike(float[][] shape) {
       float[][] zeroMatrix = new float[shape.length][];
@@ -443,7 +426,6 @@ public final class NeuralNetworkTrainer {
 
       return zeroMatrix;
    }
-// https://t.me/pasterplace
 
    private static float[][] copyMatrix(float[][] source) {
       float[][] copy = new float[source.length][];
@@ -454,7 +436,6 @@ public final class NeuralNetworkTrainer {
 
       return copy;
    }
-// https://t.me/pasterplace
 
    private static void accumulateGradients(float[][] accumulator, float[][] increment) {
       for (int rowIndex = 0; rowIndex < accumulator.length; rowIndex++) {
@@ -466,10 +447,8 @@ public final class NeuralNetworkTrainer {
          }
       }
    }
-// https://t.me/pasterplace
 
    private record TrainingWindow(float[][] inputs, float[][] targets, int predictionOffset) {
-// https://t.me/pasterplace
 
       private TrainingWindow(float[][] inputs, float[][] targets, int predictionOffset) {
          this.inputs = inputs;

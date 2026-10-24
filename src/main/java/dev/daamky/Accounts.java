@@ -45,7 +45,6 @@ import net.minecraft.client.session.Session;
 import net.minecraft.util.Uuids;
 
 public final class Accounts {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final Accounts INSTANCE = new Accounts();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final String[] RANDOM_USERNAME_ADJECTIVES = new String[]{"Dark", "Silent", "Night", "Frost", "Toxic", "Shadow", "Crazy", "Lunar", "Ghost", "Swift", "Rapid", "Neon"};
@@ -54,16 +53,13 @@ public final class Accounts {
     private final List<AccountEntry> accounts = new ArrayList<AccountEntry>();
     private AccountEntry lastRemovedAccount;
     private boolean accountsLoaded;
-// https://t.me/pasterplace
 
     private Accounts() {
     }
-// https://t.me/pasterplace
 
     public static Accounts getInstance() {
         return INSTANCE;
     }
-// https://t.me/pasterplace
 
     public List<AccountEntry> getAccounts() {
         this.loadAccounts();
@@ -71,18 +67,15 @@ public final class Accounts {
         arrayList.sort(Comparator.comparing((AccountEntry account) -> !account.IllI1l1l1).thenComparingLong(account -> -account.l1I1IlllIlI));
         return arrayList;
     }
-// https://t.me/pasterplace
 
     public int getAccountCount() {
         this.loadAccounts();
         return this.accounts.size();
     }
-// https://t.me/pasterplace
 
     public boolean isValidUsername(String username) {
         return username != null && username.matches("[A-Za-z0-9_]{3,16}");
     }
-// https://t.me/pasterplace
 
     public AccountEntry getOrCreateAccount(String username) {
         String trimmedUsername;
@@ -100,7 +93,6 @@ public final class Accounts {
         this.saveAccounts();
         return accounts$II1Il11l111II11IIl;
     }
-// https://t.me/pasterplace
 
     public AccountEntry createRandomAccount() {
         String generatedUsername;
@@ -109,7 +101,6 @@ public final class Accounts {
         }
         return this.getOrCreateAccount(generatedUsername);
     }
-// https://t.me/pasterplace
 
     public void removeAccount(AccountEntry accounts$II1Il11l111II11IIl) {
         this.loadAccounts();
@@ -118,7 +109,6 @@ public final class Accounts {
             this.saveAccounts();
         }
     }
-// https://t.me/pasterplace
 
     public boolean restoreLastRemovedAccount() {
         this.loadAccounts();
@@ -130,18 +120,15 @@ public final class Accounts {
         this.saveAccounts();
         return true;
     }
-// https://t.me/pasterplace
 
     public void togglePinned(AccountEntry accounts$II1Il11l111II11IIl) {
         accounts$II1Il11l111II11IIl.IllI1l1l1 = !accounts$II1Il11l111II11IIl.IllI1l1l1;
         this.saveAccounts();
     }
-// https://t.me/pasterplace
 
     public boolean isCurrentAccount(AccountEntry accounts$II1Il11l111II11IIl) {
         return MinecraftClient.getInstance().getSession().getUsername().equalsIgnoreCase(accounts$II1Il11l111II11IIl.II1Il11l111II11IIl);
     }
-// https://t.me/pasterplace
 
     public void login(AccountEntry accounts$II1Il11l111II11IIl) {
         MinecraftClient client = MinecraftClient.getInstance();
@@ -152,7 +139,6 @@ public final class Accounts {
         accounts$II1Il11l111II11IIl.l1lll11l1l = System.currentTimeMillis();
         this.saveAccounts();
     }
-// https://t.me/pasterplace
 
     private void loadAccounts() {
         if (this.accountsLoaded) {
@@ -176,7 +162,6 @@ public final class Accounts {
             // empty catch block
         }
     }
-// https://t.me/pasterplace
 
     private void saveAccounts() {
         JsonArray jsonArray = new JsonArray();

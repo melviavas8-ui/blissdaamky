@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Window.class)
 public abstract class WindowMixin {
-    private static final String p4fa4d47 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Redirect(
       method = "setIcon(Lnet/minecraft/resource/ResourcePack;Lnet/minecraft/client/util/Icons;)V",
       at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/Icons;getIcons(Lnet/minecraft/resource/ResourcePack;)Ljava/util/List;")
@@ -31,7 +30,6 @@ public abstract class WindowMixin {
 
          iconSuppliers.add(() -> WindowMixin.class.getResourceAsStream(iconResourcePath));
       }
-// https://t.me/pasterplace
 
       return iconSuppliers;
    }

@@ -24,13 +24,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntityRenderer.class)
 public abstract class AvatarRendererMixin {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Inject(method = "<init>", at = @At("TAIL"))
    private void daamky$addCosmeticsLayer(Context rendererContext, boolean slimArms, CallbackInfo callbackInfo) {
       FeatureRendererContext featureRendererContext = (FeatureRendererContext)this;
       ((LivingEntityRendererInvoker)this).daamky$addLayer(new PlayerCosmeticsFeatureRenderer(featureRendererContext));
    }
-// https://t.me/pasterplace
 
    @Inject(
       method = "renderArm",
@@ -45,7 +43,6 @@ public abstract class AvatarRendererMixin {
          armModelPart.roll += armSideSign * 0.15F * wingAnimationProgress;
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "renderArm", at = @At("TAIL"))
    private void daamky$renderWatchAccessory(MatrixStack matrices, OrderedRenderCommandQueue commandQueue, int light, Identifier skinTexture, ModelPart armModelPart, boolean armFlag, CallbackInfo callbackInfo) {

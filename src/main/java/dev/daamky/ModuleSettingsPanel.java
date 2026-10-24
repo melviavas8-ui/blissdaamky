@@ -9,7 +9,6 @@ import java.util.Map;
 import net.minecraft.client.gui.DrawContext;
 
 public final class ModuleSettingsPanel {
-    private static final String TELEGRAM_CHANNEL_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float UNUSED_FLOAT_CONSTANT_7_0_A = 7.0F;
    private static final float UNUSED_FLOAT_CONSTANT_5_0_A = 5.0F;
    private static final float UNUSED_FLOAT_CONSTANT_5_0_B = 5.0F;
@@ -63,7 +62,6 @@ public final class ModuleSettingsPanel {
    private Setting<?> optionPopupSetting;
    private float selectedOptionIndicatorTop;
    private float optionHoverProgress;
-// https://t.me/pasterplace
 
    public void updateAnimation(float deltaSeconds) {
       this.frameDeltaSeconds = deltaSeconds;
@@ -85,28 +83,23 @@ public final class ModuleSettingsPanel {
          }
       }
    }
-// https://t.me/pasterplace
 
    private float[] getModuleAnimationState(ModuleStructure moduleStructure) {
       return this.moduleAnimationStates.computeIfAbsent(moduleStructure, moduleStructurex -> new float[]{1.0F, 0.0F, 1.0F});
    }
-// https://t.me/pasterplace
 
    public boolean isModuleExpanded(ModuleStructure moduleStructure) {
       float[] animationState = this.moduleAnimationStates.get(moduleStructure);
       return animationState != null && animationState[2] > 0.5F;
    }
-// https://t.me/pasterplace
 
    public boolean hasSelectedModule() {
       return this.selectedModule != null;
    }
-// https://t.me/pasterplace
 
    public void clearSelectedModule() {
       this.selectedModule = null;
    }
-// https://t.me/pasterplace
 
    public void setSelectedModuleKeybind(int keybind) {
       if (this.selectedModule != null) {
@@ -114,12 +107,10 @@ public final class ModuleSettingsPanel {
          this.selectedModule = null;
       }
    }
-// https://t.me/pasterplace
 
    public boolean isKeybindCaptureActive() {
       return this.keybindCaptureSetting != null;
    }
-// https://t.me/pasterplace
 
    public void setKeybindCapture(int keyCode) {
       if (this.keybindCaptureSetting != null) {
@@ -128,7 +119,6 @@ public final class ModuleSettingsPanel {
          this.keybindCaptureSetting = null;
       }
    }
-// https://t.me/pasterplace
 
    public boolean cancelOptionSelection() {
       if (this.activeOptionSetting == null) {
@@ -138,12 +128,10 @@ public final class ModuleSettingsPanel {
       this.activeOptionSetting = null;
       return true;
    }
-// https://t.me/pasterplace
 
    public boolean onMouseClicked(float mouseX, float mouseY, int mouseButton) {
       return this.activeOptionSetting == null ? false : this.handleMouseClick(mouseX, mouseY, mouseButton);
    }
-// https://t.me/pasterplace
 
    public void clearSelection() {
       this.selectedModule = null;
@@ -152,7 +140,6 @@ public final class ModuleSettingsPanel {
       this.activeFloatSetting = null;
       this.activeColorSetting = null;
    }
-// https://t.me/pasterplace
 
    private static List<ModuleStructure> findModules(ModuleCategory moduleCategory, String searchText) {
       ArrayList<ModuleStructure> matchingModules = new ArrayList<>();
@@ -170,7 +157,6 @@ public final class ModuleSettingsPanel {
       matchingModules.sort(Comparator.comparing(module -> module.getName(), String.CASE_INSENSITIVE_ORDER));
       return matchingModules;
    }
-// https://t.me/pasterplace
 
    private static List<String> wrapText(String textToWrap, float fontSize, float maxLineWidth) {
       ArrayList<String> wrappedLines = new ArrayList<>();
@@ -204,7 +190,6 @@ public final class ModuleSettingsPanel {
          return wrappedLines;
       }
    }
-// https://t.me/pasterplace
 
    private static List<Setting<?>> getVisibleSettings(ModuleStructure moduleStructure) {
       ArrayList<Setting<?>> visibleSettings = new ArrayList<>();
@@ -225,12 +210,10 @@ public final class ModuleSettingsPanel {
 
       return visibleSettings;
    }
-// https://t.me/pasterplace
 
    private static float getSettingLabelHeight(Setting<?> setting) {
       return setting.getDescription().isEmpty() ? 6.5F : 12.1F;
    }
-// https://t.me/pasterplace
 
    private static float getSettingRowHeight(Setting<?> setting) {
       float labelHeight = getSettingLabelHeight(setting);
@@ -240,7 +223,6 @@ public final class ModuleSettingsPanel {
          return setting instanceof ColorSetting ? labelHeight + 7.0F : Math.max(labelHeight, 9.0F);
       }
    }
-// https://t.me/pasterplace
 
    private static float getExpandedSettingsHeight(ModuleStructure moduleStructure) {
       float settingsHeight = 0.0F;
@@ -249,11 +231,9 @@ public final class ModuleSettingsPanel {
       for (int settingIndex = 0; settingIndex < items.size(); settingIndex++) {
          settingsHeight += getSettingRowHeight((Setting<?>)items.get(settingIndex)) + (settingIndex > 0 ? 7.0F : 0.0F);
       }
-// https://t.me/pasterplace
 
       return settingsHeight;
    }
-// https://t.me/pasterplace
 
    private void rebuildModuleRows(float contentLeft, float contentTop, float contentWidth, ModuleCategory moduleCategory, String searchText) {
       this.moduleRows.clear();
@@ -279,18 +259,15 @@ public final class ModuleSettingsPanel {
       this.targetScrollOffset = Math.clamp(this.targetScrollOffset, 0.0F, this.maxScrollOffset);
       this.scrollOffset = Math.clamp(this.scrollOffset, 0.0F, this.maxScrollOffset);
    }
-// https://t.me/pasterplace
 
    private static float easeOutQuart(float progress) {
       progress = Math.clamp(progress, 0.0F, 1.0F);
       return 1.0F - (float)Math.pow(1.0F - progress, 4.0);
    }
-// https://t.me/pasterplace
 
    private float interpolateValue(float currentValue, float targetValue, float speed) {
       return currentValue + (targetValue - currentValue) * (1.0F - (float)Math.exp(-speed * this.frameDeltaSeconds));
    }
-// https://t.me/pasterplace
 
    public void renderModuleList(
       DrawContext drawContext,
@@ -316,7 +293,6 @@ public final class ModuleSettingsPanel {
             this.optionPopupAnimationProgress = 0.0F;
             this.selectedModule = null;
          }
-// https://t.me/pasterplace
 
          this.contentLeft = contentLeft;
          this.contentTop = contentTop;
@@ -339,7 +315,6 @@ public final class ModuleSettingsPanel {
             PixelRounding.l1I1IlllIlI(contentLeft + contentWidth),
             PixelRounding.l1I1IlllIlI(contentTop + contentHeight)
          );
-// https://t.me/pasterplace
 
          try {
             if (this.moduleRows.isEmpty()) {
@@ -382,7 +357,6 @@ public final class ModuleSettingsPanel {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void renderModuleRow(
       DrawContext drawContext,
@@ -474,7 +448,6 @@ public final class ModuleSettingsPanel {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static String getSettingHint(Setting<?> setting) {
       String settingName = setting.getName().toLowerCase(Locale.ROOT);
@@ -499,7 +472,6 @@ public final class ModuleSettingsPanel {
          return setting instanceof MultiToggleSetting ? "E" : null;
       }
    }
-// https://t.me/pasterplace
 
    private void renderSettingMarker(DrawContext drawContext, Setting<?> setting, float markerLeft, float markerCenterY, float opacity) {
       float toggleProgress = setting instanceof BooleanSetting booleanSetting ? booleanSetting.getToggleProgress() : 0.0F;
@@ -549,7 +521,6 @@ public final class ModuleSettingsPanel {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void renderSettingLabel(DrawContext drawContext, Setting<?> setting, float rowLeft, float rowTop, float rowWidth, boolean isHovered, float opacity) {
       this.renderSettingMarker(drawContext, setting, rowLeft, rowTop + 3.1F, opacity);
@@ -577,7 +548,6 @@ public final class ModuleSettingsPanel {
             .render(drawContext);
       }
    }
-// https://t.me/pasterplace
 
    private static float drawSettingValue(DrawContext drawContext, String valueText, float valueCenterX, float baselineY, int colorArgb) {
       boolean hasDegreeSymbol = valueText.endsWith("°");
@@ -598,7 +568,6 @@ public final class ModuleSettingsPanel {
 
       return valueTextWidth + degreeSymbolWidth;
    }
-// https://t.me/pasterplace
 
    private void renderSettingControl(DrawContext drawContext, Setting<?> setting, float rowLeft, float rowTop, float rowWidth, boolean isHovered, float opacity) {
       float labelHeight = getSettingLabelHeight(setting);
@@ -711,7 +680,6 @@ public final class ModuleSettingsPanel {
          this.renderSettingLabel(drawContext, setting, rowLeft, controlCenterY - labelHeight * 0.5F, rowWidth - controlWidth - 6.0F, isHovered, opacity);
       }
    }
-// https://t.me/pasterplace
 
    private static String getOptionSummary(Setting<?> setting) {
       if (setting instanceof MultiOptionSetting multiOptionSetting) {
@@ -721,7 +689,6 @@ public final class ModuleSettingsPanel {
          return "Выбрано " + multiToggleSetting.getEnabledCount() + "/" + multiToggleSetting.getOptions().size();
       }
    }
-// https://t.me/pasterplace
 
    private static float getOptionPopupWidth(Setting<?> setting) {
       float widestOptionLabelWidth = Medium.DEFAULT_FONT.measureWidth(getOptionSummary(setting), 4.4F);
@@ -733,7 +700,6 @@ public final class ModuleSettingsPanel {
 
       return Math.min(70.0F, widestOptionLabelWidth + 13.0F);
    }
-// https://t.me/pasterplace
 
    private static List<String> getOptionLabels(Setting<?> setting) {
       if (setting instanceof MultiOptionSetting multiOptionSetting) {
@@ -748,14 +714,12 @@ public final class ModuleSettingsPanel {
          return optionLabels;
       }
    }
-// https://t.me/pasterplace
 
    private static boolean isOptionSelected(Setting<?> setting, int optionIndex) {
       return setting instanceof MultiOptionSetting multiOptionSetting
          ? multiOptionSetting.getSelectedIndex() == optionIndex
          : ((MultiToggleSetting)setting).getOptions().get(optionIndex).getValue();
    }
-// https://t.me/pasterplace
 
    private void renderBooleanToggle(DrawContext drawContext, float toggleLeft, float toggleTop, float toggleProgress, float opacity) {
       RoundedGradientRectBuilder.at(toggleLeft, toggleTop, 13.0F, 7.0F)
@@ -777,7 +741,6 @@ public final class ModuleSettingsPanel {
          .color(RgbaColor.rgba(255, 255, 255, (int)((200.0F + 55.0F * toggleProgress) * opacity)))
          .render(drawContext);
    }
-// https://t.me/pasterplace
 
    private static void renderDropdownArrow(DrawContext drawContext, float centerX, float centerY, float rotationProgress, int colorArgb) {
       float angleRadians = (float)((Math.PI / 2) * rotationProgress);
@@ -799,7 +762,6 @@ public final class ModuleSettingsPanel {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static void renderSelectedCheckmark(DrawContext drawContext, float centerX, float centerY, int colorArgb) {
       float[][] checkmarkPoints = new float[][]{{-1.7F, 0.1F}, {-0.5F, 1.3F}, {1.8F, -1.2F}};
@@ -821,7 +783,6 @@ public final class ModuleSettingsPanel {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void renderOptionPopup(DrawContext drawContext, float mouseX, float mouseY, float opacity) {
       if (this.optionPopupSetting != null) {
@@ -839,7 +800,6 @@ public final class ModuleSettingsPanel {
             drawContext.getMatrices().translate(transformOriginX, transformOriginY);
             drawContext.getMatrices().scale(popupScale, popupScale);
             drawContext.getMatrices().translate(-transformOriginX, -transformOriginY);
-// https://t.me/pasterplace
 
             try {
                Accent accent = Accent.getInstance();
@@ -920,7 +880,6 @@ public final class ModuleSettingsPanel {
          }
       }
    }
-// https://t.me/pasterplace
 
    private ModuleSettingsPanel.ModuleRowLayout getModuleRowAt(float mouseX, float mouseY) {
       for (Object moduleRowObject : this.moduleRows) {
@@ -935,11 +894,9 @@ public final class ModuleSettingsPanel {
             return (ModuleSettingsPanel.ModuleRowLayout)moduleRowObject;
          }
       }
-// https://t.me/pasterplace
 
       return null;
    }
-// https://t.me/pasterplace
 
    public boolean handleMouseClick(float mouseX, float mouseY, int button) {
       if (this.activeOptionSetting != null) {
@@ -998,7 +955,6 @@ public final class ModuleSettingsPanel {
                if (moduleAnimationState[0] < 0.9F) {
                   return true;
                }
-// https://t.me/pasterplace
 
                float settingRowTop = moduleRowTop + moduleRow.headerHeight;
                float settingsLeft = moduleRow.left + 6.5F;
@@ -1022,7 +978,6 @@ public final class ModuleSettingsPanel {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void handleSettingClick(
       Setting<?> setting, float controlLeft, float rowTop, float controlWidth, float mouseX, float mouseY, boolean isPrimaryClick
@@ -1032,7 +987,6 @@ public final class ModuleSettingsPanel {
          if (!isPrimaryClick) {
             return;
          }
-// https://t.me/pasterplace
 
          this.activeFloatSetting = floatSetting;
          this.settingControlStartX = controlLeft;
@@ -1090,13 +1044,11 @@ public final class ModuleSettingsPanel {
          this.optionPopupAnimationProgress = 0.0F;
       }
    }
-// https://t.me/pasterplace
 
    private void updateColorSettingFromMouse(ColorSetting colorSetting, float mouseX) {
       float hueProgress = Math.clamp((mouseX - this.settingControlStartX) / this.settingControlWidth, 0.0F, 0.999F);
       colorSetting.setHsb(hueProgress, Math.max(0.35F, colorSetting.getSaturation()), Math.max(0.35F, colorSetting.getBrightness()));
    }
-// https://t.me/pasterplace
 
    private static void updateFloatSettingFromMouse(FloatSetting floatSetting, float sliderProgress) {
       float previousValue = floatSetting.getValue();
@@ -1108,7 +1060,6 @@ public final class ModuleSettingsPanel {
          );
       }
    }
-// https://t.me/pasterplace
 
    public void handleMouseDrag(float mouseX, float mouseY) {
       if (this.activeFloatSetting != null) {
@@ -1119,7 +1070,6 @@ public final class ModuleSettingsPanel {
          this.updateColorSettingFromMouse(this.activeColorSetting, mouseX);
       }
    }
-// https://t.me/pasterplace
 
    public void handleMouseRelease(int mouseButton) {
       if (mouseButton == 0) {
@@ -1127,7 +1077,6 @@ public final class ModuleSettingsPanel {
          this.activeColorSetting = null;
       }
    }
-// https://t.me/pasterplace
 
    public boolean handleMouseScroll(double mouseX, double mouseY, double scrollAmount) {
       if (mouseX >= this.contentLeft
@@ -1141,7 +1090,6 @@ public final class ModuleSettingsPanel {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private static final class ModuleRowLayout {
       final ModuleStructure module;

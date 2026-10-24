@@ -3,7 +3,6 @@ package dev.daamky;
 import java.time.LocalTime;
 
 public final class Ambience extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiOptionSetting timeOfDaySetting = new MultiOptionSetting(
       "Время", "Ночь", "Не менять", "Рассвет", "Утро", "День", "Вечер", "Заход солнца", "Ночь", "Время из реальной жизни", "Своё"
    );
@@ -18,7 +17,6 @@ public final class Ambience extends ModuleStructure {
    private final BooleanSetting sunRaysEnabledSetting = new BooleanSetting("Лучи солнца", true);
    private final FloatSetting sunRayStrengthSetting = new FloatSetting("Сила лучей", 1.0F, 0.1F, 2.0F, 0.05F);
    private final FloatSetting humiditySetting = new FloatSetting("Влажность", 0.8F, 0.1F, 1.0F, 0.05F);
-// https://t.me/pasterplace
 
    public Ambience() {
       super("Ambience", "Время суток, небо и погода", ModuleCategory.RENDER);
@@ -37,12 +35,10 @@ public final class Ambience extends ModuleStructure {
          this.sunRayStrengthSetting
       );
    }
-// https://t.me/pasterplace
 
    public static Ambience getInstance() {
       return ModuleRegistry.getInstance().getModuleByClass(Ambience.class);
    }
-// https://t.me/pasterplace
 
    public float getSkyStyleIndex() {
       return switch ((String)this.skyStyleSetting.getValue()) {
@@ -55,38 +51,31 @@ public final class Ambience extends ModuleStructure {
          default -> 0.0F;
       };
    }
-// https://t.me/pasterplace
 
    public float getSunRayStrength() {
       return this.sunRaysEnabledSetting.getValue() ? this.sunRayStrengthSetting.getValue() : 0.0F;
    }
-// https://t.me/pasterplace
 
    public boolean isFogEnabled() {
       return this.weatherModeSetting.isSelected("Туман") || this.weatherModeSetting.isSelected("Туман + мокрый мир");
    }
-// https://t.me/pasterplace
 
    public boolean isWetWeatherEnabled() {
       return this.weatherModeSetting.isSelected("Мокрый мир") || this.weatherModeSetting.isSelected("Туман + мокрый мир");
    }
-// https://t.me/pasterplace
 
    public float getFogDensity() {
       return this.fogDensitySetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getHumidity() {
       return this.humiditySetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float[] getAccentRgb() {
       RgbaColor l1I1IlllIlI4 = Accent.getAccentColorWithAlpha(255);
       return new float[]{l1I1IlllIlI4.red() / 255.0F, l1I1IlllIlI4.green() / 255.0F, l1I1IlllIlI4.blue() / 255.0F};
    }
-// https://t.me/pasterplace
 
    public static long adjustWorldTime(long worldTime) {
       Ambience moduleStructure = (Ambience)ModuleRegistry.getInstance().getModuleByClass(Ambience.class);
@@ -97,7 +86,6 @@ public final class Ambience extends ModuleStructure {
          return worldTime;
       }
    }
-// https://t.me/pasterplace
 
    private long getSelectedTimeOfDay() {
       return switch ((String)this.timeOfDaySetting.getValue()) {
@@ -114,7 +102,6 @@ public final class Ambience extends ModuleStructure {
          default -> worldTimeFromDayProgress(this.customHourSetting.getValue());
       };
    }
-// https://t.me/pasterplace
 
    private static long worldTimeFromDayProgress(float dayProgress) {
       return Math.floorMod((long)(dayProgress * 1000.0F) + 18000L, 24000L);

@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Random;
 
 public final class RecurrentMixtureDensityModel {
-    private static final String p7b4481b4 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    public static final int MODEL_MAGIC = 1313296981;
    public final int inputSize;
    public final int hiddenSize;
@@ -21,7 +20,6 @@ public final class RecurrentMixtureDensityModel {
    final float[] outputBiases;
    public final float[] inputMean;
    public final float[] inputStandardDeviation;
-// https://t.me/pasterplace
 
    public RecurrentMixtureDensityModel(int inputSize, int hiddenSize, int mixtureCount) {
       this.inputSize = inputSize;
@@ -38,7 +36,6 @@ public final class RecurrentMixtureDensityModel {
       this.inputStandardDeviation = new float[inputSize];
       Arrays.fill(this.inputStandardDeviation, 1.0F);
    }
-// https://t.me/pasterplace
 
    public void initializeWeights(long seed) {
       Random random = new Random(seed);
@@ -64,17 +61,14 @@ public final class RecurrentMixtureDensityModel {
          this.outputBiases[3 * this.mixtureCount + 2 * mixtureIndex + 1] = -1.0F;
       }
    }
-// https://t.me/pasterplace
 
    float[][] getParameterArrays() {
       return new float[][]{this.inputWeights, this.recurrentWeights, this.gateBiases, this.candidateRecurrentBias, this.outputWeights, this.outputBiases};
    }
-// https://t.me/pasterplace
 
    static float sigmoid(float value) {
       return 1.0F / (1.0F + (float)Math.exp(-value));
    }
-// https://t.me/pasterplace
 
    public void stepRecurrentCell(float[] input, float[] previousHiddenState, float[] nextHiddenState, float[] updateGateOutput, float[] resetGateOutput, float[] candidateOutput, float[] candidateRecurrentOutput) {
       int hiddenUnitCount = this.hiddenSize;
@@ -118,7 +112,6 @@ public final class RecurrentMixtureDensityModel {
          nextHiddenState[hiddenIndex] = (1.0F - updateGate) * candidateActivation + updateGate * previousHiddenState[hiddenIndex];
       }
    }
-// https://t.me/pasterplace
 
    public void projectOutput(float[] hiddenState, float[] outputLogits) {
       for (int outputIndex = 0; outputIndex < this.outputSize; outputIndex++) {
@@ -137,19 +130,16 @@ public final class RecurrentMixtureDensityModel {
          outputLogits[logScaleOutputOffset] = Math.max(-7.0F, Math.min(3.0F, outputLogits[logScaleOutputOffset]));
       }
    }
-// https://t.me/pasterplace
 
    public void normalizeInput(float[] inputFeatures, float[] normalizedInput) {
       for (int featureIndex = 0; featureIndex < this.inputSize; featureIndex++) {
          normalizedInput[featureIndex] = (inputFeatures[featureIndex] - this.inputMean[featureIndex]) / this.inputStandardDeviation[featureIndex];
       }
    }
-// https://t.me/pasterplace
 
    public void sampleOutput(float[] outputLogits, Random random, float[] sampledOutput) {
       this.sampleOutput(outputLogits, random, sampledOutput, 1.0F);
    }
-// https://t.me/pasterplace
 
    public void sampleOutput(float[] outputLogits, Random random, float[] sampledOutput, float temperature) {
       float maximumMixtureLogit = Float.NEGATIVE_INFINITY;
@@ -160,7 +150,6 @@ public final class RecurrentMixtureDensityModel {
 
       float unnormalizedWeightSum = 0.0F;
       float[] mixtureWeights = new float[this.mixtureCount];
-// https://t.me/pasterplace
 
       for (int mixtureIndex = 0; mixtureIndex < this.mixtureCount; mixtureIndex++) {
          mixtureWeights[mixtureIndex] = (float)Math.exp(outputLogits[mixtureIndex] - maximumMixtureLogit);
@@ -169,7 +158,6 @@ public final class RecurrentMixtureDensityModel {
 
       float randomWeightThreshold = random.nextFloat() * unnormalizedWeightSum;
       int selectedMixture = this.mixtureCount - 1;
-// https://t.me/pasterplace
 
       for (int mixtureIndex = 0; mixtureIndex < this.mixtureCount; mixtureIndex++) {
          randomWeightThreshold -= mixtureWeights[mixtureIndex];
@@ -178,7 +166,6 @@ public final class RecurrentMixtureDensityModel {
             break;
          }
       }
-// https://t.me/pasterplace
 
       for (int coordinateIndex = 0; coordinateIndex < 2; coordinateIndex++) {
          float coordinateMean = outputLogits[this.mixtureCount + 2 * selectedMixture + coordinateIndex];
@@ -186,7 +173,6 @@ public final class RecurrentMixtureDensityModel {
          sampledOutput[coordinateIndex] = coordinateMean + coordinateStandardDeviation * (float)random.nextGaussian();
       }
    }
-// https://t.me/pasterplace
 
    public void save(DataOutputStream output) throws IOException {
       output.writeInt(1313296981);
@@ -208,7 +194,6 @@ public final class RecurrentMixtureDensityModel {
          output.writeFloat(featureIndex);
       }
    }
-// https://t.me/pasterplace
 
    public static RecurrentMixtureDensityModel load(DataInputStream input) throws IOException {
       if (input.readInt() != 1313296981) {

@@ -9,7 +9,6 @@ import net.minecraft.scoreboard.Team;
 import net.minecraft.world.GameMode;
 
 public final class Staff extends AnimatedListHudElement {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final String[] STAFF_KEYWORDS = new String[]{
         "helper",
         "хелпер",
@@ -48,24 +47,20 @@ public final class Staff extends AnimatedListHudElement {
     private static final Pattern EDGE_PUNCTUATION_PATTERN = Pattern.compile("^[.\\-_/ ]+|[.\\-_/ ]+$");
     private static final Pattern NON_LETTER_RANK_PREFIX_PATTERN = Pattern.compile("[^a-zа-яё.]");
     private static final Pattern FORMATTING_CODE_PATTERN = Pattern.compile("§.");
-// https://t.me/pasterplace
 
     public Staff() {
         super("Staff", "staff", 7.0F, 330.0F);
     }
-// https://t.me/pasterplace
 
     @Override
     protected String getHeaderGlyph() {
         return "G";
     }
-// https://t.me/pasterplace
 
     @Override
     protected String getHeaderLabel() {
         return "Staff";
     }
-// https://t.me/pasterplace
 
     @Override
     protected List<AnimatedListHudElement.HudListEntry> getEntries(boolean chatScreenOpen) {
@@ -93,12 +88,10 @@ public final class Staff extends AnimatedListHudElement {
                 if (staffRole == null) {
                     staffRole = extractStaffRole(displayPrefix.replace(playerName, ""));
                 }
-// https://t.me/pasterplace
 
                 if (staffRole == null && !playerName.equals(normalizedPlayerName)) {
                     staffRole = extractStaffRole(displayPrefix.replace(normalizedPlayerName, ""));
                 }
-// https://t.me/pasterplace
 
                 if (staffRole != null) {
                      boolean spectator = playerEntry.getGameMode() == GameMode.SPECTATOR;
@@ -114,7 +107,6 @@ public final class Staff extends AnimatedListHudElement {
 
         return staffEntries;
     }
-// https://t.me/pasterplace
 
     private static String extractStaffRole(String roleText) {
         if (roleText != null && !roleText.isEmpty()) {
@@ -153,7 +145,6 @@ public final class Staff extends AnimatedListHudElement {
             return null;
         }
     }
-// https://t.me/pasterplace
 
     private static boolean containsStaffKeyword(String candidateText) {
         if (candidateText != null && !candidateText.isEmpty()) {
@@ -174,7 +165,6 @@ public final class Staff extends AnimatedListHudElement {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     private static boolean containsWholeWord(String textToSearch, String keyword) {
         int searchStartIndex = 0;
@@ -195,12 +185,10 @@ public final class Staff extends AnimatedListHudElement {
             searchStartIndex = matchIndex + 1;
         }
     }
-// https://t.me/pasterplace
 
     private static boolean isWordCharacter(char character) {
         return character >= 'a' && character <= 'z' || character >= 1072 && character <= 1103 || character == 1105;
     }
-// https://t.me/pasterplace
 
     private static String extractRolePrefix(String roleLabel) {
         if (roleLabel == null) {
@@ -224,7 +212,6 @@ public final class Staff extends AnimatedListHudElement {
 
         return "";
     }
-// https://t.me/pasterplace
 
     private static boolean isSeniorityPrefix(String prefix) {
         return switch (prefix) {
@@ -232,7 +219,6 @@ public final class Staff extends AnimatedListHudElement {
             default -> false;
         };
     }
-// https://t.me/pasterplace
 
     private static String normalizePlayerName(String playerName) {
         if (playerName == null) {
@@ -244,7 +230,6 @@ public final class Staff extends AnimatedListHudElement {
         normalizedName = EDGE_PUNCTUATION_PATTERN.matcher(WHITESPACE_PATTERN.matcher(normalizedName).replaceAll(" ").trim()).replaceAll("");
         return normalizedName.length() > 16 ? normalizedName.substring(0, 16).trim() : normalizedName;
     }
-// https://t.me/pasterplace
 
     private static String stripFormattingCodes(String formattedText) {
         return formattedText == null ? "" : FORMATTING_CODE_PATTERN.matcher(formattedText).replaceAll("").replace("§", "").replace(' ', ' ').trim();

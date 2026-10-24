@@ -11,21 +11,18 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 
 public final class AutoFish extends ModuleStructure {
-    private static final String pd6c36991 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final FloatSetting l1I1IlllIlI = new FloatSetting("Задержка подсечки", 150.0F, 0.0F, 1000.0F, 10.0F, "мс");
    private final FloatSetting IllI1l1l1 = new FloatSetting("Задержка заброса", 600.0F, 100.0F, 3000.0F, 50.0F, "мс");
    private final BooleanSetting l1lll11l1l = new BooleanSetting("Авто заброс", true);
    private final Stopwatch lIIl11l111lIIl1ll = new Stopwatch();
    private boolean l1IIl11lI;
    private boolean I1lIIII1III1lIlIl1l;
-// https://t.me/pasterplace
 
    public AutoFish() {
       super("AutoFish", "Автоматически подсекает рыбу и забрасывает удочку", ModuleCategory.PLAYER);
       this.IllI1l1l1.visibleWhen(this.l1lll11l1l::getValue);
       this.addSettings(this.l1I1IlllIlI, this.IllI1l1l1, this.l1lll11l1l);
    }
-// https://t.me/pasterplace
 
    @Override
    protected void onDisable() {
@@ -33,7 +30,6 @@ public final class AutoFish extends ModuleStructure {
       this.I1lIIII1III1lIlIl1l = false;
       super.onDisable();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void II1Il11l111II11IIl(EventPacket eventPacket) {
@@ -52,14 +48,12 @@ public final class AutoFish extends ModuleStructure {
                   this.lIIl11l111lIIl1ll.reset();
                   return;
                }
-// https://t.me/pasterplace
 
                return;
             }
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void II1Il11l111II11IIl(EventUpdate eventUpdate) {
@@ -90,7 +84,6 @@ public final class AutoFish extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private Hand l1I1IIl111Il1l1l() {
       if (CLIENT.player.getMainHandStack().isOf(Items.FISHING_ROD)) {

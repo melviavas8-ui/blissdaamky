@@ -20,7 +20,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class AutoFarm extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiToggleSetting enabledCrops = new MultiToggleSetting("Культуры")
       .addOption("Пшеница", true)
       .addOption("Морковь", true)
@@ -35,13 +34,11 @@ public final class AutoFarm extends ModuleStructure {
    private final Stopwatch actionStopwatch = new Stopwatch();
    private BlockPos targetBlockPosition;
    private boolean targetRequiresReplanting;
-// https://t.me/pasterplace
 
    public AutoFarm() {
       super("AutoFarm", "Собирает созревшие культуры вокруг и пересаживает их", ModuleCategory.PLAYER);
       this.addSettings(this.enabledCrops, this.replantCrops, this.rotateToTarget, this.targetRadius, this.actionDelay);
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -49,7 +46,6 @@ public final class AutoFarm extends ModuleStructure {
       this.targetBlockPosition = null;
       RotationPriorityManager.getInstance().clearRotationRequest(this);
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -58,7 +54,6 @@ public final class AutoFarm extends ModuleStructure {
       if (this.hasActiveClientWorld() && CLIENT.currentScreen == null && this.actionStopwatch.hasElapsed(this.actionDelay.getValue().longValue())
          )
        {
-// https://t.me/pasterplace
          this.findNearestCropTarget();
          if (this.targetBlockPosition != null) {
             if (this.rotateToTarget.getValue()) {
@@ -79,7 +74,6 @@ public final class AutoFarm extends ModuleStructure {
          RotationPriorityManager.getInstance().clearRotationRequest(this);
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -92,14 +86,12 @@ public final class AutoFarm extends ModuleStructure {
             } else {
                this.replantCrop(this.targetBlockPosition);
             }
-// https://t.me/pasterplace
 
             this.actionStopwatch.reset();
             this.targetBlockPosition = null;
          }
       }
    }
-// https://t.me/pasterplace
 
    private void findNearestCropTarget() {
       Vec3d playerEyePosition = CLIENT.player.getEyePos();
@@ -130,7 +122,6 @@ public final class AutoFarm extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean isHarvestableSelectedCrop(BlockPos cropPosition, BlockState blockState) {
       Block block = blockState.getBlock();
@@ -147,7 +138,6 @@ public final class AutoFarm extends ModuleStructure {
                && !CLIENT.world.getBlockState(cropPosition.down(2)).isOf(Blocks.SUGAR_CANE);
       }
    }
-// https://t.me/pasterplace
 
    private boolean isSelectedCrop(Block block) {
       if (block == Blocks.WHEAT) {
@@ -160,7 +150,6 @@ public final class AutoFarm extends ModuleStructure {
          return block == Blocks.BEETROOTS ? this.enabledCrops.isOptionEnabled("Свёкла") : false;
       }
    }
-// https://t.me/pasterplace
 
    private Item getReplantItem(Block block) {
       if (block == Blocks.SOUL_SAND) {
@@ -179,7 +168,6 @@ public final class AutoFarm extends ModuleStructure {
             : null;
       }
    }
-// https://t.me/pasterplace
 
    private void replantCrop(BlockPos cropPosition) {
       BlockPos plantingSoilPosition = cropPosition.down();

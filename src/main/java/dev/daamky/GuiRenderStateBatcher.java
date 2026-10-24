@@ -12,43 +12,35 @@ import org.joml.Matrix3x2fStack;
 import org.jspecify.annotations.Nullable;
 
 public final class GuiRenderStateBatcher {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final List<GuiRenderStateBatch> pendingBatches = new ArrayList<>();
    private static Matrix3x2f cachedMatrix = new Matrix3x2f();
    private static @Nullable DrawContext activeDrawContext;
-// https://t.me/pasterplace
 
    private GuiRenderStateBatcher() {
    }
-// https://t.me/pasterplace
 
    public static void beginBatching(DrawContext drawContext) {
       flush();
       activeDrawContext = drawContext;
    }
-// https://t.me/pasterplace
 
    public static void beginHudBatching(DrawContext drawContext) {
       beginBatching(drawContext);
    }
-// https://t.me/pasterplace
 
    public static void endBatching() {
       flush();
       activeDrawContext = null;
    }
-// https://t.me/pasterplace
 
    public static boolean isBatching() {
       return activeDrawContext != null;
    }
-// https://t.me/pasterplace
 
    public static void flush() {
       DrawContext drawContext = activeDrawContext;
       if (drawContext != null && !pendingBatches.isEmpty()) {
          int batchIndex = 0;
-// https://t.me/pasterplace
 
          for (int pendingBatchCount = pendingBatches.size(); batchIndex < pendingBatchCount; batchIndex++) {
             Object renderBatch = pendingBatches.get(batchIndex);
@@ -59,7 +51,6 @@ public final class GuiRenderStateBatcher {
          pendingBatches.clear();
       }
    }
-// https://t.me/pasterplace
 
    public static void addOrBatch(DrawContext drawContext, SimpleGuiElementRenderState simpleGuiElementRenderState) {
       DrawContext drawContext2 = activeDrawContext;
@@ -103,7 +94,6 @@ public final class GuiRenderStateBatcher {
          drawContext.state.addSimpleElement(simpleGuiElementRenderState);
       }
    }
-// https://t.me/pasterplace
 
    public static Matrix3x2f getMatrix(DrawContext drawContext) {
       Matrix3x2fStack matrix3x2fStack = drawContext.getMatrices();
@@ -113,7 +103,6 @@ public final class GuiRenderStateBatcher {
 
       return cachedMatrix;
    }
-// https://t.me/pasterplace
 
    private static GuiRenderStateBatch createBatch(RenderPipeline renderPipeline, TextureSetup textureSetup, @Nullable ScreenRect screenRect) {
       GuiRenderStateBatch simpleGuiElementRenderStateImpl3 = new GuiRenderStateBatch();

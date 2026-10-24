@@ -18,7 +18,6 @@ import org.joml.Matrix4f;
 import org.lwjgl.system.MemoryStack;
 
 public class WorldJumpCircleUniforms {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final WorldJumpCircleUniforms INSTANCE = new WorldJumpCircleUniforms();
    private static final int MAX_JUMP_CIRCLES = 16;
    private static final int UNIFORM_BUFFER_SIZE = new Std140SizeCalculator().putMat4f().putMat4f().putVec4().putVec4().get() + 768;
@@ -26,12 +25,10 @@ public class WorldJumpCircleUniforms {
    private SimpleFramebuffer sceneCopyFramebuffer;
    private final Matrix4f projectionMatrix = new Matrix4f();
    private volatile boolean projectionMatrixCaptured = false;
-// https://t.me/pasterplace
 
    public static WorldJumpCircleUniforms getInstance() {
       return INSTANCE;
    }
-// https://t.me/pasterplace
 
    public void captureProjectionMatrix(Matrix4f matrix4f) {
       if (matrix4f != null) {
@@ -39,14 +36,12 @@ public class WorldJumpCircleUniforms {
          this.projectionMatrixCaptured = true;
       }
    }
-// https://t.me/pasterplace
 
    private void ensureUniformBuffer() {
       if (this.uniformBuffer == null || this.uniformBuffer.isClosed()) {
          this.uniformBuffer = RenderSystem.getDevice().createBuffer(() -> "jump circles ubo", 136, UNIFORM_BUFFER_SIZE);
       }
    }
-// https://t.me/pasterplace
 
    public void render(CameraRenderState cameraRenderState, Matrix4f matrix4f) {
       JumpCircle jumpCircle = JumpCircle.getInstance();
@@ -104,7 +99,6 @@ public class WorldJumpCircleUniforms {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void writeCircleUniforms(JumpCircle jumpCircle, CameraRenderState cameraRenderState, Matrix4f matrix4f, Matrix4f matrix4f2, int framebufferWidth, int framebufferHeight) {
       List items = jumpCircle.getCircleEntries();
@@ -122,7 +116,6 @@ public class WorldJumpCircleUniforms {
                0.0F
             )
             .putVec4(1.0F / framebufferWidth, 1.0F / framebufferHeight, (float)(System.currentTimeMillis() % 1000000L / 1000.0), circleCount);
-// https://t.me/pasterplace
 
          for (int byteBuffer = 0; byteBuffer < 16; byteBuffer++) {
             if (byteBuffer < circleCount) {
@@ -168,7 +161,6 @@ public class WorldJumpCircleUniforms {
          memoryStack.close();
       }
    }
-// https://t.me/pasterplace
 
    private void ensureSceneCopyFramebuffer(int framebufferWidth, int framebufferHeight) {
       if (this.sceneCopyFramebuffer == null || this.sceneCopyFramebuffer.textureWidth != framebufferWidth || this.sceneCopyFramebuffer.textureHeight != framebufferHeight) {
@@ -179,7 +171,6 @@ public class WorldJumpCircleUniforms {
          this.sceneCopyFramebuffer = new SimpleFramebuffer("jump scene copy", framebufferWidth, framebufferHeight, false);
       }
    }
-// https://t.me/pasterplace
 
    private static boolean isFramebufferReady(Framebuffer framebuffer) {
       return framebuffer != null
@@ -188,7 +179,6 @@ public class WorldJumpCircleUniforms {
          && framebuffer.getColorAttachment() != null
          && framebuffer.getDepthAttachment() != null;
    }
-// https://t.me/pasterplace
 
    public void close() {
       if (this.sceneCopyFramebuffer != null) {

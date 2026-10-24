@@ -15,7 +15,6 @@ import net.minecraft.client.render.BuiltBuffer;
 import net.minecraft.client.util.BufferAllocator;
 
 final class BufferedWorldGeometry {
-    private static final String pa702500c = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final DrawMode II1Il11l111II11IIl;
    private final VertexFormat l1I1IlllIlI;
    private final RenderPipeline IllI1l1l1;
@@ -23,14 +22,12 @@ final class BufferedWorldGeometry {
    private BufferBuilder lIIl11l111lIIl1ll;
    private GpuBuffer l1IIl11lI;
    private int I1lIIII1III1lIlIl1l;
-// https://t.me/pasterplace
 
    BufferedWorldGeometry(DrawMode drawMode, VertexFormat vertexFormat, RenderPipeline renderPipeline) {
       this.II1Il11l111II11IIl = drawMode;
       this.l1I1IlllIlI = vertexFormat;
       this.IllI1l1l1 = renderPipeline;
    }
-// https://t.me/pasterplace
 
    BufferBuilder II1Il11l111II11IIl() {
       if (this.lIIl11l111lIIl1ll == null) {
@@ -39,12 +36,10 @@ final class BufferedWorldGeometry {
 
       return this.lIIl11l111lIIl1ll;
    }
-// https://t.me/pasterplace
 
    boolean l1I1IlllIlI() {
       return this.lIIl11l111lIIl1ll != null;
    }
-// https://t.me/pasterplace
 
    void IllI1l1l1() {
       this.I1lIIII1III1lIlIl1l = 0;
@@ -81,7 +76,6 @@ final class BufferedWorldGeometry {
                      uploadFailure.addSuppressed(builtBufferCloseFailure);
                   }
                }
-// https://t.me/pasterplace
 
                throw uploadFailure;
             }
@@ -98,7 +92,6 @@ final class BufferedWorldGeometry {
          }
       }
    }
-// https://t.me/pasterplace
 
    void II1Il11l111II11IIl(RenderPass renderPass, GpuBufferSlice gpuBufferSlice, List<GpuBuffer> items) {
       if (this.I1lIIII1III1lIlIl1l > 0) {
@@ -113,7 +106,6 @@ final class BufferedWorldGeometry {
          renderPass.drawIndexed(0, 0, indexCount, 1);
       }
    }
-// https://t.me/pasterplace
 
    void l1lll11l1l() {
       this.I1lIIII1III1lIlIl1l = 0;

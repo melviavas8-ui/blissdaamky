@@ -14,7 +14,6 @@ import net.minecraft.client.input.CharInput;
 import net.minecraft.client.input.KeyInput;
 
 public final class Myid {
-    private static final String SOURCE_PROMOTION_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final AvatarTexture CHECK_ICON = Avatar.create("check");
     private static final AvatarTexture DOUBLE_CHECK_ICON = Avatar.create("check_double");
     private static final float PANEL_WIDTH = 112.0F;
@@ -74,7 +73,6 @@ public final class Myid {
     private float panelHeight;
     private final List<Myid.ChatOverlayAction> pendingClickActions = new ArrayList<>();
     private final List<Myid.ChatOverlayAction> contextMenuActions = new ArrayList<>();
-// https://t.me/pasterplace
 
     public void updateAnimations(float frameDelta) {
         this.animationFrameDelta = frameDelta;
@@ -87,7 +85,6 @@ public final class Myid {
         this.friendDetailsAnimation = this.friendDetailsAnimation
         + ((this.friendDetailsOpen ? 1.0F : 0.0F) - this.friendDetailsAnimation) * (1.0F - (float)Math.exp(-14.0F * frameDelta));
     }
-// https://t.me/pasterplace
 
     public void render(
     DrawContext drawContext, float mouseX, float mouseY, float panelOriginX, float panelOriginY, float panelRenderWidth, float panelRenderHeight, float opacity
@@ -135,7 +132,6 @@ public final class Myid {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void renderNavigationTabs(DrawContext drawContext, float mouseX, float mouseY, long currentTimeMillis, float opacity) {
         float tabBarX = this.panelX + 5.0F;
@@ -170,7 +166,6 @@ public final class Myid {
             if (tabIndex == 1 && !this.socialState.getIncomingFriendRequests().isEmpty()) {
                 this.renderUnreadCountBadge(drawContext, tabOriginX + tabWidth - 3.5F, tabBarY + 1.5F, this.socialState.getIncomingFriendRequests().size(), opacity);
             }
-// https://t.me/pasterplace
 
             int capturedTabIndex = tabIndex;
             this.pendingClickActions.add(new Myid.ChatOverlayAction(tabOriginX, tabBarY, tabWidth, tabHeight, () -> this.selectTab(capturedTabIndex), null));
@@ -244,7 +239,6 @@ public final class Myid {
             .render(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     private float renderConversationList(DrawContext drawContext, float mouseX, float mouseY, float contentOriginY, float contentHeight, long currentTimeMillis, float opacity) {
         ArrayList conversationIds = new ArrayList();
@@ -282,14 +276,12 @@ public final class Myid {
             if (rowY + 22.0F >= contentOriginY && rowY <= contentOriginY + contentHeight) {
                 this.renderConversationEntry(drawContext, mouseX, mouseY, (String)conversationId, rowY, contentOriginY, contentHeight, currentTimeMillis, opacity);
             }
-// https://t.me/pasterplace
 
             rowY += 23.0F;
         }
 
         if (this.socialState.getFriends().isEmpty() && searchQuery.isEmpty()) {
             float emptyStateTextY = rowY + 10.0F;
-// https://t.me/pasterplace
 
             for (String emptyStateHint : new String[]{"Пока нет друзей", "Добавьте их во вкладке", "«Заявки» по ID или имени"}) {
                 GuiTextBuilder.createAt(Medium.DEFAULT_FONT, emptyStateHint, this.panelX + 56.0F, emptyStateTextY, 4.2F)
@@ -302,7 +294,6 @@ public final class Myid {
 
         return conversationIds.size() * 23.0F + 4.0F;
     }
-// https://t.me/pasterplace
 
     private void renderConversationEntry(
     DrawContext drawContext, float mouseX, float mouseY, String conversationId, float rowY, float contentOriginY, float contentHeight, long currentTimeMillis, float opacity
@@ -332,7 +323,6 @@ public final class Myid {
             if (contact != null && contact.isOnline) {
                 this.renderOnlineIndicator(drawContext, avatarX + avatarSize - 3.6F, avatarY + avatarSize - 3.6F, opacity);
             }
-// https://t.me/pasterplace
 
             float textOriginX = avatarX + avatarSize + 4.0F;
             float trailingTextX = this.panelX + 112.0F - 6.0F;
@@ -406,7 +396,6 @@ public final class Myid {
             }
         }
     }
-// https://t.me/pasterplace
 
     private float renderFriendRequests(DrawContext drawContext, float mouseX, float mouseY, float viewportTop, float viewportHeight, float opacity) {
         float contentY = viewportTop - this.friendListScrollOffset;
@@ -444,7 +433,6 @@ public final class Myid {
 
         return contentY - contentStartY;
     }
-// https://t.me/pasterplace
 
     private float renderFriendList(
     DrawContext drawContext,
@@ -536,7 +524,6 @@ public final class Myid {
 
         return rowY;
     }
-// https://t.me/pasterplace
 
     private void renderEmptyStateIcon(DrawContext drawContext, float contentOriginX, float contentWidth, float opacity) {
         float centerX = contentOriginX + contentWidth * 0.5F;
@@ -567,7 +554,6 @@ public final class Myid {
             .render(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     private void renderConnectionState(DrawContext drawContext, float contentOriginX, float contentWidth, float opacity) {
         if (this.socialState.getConnectionState() != GlobalsClient.ConnectionState.CONNECTED) {
@@ -587,7 +573,6 @@ public final class Myid {
             .render(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     private void renderConversationHeader(DrawContext drawContext, float mouseX, float mouseY, float contentOriginX, float contentWidth, long currentTimeMillis, float opacity) {
         String conversationId = this.socialState.getSelectedChatId();
@@ -642,7 +627,6 @@ public final class Myid {
             if (!isGlobalConversation) {
                 float infoButtonX = contentOriginX + contentWidth - 12.0F;
                 float infoHoverProgress = this.animateHover("info", containsPoint(mouseX, mouseY, infoButtonX - 5.0F, headerY + 5.0F, 10.0F, 10.0F) || this.friendDetailsOpen, 10.0F);
-// https://t.me/pasterplace
 
                 for (int infoDotIndex = -1; infoDotIndex <= 1; infoDotIndex++) {
                     RoundedGradientRectBuilder.at(infoButtonX - 0.8F, headerY + 10.5F + infoDotIndex * 2.6F - 0.8F, 1.6F, 1.6F)
@@ -674,7 +658,6 @@ public final class Myid {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void renderConversationMessages(
     DrawContext drawContext,
@@ -854,7 +837,6 @@ public final class Myid {
             this.pendingClickActions.add(new Myid.ChatOverlayAction(scrollToBottomButtonX - 6.0F, scrollToBottomButtonY - 6.0F, 12.0F, 12.0F, () -> this.messageScrollOffset = 0.0F, null));
         }
     }
-// https://t.me/pasterplace
 
     private Myid.EmojiLineRenderData layoutConversationMessage(Chat chat, float availableContentWidth, boolean showSenderName) {
         boolean containsOnlyEmoji = EmojiTextRenderer.isEmojiOnlyText(chat.getMessage());
@@ -889,7 +871,6 @@ public final class Myid {
             return new Myid.EmojiLineRenderData(messageLines, bubbleWidth, bubbleHeight, false, showSenderName);
         }
     }
-// https://t.me/pasterplace
 
     private void renderConversationMessage(
     DrawContext drawContext,
@@ -931,7 +912,6 @@ public final class Myid {
                 .render(drawContext);
             }
         }
-// https://t.me/pasterplace
 
         boolean isPointerOverBubble = containsPoint(mouseX, mouseY, bubbleX, messageY, messageLayout.width, messageLayout.height)
         && mouseY >= viewportTop
@@ -1017,7 +997,6 @@ public final class Myid {
             this.pendingClickActions.add(new Myid.ChatOverlayAction(bubbleX, messageY, messageLayout.width, messageLayout.height, null, chat));
         }
     }
-// https://t.me/pasterplace
 
     private void renderMessageComposer(DrawContext drawContext, float mouseX, float mouseY, String conversationId, float contentOriginX, float contentWidth, long currentTimeMillis, float opacity) {
         float composerY = this.panelY + this.panelHeight - 16.0F - 3.0F;
@@ -1129,7 +1108,6 @@ public final class Myid {
             .render(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     private void renderEmojiPicker(DrawContext drawContext, float mouseX, float mouseY, float contentOriginX, float contentWidth, float opacity) {
         float pickerWidth = Math.min(136.0F, contentWidth - 10.0F);
@@ -1171,7 +1149,6 @@ public final class Myid {
                 this.emojiGridScrollOffset = 0.0F;
             }, null));
         }
-// https://t.me/pasterplace
 
         RoundedGradientRectBuilder.at(pickerX + 4.0F, pickerY + 16.0F, pickerWidth - 8.0F, 0.6F)
         .cornerRadius(0.0F)
@@ -1223,7 +1200,6 @@ public final class Myid {
             drawContext.disableScissor();
         }
     }
-// https://t.me/pasterplace
 
     private void renderFriendCard(
     DrawContext drawContext, float mouseX, float mouseY, LastSeen contact, float contentOriginX, float contentWidth, float cardY, float opacity
@@ -1236,7 +1212,6 @@ public final class Myid {
         for (Model cosmeticModel : Cape.getInstance().parseSelection(contact.cosmeticsData).values()) {
             cosmetics.add(cosmeticModel.getDisplayName());
         }
-// https://t.me/pasterplace
 
         List<String[]> profileRows = new ArrayList<>();
         List<Runnable> profileRowActions = new ArrayList<>();
@@ -1319,7 +1294,6 @@ public final class Myid {
             opacity
             );
         }
-// https://t.me/pasterplace
 
         RoundedGradientRectBuilder.at(cardX, profileRowY + 2.0F, cardWidth, 0.5F)
         .color(Accent.getTextColorWithAlpha((int)(14.0F * opacity)))
@@ -1351,7 +1325,6 @@ public final class Myid {
             }
         }, null));
     }
-// https://t.me/pasterplace
 
     private float renderFriendActionRow(
     DrawContext drawContext,
@@ -1374,7 +1347,6 @@ public final class Myid {
             .color(Accent.getTextColorWithAlpha((int)(10.0F * hoverProgress * opacity)))
             .render(drawContext);
         }
-// https://t.me/pasterplace
 
         GuiTextBuilder.createAt(
         Medium.DEFAULT_FONT, Medium.DEFAULT_FONT.truncateToWidth(valueText, 4.4F, cardWidth - 18.0F), cardX + 9.0F, rowY + 4.0F, 4.4F
@@ -1389,7 +1361,6 @@ public final class Myid {
         this.pendingClickActions.add(new Myid.ChatOverlayAction(cardX + 4.0F, rowY, cardWidth - 8.0F, actionRowHeight, action, null));
         return rowY + 13.0F;
     }
-// https://t.me/pasterplace
 
     private void renderProfileTab(DrawContext drawContext, float mouseX, float mouseY, float contentOriginX, float contentWidth, long currentTimeMillis, float opacity) {
         LastSeen currentUserPresence = this.socialState.getCurrentUser();
@@ -1512,7 +1483,6 @@ public final class Myid {
         .color(Accent.getDeepTextColor((int)(180.0F * opacity)))
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     private void renderContextMenu(DrawContext drawContext, float mouseX, float mouseY, float opacity) {
         LastSeen currentUserPresence = this.socialState.getCurrentUser();
@@ -1566,7 +1536,6 @@ public final class Myid {
             this.contextMenuActions.add(new Myid.ChatOverlayAction(menuX + 2.0F, optionY, menuWidth - 4.0F, 11.0F, optionAction, null));
         }
     }
-// https://t.me/pasterplace
 
     public boolean mouseClicked(float mouseX, float mouseY, int button) {
         if (!containsPoint(mouseX, mouseY, this.panelX, this.panelY, this.panelWidth, this.panelHeight)) {
@@ -1660,7 +1629,6 @@ public final class Myid {
             }
         }
     }
-// https://t.me/pasterplace
 
     private boolean isPointInContextMenu(float mouseX, float mouseY) {
         float emojiPickerX = this.panelX + 112.0F + 0.75F;
@@ -1670,7 +1638,6 @@ public final class Myid {
         return containsPoint(mouseX, mouseY, emojiPickerX + 5.0F, emojiPickerY, emojiPickerWidth, 104.0F)
         || containsPoint(mouseX, mouseY, emojiPickerX + 5.0F, this.panelY + this.panelHeight - 16.0F - 3.0F, 16.0F, 16.0F);
     }
-// https://t.me/pasterplace
 
     private boolean focusSearchFieldAt(float mouseX, float mouseY) {
         float searchFieldY = this.panelY + 20.0F;
@@ -1699,7 +1666,6 @@ public final class Myid {
 
         return false;
     }
-// https://t.me/pasterplace
 
     public boolean mouseScrolled(float mouseX, float mouseY, double scrollAmount) {
         if (!containsPoint(mouseX, mouseY, this.panelX, this.panelY, this.panelWidth, this.panelHeight)) {
@@ -1718,7 +1684,6 @@ public final class Myid {
             }
         }
     }
-// https://t.me/pasterplace
 
     public boolean keyPressed(KeyInput keyInput) {
         SearchTextField l1I1IIl111Il1l1l = this.getFocusedTextField();
@@ -1784,7 +1749,6 @@ public final class Myid {
             }
         }
     }
-// https://t.me/pasterplace
 
     public boolean charTyped(CharInput charInput) {
         SearchTextField l1I1IIl111Il1l1l = this.getFocusedTextField();
@@ -1803,12 +1767,10 @@ public final class Myid {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     public boolean hasFocusedInput() {
         return this.showMessageCursor || this.getFocusedTextField() != null;
     }
-// https://t.me/pasterplace
 
     public void clearFocusedInput() {
         this.showMessageCursor = false;
@@ -1818,7 +1780,6 @@ public final class Myid {
         this.emojiPickerOpen = false;
         this.contextMenuChat = null;
     }
-// https://t.me/pasterplace
 
     private SearchTextField getFocusedTextField() {
         for (SearchTextField textField : new SearchTextField[]{this.chatSearchField, this.friendSearchField, this.biographyField}) {
@@ -1829,7 +1790,6 @@ public final class Myid {
 
         return null;
     }
-// https://t.me/pasterplace
 
     private void appendMessageText(String appendedText) {
         String updatedDraft = this.messageDraft + appendedText;
@@ -1843,7 +1803,6 @@ public final class Myid {
             this.socialState.sendTypingIndicator(conversationId);
         }
     }
-// https://t.me/pasterplace
 
     private static String removeLastEmoji(String draft) {
         for (int suffixLength = Math.min(5, draft.length()); suffixLength >= 1; suffixLength--) {
@@ -1861,7 +1820,6 @@ public final class Myid {
 
         return draftWithoutLastCodePoint;
     }
-// https://t.me/pasterplace
 
     private void sendMessage(String conversationId) {
         String messageText = this.messageDraft.strip();
@@ -1877,7 +1835,6 @@ public final class Myid {
             });
         }
     }
-// https://t.me/pasterplace
 
     private void selectTab(int tabIndex) {
         this.selectedTabIndex = tabIndex;
@@ -1893,7 +1850,6 @@ public final class Myid {
             this.friendDetailsOpen = false;
         }
     }
-// https://t.me/pasterplace
 
     private void selectConversation(String conversationId) {
         if (this.selectedTabIndex == 2) {
@@ -1909,7 +1865,6 @@ public final class Myid {
         this.socialState.selectChat(conversationId);
         this.showMessageCursor = true;
     }
-// https://t.me/pasterplace
 
     private void sendFriendRequest(String friendQuery) {
         String normalizedQuery = friendQuery.trim();
@@ -1923,19 +1878,16 @@ public final class Myid {
             }, this::showToast);
         }
     }
-// https://t.me/pasterplace
 
     private void saveBiography() {
         this.socialState
         .updateProfile(null, this.biographyField.getText().trim(), () -> this.showToast("Профиль обновлён"), this::showToast);
     }
-// https://t.me/pasterplace
 
     private void showToast(String toastMessage) {
         this.toastMessage = toastMessage;
         this.toastExpirationTime = System.currentTimeMillis() + 2600L;
     }
-// https://t.me/pasterplace
 
     private void copyToClipboardWithToast(String clipboardText, String toastMessage) {
         if (clipboardText != null && !clipboardText.isEmpty()) {
@@ -1943,7 +1895,6 @@ public final class Myid {
             this.showToast(toastMessage);
         }
     }
-// https://t.me/pasterplace
 
     private void renderFallbackAvatar(DrawContext drawContext, LastSeen lastSeen, float x, float y, float avatarSize, float opacity) {
         if (lastSeen == null) {
@@ -1978,7 +1929,6 @@ public final class Myid {
             .render(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     private void renderOnlineIndicator(DrawContext drawContext, float centerX, float centerY, float opacity) {
         RoundedGradientRectBuilder.at(centerX - 0.8F, centerY - 0.8F, 5.2F, 5.2F)
@@ -1990,7 +1940,6 @@ public final class Myid {
         .color(RgbaColor.rgba(76, 217, 100, (int)(255.0F * opacity)))
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     private void renderUnreadCountBadge(DrawContext drawContext, float badgeRightX, float badgeY, int unreadCount, float opacity) {
         String badgeText = unreadCount > 99 ? "99+" : String.valueOf(unreadCount);
@@ -2004,7 +1953,6 @@ public final class Myid {
         .color(RgbaColor.rgba(255, 255, 255, (int)(255.0F * opacity)))
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     private void renderIconAction(
     DrawContext drawContext, float mouseX, float mouseY, String actionKey, float iconCenterX, float iconCenterY, boolean isPositiveAction, float opacity
@@ -2015,7 +1963,6 @@ public final class Myid {
         : Accent.getTextColorWithAlpha((int)((14.0F + 20.0F * hoverProgress) * opacity)).toArgb();
         RoundedGradientRectBuilder.at(iconCenterX - 4.5F, iconCenterY - 4.5F, 9.0F, 9.0F).cornerRadius(4.5F).color(iconColor).render(drawContext);
     }
-// https://t.me/pasterplace
 
     private void renderProfileAction(
     DrawContext drawContext,
@@ -2044,7 +1991,6 @@ public final class Myid {
         .render(drawContext);
         this.pendingClickActions.add(new Myid.ChatOverlayAction(actionX, actionY, actionWidth, 12.0F, action, null));
     }
-// https://t.me/pasterplace
 
     private void renderStatusGlyph(DrawContext drawContext, float centerX, float centerY, boolean isRead, int baseColor) {
         float glyphHeight = 3.6F;
@@ -2055,24 +2001,20 @@ public final class Myid {
         .tint(glyphColor)
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     private void renderCheckmark(DrawContext drawContext, float centerX, float centerY, float size, int color) {
         this.renderCheckmark(drawContext, centerX, centerY, size, 0.65F, color);
     }
-// https://t.me/pasterplace
 
     private void renderCheckmark(DrawContext drawContext, float centerX, float centerY, float size, float strokeWidth, int color) {
         drawThickLine(drawContext, centerX - size, centerY, centerX - size * 0.25F, centerY + size * 0.8F, strokeWidth, color);
         drawThickLine(drawContext, centerX - size * 0.25F, centerY + size * 0.8F, centerX + size * 1.1F, centerY - size * 0.9F, strokeWidth, color);
     }
-// https://t.me/pasterplace
 
     private void renderCross(DrawContext drawContext, float centerX, float centerY, float size, int color) {
         drawThickLine(drawContext, centerX - size, centerY - size, centerX + size, centerY + size, 0.75F, color);
         drawThickLine(drawContext, centerX - size, centerY + size, centerX + size, centerY - size, 0.75F, color);
     }
-// https://t.me/pasterplace
 
     private static void drawThickLine(DrawContext drawContext, float startX, float startY, float endX, float endY, float thickness, int color) {
         float deltaX = endX - startX;
@@ -2087,7 +2029,6 @@ public final class Myid {
         .render(drawContext);
         drawContext.getMatrices().popMatrix();
     }
-// https://t.me/pasterplace
 
     private static void drawCircularProgress(DrawContext drawContext, float startX, float centerY, float width, float height, int color) {
         byte segmentCount = 12;
@@ -2102,32 +2043,27 @@ public final class Myid {
             .render(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     private float animateHover(String animationKey, boolean isHovered, float animationSpeed) {
         float[] hoverProgressState = this.buttonHoverAnimations.computeIfAbsent(animationKey, hoverKey -> new float[1]);
         hoverProgressState[0] += ((isHovered ? 1.0F : 0.0F) - hoverProgressState[0]) * (1.0F - (float)Math.exp(-animationSpeed * this.animationFrameDelta));
         return hoverProgressState[0];
     }
-// https://t.me/pasterplace
 
     private static int getTextColor(String playerName, float opacity) {
         int paletteColor = TEXT_COLOR_PALETTE[Math.floorMod(playerName.hashCode(), TEXT_COLOR_PALETTE.length)];
         return (int)(255.0F * opacity) << 24 | paletteColor & 16777215;
     }
-// https://t.me/pasterplace
 
     private static String loadingDots(long currentTimeMillis) {
         return ".".repeat((int)(currentTimeMillis / 400L % 3L) + 1);
     }
-// https://t.me/pasterplace
 
     private String formatMessageTime(long timestampMillis) {
         return isSameDay(timestampMillis, System.currentTimeMillis())
         ? this.messageTimeFormat.format(new Date(timestampMillis))
         : this.compactDateFormat.format(new Date(timestampMillis));
     }
-// https://t.me/pasterplace
 
     private String formatDateHeader(long timestampMillis) {
         long currentTimeMillis = System.currentTimeMillis();
@@ -2137,7 +2073,6 @@ public final class Myid {
             return isSameDay(timestampMillis, currentTimeMillis - 86400000L) ? "Вчера" : this.fullDateFormat.format(new Date(timestampMillis));
         }
     }
-// https://t.me/pasterplace
 
     private String formatLastSeen(long lastSeenTimeMillis) {
         if (lastSeenTimeMillis <= 0L) {
@@ -2157,7 +2092,6 @@ public final class Myid {
             }
         }
     }
-// https://t.me/pasterplace
 
     private static boolean isSameDay(long firstTimestampMillis, long secondTimestampMillis) {
         Calendar instance = Calendar.getInstance();
@@ -2166,12 +2100,10 @@ public final class Myid {
         instance2.setTimeInMillis(secondTimestampMillis);
         return instance.get(1) == instance2.get(1) && instance.get(6) == instance2.get(6);
     }
-// https://t.me/pasterplace
 
     private static boolean containsPoint(float mouseX, float mouseY, float left, float top, float width, float height) {
         return mouseX >= left && mouseX <= left + width && mouseY >= top && mouseY <= top + height;
     }
-// https://t.me/pasterplace
 
     private record ChatOverlayAction(float left, float top, float width, float height, Runnable action, Chat chat) {
 
@@ -2184,7 +2116,6 @@ public final class Myid {
             this.chat = chat;
         }
     }
-// https://t.me/pasterplace
 
     private record EmojiLineRenderData(List<EmojiTextRenderer.EmojiLineLayout> lines, float width, float height, boolean hasOverflow, boolean centered) {
 

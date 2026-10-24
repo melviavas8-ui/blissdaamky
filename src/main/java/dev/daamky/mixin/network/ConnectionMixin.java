@@ -25,12 +25,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientConnection.class)
 public abstract class ConnectionMixin {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Unique
    private boolean daamky$positionThisTick;
    @Unique
    private boolean daamky$teleportReply;
-// https://t.me/pasterplace
 
    @Inject(method = "send(Lnet/minecraft/network/packet/Packet;Lio/netty/channel/ChannelFutureListener;Z)V", at = @At("HEAD"), cancellable = true)
    private void daamky$onSend(Packet<?> packet, ChannelFutureListener listener, boolean flush, CallbackInfo callbackInfo) {
@@ -74,7 +72,6 @@ public abstract class ConnectionMixin {
                      PacketSender.l1I1IlllIlI(PlayerMovementPacketFactory.II1Il11l111II11IIl(movementPacket));
                      return;
                   }
-// https://t.me/pasterplace
 
                   this.daamky$positionThisTick = true;
                }
@@ -82,7 +79,6 @@ public abstract class ConnectionMixin {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "send(Lnet/minecraft/network/packet/Packet;Lio/netty/channel/ChannelFutureListener;Z)V", at = @At("TAIL"))
    private void daamky$afterSend(Packet<?> packet, ChannelFutureListener listener, boolean flush, CallbackInfo callbackInfo) {
@@ -90,7 +86,6 @@ public abstract class ConnectionMixin {
          OutgoingPacketBuffer.flush();
       }
    }
-// https://t.me/pasterplace
 
    @Inject(
       method = "handlePacket(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/listener/PacketListener;)V",

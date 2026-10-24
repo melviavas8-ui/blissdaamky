@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public abstract class AnimatedListHudElement extends HudElementPosition {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float DEFAULT_ROW_HEIGHT = 15.0F;
    private static final float ENTRY_ROW_HEIGHT = 11.0F;
    private static final float HORIZONTAL_PADDING = 5.5F;
@@ -18,55 +17,44 @@ public abstract class AnimatedListHudElement extends HudElementPosition {
    private List<AnimatedListHudElement.HudListEntry> visibleEntries = List.of();
    private final Map<String, Float> entryVisibilityProgress = new HashMap<>();
    private final Map<String, Float> entryProgressValues = new HashMap<>();
-// https://t.me/pasterplace
 
    protected String getHeaderGlyph() {
       return null;
    }
-// https://t.me/pasterplace
 
    protected MsdfFont getHeaderFont() {
       return Medium.ICON_FONT;
    }
-// https://t.me/pasterplace
 
    protected ItemStack getHeaderItemStack() {
       return null;
    }
-// https://t.me/pasterplace
 
    protected String getEntryGlyph(AnimatedListHudElement.HudListEntry hudEntry) {
       return null;
    }
-// https://t.me/pasterplace
 
    protected boolean renderDetailAsBadge() {
       return false;
    }
-// https://t.me/pasterplace
 
    protected boolean shouldShowTrailingProgress() {
       return false;
    }
-// https://t.me/pasterplace
 
    protected boolean shouldShowDetailProgress() {
       return false;
    }
-// https://t.me/pasterplace
 
    protected AnimatedListHudElement(String displayName, String settingsKey, float initialX, float initialY) {
       super(displayName, settingsKey, initialX, initialY);
       this.elementWidth = 64.0F;
       this.elementHeight = 15.0F;
    }
-// https://t.me/pasterplace
 
    protected abstract String getHeaderLabel();
-// https://t.me/pasterplace
 
    protected abstract List<AnimatedListHudElement.HudListEntry> getEntries(boolean chatScreenOpen);
-// https://t.me/pasterplace
 
    @Override
    public void updateAnimation(float tickDelta) {
@@ -104,12 +92,10 @@ public abstract class AnimatedListHudElement extends HudElementPosition {
       this.entryProgressValues.clear();
       this.entryProgressValues.putAll(nextProgressValues);
    }
-// https://t.me/pasterplace
 
    private float getAnimatedHeight() {
       return this.visibleEntries.isEmpty() ? 15.0F : 17.0F + this.visibleEntries.size() * 11.0F + 2.5F;
    }
-// https://t.me/pasterplace
 
    private float getAnimatedWidth() {
       float headerWidth = BrokkeIcons.measureTextWidth(this.getHeaderLabel(), 6.2F) + 26.0F;
@@ -138,14 +124,12 @@ public abstract class AnimatedListHudElement extends HudElementPosition {
 
       return Math.max(64.0F, headerWidth + 11.0F - 8.0F);
    }
-// https://t.me/pasterplace
 
    @Override
    public boolean isVisibleInCurrentScreen(boolean chatScreenOpen) {
       this.visibleEntries = this.getEntries(chatScreenOpen);
       return chatScreenOpen || !this.visibleEntries.isEmpty();
    }
-// https://t.me/pasterplace
 
    @Override
    public void render(HudRenderContext renderContext, float alpha) {
@@ -192,7 +176,6 @@ public abstract class AnimatedListHudElement extends HudElementPosition {
             if (firstEntryY + 11.0F > entriesBottomY) {
                break;
             }
-// https://t.me/pasterplace
 
             float entryVisibility = this.entryVisibilityProgress.getOrDefault(((AnimatedListHudElement.HudListEntry)entryObject).title(), 1.0F);
             float entryAlpha = alpha * entryVisibility;
@@ -288,7 +271,6 @@ public abstract class AnimatedListHudElement extends HudElementPosition {
                      detailBackgroundColor
                   );
                }
-// https://t.me/pasterplace
 
                if (((AnimatedListHudElement.HudListEntry)entryObject).animationProgress() >= 0.0F && !this.shouldShowDetailProgress()) {
                   BrokkeIcons.drawProgressBar(
@@ -308,12 +290,10 @@ public abstract class AnimatedListHudElement extends HudElementPosition {
          }
       }
    }
-// https://t.me/pasterplace
 
    public static void drawProgressRing(DrawContext drawContext, float centerX, float centerY, float radius, float progress, float alpha) {
       drawProgressRing(drawContext, centerX, centerY, radius, 1.1F, 22, progress, alpha);
    }
-// https://t.me/pasterplace
 
    public static void drawProgressRing(
       DrawContext drawContext, float centerX, float centerY, float radius, float dotRadius, int segmentCount, float progress, float alpha
@@ -335,7 +315,6 @@ public abstract class AnimatedListHudElement extends HudElementPosition {
          }
       }
    }
-// https://t.me/pasterplace
 
    public static void drawProgressRing(
       DrawContext drawContext,
@@ -355,7 +334,6 @@ public abstract class AnimatedListHudElement extends HudElementPosition {
          if (segmentProgress <= 0.0F) {
             break;
          }
-// https://t.me/pasterplace
 
          double angleRadians = (-Math.PI / 2) + (double)segmentIndex / segmentCount * Math.PI * 2.0;
          float dotX = centerX + (float)Math.cos(angleRadians) * radius;
@@ -363,7 +341,6 @@ public abstract class AnimatedListHudElement extends HudElementPosition {
          BrokkeIcons.drawColorSwatch(drawContext, dotX, dotY, dotRadius, color.multiplyAlpha(alpha * segmentProgress));
       }
    }
-// https://t.me/pasterplace
 
    public record HudListEntry(String title, String detail, ItemStack icon, RgbaColor textColor, RgbaColor backgroundColor, float animationProgress, Identifier iconId) {
 

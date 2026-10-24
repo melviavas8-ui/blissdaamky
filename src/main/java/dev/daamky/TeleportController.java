@@ -15,7 +15,6 @@ import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.util.math.Vec3d;
 
 public final class TeleportController {
-    private static final String p7a68c4fd = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final TeleportController INSTANCE = new TeleportController();
    private static final double MAX_VERTICAL_CLIP_DISTANCE = 190.0;
    private static final double SURFACE_CLEARANCE = 2.0;
@@ -29,21 +28,17 @@ public final class TeleportController {
    private double bedrockLevelY;
    private boolean returnToSurface;
    private int delayTicks;
-// https://t.me/pasterplace
 
    private TeleportController() {
    }
-// https://t.me/pasterplace
 
    public static TeleportController getInstance() {
       return INSTANCE;
    }
-// https://t.me/pasterplace
 
    public boolean isTeleporting() {
       return this.teleportState != TeleportController.TeleportState.IDLE;
    }
-// https://t.me/pasterplace
 
    public void cancelTeleport() {
       boolean wasTeleporting = this.isTeleporting();
@@ -52,12 +47,10 @@ public final class TeleportController {
          ClientChatLogger.II1Il11l111II11IIl("Телепорт остановлен.");
       }
    }
-// https://t.me/pasterplace
 
    public void startTeleport(ClientPlayerEntity player, ClientWorld world, double targetX, double targetY, double targetZ) {
       this.startTeleport(player, world, targetX, targetY, targetZ, true);
    }
-// https://t.me/pasterplace
 
    public void startTeleport(ClientPlayerEntity player, ClientWorld world, double targetX, double targetY, double targetZ, boolean returnToSurface) {
       if (!player.getAbilities().allowFlying) {
@@ -92,7 +85,6 @@ public final class TeleportController {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onTick(EventTick eventTick) {
@@ -100,7 +92,6 @@ public final class TeleportController {
          this.rollbackDetected = false;
          ClientChatLogger.l1I1IlllIlI("Сервер откатил телепорт.");
       }
-// https://t.me/pasterplace
 
       if (this.teleportState != TeleportController.TeleportState.IDLE) {
          MinecraftClient client = MinecraftClient.getInstance();
@@ -130,14 +121,12 @@ public final class TeleportController {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void holdPlayerAtCurrentPosition(ClientPlayerEntity clientPlayerEntity) {
       clientPlayerEntity.setPosition(this.currentPosition);
       clientPlayerEntity.setVelocity(Vec3d.ZERO);
       clientPlayerEntity.fallDistance = 0.0;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onWorldChange(EventWorldChange eventWorldChange) {
@@ -148,7 +137,6 @@ public final class TeleportController {
       this.teleportState = TeleportController.TeleportState.IDLE;
       this.rollbackDetected = false;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onPacket(EventPacket eventPacket) {
@@ -174,7 +162,6 @@ public final class TeleportController {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void advanceUnderBedrock(ClientWorld clientWorld) {
       double deltaX = this.targetPosition.x - this.currentPosition.x;
@@ -195,7 +182,6 @@ public final class TeleportController {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void moveToSafeTargetHeight(ClientPlayerEntity clientPlayerEntity, ClientWorld clientWorld) {
        Double targetY = this.findSafeTargetY(clientPlayerEntity, clientWorld);
@@ -217,7 +203,6 @@ public final class TeleportController {
          );
       }
    }
-// https://t.me/pasterplace
 
    private void hopTo(Vec3d nextPosition, TeleportController.TeleportState nextState, int delayTicks) {
       TeleportLog.II1Il11l111II11IIl(
@@ -233,7 +218,6 @@ public final class TeleportController {
       this.teleportState = nextState;
       this.delayTicks = delayTicks;
    }
-// https://t.me/pasterplace
 
    private Double findSafeTargetY(ClientPlayerEntity clientPlayerEntity, ClientWorld clientWorld) {
       for (double candidateY = this.targetPosition.y; candidateY <= this.bedrockLevelY + 190.0; candidateY = Math.floor(candidateY) + 1.0) {
@@ -245,7 +229,6 @@ public final class TeleportController {
 
       return null;
    }
-// https://t.me/pasterplace
 
    private enum TeleportState {
       IDLE,

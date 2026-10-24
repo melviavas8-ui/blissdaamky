@@ -26,7 +26,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class Particles extends ModuleStructure {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final int MAX_PARTICLE_COUNT = 1200;
     private static final float[][][] OCTAHEDRON_MODEL = buildEdgeModel(
     new float[][]{{0.0F, 1.4F, 0.0F}, {0.0F, -1.4F, 0.0F}, {1.0F, 0.0F, 0.0F}, {0.0F, 0.0F, 1.0F}, {-1.0F, 0.0F, 0.0F}, {0.0F, 0.0F, -1.0F}},
@@ -84,7 +83,6 @@ public final class Particles extends ModuleStructure {
     private float walkingSpawnAccumulator;
     private float projectileSpawnAccumulator;
     private Vec3d lastWalkingPosition;
-// https://t.me/pasterplace
 
     public Particles() {
         super("Particles", "Частицы при ударах, тотемах, снарядах и движении", ModuleCategory.RENDER);
@@ -108,13 +106,11 @@ public final class Particles extends ModuleStructure {
         this.particleSpreadSetting
         );
     }
-// https://t.me/pasterplace
 
     @Override
     public String getDisplayInfo() {
         return this.renderModeSetting.isSelected("3D") ? this.threeDimensionalShapeSetting.getValue() : this.twoDimensionalShapeSetting.getValue();
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.FAST)
     @Override
@@ -122,7 +118,6 @@ public final class Particles extends ModuleStructure {
         this.particles.clear();
         this.lastWalkingPosition = null;
     }
-// https://t.me/pasterplace
 
     @EventTarget
     @Allow2Generation(level = GenerationLevel.FAST)
@@ -133,7 +128,6 @@ public final class Particles extends ModuleStructure {
             this.spawnParticles(impactPosition, this.particleCountSetting.getValue().intValue(), 0.6, attackedEntity.getWidth() * 0.5);
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     @Allow2Generation(level = GenerationLevel.FAST)
@@ -163,7 +157,6 @@ public final class Particles extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void spawnParticles(Vec3d origin, int particleCount, double launchSpeed, double spawnRadius) {
         ThreadLocalRandom random = ThreadLocalRandom.current();
@@ -181,7 +174,6 @@ public final class Particles extends ModuleStructure {
             );
         }
     }
-// https://t.me/pasterplace
 
     private void addParticle(Particles.Particle particle) {
         this.particles.add(particle);
@@ -190,7 +182,6 @@ public final class Particles extends ModuleStructure {
             this.particles.subList(0, excessParticleCount).clear();
         }
     }
-// https://t.me/pasterplace
 
     private void spawnWalkingParticles(Vec3d playerPosition, float tickDelta) {
         this.walkingSpawnAccumulator = this.walkingSpawnAccumulator + tickDelta * this.particleCountSetting.getValue();
@@ -211,7 +202,6 @@ public final class Particles extends ModuleStructure {
             );
         }
     }
-// https://t.me/pasterplace
 
     private void spawnProjectileParticles(float tickDelta) {
         this.projectileSpawnAccumulator += tickDelta * 30.0F;
@@ -233,7 +223,6 @@ public final class Particles extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     public void renderParticles(EventRender3D renderEvent) {
@@ -258,7 +247,6 @@ public final class Particles extends ModuleStructure {
             if (this.particleSourcesSetting.isOptionEnabled("Снаряды")) {
                 this.spawnProjectileParticles(tickDelta);
             }
-// https://t.me/pasterplace
 
             if (!this.particles.isEmpty()) {
                 if (this.renderModeSetting.isSelected("3D")) {
@@ -332,7 +320,6 @@ public final class Particles extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void renderThreeDimensionalParticles(float tickDelta) {
         float lifetimeSeconds = this.particleLifetimeSetting.getValue();
@@ -348,7 +335,6 @@ public final class Particles extends ModuleStructure {
 
         int retainedParticleCount = 0;
         int initialParticleCount = this.particles.size();
-// https://t.me/pasterplace
 
         for (int particleIndex = 0; particleIndex < initialParticleCount; particleIndex++) {
             Object particleObject = this.particles.get(particleIndex);
@@ -366,7 +352,6 @@ public final class Particles extends ModuleStructure {
                 rotation.identity().rotateAxis(rotationAngle, ((Particles.Particle)particleObject).rotationAxis).rotateY(rotationAngle * 0.6F);
                 float[][] modelVertices = particleModel[0];
                 float[][] modelEdges = particleModel[1];
-// https://t.me/pasterplace
 
                 for (float[] edgeIndices : modelEdges) {
                     float[] firstVertex = modelVertices[(int)edgeIndices[0]];
@@ -389,7 +374,6 @@ public final class Particles extends ModuleStructure {
             this.particles.subList(retainedParticleCount, initialParticleCount).clear();
         }
     }
-// https://t.me/pasterplace
 
     private static float[][][] buildEdgeModel(float[][] vertices, int[][] edgeIndices) {
         float[][] edges = new float[edgeIndices.length][];
@@ -400,7 +384,6 @@ public final class Particles extends ModuleStructure {
 
         return new float[][][]{vertices, edges};
     }
-// https://t.me/pasterplace
 
     private static float[][][] generateSphereParticleData() {
         float[][] vertices = new float[64][];
@@ -422,7 +405,6 @@ public final class Particles extends ModuleStructure {
 
         return new float[][][]{vertices, edges};
     }
-// https://t.me/pasterplace
 
     private static float[][][] generateRingParticleData() {
 
@@ -440,7 +422,6 @@ public final class Particles extends ModuleStructure {
 
         return new float[][][]{vertices, edges};
     }
-// https://t.me/pasterplace
 
     private Identifier getTextureForShape() {
         String textureName = switch ((String)this.twoDimensionalShapeSetting.getValue()) {
@@ -458,7 +439,6 @@ public final class Particles extends ModuleStructure {
         };
         return textureName == null ? null : Identifier.of("daamky", "textures/particles/" + textureName + ".png");
     }
-// https://t.me/pasterplace
 
     private RgbaColor getParticleColor(Particles.Particle particle, int alpha) {
         return switch ((String)this.colorModeSetting.getValue()) {
@@ -468,7 +448,6 @@ public final class Particles extends ModuleStructure {
             default -> AnimatedColorUtils.getAnimatedAccentColor(particle.colorPhase, alpha);
         };
     }
-// https://t.me/pasterplace
 
     private static void drawBillboardQuad(
     BufferBuilder bufferBuilder, Vector3f[] cameraPlaneBasis, Vec3d worldPosition, float size, float rotationRadians, RgbaColor color
@@ -493,7 +472,6 @@ public final class Particles extends ModuleStructure {
         bufferBuilder.vertex(cameraRelativeX + rightX + upX, cameraRelativeY + rightY + upY, cameraRelativeZ + rightZ + upZ).texture(1.0F, 0.0F).color(colorArgb);
         bufferBuilder.vertex(cameraRelativeX - rightX + upX, cameraRelativeY - rightY + upY, cameraRelativeZ - rightZ + upZ).texture(0.0F, 0.0F).color(colorArgb);
     }
-// https://t.me/pasterplace
 
     private final class Particle {
         private Vec3d position;
@@ -531,7 +509,6 @@ public final class Particles extends ModuleStructure {
             if (Particles.this.physicsEnabledSetting.getValue() && !this.gravityDisabled) {
                 this.velocity = this.velocity.add(0.0, -9.0 * deltaSeconds, 0.0);
             }
-// https://t.me/pasterplace
 
             this.velocity = this.velocity.multiply(Math.max(0.0, 1.0 - deltaSeconds * (this.gravityDisabled ? 0.3 : 1.2)));
             Vec3d nextPosition = this.position.add(this.velocity.multiply(deltaSeconds));

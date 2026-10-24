@@ -21,7 +21,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class ServerHelper extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final String REALLY_WORLD_NAME = "ReallyWorld";
    private static final String FUN_TIME_NAME = "FunTime";
    private static final String HOLY_WORLD_NAME = "HolyWorld";
@@ -104,7 +103,6 @@ public final class ServerHelper extends ModuleStructure {
    private final List<ServerHelper.ItemFilterRule> itemFilterRules = new ArrayList<>();
    private int antiFlySwapTicksRemaining;
    private int antiFlyPreviousSlot = -1;
-// https://t.me/pasterplace
 
    public ServerHelper() {
       super("ServerHelper", "Помощник серверов: бинды предметов ReallyWorld, FunTime, HolyWorld, LonyGrief", ModuleCategory.WORLD);
@@ -152,12 +150,10 @@ public final class ServerHelper extends ModuleStructure {
       this.registerItemFilterRule("Уникальное перо", stack -> stack.isOf(Items.FEATHER), "LonyGrief");
       this.setEnabled(true);
    }
-// https://t.me/pasterplace
 
    private void registerPotionItemRule(String itemName, String... serverModes) {
       this.registerItemFilterRule(itemName, candidateStack -> candidateStack.isOf(Items.SPLASH_POTION) && InventoryUtils.itemNameContains(candidateStack, itemName), serverModes);
    }
-// https://t.me/pasterplace
 
    private void registerItemFilterRule(String itemName, Predicate<ItemStack> itemPredicate, String... serverModes) {
       Set allowedServerModes = Set.of(serverModes);
@@ -166,13 +162,11 @@ public final class ServerHelper extends ModuleStructure {
       this.itemFilterRules.add(new ServerHelper.ItemFilterRule(itemName, keyBindingSetting, itemPredicate, allowedServerModes));
       this.addSetting(keyBindingSetting);
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return this.serverMode.getValue();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -180,7 +174,6 @@ public final class ServerHelper extends ModuleStructure {
       this.antiFlySwapTicksRemaining = 0;
       this.antiFlyPreviousSlot = -1;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -188,7 +181,6 @@ public final class ServerHelper extends ModuleStructure {
       this.antiFlySwapTicksRemaining = 0;
       this.antiFlyPreviousSlot = -1;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -216,7 +208,6 @@ public final class ServerHelper extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -227,7 +218,6 @@ public final class ServerHelper extends ModuleStructure {
             this.serverMode.setValue(detectedServerMode);
          }
       }
-// https://t.me/pasterplace
 
       if (this.antiFlySwapTicksRemaining <= 1) {
          if (this.antiFlySwapTicksRemaining == 1
@@ -243,7 +233,6 @@ public final class ServerHelper extends ModuleStructure {
          this.antiFlySwapTicksRemaining--;
       }
    }
-// https://t.me/pasterplace
 
    private String detectServerModeFromAddress() {
       ServerInfo serverInfo = CLIENT.getCurrentServerEntry();
@@ -262,7 +251,6 @@ public final class ServerHelper extends ModuleStructure {
          return null;
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -281,7 +269,6 @@ public final class ServerHelper extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    public static boolean shouldFilterChatMessage(String message) {
       ServerHelper moduleStructure = (ServerHelper)ModuleRegistry.getInstance().getModuleByClass(ServerHelper.class);
@@ -303,7 +290,6 @@ public final class ServerHelper extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private record ItemFilterRule(String name, IntSetting keySetting, Predicate<ItemStack> itemPredicate, Set<String> modes) {
 

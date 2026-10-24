@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public final class GlyphAtlasEntry {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    public static final int FLOATS_PER_GLYPH = 8;
    private static final int CACHE_CAPACITY = 1024;
    private static final Map<GlyphAtlasEntry.FontGlyphOffset, GlyphAtlasEntry> ENTRY_CACHE = new LinkedHashMap<GlyphAtlasEntry.FontGlyphOffset, GlyphAtlasEntry>(
@@ -24,7 +23,6 @@ public final class GlyphAtlasEntry {
    private final float advanceWidth;
    private final float lineHeight;
    private final float ascender;
-// https://t.me/pasterplace
 
    private GlyphAtlasEntry(MsdfFont font, float[] glyphVertexData, int[] visibleGlyphIndices, int glyphCount, float advanceWidth, float lineHeight, float ascender) {
       this.font = font;
@@ -35,52 +33,42 @@ public final class GlyphAtlasEntry {
       this.lineHeight = lineHeight;
       this.ascender = ascender;
    }
-// https://t.me/pasterplace
 
    public static GlyphAtlasEntry getOrCreate(MsdfFont font, String glyphText, float fontScale) {
       return ENTRY_CACHE.computeIfAbsent(new GlyphAtlasEntry.FontGlyphOffset(font, glyphText, fontScale), GlyphAtlasEntry::build);
    }
-// https://t.me/pasterplace
 
    public static void clearCache() {
       ENTRY_CACHE.clear();
    }
-// https://t.me/pasterplace
 
    public MsdfFont font() {
       return this.font;
    }
-// https://t.me/pasterplace
 
    public float[] glyphVertexData() {
       return this.glyphVertexData;
    }
-// https://t.me/pasterplace
 
    public int[] visibleGlyphIndices() {
       return this.visibleGlyphIndices;
    }
-// https://t.me/pasterplace
 
    public int glyphCount() {
       return this.glyphCount;
    }
-// https://t.me/pasterplace
 
    public float advanceWidth() {
       return this.advanceWidth;
    }
-// https://t.me/pasterplace
 
    public float lineHeight() {
       return this.lineHeight;
    }
-// https://t.me/pasterplace
 
    public float ascender() {
       return this.ascender;
    }
-// https://t.me/pasterplace
 
    private static GlyphAtlasEntry build(GlyphAtlasEntry.FontGlyphOffset cacheKey) {
       MsdfFont font = cacheKey.font();
@@ -126,10 +114,8 @@ public final class GlyphAtlasEntry {
          font, Arrays.copyOf(glyphVertexData, visibleGlyphCount * 8), Arrays.copyOf(visibleGlyphIndices, visibleGlyphCount), visibleGlyphCount, textWidth, font.metrics().lineHeight(), ascender
       );
    }
-// https://t.me/pasterplace
 
    private record FontGlyphOffset(MsdfFont font, String glyphText, float fontScale) {
-// https://t.me/pasterplace
 
       private FontGlyphOffset(MsdfFont font, String glyphText, float fontScale) {
          this.font = font;

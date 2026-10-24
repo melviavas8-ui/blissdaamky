@@ -9,15 +9,12 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface MultiPlayerGameModeAccessor {
    @Accessor("blockBreakingCooldown")
    void daamky$setDestroyDelay(int destroyDelay);
-// https://t.me/pasterplace
 
    @Accessor("currentBreakingProgress")
    float daamky$getDestroyProgress();
-// https://t.me/pasterplace
 
    @Accessor("currentBreakingProgress")
    void daamky$setDestroyProgress(float destroyProgress);
-// https://t.me/pasterplace
 
    @Invoker("syncSelectedSlot")
    void daamky$syncSelectedSlot();

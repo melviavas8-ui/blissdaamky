@@ -50,7 +50,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 
 public final class Joined extends BotPacketListenerInvocationHandler {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final ClientConnectionState clientConnectionState;
    private final BotSessionCallback sessionCallback;
    private final BotClientPlayHandler playHandler;
@@ -58,7 +57,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
    private final ClientPlayPacketListener playPacketListener;
    private boolean playerLoadedPacketSent;
    private long gameJoinReceivedAtMillis;
-// https://t.me/pasterplace
 
    Joined(MinecraftClient client, ClientConnection clientConnection, ClientConnectionState clientConnectionState, BotSession disconnect, BotSessionProfile l1lll11l1l) {
       super(client, clientConnection, disconnect, l1lll11l1l, clientConnectionState.serverCookies());
@@ -71,18 +69,15 @@ public final class Joined extends BotPacketListenerInvocationHandler {
       this.inputController = new BotInputController(client, disconnect.getKeyBindingStateSnapshot());
       this.playPacketListener = this.createProxy(ClientPlayPacketListener.class, TickablePacketListener.class);
    }
-// https://t.me/pasterplace
 
    ClientPlayPacketListener getPlayPacketListener() {
       return this.playPacketListener;
    }
-// https://t.me/pasterplace
 
    @Override
    protected boolean requiresClientThreadDispatch() {
       return true;
    }
-// https://t.me/pasterplace
 
    @Override
    public void tickConnection() {
@@ -91,7 +86,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
       if (this.playerLoadedPacketSent) {
          this.playHandler.markClientLoaded();
       }
-// https://t.me/pasterplace
 
       if (!SavedBots.isSwitchingToSession(this.disconnect) && this.disconnect.isOnline()) {
          this.playHandler.initializePlaySession();
@@ -116,7 +110,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
             .runWithPlaySession(() -> this.disconnect.handleLobbySelection(this.playHandler.getClientPlayer(), this.playHandler.getInteractionManager()));
       }
    }
-// https://t.me/pasterplace
 
    @Override
    protected boolean handleLoginOrConfigurationPacket(Packet<?> packet) {
@@ -168,7 +161,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
 
       return true;
    }
-// https://t.me/pasterplace
 
    private void handleGameJoinPacket(GameJoinS2CPacket gameJoinS2CPacket) {
       if (SavedBots.getActiveSession() == this.disconnect) {
@@ -187,7 +179,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
       this.playHandler.initializePlaySession();
       this.disconnect.onGameJoinOrRespawn();
    }
-// https://t.me/pasterplace
 
    private void sendPlayerLoadedPacketWhenReady() {
       if (!this.playerLoadedPacketSent && this.disconnect.isOnline() && this.playHandler.hasEntityPosition()) {
@@ -200,7 +191,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void handlePlayerPositionLookPacket(PlayerPositionLookS2CPacket playerPositionLookS2CPacket) {
       Vec3d serverPosition = playerPositionLookS2CPacket.change().position();
@@ -214,7 +204,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
          this.dispatchPacketOrQueue(playerPositionLookS2CPacket);
       }
    }
-// https://t.me/pasterplace
 
    private void handlePlayerRotationPacket(PlayerRotationS2CPacket playerRotationS2CPacket) {
       if (!this.playHandler.hasPlayNetworkHandler()) {
@@ -223,7 +212,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
          this.dispatchPacketOrQueue(playerRotationS2CPacket);
       }
    }
-// https://t.me/pasterplace
 
    private void handleGameMessagePacket(GameMessageS2CPacket gameMessageS2CPacket) {
       if (gameMessageS2CPacket.overlay()) {
@@ -238,7 +226,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void handleProfilelessChatMessagePacket(ProfilelessChatMessageS2CPacket profilelessChatMessageS2CPacket) {
       this.recordChatMessage(profilelessChatMessageS2CPacket.message());
@@ -248,7 +235,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
          this.publishReceivedPacketEvent(profilelessChatMessageS2CPacket);
       }
    }
-// https://t.me/pasterplace
 
    private void handleChatMessagePacket(ChatMessageS2CPacket chatMessageS2CPacket) {
       Text chatMessage = chatMessageS2CPacket.unsignedContent() != null
@@ -261,7 +247,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
          this.dispatchPacketOrQueue(chatMessageS2CPacket);
       }
    }
-// https://t.me/pasterplace
 
    private void recordChatMessage(Text chatText) {
       String messageText = chatText.getString();
@@ -270,7 +255,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
       this.disconnect.handleServerMessage(messageText);
       this.sessionCallback.onServerMessage(messageText);
    }
-// https://t.me/pasterplace
 
    private void publishReceivedPacketEvent(Packet<?> packet) {
       EventBus eventBus = ClientInitializer.getEventBus();
@@ -278,7 +262,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
          this.runWithModuleProfile(() -> eventBus.post(new EventPacket(packet, EventPacket.Direction.RECEIVE)));
       }
    }
-// https://t.me/pasterplace
 
    private void handleEntitySpawnPacket(EntitySpawnS2CPacket entitySpawnS2CPacket) {
       if (entitySpawnS2CPacket.getEntityType() == EntityType.ITEM_FRAME || entitySpawnS2CPacket.getEntityType() == EntityType.GLOW_ITEM_FRAME) {
@@ -294,14 +277,12 @@ public final class Joined extends BotPacketListenerInvocationHandler {
 
       this.dispatchPacketOrQueue(entitySpawnS2CPacket);
    }
-// https://t.me/pasterplace
 
    private void handleMapUpdatePacket(MapUpdateS2CPacket mapUpdateS2CPacket) {
       MapIdComponent mapIdComponent = mapUpdateS2CPacket.mapId();
       this.sessionCallback.onMapUpdate(mapIdComponent.id(), (UpdateData)mapUpdateS2CPacket.updateData().orElse(null));
       this.dispatchPacketOrQueue(mapUpdateS2CPacket);
    }
-// https://t.me/pasterplace
 
    private void handleEntityTrackerUpdatePacket(EntityTrackerUpdateS2CPacket entityTrackerUpdateS2CPacket) {
       for (DataTracker.SerializedEntry<?> trackedEntry : entityTrackerUpdateS2CPacket.trackedValues()) {
@@ -323,14 +304,12 @@ public final class Joined extends BotPacketListenerInvocationHandler {
 
       this.dispatchPacketOrQueue(entityTrackerUpdateS2CPacket);
    }
-// https://t.me/pasterplace
 
    private void applyBundlePacket(BundleS2CPacket bundleS2CPacket) {
       for (Packet<? super ClientPlayPacketListener> packet : bundleS2CPacket.getPackets()) {
          packet.apply(this.playPacketListener);
       }
    }
-// https://t.me/pasterplace
 
    private void handleChunkDataPacket(ChunkDataS2CPacket chunkDataS2CPacket) {
       this.dispatchPacketOrQueue(chunkDataS2CPacket);
@@ -346,7 +325,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
             + (clientWorld == null ? "no-world" : clientWorld.getChunkManager().getLoadedChunkCount())
       );
    }
-// https://t.me/pasterplace
 
    private void handleReconfigurationPacket() {
       if (SavedBots.getActiveSession() == this.disconnect) {
@@ -365,42 +343,34 @@ public final class Joined extends BotPacketListenerInvocationHandler {
       this.connection.send(AcknowledgeReconfigurationC2SPacket.INSTANCE);
       this.connection.transitionOutbound(ConfigurationStates.C2S);
    }
-// https://t.me/pasterplace
 
    boolean enterClientWorld() {
       return this.playHandler.enterClientView();
    }
-// https://t.me/pasterplace
 
    void resetClientWorldState() {
       this.playHandler.leaveClientView();
    }
-// https://t.me/pasterplace
 
    ClientWorld getClientWorld() {
       return this.playHandler.getClientWorld();
    }
-// https://t.me/pasterplace
 
    ClientPlayerEntity getClientPlayer() {
       return this.playHandler.getClientPlayer();
    }
-// https://t.me/pasterplace
 
    Entity getCameraEntity() {
       return this.playHandler.getCameraEntity();
    }
-// https://t.me/pasterplace
 
    ClientPlayerInteractionManager getInteractionManager() {
       return this.playHandler.getInteractionManager();
    }
-// https://t.me/pasterplace
 
    Screen getCurrentScreen() {
       return this.playHandler.getClientScreen();
    }
-// https://t.me/pasterplace
 
    String getCurrentScreenTitle() {
       Screen screen = this.playHandler.getClientScreen();
@@ -411,22 +381,18 @@ public final class Joined extends BotPacketListenerInvocationHandler {
          return this.playHandler.getScreenTitle();
       }
    }
-// https://t.me/pasterplace
 
    boolean runWithScreenRestored(Runnable runnable) {
       return this.playHandler.runWithScreenRestored(runnable);
    }
-// https://t.me/pasterplace
 
    boolean isCameraEntity(Object cameraEntity) {
       return this.playHandler.isPlayNetworkHandler(cameraEntity);
    }
-// https://t.me/pasterplace
 
    private void dispatchPacketOrQueue(Packet<?> packet) {
       this.dispatchPacketOrQueue(packet, false);
    }
-// https://t.me/pasterplace
 
    private void dispatchPacketOrQueue(Packet<?> packet, boolean updateClientRenderState) {
       Packet packetToDispatch = packet;
@@ -436,7 +402,6 @@ public final class Joined extends BotPacketListenerInvocationHandler {
          this.playHandler.queuePacket(packetToDispatch);
       }
    }
-// https://t.me/pasterplace
 
    @Override
    protected void runWithModuleProfile(Runnable runnable) {

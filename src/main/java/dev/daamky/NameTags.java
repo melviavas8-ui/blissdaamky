@@ -67,7 +67,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class NameTags extends ModuleStructure {
-    private static final String TELEGRAM_CHANNEL_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static NameTags INSTANCE;
     private static final MsdfFont NAME_TAG_FONT = Medium.DEFAULT_FONT;
     private static final float UNUSED_FLOAT_CONSTANT_5_8 = 5.8F;
@@ -138,7 +137,6 @@ public final class NameTags extends ModuleStructure {
     private static final Pattern SHARPNESS_LEVEL_PATTERN = Pattern.compile("(?i)(?:острота|sharpness|остр[\\.\\s])\\s*([ivxlcdm\\d]+)");
     private static final Map<ItemStack, String> itemDisplayNameCache = new WeakHashMap<>();
     private static final Map<String, String> specialOrbNameCache = new ConcurrentHashMap<>();
-// https://t.me/pasterplace
 
     public NameTags() {
         super("NameTags", "Показывает ники и здоровье через стены", ModuleCategory.RENDER);
@@ -162,17 +160,14 @@ public final class NameTags extends ModuleStructure {
         this.nameTagScaleSetting
         );
     }
-// https://t.me/pasterplace
 
     public static boolean isNameTagsActive() {
         return INSTANCE != null && INSTANCE.isEnabled();
     }
-// https://t.me/pasterplace
 
     public static boolean shouldRenderNameTag(Entity entity) {
         return isNameTagsActive() && INSTANCE.shouldRenderEntity(entity);
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.FAST)
     @Override
@@ -181,7 +176,6 @@ public final class NameTags extends ModuleStructure {
         this.nearbyItemGroupCache.clear();
         this.potionStatusLayoutCache.clear();
     }
-// https://t.me/pasterplace
 
     private boolean shouldRenderEntity(Entity entity) {
         if (entity == null || !entity.isAlive() || entity instanceof ArmorStandEntity) {
@@ -196,7 +190,6 @@ public final class NameTags extends ModuleStructure {
             return !(entity instanceof AnimalEntity) && !(entity instanceof MobEntity) ? false : this.mobsSetting.getValue();
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     @Allow2Generation(level = GenerationLevel.FAST)
@@ -207,7 +200,6 @@ public final class NameTags extends ModuleStructure {
             this.potionStatusTracker.clear();
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     @Allow2Generation(level = GenerationLevel.FAST)
@@ -245,13 +237,11 @@ public final class NameTags extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget(priority = 0)
     public void onHudLayer(EventHudLayer eventHudLayer) {
         this.renderNameTags(eventHudLayer.graphics());
     }
-// https://t.me/pasterplace
 
     private void renderNameTags(DrawContext drawContext) {
         this.potionStatusLayoutCache.clear();
@@ -368,7 +358,6 @@ public final class NameTags extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void renderEntityTag(DrawContext drawContext, NameTags.EntityRenderMetrics metrics, boolean backgroundPass) {
         Entity entity = metrics.entity();
@@ -394,7 +383,6 @@ public final class NameTags extends ModuleStructure {
             this.renderLivingEntityTag(drawContext, entity5, metrics.width(), metrics.height(), metrics.scale(), backgroundPass);
         }
     }
-// https://t.me/pasterplace
 
     private float computePotionLayoutY(PlayerEntity playerEntity, NameTags.EntityRenderMetrics metrics) {
         float tagHeaderHeight = 12.8F;
@@ -405,24 +393,20 @@ public final class NameTags extends ModuleStructure {
 
         return potionStatusY;
     }
-// https://t.me/pasterplace
 
     private static float getScaledLineHeight(float fontSize) {
         return NAME_TAG_FONT.metrics().lineHeight() * fontSize;
     }
-// https://t.me/pasterplace
 
     private static float measureTextWidth(String charSequence, float fontSize) {
         return NAME_TAG_FONT.measureWidth(charSequence, fontSize);
     }
-// https://t.me/pasterplace
 
     private static void drawText(
     DrawContext drawContext, MsdfFont font, String displayText, float x, float y, float fontSize, int colorArgb
     ) {
         GuiTextBuilder.createAt(font, displayText, x, y, fontSize).color(colorArgb).render(drawContext);
     }
-// https://t.me/pasterplace
 
     private static void pushScaleTransform(DrawContext drawContext, float pivotX, float pivotY, float scale) {
         drawContext.getMatrices().pushMatrix();
@@ -430,19 +414,16 @@ public final class NameTags extends ModuleStructure {
         drawContext.getMatrices().scale(scale);
         drawContext.getMatrices().translate(-pivotX, -pivotY);
     }
-// https://t.me/pasterplace
 
     private static void popScaleTransform(DrawContext drawContext) {
         drawContext.getMatrices().popMatrix();
     }
-// https://t.me/pasterplace
 
     private static void drawBrokkeIcon(DrawContext drawContext, float x, float y, float width, float height, float cornerRadius, float opacity) {
         if (!(opacity <= 0.01F) && !(width <= 0.0F) && !(height <= 0.0F)) {
             BrokkeIcons.drawRoundedPanelBackground(drawContext, x, y, width, height, cornerRadius, opacity);
         }
     }
-// https://t.me/pasterplace
 
     private static void drawAvatarFallback(DrawContext drawContext, float x, float y, float size) {
         RoundedGradientRectBuilder.at(x, y, size, size)
@@ -450,22 +431,18 @@ public final class NameTags extends ModuleStructure {
         .color(Accent.getAccentColorWithAlpha(110))
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     private static int getPrimaryAccentArgb() {
         return Accent.getAccentColorWithAlpha(255).toArgb();
     }
-// https://t.me/pasterplace
 
     private static int getMutedLabelArgb() {
         return Accent.getTextColorWithAlpha(250).toArgb();
     }
-// https://t.me/pasterplace
 
     private static int getSubtleLabelColor() {
         return Accent.getDarkerTextColor(220).toArgb();
     }
-// https://t.me/pasterplace
 
     private static void drawItemStack(DrawContext drawContext, ItemStack stack, float x, float y, float scale) {
         drawContext.getMatrices().pushMatrix();
@@ -481,7 +458,6 @@ public final class NameTags extends ModuleStructure {
 
         drawContext.getMatrices().popMatrix();
     }
-// https://t.me/pasterplace
 
     private void renderPlayerNameTag(DrawContext drawContext, PlayerEntity player, float tagCenterX, float tagY, float scale, boolean backgroundPass) {
         String playerName = player.getName()
@@ -583,7 +559,6 @@ public final class NameTags extends ModuleStructure {
             popScaleTransform(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     private NameTags.PotionStatusLayout getPotionStatusLayout(PlayerEntity playerEntity) {
         if (!this.showPotionStatusSetting.getValue()) {
@@ -667,7 +642,6 @@ public final class NameTags extends ModuleStructure {
         this.potionStatusLayoutCache.put(playerEntity, potionLayout);
         return potionLayout;
     }
-// https://t.me/pasterplace
 
     public void renderPlayerTagPreview(DrawContext drawContext, PlayerEntity playerEntity, float tagCenterX, float tagY, float previewScale) {
         float scale = this.nameTagScaleSetting.getValue() * previewScale;
@@ -680,13 +654,11 @@ public final class NameTags extends ModuleStructure {
         GuiEventRenderer.flushAndStartRootLayer(drawContext);
         this.renderEquipmentItems(drawContext, playerEntity, metrics.width(), this.computePotionLayoutY(playerEntity, metrics), metrics.scale());
     }
-// https://t.me/pasterplace
 
     private float getPlayerTagY(PlayerEntity playerEntity, float baseTagY, float scale) {
         NameTags.PotionStatusLayout potionLayout = this.getPotionStatusLayout(playerEntity);
         return potionLayout.rows().isEmpty() ? baseTagY : Math.max(15.0F, baseTagY - (potionLayout.height() + 2.0F) * scale);
     }
-// https://t.me/pasterplace
 
     private void renderPotionStatusLines(DrawContext drawContext, PlayerEntity playerEntity, float tagCenterX, float tagY, float scale, boolean backgroundPass) {
         NameTags.PotionStatusLayout potionLayout = this.getPotionStatusLayout(playerEntity);
@@ -730,7 +702,6 @@ public final class NameTags extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void appendPotionStatusSegment(
     List<NameTags.ItemNameSegment> items, PotionStatus status, String effectName, boolean showAmplifier, int textColorArgb
@@ -748,14 +719,12 @@ public final class NameTags extends ModuleStructure {
             items.add(new NameTags.ItemNameSegment(displayText, textColorArgb, measureTextWidth(displayText, 4.8F)));
         }
     }
-// https://t.me/pasterplace
 
     private void renderLivingEntityTag(DrawContext drawContext, LivingEntity livingEntity, float tagCenterX, float tagY, float scale, boolean backgroundPass) {
         String displayName = livingEntity.getDisplayName().getString();
         String healthText = "[ " + (int)Math.ceil(livingEntity.getHealth() + livingEntity.getAbsorptionAmount()) + " ]";
         this.renderTwoLineTag(drawContext, displayName, healthText, getPrimaryAccentArgb(), tagCenterX, tagY, scale, backgroundPass);
     }
-// https://t.me/pasterplace
 
     private void renderTntTag(DrawContext drawContext, TntEntity tntEntity, float tagCenterX, float tagY, float scale, boolean backgroundPass) {
         String displayName = tntEntity.getDisplayName().getString();
@@ -764,7 +733,6 @@ public final class NameTags extends ModuleStructure {
         int fuseTimeColor = fuseSeconds < 1.0F ? -48060 : (fuseSeconds < 2.5F ? -22016 : -11141291);
         this.renderTwoLineTag(drawContext, displayName, fuseTimeText, fuseTimeColor, tagCenterX, tagY, scale, backgroundPass);
     }
-// https://t.me/pasterplace
 
     private void renderTwoLineTag(DrawContext drawContext, String title, String subtitle, int subtitleColorArgb, float tagCenterX, float tagY, float scale, boolean backgroundPass) {
         float titleWidth = measureTextWidth(title, 5.8F);
@@ -788,7 +756,6 @@ public final class NameTags extends ModuleStructure {
             popScaleTransform(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     private void renderItemTag(DrawContext drawContext, ItemEntity itemEntity, float tagCenterX, float tagY, float scale, boolean backgroundPass) {
         ItemStack droppedItemStack = itemEntity.getStack();
@@ -826,7 +793,6 @@ public final class NameTags extends ModuleStructure {
             popScaleTransform(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     private void renderItemIconTag(DrawContext drawContext, ItemEntity itemEntity, float tagCenterX, float tagY, float scale) {
         ItemStack droppedItemStack = itemEntity.getStack();
@@ -845,7 +811,6 @@ public final class NameTags extends ModuleStructure {
             popScaleTransform(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     private static List<ItemStack> getPlayerEquipmentItems(PlayerEntity playerEntity) {
         ArrayList equipmentItems = new ArrayList(6);
@@ -868,7 +833,6 @@ public final class NameTags extends ModuleStructure {
 
         return equipmentItems;
     }
-// https://t.me/pasterplace
 
     private void renderEquipmentSlotBackplates(DrawContext drawContext, PlayerEntity playerEntity, float centerX, float topY, float scale) {
         int equipmentCount = getPlayerEquipmentItems(playerEntity).size();
@@ -882,7 +846,6 @@ public final class NameTags extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void renderEquipmentItems(DrawContext drawContext, PlayerEntity playerEntity, float centerX, float topY, float scale) {
         List items = getPlayerEquipmentItems(playerEntity);
@@ -899,7 +862,6 @@ public final class NameTags extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private List<ItemStack> getHeldItems(PlayerEntity playerEntity) {
         ArrayList heldItems = new ArrayList(2);
@@ -913,7 +875,6 @@ public final class NameTags extends ModuleStructure {
 
         return heldItems;
     }
-// https://t.me/pasterplace
 
     private void renderHeldItemNames(DrawContext drawContext, PlayerEntity playerEntity, float centerX, float baseY, float scale, boolean backgroundPass) {
         List heldItems = this.getHeldItems(playerEntity);
@@ -952,7 +913,6 @@ public final class NameTags extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void renderHeldItemIcons(DrawContext drawContext, PlayerEntity playerEntity, float centerX, float baseY, float scale) {
         List heldItems = this.getHeldItems(playerEntity);
@@ -982,7 +942,6 @@ public final class NameTags extends ModuleStructure {
             popScaleTransform(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     private NameTags.FormattedName getCachedFormattedName(PlayerEntity playerEntity) {
         UUID playerUuid = playerEntity.getUuid();
@@ -996,7 +955,6 @@ public final class NameTags extends ModuleStructure {
         formattedNameCache.put(playerUuid, new NameTags.CachedFormattedName(formattedName, nowMillis));
         return formattedName;
     }
-// https://t.me/pasterplace
 
     private NameTags.FormattedName resolveFormattedPlayerRank(PlayerEntity player) {
         Team team = player.getScoreboardTeam();
@@ -1062,7 +1020,6 @@ public final class NameTags extends ModuleStructure {
             return null;
         }
     }
-// https://t.me/pasterplace
 
     private static Integer getTextFormattingColor(Text componentText) {
         Optional optional = componentText.visit(
@@ -1073,7 +1030,6 @@ public final class NameTags extends ModuleStructure {
         );
         return (Integer)optional.orElse(null);
     }
-// https://t.me/pasterplace
 
     private static Integer getLegacyFormattingColor(String formattedText) {
         if (formattedText == null) {
@@ -1091,7 +1047,6 @@ public final class NameTags extends ModuleStructure {
 
         return null;
     }
-// https://t.me/pasterplace
 
     private static String normalizeRankText(String rankText) {
         if (rankText == null) {
@@ -1105,7 +1060,6 @@ public final class NameTags extends ModuleStructure {
         rankText = WHITESPACE_PATTERN.matcher(rankText.trim()).replaceAll(" ");
         return rankText.toUpperCase();
     }
-// https://t.me/pasterplace
 
     private static int getRankColor(String rankName) {
         String normalizedRankName = rankName.toUpperCase();
@@ -1145,7 +1099,6 @@ public final class NameTags extends ModuleStructure {
             return !normalizedRankName.contains("ADMIN") && !normalizedRankName.contains("АДМИН") && !normalizedRankName.contains("MODER") && !normalizedRankName.contains("МОДЕР") ? -1 : -52429;
         }
     }
-// https://t.me/pasterplace
 
     private static String toRomanNumeral(int level) {
         return switch (level) {
@@ -1156,7 +1109,6 @@ public final class NameTags extends ModuleStructure {
             default -> String.valueOf(level);
         };
     }
-// https://t.me/pasterplace
 
     private static String getCachedItemDisplayName(ItemStack stack) {
         if (stack != null && !stack.isEmpty()) {
@@ -1172,12 +1124,10 @@ public final class NameTags extends ModuleStructure {
             return "";
         }
     }
-// https://t.me/pasterplace
 
     private static String getDefaultItemName(ItemStack stack) {
         return stack.getItem().getDefaultStack().getName().getString();
     }
-// https://t.me/pasterplace
 
     private static String getCustomItemName(ItemStack stack) {
         Text customNameComponent = (Text)stack.get(DataComponentTypes.CUSTOM_NAME);
@@ -1195,7 +1145,6 @@ public final class NameTags extends ModuleStructure {
 
         return customName;
     }
-// https://t.me/pasterplace
 
     private static List<String> getItemLoreLines(ItemStack stack) {
         ArrayList loreLines = new ArrayList();
@@ -1211,13 +1160,11 @@ public final class NameTags extends ModuleStructure {
 
         return loreLines;
     }
-// https://t.me/pasterplace
 
     private static String getItemCustomDataString(ItemStack stack) {
         Object customDataComponent = (NbtComponent)stack.get(DataComponentTypes.CUSTOM_DATA);
         return customDataComponent != null ? customDataComponent.toString() : null;
     }
-// https://t.me/pasterplace
 
     private static String getFriendlyItemDisplayName(ItemStack stack) {
         if (stack.isOf(Items.PLAYER_HEAD)) {
@@ -1251,7 +1198,6 @@ public final class NameTags extends ModuleStructure {
 
         return itemName;
     }
-// https://t.me/pasterplace
 
     private static String inferSpecialItemName(ItemStack stack) {
         String cleanCustomName = sanitizeDisplayText(getCustomItemName(stack));
@@ -1325,11 +1271,9 @@ public final class NameTags extends ModuleStructure {
                 return "Талисман STINGER";
             }
         }
-// https://t.me/pasterplace
 
         return null;
     }
-// https://t.me/pasterplace
 
     private static String inferTalismanNameFromLore(List<String> loreLines) {
         if (loreLines.isEmpty()) {
@@ -1364,7 +1308,6 @@ public final class NameTags extends ModuleStructure {
         if (hasHealthBonus && hasArmorBonus && hasDamageBonus && hasSpeedBonus) {
             return "Талисман INFINITY";
         }
-// https://t.me/pasterplace
 
         if (hasDamageBonus && hasArmorBonus && hasSpeedBonus) {
             for (String loreLine : loreLines) {
@@ -1383,7 +1326,6 @@ public final class NameTags extends ModuleStructure {
             return hasSpeedBonus && hasArmorBonus ? "Талисман Сатиры" : null;
         }
     }
-// https://t.me/pasterplace
 
     private static String getTalismanNameFromModelId(int modelId) {
         return switch (modelId) {
@@ -1417,7 +1359,6 @@ public final class NameTags extends ModuleStructure {
             default -> null;
         };
     }
-// https://t.me/pasterplace
 
     private static String findTalismanName(String candidateText) {
         if (candidateText != null && !candidateText.isBlank()) {
@@ -1487,7 +1428,6 @@ public final class NameTags extends ModuleStructure {
             return null;
         }
     }
-// https://t.me/pasterplace
 
     private static int getCustomModelDataId(ItemStack stack) {
         CustomModelDataComponent customModelData = stack.get(DataComponentTypes.CUSTOM_MODEL_DATA);
@@ -1507,7 +1447,6 @@ public final class NameTags extends ModuleStructure {
 
         return 0;
     }
-// https://t.me/pasterplace
 
     private static int parseFirstInteger(String sourceText) {
         if (sourceText == null) {
@@ -1524,7 +1463,6 @@ public final class NameTags extends ModuleStructure {
 
         return 0;
     }
-// https://t.me/pasterplace
 
     private static String extractPlayerTextureHash(String profileData) {
         if (profileData != null && !profileData.isEmpty()) {
@@ -1552,7 +1490,6 @@ public final class NameTags extends ModuleStructure {
             return null;
         }
     }
-// https://t.me/pasterplace
 
     private static String getPlayerHeadTextureHash(ItemStack playerHeadStack) {
         ProfileComponent profileComponent = (ProfileComponent)playerHeadStack.get(DataComponentTypes.PROFILE);
@@ -1567,11 +1504,9 @@ public final class NameTags extends ModuleStructure {
         if (textureHash == null) {
             textureHash = extractPlayerTextureHash(getItemCustomDataString(playerHeadStack));
         }
-// https://t.me/pasterplace
 
         return textureHash;
     }
-// https://t.me/pasterplace
 
     private static boolean isCerberusItem(ItemStack stack, List<String> loreLines, String customDataText) {
         String cerberusMarker = "ᴄᴇʀʙᴇʀ";
@@ -1596,7 +1531,6 @@ public final class NameTags extends ModuleStructure {
             return true;
         }
     }
-// https://t.me/pasterplace
 
     private static int parseRomanOrNumericStrength(String levelText) {
         if (STRENGTH_IV_PATTERN.matcher(levelText).matches()) {
@@ -1607,7 +1541,6 @@ public final class NameTags extends ModuleStructure {
             return STRENGTH_II_PATTERN.matcher(levelText).matches() ? 2 : 1;
         }
     }
-// https://t.me/pasterplace
 
     private static int parseSerializedEnchantmentLevel(String serializedData, String enchantmentId) {
         if (serializedData == null) {
@@ -1647,7 +1580,6 @@ public final class NameTags extends ModuleStructure {
 
         return 0;
     }
-// https://t.me/pasterplace
 
     private static int parseAttributeTier(String serializedAttributes, String attributeKey) {
         int attributeKeyOffset = serializedAttributes.indexOf(attributeKey);
@@ -1693,7 +1625,6 @@ public final class NameTags extends ModuleStructure {
                 if (attributeAmount >= 2.5) {
                     return 3;
                 }
-// https://t.me/pasterplace
 
                 if (attributeAmount >= 1.5) {
                     return 2;
@@ -1708,7 +1639,6 @@ public final class NameTags extends ModuleStructure {
 
         return 0;
     }
-// https://t.me/pasterplace
 
     private static String getSpecialOrbDisplayName(ItemStack stack) {
         String textureHash = getPlayerHeadTextureHash(stack);
@@ -1762,7 +1692,6 @@ public final class NameTags extends ModuleStructure {
                 damageLevel = 4;
                 addUniqueValue(modifierCategories, "damage");
             }
-// https://t.me/pasterplace
 
             if (damageLevel == 0) {
                 int serializedDamageLevel = parseSerializedEnchantmentLevel(lowercaseCustomData, "hms-damage");
@@ -1890,14 +1819,12 @@ public final class NameTags extends ModuleStructure {
             return textureHash != null && specialOrbNameCache.containsKey(textureHash) ? specialOrbNameCache.get(textureHash) : "Сфера";
         }
     }
-// https://t.me/pasterplace
 
     private static void addUniqueValue(List<String> uniqueValues, String candidateValue) {
         if (!uniqueValues.contains(candidateValue)) {
             uniqueValues.add(candidateValue);
         }
     }
-// https://t.me/pasterplace
 
     private static boolean isSwordItem(ItemStack stack) {
         if (stack.isIn(ItemTags.SWORDS)) {
@@ -1907,7 +1834,6 @@ public final class NameTags extends ModuleStructure {
         String itemRegistryPath = Registries.ITEM.getId(stack.getItem()).getPath();
         return itemRegistryPath.endsWith("_sword");
     }
-// https://t.me/pasterplace
 
     private static int parseRomanNumeral(String romanNumeral) {
         short totalValue = 0;
@@ -1938,7 +1864,6 @@ public final class NameTags extends ModuleStructure {
 
         return totalValue;
     }
-// https://t.me/pasterplace
 
     private static int parseNumericLevel(String tooltipText) {
         if (tooltipText != null && !tooltipText.isBlank()) {
@@ -1961,13 +1886,11 @@ public final class NameTags extends ModuleStructure {
             return 0;
         }
     }
-// https://t.me/pasterplace
 
     private static int getSharpnessLevel(ItemEnchantmentsComponent itemEnchantmentsComponent) {
         if (itemEnchantmentsComponent == null) {
             return 0;
         }
-// https://t.me/pasterplace
 
         for (RegistryEntry<Enchantment> enchantmentEntry : itemEnchantmentsComponent.getEnchantments()) {
             if (enchantmentEntry.matchesKey(Enchantments.SHARPNESS)) {
@@ -1980,7 +1903,6 @@ public final class NameTags extends ModuleStructure {
 
         return 0;
     }
-// https://t.me/pasterplace
 
     private static int getStackSharpnessLevel(ItemStack stack) {
         int sharpnessLevel = getSharpnessLevel((ItemEnchantmentsComponent)stack.get(DataComponentTypes.ENCHANTMENTS));
@@ -2020,7 +1942,6 @@ public final class NameTags extends ModuleStructure {
             return 0;
         }
     }
-// https://t.me/pasterplace
 
     private static String normalizeUnicodeLookalikes(String sourceText) {
         if (sourceText == null) {
@@ -2241,7 +2162,6 @@ public final class NameTags extends ModuleStructure {
 
         return stringBuilder.toString();
     }
-// https://t.me/pasterplace
 
     private static String sanitizeDisplayText(String sourceText) {
         if (sourceText == null) {
@@ -2257,7 +2177,6 @@ public final class NameTags extends ModuleStructure {
         sanitizedText = TRAILING_COLOR_CODE_PATTERN.matcher(sanitizedText).replaceAll("");
         return WHITESPACE_PATTERN.matcher(sanitizedText.trim()).replaceAll(" ");
     }
-// https://t.me/pasterplace
 
     private static int getFormattingCodeArgb(char formatCode) {
         return switch (formatCode) {
@@ -2281,7 +2200,6 @@ public final class NameTags extends ModuleStructure {
         case 'r' -> 0;
         };
     }
-// https://t.me/pasterplace
 
     private record EntityRenderMetrics(Entity entity, float width, float height, float left, float top, boolean isVisible, float scale) {
 
@@ -2295,7 +2213,6 @@ public final class NameTags extends ModuleStructure {
             this.scale = scale;
         }
     }
-// https://t.me/pasterplace
 
     private record NameTagLayoutRow(List<NameTags.ItemNameSegment> segments, float yOffset) {
 
@@ -2304,7 +2221,6 @@ public final class NameTags extends ModuleStructure {
             this.yOffset = yOffset;
         }
     }
-// https://t.me/pasterplace
 
     private record CachedFormattedName(NameTags.FormattedName formattedName, long cachedAtMillis) {
 
@@ -2313,7 +2229,6 @@ public final class NameTags extends ModuleStructure {
             this.cachedAtMillis = cachedAtMillis;
         }
     }
-// https://t.me/pasterplace
 
     private record FormattedName(String text, int colorArgb) {
 
@@ -2322,7 +2237,6 @@ public final class NameTags extends ModuleStructure {
             this.colorArgb = colorArgb;
         }
     }
-// https://t.me/pasterplace
 
     private record FormattedTextSegment(String text, int colorArgb) {
 
@@ -2331,7 +2245,6 @@ public final class NameTags extends ModuleStructure {
             this.colorArgb = colorArgb;
         }
     }
-// https://t.me/pasterplace
 
     private static final class NearbyItemsCache {
         private final Map<Long, NameTags.NearbyItemGroupState> groupsById = new HashMap<>();
@@ -2475,7 +2388,6 @@ public final class NameTags extends ModuleStructure {
                                         groupState = new NameTags.NearbyItemGroupState(++this.nextGroupId, clusterX, clusterY, clusterZ);
                                         this.groupsById.put(groupState.id, groupState);
                                     }
-// https://t.me/pasterplace
 
                                     groupState.currentX = clusterX;
                                     groupState.currentY = clusterY;
@@ -2576,7 +2488,6 @@ public final class NameTags extends ModuleStructure {
 
             return bestMatch;
         }
-// https://t.me/pasterplace
 
         private List<NameTags.NearbyItemGroup> buildItemGroups(List<ItemEntity> itemEntities) {
             LinkedHashMap<String, NameTags.NearbyItemGroup> groupsByItemIdentity = new LinkedHashMap<>();
@@ -2714,7 +2625,6 @@ public final class NameTags extends ModuleStructure {
                 return Optional.empty();
             }, Style.EMPTY);
         }
-// https://t.me/pasterplace
 
         private void appendLegacyFormattedText(String rawText, List<NameTags.FormattedTextSegment> segments, int defaultColorArgb) {
             int currentColorArgb = defaultColorArgb;
@@ -2738,7 +2648,6 @@ public final class NameTags extends ModuleStructure {
 
                 stringBuilder.append(currentCharacter);
             }
-// https://t.me/pasterplace
 
             if (!stringBuilder.isEmpty()) {
                 segments.add(new NameTags.FormattedTextSegment(stringBuilder.toString(), currentColorArgb));
@@ -2867,7 +2776,6 @@ public final class NameTags extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private record PotionStatusLayout(List<NameTags.NameTagLayoutRow> rows, float width, float height) {
 
@@ -2877,7 +2785,6 @@ public final class NameTags extends ModuleStructure {
             this.height = height;
         }
     }
-// https://t.me/pasterplace
 
     private static final class NearbyItemGroup {
         private final ItemStack itemStack;
@@ -2893,7 +2800,6 @@ public final class NameTags extends ModuleStructure {
             this.entityCount = entityCount;
         }
     }
-// https://t.me/pasterplace
 
     // $VF: Couldn't be decompiled
     // Please report this to the Vineflower issue tracker, at https://github.com/Vineflower/vineflower/issues with a copy of the class file (if you have the rights to distribute it!)
@@ -2915,7 +2821,6 @@ public final class NameTags extends ModuleStructure {
     //   at org.jetbrains.java.decompiler.main.ClassesProcessor.writeClass(ClassesProcessor.java:521)
     //   at org.jetbrains.java.decompiler.main.Fernflower.getClassContent(Fernflower.java:200)
     //   at org.jetbrains.java.decompiler.struct.ContextUnit.lambda$save$3(ContextUnit.java:221)
-// https://t.me/pasterplace
 
     private record ItemNameSegment(String text, int colorArgb, float width) {
 
@@ -2925,7 +2830,6 @@ public final class NameTags extends ModuleStructure {
             this.width = width;
         }
     }
-// https://t.me/pasterplace
 
     private static final class NearbyItemGroupState {
         private final long id;

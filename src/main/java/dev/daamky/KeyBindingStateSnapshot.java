@@ -4,7 +4,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 
 final class KeyBindingStateSnapshot {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private boolean forwardPressed;
    private boolean backPressed;
    private boolean leftPressed;
@@ -14,14 +13,12 @@ final class KeyBindingStateSnapshot {
    private boolean sprintPressed;
    private boolean usePressed;
    private boolean attackPressed;
-// https://t.me/pasterplace
 
    static KeyBindingStateSnapshot capture(MinecraftClient client) {
       KeyBindingStateSnapshot snapshot = new KeyBindingStateSnapshot();
       snapshot.readFrom(client);
       return snapshot;
    }
-// https://t.me/pasterplace
 
    void readFrom(MinecraftClient client) {
       this.forwardPressed = isPressed(client.options.forwardKey);
@@ -34,7 +31,6 @@ final class KeyBindingStateSnapshot {
       this.usePressed = isPressed(client.options.useKey);
       this.attackPressed = isPressed(client.options.attackKey);
    }
-// https://t.me/pasterplace
 
    void restoreTo(MinecraftClient client) {
       client.options.forwardKey.setPressed(this.forwardPressed);
@@ -47,12 +43,10 @@ final class KeyBindingStateSnapshot {
       client.options.useKey.setPressed(this.usePressed);
       client.options.attackKey.setPressed(this.attackPressed);
    }
-// https://t.me/pasterplace
 
    void setUsePressed(boolean pressed) {
       this.usePressed = pressed;
    }
-// https://t.me/pasterplace
 
    void copyFrom(KeyBindingStateSnapshot snapshot) {
       if (snapshot == null) {
@@ -69,7 +63,6 @@ final class KeyBindingStateSnapshot {
          this.attackPressed = snapshot.attackPressed;
       }
    }
-// https://t.me/pasterplace
 
    void clear() {
       this.forwardPressed = false;
@@ -82,7 +75,6 @@ final class KeyBindingStateSnapshot {
       this.usePressed = false;
       this.attackPressed = false;
    }
-// https://t.me/pasterplace
 
    private static boolean isPressed(KeyBinding keyBinding) {
       return keyBinding != null && keyBinding.isPressed();

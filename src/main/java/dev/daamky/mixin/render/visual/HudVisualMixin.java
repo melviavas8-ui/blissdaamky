@@ -16,14 +16,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
 public abstract class HudVisualMixin {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Inject(method = "renderBossBarHud", at = @At("HEAD"), cancellable = true)
    private void daamky$noBossBar(DrawContext drawContext, RenderTickCounter tickCounter, CallbackInfo callbackInfo) {
       if (NoRender.II1Il11l111II11IIl("Босс-бар")) {
          callbackInfo.cancel();
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "renderScoreboardSidebar", at = @At("HEAD"), cancellable = true)
    private void daamky$noScoreboard(DrawContext drawContext, RenderTickCounter tickCounter, CallbackInfo callbackInfo) {
@@ -31,7 +29,6 @@ public abstract class HudVisualMixin {
          callbackInfo.cancel();
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "renderScoreboardSidebar", at = @At("HEAD"), cancellable = true)
    private void daamky$customScoreboard(DrawContext drawContext, RenderTickCounter tickCounter, CallbackInfo callbackInfo) {
@@ -39,7 +36,6 @@ public abstract class HudVisualMixin {
          callbackInfo.cancel();
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "renderMainHud", at = @At("HEAD"), cancellable = true)
    private void daamky$customHotbar(DrawContext drawContext, RenderTickCounter tickCounter, CallbackInfo callbackInfo) {
@@ -48,7 +44,6 @@ public abstract class HudVisualMixin {
          callbackInfo.cancel();
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "renderTitleAndSubtitle", at = @At("HEAD"), cancellable = true)
    private void daamky$noTitle(DrawContext drawContext, RenderTickCounter tickCounter, CallbackInfo callbackInfo) {
@@ -56,7 +51,6 @@ public abstract class HudVisualMixin {
          callbackInfo.cancel();
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "renderVignetteOverlay", at = @At("HEAD"), cancellable = true)
    private void daamky$noVignette(DrawContext drawContext, Entity cameraEntity, CallbackInfo callbackInfo) {
@@ -64,7 +58,6 @@ public abstract class HudVisualMixin {
          callbackInfo.cancel();
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "renderOverlay", at = @At("HEAD"), cancellable = true)
    private void daamky$noTextureOverlay(DrawContext drawContext, Identifier overlayTexture, float overlayOpacity, CallbackInfo callbackInfo) {
@@ -73,7 +66,6 @@ public abstract class HudVisualMixin {
          callbackInfo.cancel();
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "renderPortalOverlay", at = @At("HEAD"), cancellable = true)
    private void daamky$noPortal(DrawContext drawContext, float overlayStrength, CallbackInfo callbackInfo) {
@@ -81,7 +73,6 @@ public abstract class HudVisualMixin {
          callbackInfo.cancel();
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "renderNauseaOverlay", at = @At("HEAD"), cancellable = true)
    private void daamky$noConfusion(DrawContext drawContext, float overlayStrength, CallbackInfo callbackInfo) {

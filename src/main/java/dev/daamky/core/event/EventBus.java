@@ -13,11 +13,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public final class EventBus {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private volatile Map<Class<? extends Event>, EventBus.EventData[]> listenerCache = Map.of();
    private final Map<Object, List<EventBus.EventData>> registeredObjects = new HashMap<>();
    private volatile boolean suspended;
-// https://t.me/pasterplace
 
    public synchronized void register(Object listener) {
       if (!this.registeredObjects.containsKey(listener)) {
@@ -49,7 +47,6 @@ public final class EventBus {
          }
       }
    }
-// https://t.me/pasterplace
 
    public synchronized void unregister(Object listener) {
       List registeredListeners = this.registeredObjects.remove(listener);
@@ -57,12 +54,10 @@ public final class EventBus {
          this.rebuildCache();
       }
    }
-// https://t.me/pasterplace
 
    public void setSuspended(boolean suspended) {
       this.suspended = suspended;
    }
-// https://t.me/pasterplace
 
    public <T extends Event> T post(T event) {
       if (this.suspended) {
@@ -73,7 +68,6 @@ public final class EventBus {
       if (listeners == null) {
          return (T)event;
       }
-// https://t.me/pasterplace
 
       for (int listenerIndex = 0; listenerIndex < listeners.length; listenerIndex++) {
          try {
@@ -85,7 +79,6 @@ public final class EventBus {
 
       return (T)event;
    }
-// https://t.me/pasterplace
 
    private void rebuildCache() {
       Map<Class<? extends Event>, List<EventData>> listenersByEvent = new HashMap<>();
@@ -104,7 +97,6 @@ public final class EventBus {
 
       this.listenerCache = rebuiltCache;
    }
-// https://t.me/pasterplace
 
    private static final class EventData {
       private final Object target;

@@ -24,7 +24,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class GuiMove extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final BooleanSetting allowSneakingMovement = new BooleanSetting("Приседание", false);
    private final BooleanSetting allowMovementInClientGui = new BooleanSetting("В меню клиента", true);
    private final ReallyWorld inventorySwapRules = new ReallyWorld();
@@ -33,13 +32,11 @@ public final class GuiMove extends ModuleStructure {
    private int queueStartPlayerAge;
    private int packetReleaseDelayTicks;
    private boolean handledContainerOpen;
-// https://t.me/pasterplace
 
    public GuiMove() {
       super("GuiMove", "Позволяет двигаться с открытыми меню", ModuleCategory.MOVEMENT);
       this.addSettings(this.allowSneakingMovement, this.allowMovementInClientGui, this.inventorySwapRules);
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -47,12 +44,10 @@ public final class GuiMove extends ModuleStructure {
       this.flushQueuedPackets();
       this.packetReleaseDelayTicks = 0;
    }
-// https://t.me/pasterplace
 
    private boolean hasMovementInputOrSprinting() {
       return CLIENT.player.getVelocity().horizontalLengthSquared() >= 4.0E-4 || CLIENT.player.isSprinting();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onPacket(EventPacket eventPacket) {
@@ -110,7 +105,6 @@ public final class GuiMove extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -137,7 +131,6 @@ public final class GuiMove extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void flushQueuedPackets() {
       if (!this.queuedPackets.isEmpty() && CLIENT.player != null) {
@@ -149,14 +142,12 @@ public final class GuiMove extends ModuleStructure {
          while (!this.queuedPackets.isEmpty()) {
             PacketSender.l1I1IlllIlI(this.queuedPackets.poll());
          }
-// https://t.me/pasterplace
 
          this.packetReleaseDelayTicks = 2;
       } else {
          this.queuedPackets.clear();
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget(priority = 3)
    public void suppressInputWhileFlushing(EventInput eventInput) {
@@ -167,7 +158,6 @@ public final class GuiMove extends ModuleStructure {
          eventInput.setSprint(false);
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -193,7 +183,6 @@ public final class GuiMove extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static boolean isKeyPhysicallyPressed(KeyBinding keyBinding) {
       net.minecraft.client.util.InputUtil.Key key = ((KeyMappingAccessor)keyBinding).daamky$getKey();

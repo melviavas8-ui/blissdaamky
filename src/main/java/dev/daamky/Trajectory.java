@@ -26,18 +26,15 @@ import net.minecraft.world.RaycastContext.FluidHandling;
 import net.minecraft.world.RaycastContext.ShapeType;
 
 public final class Trajectory extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private final BooleanSetting showImpactMarker = new BooleanSetting("Точка падения", true);
     private final BooleanSetting showEntityHits = new BooleanSetting("Попадание в сущность", true);
     private final BooleanSetting renderThroughWalls = new BooleanSetting("Сквозь стены", false);
     private final FloatSetting lineWidth = new FloatSetting("Толщина", 2.0F, 0.5F, 5.0F, 0.1F);
-// https://t.me/pasterplace
 
     public Trajectory() {
         super("Trajectory", "Показывает траекторию полёта снарядов", ModuleCategory.RENDER);
         this.addSettings(this.showImpactMarker, this.showEntityHits, this.renderThroughWalls, this.lineWidth);
     }
-// https://t.me/pasterplace
 
     private Trajectory.TrajectoryImpact createTrajectoryImpact(ItemStack projectileStack) {
         Item projectileItem = projectileStack.getItem();
@@ -61,7 +58,6 @@ public final class Trajectory extends ModuleStructure {
             return projectileItem == Items.EXPERIENCE_BOTTLE ? new Trajectory.TrajectoryImpact(0.7F, 0.07, -20.0F) : null;
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     public void renderTrajectory(EventRender3D eventRender3D) {
@@ -112,7 +108,6 @@ public final class Trajectory extends ModuleStructure {
                             break;
                         }
                     }
-// https://t.me/pasterplace
 
                     if (blockCollision.getType() != Type.MISS) {
                         trajectoryPoints.add(blockCollision.getPos());
@@ -180,7 +175,6 @@ public final class Trajectory extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private record TrajectoryImpact(float impactTime, double distance, float verticalOffset) {
 

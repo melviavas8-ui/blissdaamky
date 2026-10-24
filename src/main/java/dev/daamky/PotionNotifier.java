@@ -48,20 +48,17 @@ import project.melvi.metadata.Allow2Generation;
 
 public final class PotionNotifier
 extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final double SPLASH_EFFECT_RADIUS = 4.25;
     private static final int TRACKED_POTION_MAX_AGE_TICKS = 10;
     private final BooleanSetting ignoreSelf = new BooleanSetting("Игнорировать себя", false);
     private final ConcurrentLinkedQueue<SplashEvent> pendingSplashes = new ConcurrentLinkedQueue<>();
     private final Int2ObjectOpenHashMap<TrackedPotion> activePotions = new Int2ObjectOpenHashMap<>();
     private int currentTick;
-// https://t.me/pasterplace
 
     public PotionNotifier() {
         super("PotionNotifier", "Показывает, кто какой баф получил от взрывного зелья", ModuleCategory.RENDER);
         this.addSettings(new Setting[]{this.ignoreSelf});
     }
-// https://t.me/pasterplace
 
     @Override
     @Allow2Generation(level=Allow2Generation.GenerationLevel.FAST)
@@ -69,7 +66,6 @@ extends ModuleStructure {
         this.pendingSplashes.clear();
         this.activePotions.clear();
     }
-// https://t.me/pasterplace
 
     @EventTarget
     @Allow2Generation(level=Allow2Generation.GenerationLevel.FAST)
@@ -80,7 +76,6 @@ extends ModuleStructure {
             this.pendingSplashes.add(new SplashEvent(Vec3d.ofBottomCenter(packet2.getPos()), packet2.getData()));
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     @Allow2Generation(level=Allow2Generation.GenerationLevel.FAST)
@@ -103,7 +98,6 @@ extends ModuleStructure {
         }
         this.activePotions.values().removeIf(tracked -> this.currentTick - tracked.tick() > 10);
     }
-// https://t.me/pasterplace
 
     private void handleSplashEvent(SplashEvent splashEvent) {
         PotionContentsComponent potionContentsComponent = this.findPotionForSplash(splashEvent);
@@ -117,7 +111,6 @@ extends ModuleStructure {
             Notifications.showNotification(player.getName().getString(), notificationText, color, 2.5f);
         }
     }
-// https://t.me/pasterplace
 
     private PotionContentsComponent findPotionForSplash(SplashEvent splashEvent) {
         TrackedPotion nearestPotion = null;
@@ -139,7 +132,6 @@ extends ModuleStructure {
         this.activePotions.remove(nearestEntityId);
         return nearestPotion.contents();
     }
-// https://t.me/pasterplace
 
     private static String formatPotionEffects(PotionContentsComponent potionContentsComponent) {
         ArrayList<String> arrayList = new ArrayList<>();
@@ -149,7 +141,6 @@ extends ModuleStructure {
         }
         return String.join((CharSequence)", ", arrayList);
     }
-// https://t.me/pasterplace
 
     private static String toRomanNumeral(int n) {
         return switch (n) {

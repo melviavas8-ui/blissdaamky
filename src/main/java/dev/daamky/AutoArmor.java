@@ -15,7 +15,6 @@ import net.minecraft.item.Items;
 import net.minecraft.screen.slot.SlotActionType;
 
 public final class AutoArmor extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final ReallyWorld inventorySwapProfile = new ReallyWorld();
    private static final EquipmentSlot[] ARMOR_SLOTS = new EquipmentSlot[]{
       EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET
@@ -25,13 +24,11 @@ public final class AutoArmor extends ModuleStructure {
    private final BooleanSetting onlyInInventory = new BooleanSetting("Только в инвентаре", false);
    private final BooleanSetting keepElytraEquipped = new BooleanSetting("Не снимать элитры", true);
    private final Stopwatch actionStopwatch = new Stopwatch();
-// https://t.me/pasterplace
 
    public AutoArmor() {
       super("AutoArmor", "Надевает лучшую броню из инвентаря", ModuleCategory.PLAYER);
       this.addSettings(this.actionDelay, this.onlyInInventory, this.keepElytraEquipped, this.inventorySwapProfile);
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onUpdate(EventUpdate eventUpdate) {
@@ -75,7 +72,6 @@ public final class AutoArmor extends ModuleStructure {
                               InventoryUtils.clickSlot(screenHandlerSlot, 0, SlotActionType.PICKUP);
                            });
                         }
-// https://t.me/pasterplace
 
                         this.actionStopwatch.reset();
                         return;
@@ -86,7 +82,6 @@ public final class AutoArmor extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static float getArmorScore(ItemStack armorStack, EquipmentSlot equipmentSlot) {
       if (armorStack.isEmpty()) {

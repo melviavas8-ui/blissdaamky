@@ -9,17 +9,14 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 public final class Animations {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final Map<String, Animations.AxisKeyframes> keyframesByBoneName = new HashMap<>();
    private final boolean looping;
    private final float animationLengthSeconds;
-// https://t.me/pasterplace
 
    private Animations(boolean looping, float animationLengthSeconds) {
       this.looping = looping;
       this.animationLengthSeconds = animationLengthSeconds;
    }
-// https://t.me/pasterplace
 
    public static Animations fromJson(JsonObject rootJson) {
       if (rootJson != null && rootJson.has("animations")) {
@@ -27,7 +24,6 @@ public final class Animations {
          if (animationsObject.isEmpty()) {
             return null;
          }
-// https://t.me/pasterplace
 
          JsonObject animationData = selectAnimationData(animationsObject);
          if (animationData == null) {
@@ -60,7 +56,6 @@ public final class Animations {
          return null;
       }
    }
-// https://t.me/pasterplace
 
    private static JsonObject selectAnimationData(JsonObject animationClips) {
       JsonObject fallbackAnimation = null;
@@ -80,7 +75,6 @@ public final class Animations {
 
       return fallbackAnimation;
    }
-// https://t.me/pasterplace
 
    private static TreeMap<Float, float[]> parseKeyframes(JsonElement keyframeJson) {
       TreeMap keyframesByTime = new TreeMap();
@@ -113,7 +107,6 @@ public final class Animations {
          return keyframesByTime;
       }
    }
-// https://t.me/pasterplace
 
    private static float[] parseVector(JsonElement vectorJson) {
       JsonArray vectorComponents = null;
@@ -133,7 +126,6 @@ public final class Animations {
          return null;
       }
    }
-// https://t.me/pasterplace
 
    public void apply(ModelGeometry modelGeometry, float elapsedSeconds) {
       float animationTime = this.looping && this.animationLengthSeconds > 0.0F ? elapsedSeconds % this.animationLengthSeconds : Math.min(elapsedSeconds, this.animationLengthSeconds);
@@ -167,7 +159,6 @@ public final class Animations {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static float[] sampleKeyframes(TreeMap<Float, float[]> keyframesByTime, float animationTime) {
       Entry<Float, float[]> lowerKeyframe = keyframesByTime.floorEntry(animationTime);
@@ -187,7 +178,6 @@ public final class Animations {
          return (float[])lowerKeyframe.getValue();
       }
    }
-// https://t.me/pasterplace
 
    private record AxisKeyframes(TreeMap<Float, float[]> rotationKeyframes, TreeMap<Float, float[]> positionKeyframes, TreeMap<Float, float[]> scaleKeyframes) {
 

@@ -13,14 +13,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerMixin {
-    private static final String p901bd178 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Inject(method = "isPushedByFluids()Z", at = @At("HEAD"), cancellable = true)
    private void daamky$noFluidPush(CallbackInfoReturnable<Boolean> callbackInfo) {
       if ((PlayerEntity)(Object)this == MinecraftClient.getInstance().player && NoPush.IIIlll111l111()) {
          callbackInfo.setReturnValue(false);
       }
    }
-// https://t.me/pasterplace
 
    @ModifyExpressionValue(
       method = "travel",

@@ -11,11 +11,9 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class NoRotate extends ModuleStructure {
-    private static final String p50f9c45c = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    public NoRotate() {
       super("NoRotate", "Не даёт серверу поворачивать камеру", ModuleCategory.PLAYER);
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -30,7 +28,6 @@ public final class NoRotate extends ModuleStructure {
                && packet2.change().pitch() == 0.0F) {
                return;
             }
-// https://t.me/pasterplace
 
             eventPacket.cancel();
             EntityPosition entityPosition = packet2.change();

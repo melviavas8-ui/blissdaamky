@@ -9,7 +9,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import org.joml.Vector4f;
 
 public final class CustomFog extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiOptionSetting mode = new MultiOptionSetting("Режим", "Обычный", "Обычный", "Блюр", "Блюр + цвет");
    private final FloatSetting colorStrength = new FloatSetting("Сила цвета", 0.6F, 0.05F, 1.0F, 0.05F);
    private final BooleanSetting changeFogDistance = new BooleanSetting("Менять дистанцию", true);
@@ -18,7 +17,6 @@ public final class CustomFog extends ModuleStructure {
    private final BooleanSetting changeFogColor = new BooleanSetting("Менять цвет", true);
    private final MultiOptionSetting fogColorSource = new MultiOptionSetting("Цвет", "Тема", "Тема", "Свой");
    private final ColorSetting customFogColor = new ColorSetting("Свой цвет", 16777215);
-// https://t.me/pasterplace
 
    public CustomFog() {
       super("CustomFog", "Изменяет цвет и дистанцию тумана", ModuleCategory.RENDER);
@@ -40,12 +38,10 @@ public final class CustomFog extends ModuleStructure {
          this.customFogColor
       );
    }
-// https://t.me/pasterplace
 
    private boolean usesCustomFogSettings() {
       return this.mode.isSelected("Блюр + цвет") || this.mode.isSelected("Обычный") && this.changeFogColor.getValue();
    }
-// https://t.me/pasterplace
 
    public float getFogModeValue() {
       return switch ((String)this.mode.getValue()) {
@@ -54,23 +50,19 @@ public final class CustomFog extends ModuleStructure {
          default -> 0.0F;
       };
    }
-// https://t.me/pasterplace
 
    public float getFogStartDistance() {
       return Math.min(this.fogStartDistance.getValue(), this.fogEndDistance.getValue() - 1.0F);
    }
-// https://t.me/pasterplace
 
    public float getFogEndDistance() {
       return this.fogEndDistance.getValue();
    }
-// https://t.me/pasterplace
 
    public float[] getFogColorWithStrength() {
       float[] fogRgb = this.getFogColorRgb();
       return new float[]{fogRgb[0], fogRgb[1], fogRgb[2], this.colorStrength.getValue()};
    }
-// https://t.me/pasterplace
 
    private float[] getFogColorRgb() {
       if (this.fogColorSource.isSelected("Тема")) {
@@ -80,12 +72,10 @@ public final class CustomFog extends ModuleStructure {
          return new float[]{this.customFogColor.getRed(), this.customFogColor.getGreen(), this.customFogColor.getBlue()};
       }
    }
-// https://t.me/pasterplace
 
    public static CustomFog getInstance() {
       return ModuleRegistry.getInstance().getModuleByClass(CustomFog.class);
    }
-// https://t.me/pasterplace
 
    public static void applyFog(FogData fogData, Vector4f vector4f, Camera camera) {
       boolean hideFog = NoRender.II1Il11l111II11IIl("Туман");
@@ -129,7 +119,6 @@ public final class CustomFog extends ModuleStructure {
                   green = customFog.customFogColor.getGreen();
                   blue = customFog.customFogColor.getBlue();
                }
-// https://t.me/pasterplace
 
                vector4f.set(red, green, blue, 1.0F);
             }

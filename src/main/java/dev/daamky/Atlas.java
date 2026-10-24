@@ -13,10 +13,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Identifier;
 
 final class Atlas {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private Atlas() {
    }
-// https://t.me/pasterplace
 
    static MsdfAtlasData loadAtlasData(Identifier atlasDataIdentifier) {
       try (BufferedReader bufferedReader = MinecraftClient.getInstance().getResourceManager().getResourceOrThrow(atlasDataIdentifier).getReader()) {
@@ -25,12 +23,10 @@ final class Atlas {
          throw new UncheckedIOException("Failed to load font " + atlasDataIdentifier, ioException);
       }
    }
-// https://t.me/pasterplace
 
    static long packCodePointPair(int leftCodePoint, int rightCodePoint) {
       return (long)leftCodePoint << 32 | rightCodePoint & 4294967295L;
    }
-// https://t.me/pasterplace
 
    private static MsdfAtlasData parseAtlasData(JsonObject fontJson) {
       JsonObject atlasJson = fontJson.getAsJsonObject("atlas");
@@ -74,7 +70,6 @@ final class Atlas {
       }
 
       Int2ObjectMap<GlyphMetrics> glyphMetricsByCodePoint = new Int2ObjectOpenHashMap<>();
-// https://t.me/pasterplace
 
       for (JsonElement glyphElement : fontJson.getAsJsonArray("glyphs")) {
          JsonObject glyphJson = glyphElement.getAsJsonObject();
@@ -117,7 +112,6 @@ final class Atlas {
          atlasMetadata, fontMetrics, glyphMetricsByCodePoint, kerningAdjustments, (GlyphMetrics)glyphMetricsByCodePoint.get(63)
       );
    }
-// https://t.me/pasterplace
 
    private static void addFallbackGlyph(Int2ObjectMap<GlyphMetrics> glyphMetricsByCodePoint, int aliasCodePoint, int sourceCodePoint) {
       GlyphMetrics glyph = glyphMetricsByCodePoint.get(sourceCodePoint);
@@ -125,7 +119,6 @@ final class Atlas {
          glyphMetricsByCodePoint.put(aliasCodePoint, glyph);
       }
    }
-// https://t.me/pasterplace
 
    private static GlyphMetrics createGlyphMetrics(
       int codePoint, float advanceWidth, float normalizationScale, MsdfAtlasMetadata atlasMetadata, boolean topOrigin, JsonObject planeBoundsJson, JsonObject atlasBoundsJson
@@ -149,7 +142,6 @@ final class Atlas {
          normalizedAtlasBottom
       );
    }
-// https://t.me/pasterplace
 
    private static float getFloatProperty(JsonObject jsonObject, String propertyName) {
       return jsonObject != null && jsonObject.has(propertyName) && !jsonObject.get(propertyName).isJsonNull() ? jsonObject.get(propertyName).getAsFloat() : 0.0F;

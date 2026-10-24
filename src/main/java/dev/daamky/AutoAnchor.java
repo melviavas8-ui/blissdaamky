@@ -22,7 +22,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class AutoAnchor extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final FloatSetting targetSearchRange = new FloatSetting("Дистанция до цели", 8.0F, 3.0F, 12.0F, 0.5F, "бл.");
    private final FloatSetting anchorInteractionRange = new FloatSetting("Дистанция установки", 4.5F, 2.0F, 6.0F, 0.1F, "бл.");
    private final FloatSetting minimumPlayerDistance = new FloatSetting("Мин. дистанция до себя", 3.0F, 0.0F, 6.0F, 0.5F, "бл.");
@@ -34,7 +33,6 @@ public final class AutoAnchor extends ModuleStructure {
    private BlockPos existingAnchorPosition;
    private BlockPos placementTargetPosition;
    private Direction placementFace;
-// https://t.me/pasterplace
 
    public AutoAnchor() {
       super("AutoAnchor", "Ставит, заряжает и взрывает якорь возрождения рядом с целью", ModuleCategory.COMBAT);
@@ -42,7 +40,6 @@ public final class AutoAnchor extends ModuleStructure {
          this.targetSearchRange, this.anchorInteractionRange, this.minimumPlayerDistance, this.minimumHealth, this.actionDelayMillis, this.placeAnchorEnabled, this.restoreHotbarSlot
       );
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -59,7 +56,6 @@ public final class AutoAnchor extends ModuleStructure {
                   && InventoryUtils.findHotbarSlot(candidateStack -> candidateStack.isOf(Items.RESPAWN_ANCHOR)) != -1) {
                   this.findAnchorPlacementNearTarget(targetPlayer);
                }
-// https://t.me/pasterplace
 
                Vec3d rotationTargetPosition = this.existingAnchorPosition == null
                   ? (
@@ -78,7 +74,6 @@ public final class AutoAnchor extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onMotion(EventMotion event) {
@@ -130,19 +125,16 @@ public final class AutoAnchor extends ModuleStructure {
          this.actionTimer.reset();
       }
    }
-// https://t.me/pasterplace
 
    private void interactWithBlockFace(BlockPos targetBlockPosition, Direction clickedFace) {
       CLIENT.interactionManager
          .interactBlock(CLIENT.player, Hand.MAIN_HAND, new BlockHitResult(this.getFaceHitPosition(targetBlockPosition, clickedFace), clickedFace, targetBlockPosition, false));
       CLIENT.player.swingHand(Hand.MAIN_HAND);
    }
-// https://t.me/pasterplace
 
    private Vec3d getFaceHitPosition(BlockPos targetBlockPosition, Direction face) {
       return Vec3d.ofCenter(targetBlockPosition).add(Vec3d.of(face.getVector()).multiply(0.5));
    }
-// https://t.me/pasterplace
 
    private boolean isValidAnchorPosition(BlockPos anchorPosition, PlayerEntity targetPlayer) {
       Vec3d anchorCenter = Vec3d.ofCenter(anchorPosition);
@@ -150,7 +142,6 @@ public final class AutoAnchor extends ModuleStructure {
          && CLIENT.player.getEntityPos().distanceTo(anchorCenter) >= this.minimumPlayerDistance.getValue().floatValue()
          && targetPlayer.getEntityPos().distanceTo(anchorCenter) <= 3.0;
    }
-// https://t.me/pasterplace
 
    private BlockPos findExistingAnchorNearTarget(PlayerEntity targetPlayer) {
       BlockPos targetBlockPosition = targetPlayer.getBlockPos();
@@ -168,7 +159,6 @@ public final class AutoAnchor extends ModuleStructure {
 
       return null;
    }
-// https://t.me/pasterplace
 
    private void findAnchorPlacementNearTarget(PlayerEntity targetPlayer) {
       BlockPos targetBlockPosition = targetPlayer.getBlockPos();
@@ -198,7 +188,6 @@ public final class AutoAnchor extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private PlayerEntity findNearestTargetPlayer() {
       PlayerEntity closestPlayer = null;
@@ -221,7 +210,6 @@ public final class AutoAnchor extends ModuleStructure {
 
       return closestPlayer;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override

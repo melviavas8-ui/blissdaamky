@@ -83,7 +83,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class AutoQuest extends ModuleStructure {
-    private static final String SOURCE_PROMOTION_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final Pattern RTP_DELAY_MESSAGE_PATTERN = Pattern.compile("подождите\\s+(\\d+)\\s+сек");
     private static final Pattern QUEST_PROGRESS_PATTERN = Pattern.compile("(\\d+)\\s*/\\s*(\\d+)");
     private static final Predicate<ItemStack> STONE_MATERIAL_PREDICATE = itemStack -> itemStack.isIn(ItemTags.STONE_CRAFTING_MATERIALS);
@@ -257,14 +256,12 @@ public final class AutoQuest extends ModuleStructure {
     private String currentMarketAlias;
     private int marketAliasIndex;
     private static final Predicate<ItemStack> WATER_POTION_PREDICATE = isPotion(net.minecraft.potion.Potions.WATER);
-// https://t.me/pasterplace
 
     public AutoQuest() {
         super("AutoQuest", "Выполняет квесты NPC на спавне: дерево, доски, железо", ModuleCategory.WORLD);
         this.addSettings(this.questActionDelaySetting, this.randomTeleportWaitSetting, this.miningTimeoutSetting, this.griefNumberSetting, this.retreatHealthThresholdSetting);
 
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.FAST)
     @Override
@@ -295,7 +292,6 @@ public final class AutoQuest extends ModuleStructure {
             this.setEnabled(false);
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.FAST)
     @Override
@@ -327,7 +323,6 @@ public final class AutoQuest extends ModuleStructure {
         SavedBots.removeSession(this.questBot);
         this.questBot = null;
     }
-// https://t.me/pasterplace
 
     @EventTarget
     public void onUpdate(EventUpdate eventUpdate) {
@@ -454,7 +449,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private long getStageTimeoutMillis() {
@@ -468,7 +462,6 @@ public final class AutoQuest extends ModuleStructure {
             return this.currentStage != AutoQuest.QuestStage.BREW_QUEST_POTIONS ? this.currentStage.l1IIIIl1lII1IlIIIll1 : 900000L;
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     public void onPacket(EventPacket eventPacket) {
@@ -541,7 +534,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     public void onMotion(EventMotion eventMotion) {
@@ -591,7 +583,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void setStage(AutoQuest.QuestStage nextStage) {
         if (this.currentStage == AutoQuest.QuestStage.EAT_QUEST_FOOD && nextStage != AutoQuest.QuestStage.EAT_QUEST_FOOD) {
@@ -624,7 +615,6 @@ public final class AutoQuest extends ModuleStructure {
         this.blockMiningProgressTimer.reset();
         this.stageRetryCount = 0;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void returnToSpawn() {
@@ -633,7 +623,6 @@ public final class AutoQuest extends ModuleStructure {
         CLIENT.getNetworkHandler().sendChatCommand("spawn");
         this.setStage(AutoQuest.QuestStage.WAIT_FOR_SPAWN);
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void waitForSpawn() {
@@ -642,7 +631,6 @@ public final class AutoQuest extends ModuleStructure {
             this.setStage(AutoQuest.QuestStage.OPEN_QUEST_MENU);
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void openQuestMenu() {
@@ -653,7 +641,6 @@ public final class AutoQuest extends ModuleStructure {
             this.setStage(AutoQuest.QuestStage.SELECT_QUEST);
         }
     }
-// https://t.me/pasterplace
 
     private void selectQuest() {
         Screen screen = CLIENT.currentScreen;
@@ -776,7 +763,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void collectRequiredItems() {
         if (this.marketItemPredicate == null || this.countMatchingItems(this.createMarketSearchPredicate()) >= this.marketTargetItemCount) {
@@ -1002,13 +988,11 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private Predicate<ItemStack> createMarketSearchPredicate() {
         Predicate requiredItemPredicate = this.marketItemPredicate;
         return stack -> !stack.isEmpty() && (requiredItemPredicate.test(stack) || this.matchesRequiredItemName(stack));
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean matchesRequiredItemName(ItemStack stack) {
@@ -1026,7 +1010,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return false;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean matchesMarketListing(String itemName, String itemLore) {
@@ -1069,7 +1052,6 @@ public final class AutoQuest extends ModuleStructure {
             : false;
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private static String[] getItemNameAliases(String itemName) {
@@ -1080,16 +1062,13 @@ public final class AutoQuest extends ModuleStructure {
                 }
             }
         }
-// https://t.me/pasterplace
 
         return new String[]{itemName};
     }
-// https://t.me/pasterplace
 
     private static String getCanonicalItemName(String itemName) {
         return getItemNameAliases(itemName)[0];
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean advanceMarketSearchAlias() {
@@ -1120,7 +1099,6 @@ public final class AutoQuest extends ModuleStructure {
         this.currentMarketAlias = null;
         return false;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void sendSlotClick(int slotIndex, int mouseButton, SlotActionType slotActionType) {
@@ -1138,7 +1116,6 @@ public final class AutoQuest extends ModuleStructure {
         )
         );
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void stopQuestWithMessage(String reason) {
@@ -1147,7 +1124,6 @@ public final class AutoQuest extends ModuleStructure {
         ClientChatLogger.l1I1IlllIlI(reason + " Выключаюсь.");
         this.setEnabled(false);
     }
-// https://t.me/pasterplace
 
     private boolean configureQuestRequirements() {
         this.blockRequirements.clear();
@@ -1293,12 +1269,10 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private int getRequiredLogsForFenceQuest() {
         return this.requiresFenceCrafting ? (Math.max(0, this.requiredQuestItemCount - this.countMatchingItems(this.questItemPredicate)) + 2) / 3 : 0;
     }
-// https://t.me/pasterplace
 
     private void setToolCraftingRequirements(Item item, int requiredToolCount, Predicate<ItemStack> materialPredicate, int[] recipeSlots, AutoQuest.QuestStage afterCraftStage) {
         this.requiresSpecialToolCrafting = true;
@@ -1308,7 +1282,6 @@ public final class AutoQuest extends ModuleStructure {
         this.specialToolRecipeSlots = recipeSlots;
         this.stageAfterToolCrafting = afterCraftStage;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean configurePlayerKillQuest() {
@@ -1345,7 +1318,6 @@ public final class AutoQuest extends ModuleStructure {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private Item findItemByLocalizedName(String localizedItemName) {
@@ -1357,7 +1329,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return null;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private int getMissingRequiredToolCount() {
@@ -1368,30 +1339,25 @@ public final class AutoQuest extends ModuleStructure {
             return 0;
         }
     }
-// https://t.me/pasterplace
 
     private int getRequiredStickCount() {
         int requiredStickCount = this.getRequiredLogsForFenceQuest() * 2 + this.getMissingRequiredToolCount() * 2;
         return (Math.max(0, requiredStickCount - this.countMatchingItems(stack -> stack.isOf(Items.STICK))) + 3) / 4;
     }
-// https://t.me/pasterplace
 
     private boolean needsCraftingTable() {
         return this.findNearbyBlock(Blocks.CRAFTING_TABLE) == null && this.countMatchingItems(stack -> stack.isOf(Items.CRAFTING_TABLE)) == 0;
     }
-// https://t.me/pasterplace
 
     private int getRequiredLogCount() {
         int requiredLogCount = this.requiresSpecialToolCrafting && this.specialToolMaterialPredicate == PLANK_ITEM_PREDICATE ? this.getMissingRequiredToolCount() * this.specialToolRecipeSlots.length : 0;
         return this.getRequiredLogsForFenceQuest() * 4 + this.getRequiredStickCount() * 2 + requiredLogCount + (this.needsCraftingTable() ? 4 : 0);
     }
-// https://t.me/pasterplace
 
     private Predicate<ItemStack> getQuestItemPredicate() {
         Item item = this.fencePlankItem;
         return this.requiresFenceCrafting ? stack -> stack.isOf(item) : PLANK_ITEM_PREDICATE;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private Predicate<ItemStack> getMaterialPredicate() {
@@ -1402,7 +1368,6 @@ public final class AutoQuest extends ModuleStructure {
             return LOG_ITEM_PREDICATE;
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void prepareCraftingInventory() {
@@ -1434,7 +1399,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private boolean maintainCraftingGrid(ScreenHandler handler, int firstCraftingSlot, int craftingSlotCount, int playerInventoryStartSlot, Map<Integer, Predicate<ItemStack>> craftingRequirements) {
         if (!handler.getCursorStack().isEmpty()) {
@@ -1462,7 +1426,6 @@ public final class AutoQuest extends ModuleStructure {
 
             for (Map.Entry<Integer, Predicate<ItemStack>> craftingRequirement : craftingRequirements.entrySet()) {
                 if (handler.slots.get(craftingRequirement.getKey()).getStack().isEmpty()) {
-// https://t.me/pasterplace
 
                     int sourceInventorySlot = -1;
 
@@ -1490,14 +1453,12 @@ public final class AutoQuest extends ModuleStructure {
                     return true;
                 }
             }
-// https://t.me/pasterplace
 
             if (!((Slot)handler.slots.get(0)).getStack().isEmpty()) {
                 InventoryUtils.clickSlot(0, 0, SlotActionType.QUICK_MOVE);
                 this.craftingTransferTimer.reset();
                 return true;
             }
-// https://t.me/pasterplace
 
             if (this.craftingTransferTimer.hasElapsed(2000L)) {
                 for (int playerSlotIndex = firstCraftingSlot; playerSlotIndex < firstCraftingSlot + craftingSlotCount; playerSlotIndex++) {
@@ -1513,7 +1474,6 @@ public final class AutoQuest extends ModuleStructure {
             return true;
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void craftFence(CraftingScreenHandler craftingHandler) {
@@ -1541,7 +1501,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void craftQuestTool(CraftingScreenHandler craftingHandler) {
@@ -1573,13 +1532,11 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static BotSession getActiveQuestBot() {
         AutoQuest autoQuest = instance;
         return autoQuest == null ? null : autoQuest.questBot;
     }
-// https://t.me/pasterplace
 
     private BotSession ensureQuestBotReady() {
         if (this.questBot == null) {
@@ -1655,7 +1612,6 @@ public final class AutoQuest extends ModuleStructure {
             return null;
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void waitForPvpBotKill() {
@@ -1679,7 +1635,6 @@ public final class AutoQuest extends ModuleStructure {
             this.closeHandledScreen();
         }
     }
-// https://t.me/pasterplace
 
     public static boolean isPvpQuestActive() {
         AutoQuest autoQuest = instance;
@@ -1688,7 +1643,6 @@ public final class AutoQuest extends ModuleStructure {
         && autoQuest.requiresPvpBotQuest
         && (autoQuest.currentStage == AutoQuest.QuestStage.WAIT_FOR_BOT_KILL || autoQuest.currentStage == AutoQuest.QuestStage.COMPLETE_PVP_KILL);
     }
-// https://t.me/pasterplace
 
     private void completePvpQuest() {
         if (this.completedMobKills >= this.requiredQuestItemCount) {
@@ -1781,17 +1735,14 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private static Predicate<ItemStack> isPotion(RegistryEntry<Potion> registryEntry) {
         return stack -> stack.isOf(Items.POTION) && getPotionContents(stack) != null && getPotionContents(stack).matches(registryEntry);
     }
-// https://t.me/pasterplace
 
     private static PotionContentsComponent getPotionContents(ItemStack stack) {
         return (PotionContentsComponent)stack.get(DataComponentTypes.POTION_CONTENTS);
     }
-// https://t.me/pasterplace
 
     private static Item getPotionIngredient(RegistryEntry<Potion> registryEntry) {
         if (registryEntry.matches(net.minecraft.potion.Potions.HEALING)) {
@@ -1816,7 +1767,6 @@ public final class AutoQuest extends ModuleStructure {
             return registryEntry.matches(net.minecraft.potion.Potions.POISON) ? Items.SPIDER_EYE : null;
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private static String getItemSearchName(Item item) {
@@ -1830,14 +1780,12 @@ public final class AutoQuest extends ModuleStructure {
             return "бутылочка";
         }
     }
-// https://t.me/pasterplace
 
     private void addItemRequirement(Item item, int requiredItemCount) {
         if (requiredItemCount > 0 && this.countMatchingItems(stack -> stack.isOf(item)) < requiredItemCount) {
             this.queuedItemRequirements.add(new AutoQuest.ItemRequirement(stack -> stack.isOf(item), requiredItemCount, getCanonicalItemName(getItemSearchName(item))));
         }
     }
-// https://t.me/pasterplace
 
     private boolean configurePotionQuest() {
         this.questPotion = null;
@@ -1920,7 +1868,6 @@ public final class AutoQuest extends ModuleStructure {
         this.stageAfterObjective = AutoQuest.QuestStage.WAIT_FOR_RTP;
         return true;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void aimAtAndFillBottle(Vec3d waterPoint) {
@@ -1940,7 +1887,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private Vec3d findWaterInteractionPoint() {
@@ -1973,7 +1919,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return nearestInteractionPoint;
     }
-// https://t.me/pasterplace
 
     private void brewQuestPotions() {
         if (!this.waterBottleFillPending
@@ -2095,7 +2040,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private BlockPos findNearbyWaterSource() {
@@ -2117,7 +2061,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return nearestWaterSource;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void craftBrewingStand(CraftingScreenHandler craftingHandler) {
@@ -2141,12 +2084,10 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private int countQuestPotions() {
         return Math.max(this.brewedQuestPotionCount, this.countMatchingItems(this.questItemPredicate));
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private int countEmptyInventorySlots() {
@@ -2160,7 +2101,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return emptySlotCount;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean discardFirstMatchingItem(Predicate<ItemStack> itemPredicate) {
@@ -2173,7 +2113,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return false;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean discardUnneededQuestItem() {
@@ -2187,7 +2126,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return false;
     }
-// https://t.me/pasterplace
 
     private void updateBrewingStand(BrewingStandScreenHandler brewingStandScreenHandler) {
         for (int potionSlot = 0; potionSlot < 3; potionSlot++) {
@@ -2266,7 +2204,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean insertBrewingIngredient(BrewingStandScreenHandler brewingStandScreenHandler, Item item, int brewingStandSlot) {
@@ -2281,7 +2218,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return false;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void resetPvpTargetState() {
@@ -2292,7 +2228,6 @@ public final class AutoQuest extends ModuleStructure {
         this.botCallRetryTimer.reset();
         RotationPriorityManager.getInstance().clearRotationRequest(this);
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private PlayerEntity findNearbyPlayer(String playerName) {
@@ -2307,7 +2242,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return null;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private int getConfiguredGriefNumber() {
@@ -2324,7 +2258,6 @@ public final class AutoQuest extends ModuleStructure {
             return configuredGriefNumber;
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void selectHotbarItem(Item item) {
@@ -2338,7 +2271,6 @@ public final class AutoQuest extends ModuleStructure {
             InventoryUtils.setSelectedHotbarSlot(inventorySlot);
         }
     }
-// https://t.me/pasterplace
 
     private void processEatQuest() {
         if (this.isHandledContainerOpen()) {
@@ -2383,7 +2315,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void moveToSpendHunger() {
         if (this.remainingHungerRunTicks > 0) {
@@ -2441,7 +2372,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void jumpToSpendHunger() {
@@ -2464,7 +2394,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void placeBlockDuringFall() {
@@ -2484,7 +2413,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void releaseQuestControls() {
         CLIENT.options.jumpKey.setPressed(false);
@@ -2493,12 +2421,10 @@ public final class AutoQuest extends ModuleStructure {
         RotationPriorityManager.getInstance().clearRotationRequest(this);
         this.cancelBaritonePath();
     }
-// https://t.me/pasterplace
 
     private AutoQuest.QuestStage getNextQuestStage() {
         return this.stageAfterObjective;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private Item findLogForPlankItem(String plankItemPath) {
@@ -2507,7 +2433,6 @@ public final class AutoQuest extends ModuleStructure {
         Object registeredItem = (Item)Registries.ITEM.get(Identifier.ofVanilla(logItemPath));
         return (Item)(registeredItem != Items.AIR ? registeredItem : null);
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private AutoQuest.BlockRequirement getNextBlockRequirement() {
@@ -2515,7 +2440,6 @@ public final class AutoQuest extends ModuleStructure {
             if (this.breakObjective) {
                 return (AutoQuest.BlockRequirement)(this.minedBlockCount >= this.requiredQuestItemCount ? null : blockRequirement);
             }
-// https://t.me/pasterplace
 
             if (this.countMatchingItems(((AutoQuest.BlockRequirement)blockRequirement).itemPredicate) < ((AutoQuest.BlockRequirement)blockRequirement).requiredCount) {
                 return (AutoQuest.BlockRequirement)blockRequirement;
@@ -2524,7 +2448,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return null;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void claimQuestReward() {
@@ -2534,7 +2457,6 @@ public final class AutoQuest extends ModuleStructure {
             this.setStage(AutoQuest.QuestStage.OPEN_QUEST_MENU);
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void requestRandomTeleport() {
@@ -2548,7 +2470,6 @@ public final class AutoQuest extends ModuleStructure {
             this.setStage(AutoQuest.QuestStage.WAIT_FOR_RTP_RESULT);
         }
     }
-// https://t.me/pasterplace
 
     private void waitForRandomTeleport() {
         boolean teleportedToNewPosition = CLIENT.player.getEntityPos().squaredDistanceTo(this.randomTeleportStartPosition) > 10000.0;
@@ -2572,7 +2493,6 @@ public final class AutoQuest extends ModuleStructure {
                             }
                         }
                     }
-// https://t.me/pasterplace
 
                     return;
                 }
@@ -2630,7 +2550,6 @@ public final class AutoQuest extends ModuleStructure {
                     this.setStage(AutoQuest.QuestStage.WAIT_FOR_RTP);
                     return;
                 }
-// https://t.me/pasterplace
 
                 this.currentBlockRequirement = null;
                 this.itemEntity = null;
@@ -2639,7 +2558,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void mineRequiredBlocks() {
         if (this.isPlayerNearby()) {
@@ -2689,7 +2607,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void runHuntStep() {
         if (this.retreatingForHealth) {
@@ -2724,7 +2641,6 @@ public final class AutoQuest extends ModuleStructure {
 
                 this.currentTarget = null;
             }
-// https://t.me/pasterplace
 
             if (this.completedMobKills >= this.requiredQuestItemCount) {
                 this.cancelBaritonePath();
@@ -2792,7 +2708,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void recoverHealthAtSpawn() {
@@ -2814,7 +2729,6 @@ public final class AutoQuest extends ModuleStructure {
             this.closeHandledScreen();
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void navigateToMobSpawner() {
@@ -2835,7 +2749,6 @@ public final class AutoQuest extends ModuleStructure {
             this.currentSpawnerPosition = null;
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean canSeeSpawner() {
@@ -2849,7 +2762,6 @@ public final class AutoQuest extends ModuleStructure {
         .raycast(new RaycastContext(playerEyePosition, spawnerCenter, ShapeType.COLLIDER, FluidHandling.NONE, CLIENT.player));
         return blockHitResult.getType() == Type.MISS || blockHitResult.getBlockPos().equals(this.currentSpawnerPosition);
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private BlockPos findNearestMobSpawner() {
@@ -2872,7 +2784,6 @@ public final class AutoQuest extends ModuleStructure {
                                 if (entity != null && entity.getType() == this.targetMobType && (spawnerDistanceSquared = blockEntity.getPos().getSquaredDistance(playerBlockPos)) < nearestSpawnerDistanceSquared
                                 )
                                 {
-// https://t.me/pasterplace
                                     nearestSpawnerDistanceSquared = spawnerDistanceSquared;
                                     nearestSpawnerPosition = blockEntity.getPos().toImmutable();
                                 }
@@ -2885,7 +2796,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return nearestSpawnerPosition;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void searchForMobs() {
@@ -2906,7 +2816,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private LivingEntity findNearestTargetMob() {
@@ -2927,7 +2836,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return (LivingEntity)nearestTarget;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void selectCombatWeapon() {
@@ -2945,7 +2853,6 @@ public final class AutoQuest extends ModuleStructure {
             InventoryUtils.setSelectedHotbarSlot(weaponInventorySlot);
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private EntityType<?> findEntityTypeByLocalizedName(String localizedEntityName) {
@@ -2957,7 +2864,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return null;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     public static void onBlockMined(BlockState blockState) {
@@ -2983,7 +2889,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void discardExcessInventoryItems() {
@@ -2998,7 +2903,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean shouldDiscardItem(ItemStack stack) {
@@ -3018,7 +2922,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return false;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean recoverMiningTarget() {
@@ -3054,7 +2957,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private ItemEntity findNearestDroppedItem() {
@@ -3079,7 +2981,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return (ItemEntity)nearestItemEntity;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean matchesBlockRequirement(ItemStack stack) {
@@ -3091,7 +2992,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return false;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean containsAnyBlockInLoadedChunks(Block[] blockArray) {
@@ -3122,7 +3022,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return false;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean isPlayerNearby() {
@@ -3137,12 +3036,10 @@ public final class AutoQuest extends ModuleStructure {
 
         return false;
     }
-// https://t.me/pasterplace
 
     private IBaritone getBaritone() {
         return BaritoneAPI.getProvider().getPrimaryBaritone();
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void configureBaritone() {
@@ -3170,12 +3067,10 @@ public final class AutoQuest extends ModuleStructure {
         settings.mineScanDroppedItems.value = true;
         settings.exploreForBlocks.value = false;
     }
-// https://t.me/pasterplace
 
     private void cancelBaritonePath() {
         this.getBaritone().getPathingBehavior().cancelEverything();
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void moveRequiredItems() {
@@ -3200,7 +3095,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void craftQuestItem() {
         if (this.actionCooldownTimer.hasElapsed(this.questActionDelaySetting.getValue().longValue()) && this.pendingBlockPlacement == null) {
@@ -3266,7 +3160,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private boolean hasPlanksInCraftingGrid(PlayerScreenHandler playerScreenHandler) {
@@ -3278,7 +3171,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return false;
     }
-// https://t.me/pasterplace
 
     private void craftFurnace(CraftingScreenHandler craftingScreenHandler) {
         if (!craftingScreenHandler.getCursorStack().isEmpty()) {
@@ -3327,7 +3219,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void openFurnace() {
@@ -3363,7 +3254,6 @@ public final class AutoQuest extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void smeltQuestItems() {
         Screen screen = CLIENT.currentScreen;
@@ -3420,7 +3310,6 @@ public final class AutoQuest extends ModuleStructure {
 
         this.setStage(AutoQuest.QuestStage.CRAFT_FURNACE);
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private BlockPos findNearbyBlock(Block block) {
@@ -3435,7 +3324,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return null;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void placeItemBlock(Item item) {
@@ -3467,13 +3355,11 @@ public final class AutoQuest extends ModuleStructure {
         ClientChatLogger.l1I1IlllIlI("Нет места поставить блок, новый RTP.");
         this.setStage(AutoQuest.QuestStage.WAIT_FOR_RTP);
     }
-// https://t.me/pasterplace
 
     private Direction getBlockInteractionFace(BlockPos targetBlockPos) {
         Vec3d directionVector = CLIENT.player.getEyePos().subtract(Vec3d.ofCenter(targetBlockPos));
         return Direction.getFacing(directionVector.x, directionVector.y, directionVector.z);
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private void scheduleBlockPlacement(BlockPos targetBlockPos, Direction direction) {
@@ -3485,7 +3371,6 @@ public final class AutoQuest extends ModuleStructure {
         this.pendingBlockPlacement = targetBlockPos;
         this.pendingBlockPlacementFace = direction;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private int countMatchingItems(Predicate<ItemStack> itemPredicate) {
@@ -3526,7 +3411,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return matchingItemCount;
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.BALANCED)
     private String getItemLore(ItemStack stack) {
@@ -3534,7 +3418,6 @@ public final class AutoQuest extends ModuleStructure {
         if (loreComponent == null) {
             return "";
         }
-// https://t.me/pasterplace
 
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -3544,7 +3427,6 @@ public final class AutoQuest extends ModuleStructure {
 
         return stringBuilder.toString().toLowerCase(Locale.ROOT);
     }
-// https://t.me/pasterplace
 
     private boolean isHandledContainerOpen() {
         Screen screen = CLIENT.currentScreen;
@@ -3557,14 +3439,12 @@ public final class AutoQuest extends ModuleStructure {
 
         return false;
     }
-// https://t.me/pasterplace
 
     private void closeHandledScreen() {
         if (CLIENT.currentScreen instanceof HandledScreen) {
             CLIENT.player.closeHandledScreen();
         }
     }
-// https://t.me/pasterplace
 
     private record ItemRequirement(Predicate<ItemStack> itemPredicate, int requiredCount, String description) {
 
@@ -3574,7 +3454,6 @@ public final class AutoQuest extends ModuleStructure {
             this.description = description;
         }
     }
-// https://t.me/pasterplace
 
     private enum QuestStage {
         RETURN_TO_SPAWN(10000L),
@@ -3596,7 +3475,6 @@ public final class AutoQuest extends ModuleStructure {
         WAIT_FOR_BOT_KILL(0L),
         BREW_QUEST_POTIONS(0L),
         EAT_QUEST_FOOD(900000L);
-// https://t.me/pasterplace
 
         private final long l1IIIIl1lII1IlIIIll1;
 
@@ -3629,7 +3507,6 @@ public final class AutoQuest extends ModuleStructure {
             };
         }
     }
-// https://t.me/pasterplace
 
     private record BlockRequirement(String description, Predicate<ItemStack> itemPredicate, Block[] blocks, int requiredCount, boolean blockOnly) {
 

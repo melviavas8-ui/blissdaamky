@@ -23,14 +23,11 @@ import org.joml.Vector3f;
 import org.jspecify.annotations.Nullable;
 
 public final class PlayerModelPreviewRenderer {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final long ANIMATION_EPOCH_MILLIS = System.currentTimeMillis();
    private static final Map<Model, float[]> modelBoundsCache = new HashMap<>();
-// https://t.me/pasterplace
 
    private PlayerModelPreviewRenderer() {
    }
-// https://t.me/pasterplace
 
    public static void renderModelPreview(DrawContext drawContext, Model model, float previewX, float previewY, float previewSize, float opacity) {
       ModelGeometry modelGeometry = model.getGeometry();
@@ -64,7 +61,6 @@ public final class PlayerModelPreviewRenderer {
                float[] screenPositions = new float[meshDataList.size() * 8];
                float[] screenTextureCoordinates = new float[meshDataList.size() * 8];
                int[] packedVertexColors = new int[meshDataList.size()];
-// https://t.me/pasterplace
 
                for (int quadIndex = 0; quadIndex < meshDataList.size(); quadIndex++) {
                    PlayerModelMeshData meshData = meshDataList.get(quadIndex);
@@ -101,7 +97,6 @@ public final class PlayerModelPreviewRenderer {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static @Nullable GpuTextureView getModelTextureView(Model model) {
       try {
@@ -111,7 +106,6 @@ public final class PlayerModelPreviewRenderer {
          return null;
       }
    }
-// https://t.me/pasterplace
 
    private static float[] calculateModelBounds(ModelGeometry modelGeometry) {
       float minX = Float.MAX_VALUE;
@@ -135,7 +129,6 @@ public final class PlayerModelPreviewRenderer {
           maxY = Math.max(maxY, worldVertex.y);
           maxZ = Math.max(maxZ, worldVertex.z);
       }
-// https://t.me/pasterplace
 
       if (transformedVertices.isEmpty()) {
          return new float[]{0.0F, 0.0F, 0.0F, 1.0F};
@@ -152,7 +145,6 @@ public final class PlayerModelPreviewRenderer {
 
       return new float[]{centerX, centerY, centerZ, boundingRadius};
    }
-// https://t.me/pasterplace
 
    static void applyBoneTransform(ModelBone bone, Matrix4fStack transformStack) {
       transformStack.translate(-bone.Ill111IlI11l / 16.0F, bone.I1l11IIlIIIll1l1lI1II / 16.0F, bone.I1I1lI111lII1 / 16.0F);
@@ -161,14 +153,12 @@ public final class PlayerModelPreviewRenderer {
       transformStack.scale(bone.lIll1Il1lll111l11l1I1llllI, bone.lIIIlI1III1, bone.IIl1IlII1III1IIl1IIl);
       transformStack.translate(-bone.l1lll11l1l / 16.0F, -bone.lIIl11l111lIIl1ll / 16.0F, -bone.l1IIl11lI / 16.0F);
    }
-// https://t.me/pasterplace
 
    static void applyPoseTransform(ModelBonePose pose, Matrix4fStack transformStack) {
       transformStack.translate(pose.lIIl11l111lIIl1ll / 16.0F, pose.l1IIl11lI / 16.0F, pose.I1lIIII1III1lIlIl1l / 16.0F);
       transformStack.rotateZ(pose.Ill111IlI11l).rotateY(pose.floatValue).rotateX(pose.l11lIlIIll1III1);
       transformStack.translate(-pose.lIIl11l111lIIl1ll / 16.0F, -pose.l1IIl11lI / 16.0F, -pose.I1lIIII1III1lIlIl1l / 16.0F);
    }
-// https://t.me/pasterplace
 
    static void collectTransformedVertices(ModelBone bone, Matrix4fStack transformStack, List<Vector3f> transformedVertices) {
       transformStack.pushMatrix();
@@ -187,7 +177,6 @@ public final class PlayerModelPreviewRenderer {
                }
             }
          }
-// https://t.me/pasterplace
 
          transformStack.popMatrix();
       }
@@ -198,7 +187,6 @@ public final class PlayerModelPreviewRenderer {
 
       transformStack.popMatrix();
    }
-// https://t.me/pasterplace
 
    private static void collectMeshData(ModelBone bone, Matrix4fStack transformStack, List<PlayerModelPreviewRenderer.PlayerModelMeshData> meshData) {
       transformStack.pushMatrix();
@@ -229,7 +217,6 @@ public final class PlayerModelPreviewRenderer {
 
          transformStack.popMatrix();
       }
-// https://t.me/pasterplace
 
       for (Object childBone : bone.l1I1IlllIlI) {
          collectMeshData((ModelBone)childBone, transformStack, meshData);
@@ -237,7 +224,6 @@ public final class PlayerModelPreviewRenderer {
 
       transformStack.popMatrix();
    }
-// https://t.me/pasterplace
 
    private record PlayerModelMeshData(float[] positions, float[] textureCoordinates, float shade, float alpha) {
 
@@ -248,7 +234,6 @@ public final class PlayerModelPreviewRenderer {
          this.alpha = alpha;
       }
    }
-// https://t.me/pasterplace
 
    private static final class PlayerModelRenderState implements SimpleGuiElementRenderState {
       private final Matrix3x2f matrices;

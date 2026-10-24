@@ -10,7 +10,6 @@ import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.Hand;
 
 public final class InventoryUtils {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     public static final int OFFHAND_SCREEN_HANDLER_SLOT = 45;
     public static final int OFFHAND_SWAP_BUTTON = 40;
     private static int deferredHotbarSlot = -1;
@@ -20,16 +19,13 @@ public final class InventoryUtils {
     private static int pendingUseStage;
     private static int pendingUseStageAge;
     private static Priority.PriorityCategory pendingUseSwapPriority = Priority.PriorityCategory.DEFAULT;
-// https://t.me/pasterplace
 
     private InventoryUtils() {
     }
-// https://t.me/pasterplace
 
     private static MinecraftClient getClient() {
         return MinecraftClient.getInstance();
     }
-// https://t.me/pasterplace
 
     public static int findHotbarSlot(Predicate<ItemStack> itemPredicate) {
         ClientPlayerEntity clientPlayerEntity = getClient().player;
@@ -45,7 +41,6 @@ public final class InventoryUtils {
 
         return -1;
     }
-// https://t.me/pasterplace
 
     public static int findInventorySlot(Predicate<ItemStack> itemPredicate) {
         ClientPlayerEntity clientPlayerEntity = getClient().player;
@@ -61,13 +56,11 @@ public final class InventoryUtils {
 
         return -1;
     }
-// https://t.me/pasterplace
 
     public static int findItemSlot(Predicate<ItemStack> itemPredicate) {
         int matchingSlot = findHotbarSlot(itemPredicate);
         return matchingSlot != -1 ? matchingSlot : findInventorySlot(itemPredicate);
     }
-// https://t.me/pasterplace
 
     public static int countMatchingItems(Predicate<ItemStack> itemPredicate) {
         ClientPlayerEntity clientPlayerEntity = getClient().player;
@@ -76,7 +69,6 @@ public final class InventoryUtils {
         }
 
         int itemCount = 0;
-// https://t.me/pasterplace
 
         for (int inventorySlot = 0; inventorySlot < 36; inventorySlot++) {
             ItemStack stack = clientPlayerEntity.getInventory().getStack(inventorySlot);
@@ -91,18 +83,15 @@ public final class InventoryUtils {
 
         return itemCount;
     }
-// https://t.me/pasterplace
 
     public static int toScreenHandlerSlot(int inventorySlot) {
         return inventorySlot < 9 ? inventorySlot + 36 : inventorySlot;
     }
-// https://t.me/pasterplace
 
     public static int getSelectedHotbarSlot() {
         ClientPlayerEntity clientPlayerEntity = getClient().player;
         return clientPlayerEntity == null ? 0 : clientPlayerEntity.getInventory().getSelectedSlot();
     }
-// https://t.me/pasterplace
 
     public static void setSelectedHotbarSlot(int hotbarSlot) {
         ClientPlayerEntity clientPlayerEntity = getClient().player;
@@ -112,7 +101,6 @@ public final class InventoryUtils {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static void rememberHotbarSlotForRestore(int hotbarSlot) {
         ClientPlayerEntity clientPlayerEntity = getClient().player;
@@ -123,12 +111,10 @@ public final class InventoryUtils {
 
         }
     }
-// https://t.me/pasterplace
 
     public static int getHotbarSlotToRestore() {
         return deferredHotbarSlot != -1 ? deferredHotbarSlot : getSelectedHotbarSlot();
     }
-// https://t.me/pasterplace
 
     public static void updateDeferredHotbarSlotRestore() {
         updatePendingItemUse();
@@ -149,14 +135,12 @@ public final class InventoryUtils {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static void sendSelectedSlotPacket(int hotbarSlot) {
         if (hotbarSlot >= 0 && hotbarSlot <= 8) {
             PacketSender.II1Il11l111II11IIl(new UpdateSelectedSlotC2SPacket(hotbarSlot));
         }
     }
-// https://t.me/pasterplace
 
     public static void clickSlot(int screenHandlerSlot, int button, SlotActionType slotActionType) {
         MinecraftClient client = getClient();
@@ -164,7 +148,6 @@ public final class InventoryUtils {
             client.interactionManager.clickSlot(client.player.currentScreenHandler.syncId, screenHandlerSlot, button, slotActionType, client.player);
         }
     }
-// https://t.me/pasterplace
 
     public static void swapInventorySlotWithOffhand(int inventorySlot, Priority.PriorityCategory priorityCategory) {
         Priority.getInstance().scheduleAction(priorityCategory, () -> {
@@ -172,7 +155,6 @@ public final class InventoryUtils {
             clickSlot(toScreenHandlerSlot(inventorySlot), 40, SlotActionType.SWAP);
         });
     }
-// https://t.me/pasterplace
 
     public static void stopUsingOffhand() {
         MinecraftClient client = getClient();
@@ -181,17 +163,14 @@ public final class InventoryUtils {
             client.interactionManager.stopUsingItem(clientPlayerEntity);
         }
     }
-// https://t.me/pasterplace
 
     public static void swapInventorySlotWithHotbar(int inventorySlot, int hotbarButton, Priority.PriorityCategory priorityCategory) {
         Priority.getInstance().scheduleAction(priorityCategory, () -> clickSlot(toScreenHandlerSlot(inventorySlot), hotbarButton, SlotActionType.SWAP));
     }
-// https://t.me/pasterplace
 
     public static void quickMoveSlot(int screenHandlerSlot, Priority.PriorityCategory priorityCategory) {
         Priority.getInstance().scheduleAction(priorityCategory, () -> clickSlot(screenHandlerSlot, 0, SlotActionType.QUICK_MOVE));
     }
-// https://t.me/pasterplace
 
     public static void interactItemWithRotation(Hand hand, float yaw, float pitch) {
         MinecraftClient client = getClient();
@@ -201,7 +180,6 @@ public final class InventoryUtils {
             float originalPitch = clientPlayerEntity.getPitch();
             clientPlayerEntity.setYaw(yaw);
             clientPlayerEntity.setPitch(pitch);
-// https://t.me/pasterplace
 
             try {
                 client.interactionManager.interactItem(clientPlayerEntity, hand);
@@ -211,7 +189,6 @@ public final class InventoryUtils {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static void useHotbarSlot(int hotbarSlot, float yaw, float pitch) {
         if (hotbarSlot >= 0 && hotbarSlot <= 8) {
@@ -223,7 +200,6 @@ public final class InventoryUtils {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static boolean useItemFromInventory(Predicate<ItemStack> itemPredicate, Priority.PriorityCategory priorityCategory) {
         ClientPlayerEntity clientPlayerEntity = getClient().player;
@@ -259,7 +235,6 @@ public final class InventoryUtils {
         swapInventorySlotWithHotbar(inventorySlot, hotbarSlotBeforePendingUse, priorityCategory);
         return true;
     }
-// https://t.me/pasterplace
 
     private static void updatePendingItemUse() {
         ClientPlayerEntity clientPlayerEntity = getClient().player;
@@ -283,12 +258,10 @@ public final class InventoryUtils {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static boolean itemNameContains(ItemStack stack, String nameFragment) {
         return !stack.isEmpty() && stack.getName().getString().toLowerCase(Locale.ROOT).contains(nameFragment.toLowerCase(Locale.ROOT));
     }
-// https://t.me/pasterplace
 
     public static boolean canSwapInventorySlots() {
         ClientPlayerEntity clientPlayerEntity = getClient().player;

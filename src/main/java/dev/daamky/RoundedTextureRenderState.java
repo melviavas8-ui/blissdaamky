@@ -15,7 +15,6 @@ import org.joml.Matrix3x2f;
 import org.jspecify.annotations.Nullable;
 
 final class RoundedTextureRenderState implements SimpleGuiElementRenderState {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float EDGE_PADDING = 1.0F;
    private static final float MAX_OVERLAY_COORDINATE = 32767.0F;
    private final Matrix3x2f transformationMatrix;
@@ -34,7 +33,6 @@ final class RoundedTextureRenderState implements SimpleGuiElementRenderState {
    private final @Nullable ScreenRect scissorArea;
    private final ScreenRect bounds;
    private @Nullable TextureSetup cachedTextureSetup;
-// https://t.me/pasterplace
 
    RoundedTextureRenderState(
       Matrix3x2f transformationMatrix,
@@ -73,7 +71,6 @@ final class RoundedTextureRenderState implements SimpleGuiElementRenderState {
       ScreenRect clippedBounds = scissorArea != null ? transformedBounds.intersection(scissorArea) : transformedBounds;
       this.bounds = clippedBounds != null ? clippedBounds : ScreenRect.empty();
    }
-// https://t.me/pasterplace
 
    public void setupVertices(VertexConsumer vertices) {
       float uExtent = this.width * 0.5F + 1.0F;
@@ -87,7 +84,6 @@ final class RoundedTextureRenderState implements SimpleGuiElementRenderState {
       this.emitVertex(vertices, right, bottom, uExtent, vExtent);
       this.emitVertex(vertices, right, top, uExtent, -vExtent);
    }
-// https://t.me/pasterplace
 
    private void emitVertex(VertexConsumer vertices, float x, float y, float u, float v) {
       int overlayU = Math.round(Math.clamp((x - this.textureUStart) / this.textureUWidth, 0.0F, 1.0F) * 32767.0F);
@@ -99,17 +95,14 @@ final class RoundedTextureRenderState implements SimpleGuiElementRenderState {
          .light(this.blockLight, this.skyLight)
          .normal(0.0F, 0.0F, 1.0F);
    }
-// https://t.me/pasterplace
 
    public RenderPipeline pipeline() {
       return RegionImageRenderPipeline.II1Il11l111II11IIl;
    }
-// https://t.me/pasterplace
 
    public TextureSetup textureSetup() {
       if (this.cachedTextureSetup == null) {
          GpuTextureView textureView = null;
-// https://t.me/pasterplace
 
          try {
             MinecraftClient client = MinecraftClient.getInstance();
@@ -131,12 +124,10 @@ final class RoundedTextureRenderState implements SimpleGuiElementRenderState {
 
       return this.cachedTextureSetup;
    }
-// https://t.me/pasterplace
 
    public @Nullable ScreenRect scissorArea() {
       return this.scissorArea;
    }
-// https://t.me/pasterplace
 
    public @Nullable ScreenRect bounds() {
       return this.bounds;

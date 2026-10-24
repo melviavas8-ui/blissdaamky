@@ -8,17 +8,14 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class NoClip extends ModuleStructure {
-    private static final String pc36eb2c7 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    public NoClip() {
       super("NoClip", "Клипает через блоки по одному блоку в направлении взгляда", ModuleCategory.MOVEMENT);
    }
-// https://t.me/pasterplace
 
    public static boolean l1I1IIl111Il1l1l() {
       ModuleStructure moduleStructure = ModuleRegistry.getInstance().getModuleByClass(NoClip.class);
       return moduleStructure != null && moduleStructure.isEnabled();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)

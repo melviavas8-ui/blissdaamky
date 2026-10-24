@@ -10,7 +10,6 @@ import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.util.Window;
 
 public final class HudModule extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiToggleSetting enabledElements = new MultiToggleSetting("Elements")
       .addOption("Watermark", true)
       .addOption("Target HUD", true)
@@ -37,7 +36,6 @@ public final class HudModule extends ModuleStructure {
    private boolean primaryMouseButtonDown;
    private boolean secondaryMouseButtonDown;
    private float animationTime;
-// https://t.me/pasterplace
 
    public HudModule() {
       super("HUD", "Displays interface elements on screen", ModuleCategory.RENDER);
@@ -69,30 +67,25 @@ public final class HudModule extends ModuleStructure {
 
       this.setEnabled(true);
    }
-// https://t.me/pasterplace
 
    public static boolean isElementEnabled(String elementDisplayName) {
       HudModule module = (HudModule)ModuleRegistry.getInstance().getModuleByClass(HudModule.class);
       return module != null && module.isEnabled() && module.enabledElements.isOptionEnabled(elementDisplayName);
    }
-// https://t.me/pasterplace
 
    private static float getMouseX(MinecraftClient client) {
       Window window = client.getWindow();
       return (float)(client.mouse.getX() * window.getFramebufferWidth() / Math.max(1, window.getWidth()) / 2.0);
    }
-// https://t.me/pasterplace
 
    private static float getMouseY(MinecraftClient client) {
       Window window = client.getWindow();
       return (float)(client.mouse.getY() * window.getFramebufferHeight() / Math.max(1, window.getHeight()) / 2.0);
    }
-// https://t.me/pasterplace
 
    private static boolean isChatScreenOpen(MinecraftClient client) {
       return client.currentScreen instanceof ChatScreen;
    }
-// https://t.me/pasterplace
 
    @Override
    public void updateAnimation(float frameDelta) {
@@ -113,7 +106,6 @@ public final class HudModule extends ModuleStructure {
          ((HudElementPosition)hudElement).updateState(frameDelta, shouldRender, isHoveredOrDragged);
       }
    }
-// https://t.me/pasterplace
 
    private void handleEditorInput(MinecraftClient client) {
       boolean chatScreenOpen = isChatScreenOpen(client);
@@ -123,7 +115,6 @@ public final class HudModule extends ModuleStructure {
       if (primaryButtonDown && !this.primaryMouseButtonDown) {
          this.draggedElement = null;
          boolean primaryClickHandled = false;
-// https://t.me/pasterplace
 
          for (Object hudElement : this.hudElements) {
             if (((HudElementPosition)hudElement).getVisibilityAlpha() >= 0.5F && ((HudElementPosition)hudElement).handlePrimaryClick(mouseX, mouseY)) {
@@ -168,7 +159,6 @@ public final class HudModule extends ModuleStructure {
 
       this.secondaryMouseButtonDown = secondaryButtonDown;
    }
-// https://t.me/pasterplace
 
    @EventTarget(priority = 4)
    public void onHudLayerRender(EventHudLayer eventHudLayer) {
@@ -177,7 +167,6 @@ public final class HudModule extends ModuleStructure {
          this.renderHudElements(client, eventHudLayer.graphics());
       }
    }
-// https://t.me/pasterplace
 
    private void renderHudElements(MinecraftClient client, DrawContext drawContext) {
       float hudWidth = GuiEventRenderer.getScreenWidth();

@@ -17,10 +17,8 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 
 public final class CombatUtils {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private CombatUtils() {
    }
-// https://t.me/pasterplace
 
    public static void attackEntity(Entity entity) {
       MinecraftClient client = MinecraftClient.getInstance();
@@ -34,13 +32,11 @@ public final class CombatUtils {
          }
       }
    }
-// https://t.me/pasterplace
 
    public static float getAttackCooldownProgress() {
       ClientPlayerEntity clientPlayerEntity = MinecraftClient.getInstance().player;
       return clientPlayerEntity == null ? 0.0F : clientPlayerEntity.getAttackCooldownProgress(0.5F);
    }
-// https://t.me/pasterplace
 
    public static boolean isInCobweb(LivingEntity livingEntity) {
       Box box = livingEntity.getBoundingBox().expand(0.001);
@@ -57,11 +53,9 @@ public final class CombatUtils {
             return true;
          }
       }
-// https://t.me/pasterplace
 
       return false;
    }
-// https://t.me/pasterplace
 
    public static boolean isInInvalidCriticalState(ClientPlayerEntity livingEntity) {
       return livingEntity.isTouchingWater()
@@ -75,12 +69,10 @@ public final class CombatUtils {
          || livingEntity.hasStatusEffect(StatusEffects.BLINDNESS)
          || isInInvalidCriticalState(livingEntity);
    }
-// https://t.me/pasterplace
 
    public static boolean isFallingForCriticalHit(ClientPlayerEntity livingEntity) {
       return !isInInvalidCriticalState(livingEntity) && !livingEntity.isOnGround() && livingEntity.fallDistance > 0.0;
    }
-// https://t.me/pasterplace
 
    public static boolean hasMeleeWeapon(PlayerEntity playerEntity) {
       ItemStack mainHandStack = playerEntity.getMainHandStack();
@@ -89,7 +81,6 @@ public final class CombatUtils {
          || mainHandStack.isOf(Items.MACE)
          || mainHandStack.isOf(Items.TRIDENT);
    }
-// https://t.me/pasterplace
 
    public static float getEffectiveHealth(LivingEntity livingEntity) {
       return livingEntity.getHealth() + livingEntity.getAbsorptionAmount();

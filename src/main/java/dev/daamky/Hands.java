@@ -4,7 +4,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class Hands extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiOptionSetting renderModeSetting = new MultiOptionSetting(
       "Режим", "Nothing", "Nothing", "Заливка", "Шейдер", "Зеркало", "Шейдер + Зеркало"
    );
@@ -72,7 +71,6 @@ public final class Hands extends ModuleStructure {
    private final BooleanSetting blowOffOnHitSetting = new BooleanSetting("Сдув при ударе", false);
    private final FloatSetting blowOffStrengthSetting = new FloatSetting("Сила сдува", 4.0F, 1.0F, 10.0F, 0.5F);
    private long animationStartedAtMillis = System.currentTimeMillis();
-// https://t.me/pasterplace
 
    public Hands() {
       super("Hands", "Визуальные эффекты рук от первого лица", ModuleCategory.RENDER);
@@ -198,25 +196,21 @@ public final class Hands extends ModuleStructure {
          this.blowOffStrengthSetting
       );
    }
-// https://t.me/pasterplace
 
    public static Hands getInstance() {
       return ModuleRegistry.getInstance().getModuleByClass(Hands.class);
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return this.renderModeSetting.getValue();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
    protected void onEnable() {
       this.animationStartedAtMillis = System.currentTimeMillis();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -224,57 +218,46 @@ public final class Hands extends ModuleStructure {
       HandsCapture.destroyFramebuffer();
       TrailSampler.INSTANCE.close();
    }
-// https://t.me/pasterplace
 
    public boolean isEffectActive() {
       return this.isEnabled() && (!this.isNothingMode() || this.glowEnabledSetting.getValue() || this.outlineEnabledSetting.getValue());
    }
-// https://t.me/pasterplace
 
    public boolean isFillMode() {
       return this.renderModeSetting.isSelected("Заливка");
    }
-// https://t.me/pasterplace
 
    public boolean isNothingMode() {
       return this.renderModeSetting.isSelected("Nothing");
    }
-// https://t.me/pasterplace
 
    public boolean isShaderMode() {
       return this.renderModeSetting.isSelected("Шейдер") || this.renderModeSetting.isSelected("Шейдер + Зеркало");
    }
-// https://t.me/pasterplace
 
    public boolean isMirrorMode() {
       return this.renderModeSetting.isSelected("Зеркало") || this.renderModeSetting.isSelected("Шейдер + Зеркало");
    }
-// https://t.me/pasterplace
 
    public boolean isTrailEffectEnabled() {
       return this.glowEnabledSetting.getValue() && this.trailEnabledSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public boolean isEnergyTrailMode() {
       return this.isTrailEffectEnabled() && this.trailModeSetting.isSelected("Энергия");
    }
-// https://t.me/pasterplace
 
    public boolean isRibbonTrailMode() {
       return this.isTrailEffectEnabled() && this.trailModeSetting.isSelected("Ленты");
    }
-// https://t.me/pasterplace
 
    public boolean isDefaultTrailMode() {
       return this.isTrailEffectEnabled() && this.trailModeSetting.isSelected("Обычный");
    }
-// https://t.me/pasterplace
 
    public int getTrailModeIndex() {
       return this.isRibbonTrailMode() ? 2 : (this.isEnergyTrailMode() ? 1 : 0);
    }
-// https://t.me/pasterplace
 
    public float getRenderModeIndex() {
       if (this.isNothingMode()) {
@@ -287,7 +270,6 @@ public final class Hands extends ModuleStructure {
          return this.renderModeSetting.isSelected("Зеркало") ? 2.0F : 3.0F;
       }
    }
-// https://t.me/pasterplace
 
    public float getShaderStyleIndex() {
       return switch ((String)this.shaderStyleSetting.getValue()) {
@@ -299,33 +281,27 @@ public final class Hands extends ModuleStructure {
          default -> 0.0F;
       };
    }
-// https://t.me/pasterplace
 
    public float getShaderQualitySamples() {
       int qualityLevel = Math.round(this.shaderQualitySetting.getValue());
       return qualityLevel == 1 ? 3.0F : (qualityLevel == 3 ? 8.0F : 5.0F);
    }
-// https://t.me/pasterplace
 
    public float getElapsedSeconds() {
       return (float)(System.currentTimeMillis() - this.animationStartedAtMillis) / 1000.0F;
    }
-// https://t.me/pasterplace
 
    private static int getAccentColorArgb() {
       return Accent.getAccentColorWithAlpha(255).toArgb();
    }
-// https://t.me/pasterplace
 
    private static int getLighterAccentColorArgb() {
       return Accent.getLighterAccentColor(255).toArgb();
    }
-// https://t.me/pasterplace
 
    public int getShaderColorArgb() {
       return this.autoThemeColorsSetting.getValue() ? getAccentColorArgb() : this.shaderColorSetting.getArgbColor();
    }
-// https://t.me/pasterplace
 
    public int getSecondaryShaderColorArgb() {
       if (this.autoThemeColorsSetting.getValue()) {
@@ -334,27 +310,22 @@ public final class Hands extends ModuleStructure {
          return this.useSecondShaderColorSetting.getValue() ? this.secondaryShaderColorSetting.getArgbColor() : this.shaderColorSetting.getArgbColor();
       }
    }
-// https://t.me/pasterplace
 
    public int getFillColorArgb() {
       return this.autoThemeColorsSetting.getValue() ? getAccentColorArgb() : this.fillColorSetting.getArgbColor();
    }
-// https://t.me/pasterplace
 
    public int getBaseAccentColorArgb() {
       return getAccentColorArgb();
    }
-// https://t.me/pasterplace
 
    public int getGlowColorArgb() {
       return this.autoThemeColorsSetting.getValue() ? getAccentColorArgb() : this.glowColorSetting.getArgbColor();
    }
-// https://t.me/pasterplace
 
    public int getSecondaryGlowColorArgb() {
       return this.autoThemeColorsSetting.getValue() ? getLighterAccentColorArgb() : this.secondaryGlowColorSetting.getArgbColor();
    }
-// https://t.me/pasterplace
 
    public int getOutlineColorArgb() {
       if (this.autoItemColorsSetting.getValue()) {
@@ -363,247 +334,198 @@ public final class Hands extends ModuleStructure {
          return this.autoThemeColorsSetting.getValue() ? getAccentColorArgb() : this.outlineColorSetting.getArgbColor();
       }
    }
-// https://t.me/pasterplace
 
    public boolean isItemColorEnabled() {
       return this.autoItemColorsSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getColorBlend() {
       return this.colorBlendSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getMirrorDistortion() {
       return this.mirrorDistortionSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getBlurStrength() {
       return this.blurStrengthSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public boolean isRainbowEnabled() {
       return this.rainbowEnabledSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getRainbowSpeed() {
       return this.rainbowSpeedSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getRainbowScale() {
       return this.rainbowScaleSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getFillOpacity() {
       return this.fillOpacitySetting.getValue();
    }
-// https://t.me/pasterplace
 
    public boolean isShadowRetentionEnabled() {
       return this.keepShadowsSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getShadowStrength() {
       return this.shadowStrengthSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getShaderSpeed() {
       return this.shaderSpeedSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getShaderScale() {
       return this.shaderScaleSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getShaderGlow() {
       return this.shaderGlowSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public boolean isStarFieldEnabled() {
       return this.starFieldSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getShaderOpacity() {
       return this.shaderOpacitySetting.getValue();
    }
-// https://t.me/pasterplace
 
    public boolean isShaderShadowPreserved() {
       return this.preserveShaderShadowsSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getShaderShadowStrength() {
       return this.shaderShadowStrengthSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public boolean isGlowEnabled() {
       return this.glowEnabledSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getBlurRadius() {
       return this.blurRadiusSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getGlowBrightness() {
       return this.glowBrightnessSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getInnerGlow() {
       return this.innerGlowSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public boolean isOutlineEnabled() {
       return this.outlineEnabledSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getOutlineThickness() {
       return this.outlineThicknessSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getEnergyTrailLength() {
       return this.energyTrailLengthSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getEnergyTrailBrightness() {
       return this.energyTrailBrightnessSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getEnergyMovement() {
       return this.energyMovementSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getEnergyPulse() {
       return this.energyPulseSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getEnergyTrailBehindCamera() {
       return this.energyTrailBehindCameraSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getRibbonLength() {
       return this.ribbonLengthSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getRibbonWidth() {
       return this.ribbonWidthSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getRibbonBrightness() {
       return this.ribbonBrightnessSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getRibbonCameraStrength() {
       return this.ribbonCameraStrengthSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getRibbonLift() {
       return this.ribbonLiftSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getRibbonCurvature() {
       return this.ribbonCurvatureSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getRibbonWaveSpeed() {
       return this.ribbonWaveSpeedSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public boolean areRibbonsEnabledOnHit() {
       return this.ribbonsOnHitSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getHitRibbonLength() {
       return this.hitRibbonLengthSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getHitRibbonStrength() {
       return this.hitRibbonStrengthSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public boolean areRibbonsEnabledWhileEating() {
       return this.ribbonsWhileEatingSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getEatRibbonLength() {
       return this.eatRibbonLengthSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getEatRibbonStrength() {
       return this.eatRibbonStrengthSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getTrailFadeSpeed() {
       return this.trailFadeSpeedSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getTrailLift() {
       return this.trailLiftSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getTrailSway() {
       return this.trailSwaySetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getTrailCameraOffset() {
       return this.trailCameraOffsetSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getTrailTurbulence() {
       return this.turbulenceSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getTrailFlicker() {
       return this.flickerSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public boolean isBlowOffOnHitEnabled() {
       return this.blowOffOnHitSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public float getBlowOffStrength() {
       return this.blowOffStrengthSetting.getValue();

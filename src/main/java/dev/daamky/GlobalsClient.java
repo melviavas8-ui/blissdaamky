@@ -42,7 +42,6 @@ import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.network.ServerInfo;
 
 public final class GlobalsClient {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     public static final String GLOBAL_CHAT_ID = "global";
     private static final String DEFAULT_API_BASE_URL = "https://api.daamky.pw";
     private static final GlobalsClient INSTANCE = new GlobalsClient();
@@ -79,17 +78,14 @@ public final class GlobalsClient {
     private final Map<String, ArrayDeque<Long>> recentMessageSendTimesByChat = new HashMap<>();
     private final Map<String, String> lastSentMessageByChat = new HashMap<>();
     private final Map<String, Long> lastSentMessageAtByChat = new HashMap<>();
-// https://t.me/pasterplace
 
     private GlobalsClient() {
         this.loadSavedSettings();
     }
-// https://t.me/pasterplace
 
     public static GlobalsClient getInstance() {
         return INSTANCE;
     }
-// https://t.me/pasterplace
 
     public synchronized void start() {
         if (!this.enabled) {
@@ -101,7 +97,6 @@ public final class GlobalsClient {
             this.requestExecutor.scheduleWithFixedDelay(this::refreshCosmetics, 4L, 8L, TimeUnit.SECONDS);
         }
     }
-// https://t.me/pasterplace
 
     private void connectionLoop() {
         long retryDelayMillis = 2000L;
@@ -154,13 +149,11 @@ public final class GlobalsClient {
             this.connectionStatusMessage = "Переподключение...";
         }
     }
-// https://t.me/pasterplace
 
     private void refreshStateFromServer() throws IOException, InterruptedException {
         JsonObject stateSnapshot = this.sendApiRequest("GET", "/state", (JsonObject)null).getAsJsonObject();
         this.executeOnClientThread(() -> this.applyStateSnapshot(stateSnapshot));
     }
-// https://t.me/pasterplace
 
     private void applyStateSnapshot(JsonObject snapshotJson) {
         this.currentUser = LastSeen.fromJson(snapshotJson.getAsJsonObject("me"));
@@ -177,7 +170,6 @@ public final class GlobalsClient {
             } else {
                 this.latestMessageByChat.remove(friend.userId);
             }
-// https://t.me/pasterplace
 
             if (!friend.displayNickname.isEmpty()) {
                 normalizedFriendNames.add(friend.displayNickname.toLowerCase(Locale.ROOT));
@@ -205,7 +197,6 @@ public final class GlobalsClient {
             this.sendReadReceipt(this.selectedChatId);
         }
     }
-// https://t.me/pasterplace
 
     private static List<LastSeen> parseLastSeenUsers(JsonArray userArray) {
         ArrayList users = new ArrayList();
@@ -216,7 +207,6 @@ public final class GlobalsClient {
 
         return users;
     }
-// https://t.me/pasterplace
 
     private void handleServerEvent(JsonObject eventJson) {
         String eventType = LastSeen.getString(eventJson, "type");
@@ -265,7 +255,6 @@ public final class GlobalsClient {
             NotificationScheduler.II1Il11l111II11IIl("Globals", LastSeen.getString(eventJson, "from") + " теперь у вас в друзьях", 3500L);
         }
     }
-// https://t.me/pasterplace
 
     private void handleIncomingMessage(Chat chat) {
         if (this.currentUser != null) {
@@ -283,7 +272,6 @@ public final class GlobalsClient {
             if (typingExpirations != null) {
                 typingExpirations.remove(chat.getSenderName());
             }
-// https://t.me/pasterplace
 
             boolean sentByCurrentUser = this.currentUser.userId.equals(chat.senderId());
             if (!sentByCurrentUser) {
@@ -298,7 +286,6 @@ public final class GlobalsClient {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void refreshOpenChatHistories() {
         for (java.util.Map.Entry<?, ?> sessionEntry : this.chatSessions.entrySet()) {
@@ -308,13 +295,11 @@ public final class GlobalsClient {
             }
         }
     }
-// https://t.me/pasterplace
 
     private boolean isGlobalsCategoryActive() {
         Search search = Search.getInstance();
         return search.isOpen() && search.getCategorySidebar().getSelectedCategory() == ModuleCategory.GLOBALS;
     }
-// https://t.me/pasterplace
 
     public void selectChat(String chatId) {
         this.selectedChatId = chatId;
@@ -327,24 +312,20 @@ public final class GlobalsClient {
             this.sendReadReceipt(chatId);
         }
     }
-// https://t.me/pasterplace
 
     public String getSelectedChatId() {
         return this.selectedChatId;
     }
-// https://t.me/pasterplace
 
     public void markSelectedChatReadIfUnread() {
         if (this.selectedChatId != null && this.unreadCountsByChat.getOrDefault(this.selectedChatId, 0) > 0) {
             this.sendReadReceipt(this.selectedChatId);
         }
     }
-// https://t.me/pasterplace
 
     public GlobalsClient.ChatSessionState getOrCreateChatSession(String chatId) {
         return this.chatSessions.computeIfAbsent(chatId, requestedChatId -> new GlobalsClient.ChatSessionState());
     }
-// https://t.me/pasterplace
 
     private void loadChatHistory(String chatId) {
         GlobalsClient.ChatSessionState chatSession = this.getOrCreateChatSession(chatId);
@@ -365,7 +346,6 @@ public final class GlobalsClient {
             }
         }, errorMessage -> chatSession.historyLoading = false);
     }
-// https://t.me/pasterplace
 
     public void loadOlderChatMessages(String chatId) {
         GlobalsClient.ChatSessionState chatSession = this.getOrCreateChatSession(chatId);
@@ -386,7 +366,6 @@ public final class GlobalsClient {
             }, errorMessage -> chatSession.historyLoading = false);
         }
     }
-// https://t.me/pasterplace
 
     private void sendReadReceipt(String chatId) {
         Object chatSession = this.chatSessions.get(chatId);
@@ -401,7 +380,6 @@ public final class GlobalsClient {
             this.sendAsyncApiRequest("POST", "/read", readReceiptPayload, responseJson -> {}, errorMessage -> {});
         }
     }
-// https://t.me/pasterplace
 
     public void sendChatMessage(String chatId, String messageText, Consumer<String> errorCallback) {
         String validationError = this.validateMessageSend(chatId, messageText);
@@ -416,7 +394,6 @@ public final class GlobalsClient {
             );
         }
     }
-// https://t.me/pasterplace
 
     private String validateMessageSend(String chatId, String messageText) {
         long nowMillis = System.currentTimeMillis();
@@ -438,14 +415,12 @@ public final class GlobalsClient {
         if (normalizedMessage.equals(this.lastSentMessageByChat.get(chatId)) && nowMillis - this.lastSentMessageAtByChat.getOrDefault(chatId, 0L) < 15000L) {
             return "Это сообщение уже отправлено";
         }
-// https://t.me/pasterplace
 
         recentSendTimestamps.addLast(nowMillis);
         this.lastSentMessageByChat.put(chatId, normalizedMessage);
         this.lastSentMessageAtByChat.put(chatId, nowMillis);
         return null;
     }
-// https://t.me/pasterplace
 
     public void deleteChatMessage(String chatId, long messageId, Consumer<String> errorCallback) {
         JsonObject deletePayload = new JsonObject();
@@ -453,7 +428,6 @@ public final class GlobalsClient {
         deletePayload.addProperty("id", messageId);
         this.sendAsyncApiRequest("POST", "/messages/delete", deletePayload, responseJson -> {}, errorCallback);
     }
-// https://t.me/pasterplace
 
     public void sendTypingIndicator(String chatId) {
         long nowMillis = System.currentTimeMillis();
@@ -464,7 +438,6 @@ public final class GlobalsClient {
             this.sendAsyncApiRequest("POST", "/typing", typingPayload, responseJson -> {}, errorMessage -> {});
         }
     }
-// https://t.me/pasterplace
 
     public List<String> getTypingPlayerNames(String chatId) {
         Map<String, Long> typingExpiryByPlayer = this.typingPlayersByChat.get(chatId);
@@ -476,7 +449,6 @@ public final class GlobalsClient {
         typingExpiryByPlayer.values().removeIf(expiresAtMillis -> expiresAtMillis < nowMillis);
         return new ArrayList<>(typingExpiryByPlayer.keySet());
     }
-// https://t.me/pasterplace
 
     public void sendFriendRequest(String playerNameQuery, Consumer<String> successCallback, Consumer<String> errorCallback) {
         JsonObject requestPayload = new JsonObject();
@@ -485,21 +457,18 @@ public final class GlobalsClient {
         "POST", "/friends/add", requestPayload, responseJson -> successCallback.accept(LastSeen.getString(responseJson.getAsJsonObject(), "status")), errorCallback
         );
     }
-// https://t.me/pasterplace
 
     public void updateFriendRelationship(String relationshipAction, String userId, Consumer<String> errorCallback) {
         JsonObject requestPayload = new JsonObject();
         requestPayload.addProperty("uid", userId);
         this.sendAsyncApiRequest("POST", "/friends/" + relationshipAction, requestPayload, responseJson -> this.stateRefreshPending = true, errorCallback);
     }
-// https://t.me/pasterplace
 
     public void updateProfile(String displayName, String biography, Runnable successCallback, Consumer<String> errorCallback) {
         JsonObject profilePayload = new JsonObject();
         if (displayName != null) {
             profilePayload.addProperty("name", displayName);
         }
-// https://t.me/pasterplace
 
         if (biography != null) {
             profilePayload.addProperty("bio", biography);
@@ -511,7 +480,6 @@ public final class GlobalsClient {
             successCallback.run();
         }, errorCallback);
     }
-// https://t.me/pasterplace
 
     private void sendPresenceHeartbeat() {
         try {
@@ -523,7 +491,6 @@ public final class GlobalsClient {
         } catch (Exception presenceRequestFailure) {
         }
     }
-// https://t.me/pasterplace
 
     private void refreshCosmetics() {
         try {
@@ -560,7 +527,6 @@ public final class GlobalsClient {
         } catch (Exception cosmeticsRefreshFailure) {
         }
     }
-// https://t.me/pasterplace
 
     private JsonArray collectOnlinePlayerNames() {
         JsonArray playerNames = new JsonArray();
@@ -580,7 +546,6 @@ public final class GlobalsClient {
             return playerNames;
         }
     }
-// https://t.me/pasterplace
 
     private JsonObject buildClientInfoPayload() {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
@@ -592,12 +557,10 @@ public final class GlobalsClient {
         clientInfoJson.add("cosmetics", Cape.getInstance().serializeSelection());
         return clientInfoJson;
     }
-// https://t.me/pasterplace
 
     public GlobalsClient.PlayerCosmetics getCosmeticsForPlayer(String playerName) {
         return playerName == null ? null : this.cosmeticsByPlayerName.get(playerName.toLowerCase(Locale.ROOT));
     }
-// https://t.me/pasterplace
 
     public boolean isFriend(String playerName) {
         if (playerName == null) {
@@ -612,27 +575,22 @@ public final class GlobalsClient {
         Object playerCosmetics = this.cosmeticsByPlayerName.get(normalizedPlayerName);
         return playerCosmetics != null && ((GlobalsClient.PlayerCosmetics)playerCosmetics).isFriend();
     }
-// https://t.me/pasterplace
 
     public LastSeen getCurrentUser() {
         return this.currentUser;
     }
-// https://t.me/pasterplace
 
     public List<LastSeen> getFriends() {
         return this.friends;
     }
-// https://t.me/pasterplace
 
     public List<LastSeen> getIncomingFriendRequests() {
         return this.incomingFriendRequests;
     }
-// https://t.me/pasterplace
 
     public List<LastSeen> getOutgoingFriendRequests() {
         return this.outgoingFriendRequests;
     }
-// https://t.me/pasterplace
 
     public LastSeen findFriendByName(String playerName) {
         for (Object friend : this.friends) {
@@ -640,17 +598,14 @@ public final class GlobalsClient {
                 return (LastSeen)friend;
             }
         }
-// https://t.me/pasterplace
 
         return null;
     }
-// https://t.me/pasterplace
 
     public int getUnreadCount(String chatId) {
 
         return this.unreadCountsByChat.getOrDefault(chatId, 0);
     }
-// https://t.me/pasterplace
 
     public int getTotalUnreadCount() {
         int totalUnreadCount = 0;
@@ -661,52 +616,42 @@ public final class GlobalsClient {
 
         return totalUnreadCount;
     }
-// https://t.me/pasterplace
 
     public Chat getLatestMessage(String chatId) {
         return this.latestMessageByChat.get(chatId);
     }
-// https://t.me/pasterplace
 
     public long getLastReadMessageId(String chatId) {
         return this.lastReadMessageIdByChat.getOrDefault(chatId, 0L);
     }
-// https://t.me/pasterplace
 
     public int getGlobalOnlineCount() {
         return this.globalOnlineCount;
     }
-// https://t.me/pasterplace
 
     public int getGlobalMemberCount() {
         return this.globalMemberCount;
     }
-// https://t.me/pasterplace
 
     public int getStateRevision() {
         return this.stateRevision;
     }
-// https://t.me/pasterplace
 
     public GlobalsClient.ConnectionState getConnectionState() {
         return this.connectionState;
     }
-// https://t.me/pasterplace
 
     public String getConnectionStatusMessage() {
         return this.connectionStatusMessage;
     }
-// https://t.me/pasterplace
 
     public String getApiBaseUrl() {
         return this.apiBaseUrl;
     }
-// https://t.me/pasterplace
 
     private void executeOnClientThread(Runnable task) {
         MinecraftClient.getInstance().execute(task);
     }
-// https://t.me/pasterplace
 
     private void sendAsyncApiRequest(String httpMethod, String apiPath, JsonObject requestBody, Consumer<JsonElement> responseCallback, Consumer<String> errorCallback) {
         CompletableFuture.<JsonElement>supplyAsync(() -> {
@@ -724,7 +669,6 @@ public final class GlobalsClient {
             }
         }));
     }
-// https://t.me/pasterplace
 
     private JsonElement sendApiRequest(String httpMethod, String apiPath, JsonObject requestBody) throws IOException, InterruptedException {
         Builder requestBuilder = HttpRequest.newBuilder(URI.create(this.apiBaseUrl + "/api/v1/globals" + apiPath))
@@ -746,12 +690,10 @@ public final class GlobalsClient {
             return JsonParser.parseString((String)httpResponse.body());
         }
     }
-// https://t.me/pasterplace
 
     private static String encodeQueryParameter(String queryValue) {
         return URLEncoder.encode(queryValue, StandardCharsets.UTF_8);
     }
-// https://t.me/pasterplace
 
     private void loadSavedSettings() {
         try {
@@ -781,7 +723,6 @@ public final class GlobalsClient {
             this.saveSettings();
         }
     }
-// https://t.me/pasterplace
 
     private void saveSettings() {
         JsonObject settingsJson = new JsonObject();
@@ -795,7 +736,6 @@ public final class GlobalsClient {
             settingsWriteFailure.printStackTrace();
         }
     }
-// https://t.me/pasterplace
 
     public static final class ChatSessionState {
         public final List<Chat> messages = new ArrayList<>();
@@ -804,7 +744,6 @@ public final class GlobalsClient {
         public boolean hasOlderMessages = true;
         public int revision;
     }
-// https://t.me/pasterplace
 
     public record PlayerCosmetics(String userId, String playerName, boolean isFriend, Collection<Model> cosmetics) {
 
@@ -815,7 +754,6 @@ public final class GlobalsClient {
             this.cosmetics = cosmetics;
         }
     }
-// https://t.me/pasterplace
 
     public enum ConnectionState {
         RECONNECTING,
@@ -827,7 +765,6 @@ public final class GlobalsClient {
             return new GlobalsClient.ConnectionState[]{RECONNECTING, CONNECTED, ERROR};
         }
     }
-// https://t.me/pasterplace
 
     public static final class GlobalsApiException extends RuntimeException {
         public GlobalsApiException(String message) {

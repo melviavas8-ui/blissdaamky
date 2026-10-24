@@ -4,17 +4,14 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 
 public final class WingsAnimationController {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final long ANIMATION_OPEN_DURATION_MILLIS = 380L;
     private static final long ANIMATION_HOLD_DURATION_MILLIS = 2600L;
     private static final long ANIMATION_CLOSE_DURATION_MILLIS = 380L;
     private static long animationStartTimeMillis = -1L;
     private static boolean firstPersonAnimationActive;
-// https://t.me/pasterplace
 
     private WingsAnimationController() {
     }
-// https://t.me/pasterplace
 
     public static void tickAnimationInput() {
         MinecraftClient client = MinecraftClient.getInstance();
@@ -26,7 +23,6 @@ public final class WingsAnimationController {
                 }
             } else {
                 boolean swapKeyPressed = false;
-// https://t.me/pasterplace
 
                 while (client.options.swapHandsKey.wasPressed()) {
                     swapKeyPressed = true;
@@ -44,7 +40,6 @@ public final class WingsAnimationController {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static boolean canAnimateWings(ClientPlayerEntity clientPlayerEntity) {
         return Cape.getInstance().getEquippedModel(Wings.WATCHES) != null
@@ -52,7 +47,6 @@ public final class WingsAnimationController {
         && clientPlayerEntity.getOffHandStack().isEmpty()
         && !clientPlayerEntity.isInvisible();
     }
-// https://t.me/pasterplace
 
     public static float getAnimationProgress() {
         if (animationStartTimeMillis < 0L) {
@@ -76,12 +70,10 @@ public final class WingsAnimationController {
 
         return animationProgress * animationProgress * (3.0F - 2.0F * animationProgress);
     }
-// https://t.me/pasterplace
 
     public static boolean isFirstPersonAnimationActive() {
         return firstPersonAnimationActive;
     }
-// https://t.me/pasterplace
 
     public static void setFirstPersonAnimationActive(boolean firstPersonAnimationActive) {
         firstPersonAnimationActive = firstPersonAnimationActive;

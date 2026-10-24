@@ -8,7 +8,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class SwingAnimation extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static volatile int oneShotSwingDurationTicks = -1;
     private static volatile int pendingSwingDurationTicks = -1;
     private final MultiOptionSetting animationStyle = new MultiOptionSetting(
@@ -20,7 +19,6 @@ public final class SwingAnimation extends ModuleStructure {
     private final FloatSetting handHeight = new FloatSetting("Высота", 0.0F, 0.0F, 1.0F, 0.1F);
     private final BooleanSetting requiresAuraTarget = new BooleanSetting("Только с аурой", false);
     private final BooleanSetting requiresActiveSwing = new BooleanSetting("Только при ударе", false);
-// https://t.me/pasterplace
 
     public SwingAnimation() {
         super("SwingAnimation", "Позволяет изменить анимацию удара и скорость взмаха", ModuleCategory.RENDER);
@@ -38,28 +36,23 @@ public final class SwingAnimation extends ModuleStructure {
         this.animationStyle, this.swingStrength, this.swingSpeed, this.swingAngle, this.handHeight, this.requiresAuraTarget, this.requiresActiveSwing
         );
     }
-// https://t.me/pasterplace
 
     @Override
     public String getDisplayInfo() {
         return this.animationStyle.getValue();
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.FAST)
     @Override
     protected void onDisable() {
-// https://t.me/pasterplace
 
         super.onDisable();
     }
-// https://t.me/pasterplace
 
     public static SwingAnimation getActiveInstance() {
         SwingAnimation module = (SwingAnimation)ModuleRegistry.getInstance().getModuleByClass(SwingAnimation.class);
         return module != null && module.isEnabled() && module.canAnimate() ? module : null;
     }
-// https://t.me/pasterplace
 
     private boolean canAnimate() {
         if (!this.hasActiveClientWorld()) {
@@ -75,7 +68,6 @@ public final class SwingAnimation extends ModuleStructure {
 
         return !this.requiresActiveSwing.getValue() || CLIENT.player.handSwingTicks >= 1;
     }
-// https://t.me/pasterplace
 
     public static void prepareSwingAnimation() {
         SwingAnimation swingAnimation = getActiveInstance();
@@ -84,7 +76,6 @@ public final class SwingAnimation extends ModuleStructure {
 
         }
     }
-// https://t.me/pasterplace
 
     public static int adjustSwingDuration(int defaultDurationTicks) {
         ModuleStructure moduleStructure = ModuleRegistry.getInstance().getModuleByClass(SwingAnimation.class);
@@ -100,7 +91,6 @@ public final class SwingAnimation extends ModuleStructure {
             return defaultDurationTicks;
         }
     }
-// https://t.me/pasterplace
 
     public void applySwingTransform(MatrixStack matrices, Arm arm, float swingProgress, float armHeightProgress, float equipAnimationProgress) {
         float armDirection = arm == Arm.LEFT ? -1.0F : 1.0F;

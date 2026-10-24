@@ -19,7 +19,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class LootAlert extends ModuleStructure {
-    private static final String pb93e5a84 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final Set<Item> l1I1IlllIlI = Set.of(
       Items.ELYTRA, Items.GOLDEN_APPLE, Items.ENCHANTED_GOLDEN_APPLE, Items.PLAYER_HEAD, Items.TOTEM_OF_UNDYING, Items.SHULKER_BOX
    );
@@ -28,13 +27,11 @@ public final class LootAlert extends ModuleStructure {
    private final BooleanSetting lIIl11l111lIIl1ll = new BooleanSetting("Все предметы", false);
    private final Map<Integer, ItemStack> l1IIl11lI = new HashMap<>();
    private final ConcurrentLinkedQueue<int[]> I1lIIII1III1lIlIl1l = new ConcurrentLinkedQueue<>();
-// https://t.me/pasterplace
 
    public LootAlert() {
       super("LootAlert", "Оповещает о подборе ценных предметов", ModuleCategory.RENDER);
       this.addSettings(this.IllI1l1l1, this.l1lll11l1l, this.lIIl11l111lIIl1ll);
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -42,7 +39,6 @@ public final class LootAlert extends ModuleStructure {
       this.l1IIl11lI.clear();
       this.I1lIIII1III1lIlIl1l.clear();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -55,7 +51,6 @@ public final class LootAlert extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void II1Il11l111II11IIl(EventTick eventTick) {
@@ -75,7 +70,6 @@ public final class LootAlert extends ModuleStructure {
                      pickedUpStack = cachedStack.copy();
                   }
                }
-// https://t.me/pasterplace
 
                 this.l1IIl11lI.remove(pickupData[0]);
                if (!pickedUpStack.isEmpty() && this.II1Il11l111II11IIl(pickedUpStack)) {
@@ -101,7 +95,6 @@ public final class LootAlert extends ModuleStructure {
          this.I1lIIII1III1lIlIl1l.clear();
       }
    }
-// https://t.me/pasterplace
 
    private boolean II1Il11l111II11IIl(ItemStack candidateStack) {
       if (!this.lIIl11l111lIIl1ll.getValue() && !l1I1IlllIlI.contains(candidateStack.getItem())) {

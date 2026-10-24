@@ -15,10 +15,8 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
 public final class MovementCollisionSimulator {
-    private static final String p106e3666 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private MovementCollisionSimulator() {
    }
-// https://t.me/pasterplace
 
    public static MovementCollisionSimulator.SimulatedMovementResult simulateMovement(LivingEntity livingEntity, int simulationSteps) {
       Box simulatedBoundingBox = livingEntity.getBoundingBox();
@@ -30,7 +28,6 @@ public final class MovementCollisionSimulator {
          )
          : livingEntity.getVelocity();
       boolean onGround = livingEntity.isOnGround();
-// https://t.me/pasterplace
 
       for (int stepIndex = 0; stepIndex < simulationSteps; stepIndex++) {
          Vec3d adjustedMovement = Entity.adjustMovementForCollisions(livingEntity, motion, simulatedBoundingBox, livingEntity.getEntityWorld(), List.of());
@@ -87,13 +84,11 @@ public final class MovementCollisionSimulator {
          simulatedBoundingBox, new Vec3d((simulatedBoundingBox.minX + simulatedBoundingBox.maxX) * 0.5, simulatedBoundingBox.minY, (simulatedBoundingBox.minZ + simulatedBoundingBox.maxZ) * 0.5)
       );
    }
-// https://t.me/pasterplace
 
    private static boolean canMoveWithoutCollision(LivingEntity livingEntity, Box currentBoundingBox, double movementX, double movementY, double movementZ) {
       return Entity.adjustMovementForCollisions(livingEntity, new Vec3d(movementX, movementY, movementZ), currentBoundingBox, livingEntity.getEntityWorld(), List.of())
          .equals(new Vec3d(movementX, movementY, movementZ));
    }
-// https://t.me/pasterplace
 
    private static boolean intersectsFluid(LivingEntity livingEntity, Box boundingBox, boolean checkWater) {
       int minBlockX = (int)Math.floor(boundingBox.minX);
@@ -116,7 +111,6 @@ public final class MovementCollisionSimulator {
 
       return false;
    }
-// https://t.me/pasterplace
 
    public record SimulatedMovementResult(Box boundingBox, Vec3d feetPosition) {
 

@@ -15,7 +15,6 @@ import org.joml.Matrix3x2f;
 import org.jspecify.annotations.Nullable;
 
 public final class PlayerSkinQuadRenderState implements SimpleGuiElementRenderState {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private final Matrix3x2f matrices;
     private final float x;
     private final float y;
@@ -32,7 +31,6 @@ public final class PlayerSkinQuadRenderState implements SimpleGuiElementRenderSt
     private final @Nullable ScreenRect scissorArea;
     private final ScreenRect transformedBounds;
     private @Nullable TextureSetup textureSetup;
-// https://t.me/pasterplace
 
     PlayerSkinQuadRenderState(
     Matrix3x2f matrices,
@@ -73,7 +71,6 @@ public final class PlayerSkinQuadRenderState implements SimpleGuiElementRenderSt
         ScreenRect clippedBounds = scissorArea != null ? transformedBounds.intersection(scissorArea) : transformedBounds;
         this.transformedBounds = clippedBounds != null ? clippedBounds : ScreenRect.empty();
     }
-// https://t.me/pasterplace
 
     public void setupVertices(VertexConsumer vertices) {
         float halfWidthUvRadius = this.width * 0.5F + 1.0F;
@@ -87,7 +84,6 @@ public final class PlayerSkinQuadRenderState implements SimpleGuiElementRenderSt
         this.emitVertex(vertices, rightX, bottomY, halfWidthUvRadius, halfHeightUvRadius, this.bottomRightColor);
         this.emitVertex(vertices, rightX, topY, halfWidthUvRadius, -halfHeightUvRadius, this.topRightColor);
     }
-// https://t.me/pasterplace
 
     private void emitVertex(VertexConsumer vertices, float x, float y, float u, float v, int argbColor) {
         vertices.vertex(this.matrices, x, y)
@@ -95,17 +91,14 @@ public final class PlayerSkinQuadRenderState implements SimpleGuiElementRenderSt
         .light(this.packedTopCornerRadii, this.packedBottomCornerRadii)
         .color(argbColor);
     }
-// https://t.me/pasterplace
 
     public RenderPipeline pipeline() {
         return PlayerHeadRenderPipeline.l1I1IlllIlI;
     }
-// https://t.me/pasterplace
 
     public TextureSetup textureSetup() {
         if (this.textureSetup == null) {
             GpuTextureView textureView = null;
-// https://t.me/pasterplace
 
             try {
                 MinecraftClient client = MinecraftClient.getInstance();
@@ -129,12 +122,10 @@ public final class PlayerSkinQuadRenderState implements SimpleGuiElementRenderSt
 
         return this.textureSetup;
     }
-// https://t.me/pasterplace
 
     public @Nullable ScreenRect scissorArea() {
         return this.scissorArea;
     }
-// https://t.me/pasterplace
 
     public @Nullable ScreenRect bounds() {
         return this.transformedBounds;

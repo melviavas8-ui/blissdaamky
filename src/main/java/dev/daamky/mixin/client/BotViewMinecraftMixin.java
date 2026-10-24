@@ -18,14 +18,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftClient.class)
 public abstract class BotViewMinecraftMixin {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Shadow
    public ClientWorld world;
-// https://t.me/pasterplace
 
    @Shadow
    public abstract void setScreen(Screen screen);
-// https://t.me/pasterplace
 
    @Inject(method = "joinWorld(Lnet/minecraft/client/world/ClientWorld;)V", at = @At("HEAD"), cancellable = true)
    private void daamky$botSetLevel(ClientWorld world, CallbackInfo callbackInfo) {
@@ -34,7 +31,6 @@ public abstract class BotViewMinecraftMixin {
          callbackInfo.cancel();
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "setScreenAndRender(Lnet/minecraft/client/gui/screen/Screen;)V", at = @At("HEAD"), cancellable = true)
    private void daamky$botSetScreenAndShow(Screen screen, CallbackInfo callbackInfo) {
@@ -43,7 +39,6 @@ public abstract class BotViewMinecraftMixin {
          callbackInfo.cancel();
       }
    }
-// https://t.me/pasterplace
 
    @ModifyVariable(method = "setScreen(Lnet/minecraft/client/gui/screen/Screen;)V", at = @At("HEAD"), argsOnly = true)
    private Screen daamky$botSetScreen(Screen screen) {
@@ -55,17 +50,14 @@ public abstract class BotViewMinecraftMixin {
             return null;
          }
       }
-// https://t.me/pasterplace
 
       return screen;
    }
-// https://t.me/pasterplace
 
    @Redirect(method = "render(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/PacketApplyBatcher;apply()V"))
    private void daamky$mainPackets(PacketApplyBatcher packetBatcher) {
       SavedBots.runWithSessionStateIsolation(packetBatcher::apply);
    }
-// https://t.me/pasterplace
 
    @Inject(method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;ZZ)V", at = @At("HEAD"))
    private void daamky$botDisconnect(Screen screen, boolean transferring, boolean showTitleScreen, CallbackInfo callbackInfo) {

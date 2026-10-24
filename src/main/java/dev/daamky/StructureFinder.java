@@ -31,7 +31,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class StructureFinder extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final int MAX_CHUNKS_PER_UPDATE = 6;
    private static final int MAX_CANDIDATE_CHECKS_PER_UPDATE = 4000;
    private final FloatSetting searchRadius = new FloatSetting("Размер области", 16000.0F, 1000.0F, 60000.0F, 500.0F);
@@ -52,7 +51,6 @@ public final class StructureFinder extends ModuleStructure {
    private int flightRouteIndex;
    private int anchorPositionIndex;
    private boolean structureFound;
-// https://t.me/pasterplace
 
    public StructureFinder() {
       super("StructureFinder", "Ищет сохранённую структуру полётом по миру", ModuleCategory.WORLD);
@@ -60,7 +58,6 @@ public final class StructureFinder extends ModuleStructure {
          this.searchRadius, this.centerRouteOnPlayer, this.flightRouteSpacing, this.flightAltitude, this.flightSpeed, this.minimumMatchPercent, this.searchEnabled
       );
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -68,7 +65,6 @@ public final class StructureFinder extends ModuleStructure {
       this.loadStructureTemplate();
       this.resetSearchState();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -78,7 +74,6 @@ public final class StructureFinder extends ModuleStructure {
          CLIENT.player.setVelocity(Vec3d.ZERO);
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -106,7 +101,6 @@ public final class StructureFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void resetSearchState() {
       this.flightRoute.clear();
@@ -116,12 +110,10 @@ public final class StructureFinder extends ModuleStructure {
       this.flightRouteIndex = 0;
       this.structureFound = false;
    }
-// https://t.me/pasterplace
 
    private void indexTemplateBlocksByFrequency() {
       this.templateBlockCounts.clear();
       this.templatePositionsByBlock.clear();
-// https://t.me/pasterplace
 
       for (Object templatePosition : this.structureTemplate) {
          Object templateBlock = (Block)Registries.BLOCK.get((int)((Object[])templatePosition)[3]);
@@ -139,7 +131,6 @@ public final class StructureFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void loadStructureTemplate() {
       if (this.structureTemplate.isEmpty()) {
@@ -176,7 +167,6 @@ public final class StructureFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void buildFlightRoute() {
       double halfSearchRadius = this.searchRadius.getValue().floatValue() / 2.0;
@@ -205,7 +195,6 @@ public final class StructureFinder extends ModuleStructure {
 
       ClientChatLogger.II1Il11l111II11IIl("Маршрут: " + this.flightRoute.size() + " точек");
    }
-// https://t.me/pasterplace
 
    private void advanceFlightRoute() {
       if (this.flightRouteIndex >= this.flightRoute.size()) {
@@ -230,7 +219,6 @@ public final class StructureFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void activateFlight() {
       PlayerAbilities playerAbilities = CLIENT.player.getAbilities();
@@ -248,13 +236,11 @@ public final class StructureFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void loadNearbyChunks() {
       int viewDistance = CLIENT.options.getClampedViewDistance();
       ChunkPos chunkPos = CLIENT.player.getChunkPos();
       int chunksLoadedThisUpdate = 0;
-// https://t.me/pasterplace
 
       for (int chunkOffsetX = -viewDistance; chunkOffsetX <= viewDistance && chunksLoadedThisUpdate < 6; chunkOffsetX++) {
          for (int chunkOffsetZ = -viewDistance; chunkOffsetZ <= viewDistance && chunksLoadedThisUpdate < 6; chunkOffsetZ++) {
@@ -271,7 +257,6 @@ public final class StructureFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void collectRarestBlockPositions(WorldChunk worldChunk) {
       ChunkSection[] chunkSections = worldChunk.getSectionArray();
@@ -295,7 +280,6 @@ public final class StructureFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void scanStructureCandidates() {
       List<int[]> anchorTemplatePositions = this.templatePositionsByBlock.get(this.rarestTemplateBlock);
@@ -346,7 +330,6 @@ public final class StructureFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static int rotateTemplateOffsetX(int localX, int localZ, int quarterTurns) {
       return switch (quarterTurns) {
@@ -356,7 +339,6 @@ public final class StructureFinder extends ModuleStructure {
          default -> localX;
       };
    }
-// https://t.me/pasterplace
 
    private static int rotateTemplateOffsetZ(int localX, int localZ, int quarterTurns) {
       return switch (quarterTurns) {
@@ -366,7 +348,6 @@ public final class StructureFinder extends ModuleStructure {
          default -> localZ;
       };
    }
-// https://t.me/pasterplace
 
    private void reportFoundStructure(int originX, int originY, int originZ, int matchedBlockCount) {
       this.structureFound = true;

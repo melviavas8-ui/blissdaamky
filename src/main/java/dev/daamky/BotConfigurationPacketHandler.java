@@ -32,12 +32,10 @@ import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.util.Identifier;
 
 public final class BotConfigurationPacketHandler extends BotPacketListenerInvocationHandler {
-    private static final String pf7a535a1 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final ClientRegistries clientRegistries = new ClientRegistries();
    private final GameProfile gameProfile;
    private FeatureSet enabledFeatures = FeatureFlags.DEFAULT_ENABLED_FEATURES;
    private ClientDataPackManager dataPackManager;
-// https://t.me/pasterplace
 
    private BotConfigurationPacketHandler(
       MinecraftClient client,
@@ -50,7 +48,6 @@ public final class BotConfigurationPacketHandler extends BotPacketListenerInvoca
       super(client, clientConnection, disconnect, l1lll11l1l, entries);
       this.gameProfile = gameProfile;
    }
-// https://t.me/pasterplace
 
    static ClientConfigurationPacketListener createListener(
       MinecraftClient client,
@@ -63,7 +60,6 @@ public final class BotConfigurationPacketHandler extends BotPacketListenerInvoca
       return new BotConfigurationPacketHandler(client, clientConnection, gameProfile, entries, disconnect, l1lll11l1l)
          .createProxy(ClientConfigurationPacketListener.class);
    }
-// https://t.me/pasterplace
 
    @Override
    protected boolean handleLoginOrConfigurationPacket(Packet<?> packet) {
@@ -77,7 +73,6 @@ public final class BotConfigurationPacketHandler extends BotPacketListenerInvoca
          if (this.dataPackManager == null) {
             this.dataPackManager = new ClientDataPackManager();
          }
-// https://t.me/pasterplace
 
          this.sendPacketIfOpen(new SelectKnownPacksC2SPacket(this.dataPackManager.getCommonKnownPacks(knownPacksPacket.knownPacks())));
       } else if (packet instanceof CodeOfConductS2CPacket) {
@@ -92,7 +87,6 @@ public final class BotConfigurationPacketHandler extends BotPacketListenerInvoca
 
       return true;
    }
-// https://t.me/pasterplace
 
    private void finishConfiguration() {
       Immutable immutable = ClientDynamicRegistryType.createCombinedDynamicRegistries().getCombinedRegistryManager();

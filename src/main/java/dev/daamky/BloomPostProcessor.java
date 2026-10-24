@@ -27,7 +27,6 @@ import net.minecraft.util.Identifier;
 import org.lwjgl.system.MemoryStack;
 
 final class BloomPostProcessor {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final RenderPipeline DOWNSAMPLE_PIPELINE = createPipeline("world_bloom_downsample", "hands/hands_downsample", null, null);
    private static final RenderPipeline GAUSSIAN_BLUR_PIPELINE = createPipeline("world_bloom_gaussian", "hands/hands_gaussian", "HandsBlur", null);
    private static final RenderPipeline COMPOSITE_PIPELINE = createPipeline(
@@ -39,15 +38,12 @@ final class BloomPostProcessor {
    private static final GpuBuffer[] horizontalBlurUniformBuffers = new GpuBuffer[2];
    private static final GpuBuffer[] verticalBlurUniformBuffers = new GpuBuffer[2];
    private static final GpuBuffer[] compositeUniformBuffers = new GpuBuffer[2];
-// https://t.me/pasterplace
 
    private BloomPostProcessor() {
    }
-// https://t.me/pasterplace
 
    static void initialize() {
    }
-// https://t.me/pasterplace
 
    private static RenderPipeline createPipeline(String pipelineName, String fragmentShaderPath, String uniformName, BlendFunction blendFunction) {
       Builder pipelineBuilder = RenderPipeline.builder(new Snippet[0])
@@ -67,11 +63,9 @@ final class BloomPostProcessor {
       } else {
          pipelineBuilder.withoutBlend();
       }
-// https://t.me/pasterplace
 
       return RenderPipelines.register(pipelineBuilder.build());
    }
-// https://t.me/pasterplace
 
    static void renderBloom(
       GpuTextureView outputColorTexture,
@@ -126,7 +120,6 @@ final class BloomPostProcessor {
          Framebuffer sourceFramebuffer = sceneFramebuffer;
          float[] blurSigmaByLevel = new float[]{1.2F + blurStrength * 0.35F, 1.0F + blurStrength * 0.9F};
          float[] compositeStrengthByLevel = new float[]{compositeStrength * 0.55F, compositeStrength * 0.85F};
-// https://t.me/pasterplace
 
          for (int blurLevel = 0; blurLevel < blurMipFramebuffers.length; blurLevel++) {
             int mipWidth = Math.max(2, (sourceFramebuffer.textureWidth + 1) / 2);
@@ -196,7 +189,6 @@ final class BloomPostProcessor {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static void drawFullscreenPass(
       CommandEncoder commandEncoder, Framebuffer sourceFramebuffer, Framebuffer destinationFramebuffer, RenderPipeline blurPipeline, GpuBuffer blurUniformBuffer
@@ -209,7 +201,6 @@ final class BloomPostProcessor {
          if (blurUniformBuffer != null) {
             blurPass.setUniform("HandsBlur", blurUniformBuffer);
          }
-// https://t.me/pasterplace
 
          blurPass.draw(0, 3);
       } catch (Throwable renderFailure) {
@@ -228,7 +219,6 @@ final class BloomPostProcessor {
          blurPass.close();
       }
    }
-// https://t.me/pasterplace
 
    private static void prepareBlurUniformBuffers(CommandEncoder commandEncoder, int blurLevel, int textureWidth, int textureHeight, float blurSigma) {
       horizontalBlurUniformBuffers[blurLevel] = getOrCreateGpuBuffer(horizontalBlurUniformBuffers[blurLevel], 48, "daamky-bloom-h");
@@ -279,12 +269,10 @@ final class BloomPostProcessor {
          uniformMemoryStack.close();
       }
    }
-// https://t.me/pasterplace
 
    private static GpuBuffer getOrCreateGpuBuffer(GpuBuffer existingBuffer, int requiredSize, String debugLabel) {
       return existingBuffer != null && !existingBuffer.isClosed() ? existingBuffer : RenderSystem.getDevice().createBuffer(() -> debugLabel, 136, requiredSize);
    }
-// https://t.me/pasterplace
 
    private static Framebuffer getOrResizeFramebuffer(Framebuffer existingFramebuffer, String debugLabel, int targetWidth, int targetHeight) {
       if (existingFramebuffer == null) {

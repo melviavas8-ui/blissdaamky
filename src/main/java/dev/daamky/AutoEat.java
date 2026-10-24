@@ -11,7 +11,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class AutoEat extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiOptionSetting foodSelection = new MultiOptionSetting("Еда", "Любая", "Любая", "Золотая", "Сытная");
    private final FloatSetting hungerThreshold = new FloatSetting("Порог голода", 16.0F, 1.0F, 19.0F, 1.0F, "ед.");
    private final BooleanSetting eatAtLowHealth = new BooleanSetting("Есть при низком HP", true);
@@ -26,7 +25,6 @@ public final class AutoEat extends ModuleStructure {
    private final Stopwatch feedCommandStopwatch = new Stopwatch();
    private final Stopwatch feedCooldownStopwatch = new Stopwatch();
    private boolean feedCommandPending;
-// https://t.me/pasterplace
 
    public AutoEat() {
       super("AutoEat", "Автоматически ест при голоде или низком здоровье", ModuleCategory.PLAYER);
@@ -35,7 +33,6 @@ public final class AutoEat extends ModuleStructure {
          this.foodSelection, this.hungerThreshold, this.eatAtLowHealth, this.healthThreshold, this.restorePreviousHotbarSlot, this.avoidEatingDuringCombat, this.tryFeedCommandFirst
       );
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onUpdate(EventUpdate eventUpdate) {
@@ -66,7 +63,6 @@ public final class AutoEat extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean tryFeedCommand() {
       if (this.tryFeedCommandFirst.getValue() && CLIENT.getNetworkHandler() != null) {
@@ -101,7 +97,6 @@ public final class AutoEat extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private boolean shouldEat() {
       boolean hungerBelowThreshold = CLIENT.player.getHungerManager().getFoodLevel() <= this.hungerThreshold.getValue();
@@ -110,12 +105,10 @@ public final class AutoEat extends ModuleStructure {
          ? CLIENT.player.getHungerManager().isNotFull() || this.findGoldenAppleSlot() != -1
          : hungerBelowThreshold || healthBelowThreshold;
    }
-// https://t.me/pasterplace
 
    private int findGoldenAppleSlot() {
       return InventoryUtils.findHotbarSlot(foodStack -> foodStack.isOf(Items.GOLDEN_APPLE) || foodStack.isOf(Items.ENCHANTED_GOLDEN_APPLE));
    }
-// https://t.me/pasterplace
 
    private int findBestFoodSlot() {
       if (this.foodSelection.isSelected("Золотая")) {
@@ -148,11 +141,9 @@ public final class AutoEat extends ModuleStructure {
             }
          }
       }
-// https://t.me/pasterplace
 
       return bestFoodSlot;
    }
-// https://t.me/pasterplace
 
    private static boolean isValidFood(ItemStack foodStack) {
       FoodComponent food = foodStack.get(DataComponentTypes.FOOD);
@@ -164,7 +155,6 @@ public final class AutoEat extends ModuleStructure {
          && !foodStack.isOf(Items.CHORUS_FRUIT)
          && !foodStack.isOf(Items.SUSPICIOUS_STEW);
    }
-// https://t.me/pasterplace
 
    private void stopEatingAndRestoreSlot() {
       if (this.isEating) {
@@ -177,7 +167,6 @@ public final class AutoEat extends ModuleStructure {
       this.isEating = false;
       this.previousHotbarSlot = -1;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override

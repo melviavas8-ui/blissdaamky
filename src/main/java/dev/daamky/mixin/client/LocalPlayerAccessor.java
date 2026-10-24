@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface LocalPlayerAccessor {
    @Accessor("lastSprinting")
    boolean daamky$wasSprinting();
-// https://t.me/pasterplace
 
    @Accessor("lastSprinting")
    void daamky$setWasSprinting(boolean wasSprinting);

@@ -49,7 +49,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class CrystalAura extends ModuleStructure {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final int CRYSTAL_SWITCH_DELAY = 15;
    private static final int CRYSTAL_TARGET_LIMIT = 6;
    private static final String excludeSelfLabel = "Себя";
@@ -94,7 +93,6 @@ public final class CrystalAura extends ModuleStructure {
    private int swappedHotbarSlot = -1;
    private int originalSelectedSlot = -1;
    private CrystalAura.CrystalAttackCandidate pendingAttack;
-// https://t.me/pasterplace
 
    public CrystalAura() {
       super("CrystalAura", "Умная постановка и взрыв кристаллов", ModuleCategory.COMBAT);
@@ -119,14 +117,12 @@ public final class CrystalAura extends ModuleStructure {
          this.targetCategories
       );
    }
-// https://t.me/pasterplace
 
    private boolean isSolidBuildBlock(BlockPos position) {
       return CLIENT.world.isInBuildLimit(position)
          && !CLIENT.world.getBlockState(position).isAir()
          && !CLIENT.world.getBlockState(position).isReplaceable();
    }
-// https://t.me/pasterplace
 
    private void tickInventorySwap() {
       if (!this.itemSlotSwapState.hasPendingSwap()) {
@@ -136,7 +132,6 @@ public final class CrystalAura extends ModuleStructure {
          this.itemSwapCooldownTicks = 0;
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -148,7 +143,6 @@ public final class CrystalAura extends ModuleStructure {
       this.placementRenderMarkers.clear();
       RotationPriorityManager.getInstance().clearRotationRequest(this);
    }
-// https://t.me/pasterplace
 
    private void resetCombatState() {
       this.pendingAttack = null;
@@ -162,7 +156,6 @@ public final class CrystalAura extends ModuleStructure {
       this.targetInsideCobweb = false;
       this.itemSwapCooldownTicks = 0;
    }
-// https://t.me/pasterplace
 
    private void beginObsidianPlacement(BlockPos obsidianPosition, CrystalAura.CrystalPlacementHit l1lll11l1l) {
       if (this.queueBlockInteraction(Items.OBSIDIAN, l1lll11l1l.hitResult())) {
@@ -172,13 +165,11 @@ public final class CrystalAura extends ModuleStructure {
          this.addPlacementRenderMarker(obsidianPosition);
       }
    }
-// https://t.me/pasterplace
 
    private BlockPos findExistingCrystalBase(LivingEntity livingEntity) {
       CrystalAura.CrystalPlacementCandidate placementCandidate = this.findBestPlacement(livingEntity);
       return placementCandidate != null && placementCandidate.mode() == CrystalAura.CrystalAuraMode.CRYSTAL_ON_BASE ? placementCandidate.basePosition() : null;
    }
-// https://t.me/pasterplace
 
    private void attackCrystalInTrackedArea() {
       if (this.trackedCrystalSearchBox != null && CLIENT.world != null) {
@@ -190,7 +181,6 @@ public final class CrystalAura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean isCrystalBaseUsable(BlockPos basePosition, LivingEntity livingEntity) {
       BlockState blockState = CLIENT.world.getBlockState(basePosition);
@@ -218,7 +208,6 @@ public final class CrystalAura extends ModuleStructure {
          )
          .isEmpty();
    }
-// https://t.me/pasterplace
 
    private boolean isBetterPlacementCandidate(CrystalAura.CrystalPlacementCandidate candidate, CrystalAura.CrystalPlacementCandidate currentBest) {
       if (Math.abs(candidate.placementScore() - currentBest.placementScore()) > 0.35F) {
@@ -231,7 +220,6 @@ public final class CrystalAura extends ModuleStructure {
             : candidate.mode().ordinal() < currentBest.mode().ordinal();
       }
    }
-// https://t.me/pasterplace
 
    private void clearTrackedCrystalSpawn() {
       this.trackedCrystalSearchBox = null;
@@ -239,7 +227,6 @@ public final class CrystalAura extends ModuleStructure {
       this.trackedCrystalPosition = null;
       this.trackedCrystalTicksRemaining = 0;
    }
-// https://t.me/pasterplace
 
    private int findInventorySlot(Item item) {
       for (int slotIndex = 9; slotIndex < 36; slotIndex++) {
@@ -250,7 +237,6 @@ public final class CrystalAura extends ModuleStructure {
 
       return -1;
    }
-// https://t.me/pasterplace
 
    private void trackCrystalSpawnNearBase(BlockPos basePosition) {
       BlockPos crystalSpawnPosition = basePosition.up();
@@ -259,7 +245,6 @@ public final class CrystalAura extends ModuleStructure {
       this.trackedCrystalPosition = Vec3d.ofCenter(crystalSpawnPosition);
       this.trackedCrystalTicksRemaining = 12;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -274,7 +259,6 @@ public final class CrystalAura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void handleCrystalSpawnPacket(EntitySpawnS2CPacket entitySpawnS2CPacket) {
       if (this.isEnabled() && CLIENT.player != null && CLIENT.world != null && CLIENT.interactionManager != null) {
@@ -308,7 +292,6 @@ public final class CrystalAura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onUpdate(EventUpdate eventUpdate) {
@@ -390,7 +373,6 @@ public final class CrystalAura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void restoreInventoryState() {
       if (CLIENT.player != null && CLIENT.interactionManager != null) {
@@ -411,7 +393,6 @@ public final class CrystalAura extends ModuleStructure {
          this.clearLegacyInventorySwapSlots();
       }
    }
-// https://t.me/pasterplace
 
    private boolean isClearOfNearbyFriends(Vec3d explosionPosition) {
       if (CLIENT.world == null) {
@@ -431,7 +412,6 @@ public final class CrystalAura extends ModuleStructure {
 
       return true;
    }
-// https://t.me/pasterplace
 
    private int findHotbarSlot(Item item) {
       for (int slotIndex = 0; slotIndex < 9; slotIndex++) {
@@ -442,12 +422,10 @@ public final class CrystalAura extends ModuleStructure {
 
       return -1;
    }
-// https://t.me/pasterplace
 
    private int findBestMiningToolSlot(BlockState blockState) {
       int bestToolSlot = -1;
       float bestMiningSpeed = 1.0F;
-// https://t.me/pasterplace
 
       for (int slotIndex = 0; slotIndex < 36; slotIndex++) {
          ItemStack candidateStack = CLIENT.player.getInventory().getStack(slotIndex);
@@ -462,7 +440,6 @@ public final class CrystalAura extends ModuleStructure {
 
       return bestToolSlot;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -485,34 +462,29 @@ public final class CrystalAura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static void renderPlacementBox(Box box, int argbColor, float outlineWidth) {
       RgbaColor l1I1IlllIlI4 = RgbaColor.fromArgb(argbColor);
       DaamkyWorldRender.drawFilledBox(box, l1I1IlllIlI4.withAlpha((int)(l1I1IlllIlI4.alpha() * 0.25F)), true);
       DaamkyWorldRender.drawBoxOutline(box, l1I1IlllIlI4, outlineWidth, true);
    }
-// https://t.me/pasterplace
 
    private Vec3d getTargetPositionWithPrediction(LivingEntity livingEntity) {
       if (this.targetInsideCobweb) {
          return livingEntity.getEntityPos();
       }
-// https://t.me/pasterplace
 
       Vec3d targetVelocity = livingEntity.getVelocity();
       double horizontalSpeed = Math.sqrt(targetVelocity.x * targetVelocity.x + targetVelocity.z * targetVelocity.z);
       double predictionTicks = horizontalSpeed > 0.03 ? this.targetPredictionTicks.getValue().floatValue() : 0.0;
       return livingEntity.getEntityPos().add(targetVelocity.x * predictionTicks, 0.0, targetVelocity.z * predictionTicks);
    }
-// https://t.me/pasterplace
 
    private void clearLegacyInventorySwapSlots() {
       this.originalSelectedSlot = -1;
       this.swappedInventorySlot = -1;
       this.swappedHotbarSlot = -1;
    }
-// https://t.me/pasterplace
 
    private float calculateCrystalDamageScore(EndCrystalEntity endCrystalEntity, LivingEntity livingEntity) {
       float targetDamage = calculateExplosionDamage(endCrystalEntity.getEntityPos(), livingEntity);
@@ -527,7 +499,6 @@ public final class CrystalAura extends ModuleStructure {
          ? Float.NEGATIVE_INFINITY
          : this.calculatePlacementScore(targetDamage, selfDamage, livingEntity);
    }
-// https://t.me/pasterplace
 
    private LivingEntity findTarget() {
       Aura aura = (Aura)ModuleRegistry.getInstance().getModuleByClass(Aura.class);
@@ -554,17 +525,14 @@ public final class CrystalAura extends ModuleStructure {
             nearestTarget = livingEntity2;
          }
       }
-// https://t.me/pasterplace
 
       return nearestTarget;
    }
-// https://t.me/pasterplace
 
    private BlockPos getTargetGroundBlock(LivingEntity livingEntity) {
       Vec3d predictedTargetPosition = this.getTargetPositionWithPrediction(livingEntity);
       return BlockPos.ofFloored(predictedTargetPosition.x, livingEntity.getY() - 0.05, predictedTargetPosition.z);
    }
-// https://t.me/pasterplace
 
    private boolean isPlacementSafeFromSelfAndFriends(BlockPos basePosition, LivingEntity livingEntity) {
       Vec3d crystalSpawnPosition = Vec3d.ofCenter(basePosition.up());
@@ -577,7 +545,6 @@ public final class CrystalAura extends ModuleStructure {
 
       return livingEntity == null || !this.protectedEntities.isOptionEnabled("Друзей") || this.isClearOfNearbyFriends(crystalSpawnPosition);
    }
-// https://t.me/pasterplace
 
    private void mineBlockForCrystalPlacement(LivingEntity livingEntity) {
       if (this.blockToMineForCrystal == null) {
@@ -613,7 +580,6 @@ public final class CrystalAura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private CrystalAura.CrystalPlacementCandidate evaluatePlacementCandidate(BlockPos candidateBasePosition, LivingEntity livingEntity) {
       if (this.isWithinCrystalPlacementRange(candidateBasePosition) && this.isPlacementSafeFromSelfAndFriends(candidateBasePosition, livingEntity)) {
@@ -672,11 +638,9 @@ public final class CrystalAura extends ModuleStructure {
                : this.createPlacementCandidate(CrystalAura.CrystalAuraMode.CRYSTAL_ON_BASE, candidateBasePosition, explosionPosition, livingEntity, null, 0.0F);
          }
       }
-// https://t.me/pasterplace
 
       return null;
    }
-// https://t.me/pasterplace
 
    private void addPlacementRenderMarker(BlockPos markedPosition) {
       if (this.renderPlacementMarkers.getValue()) {
@@ -687,7 +651,6 @@ public final class CrystalAura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void attackCrystalsNearTarget(LivingEntity livingEntity) {
       if (livingEntity != null && CLIENT.world != null) {
@@ -708,7 +671,6 @@ public final class CrystalAura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void tryPlaceCrystalAt(BlockPos basePosition, boolean skipExplosionSafetyCheck) {
       if (this.isCrystalBaseUsable(basePosition, this.currentTarget)) {
@@ -728,7 +690,6 @@ public final class CrystalAura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean canCreateObsidianSupport(BlockPos supportPosition, LivingEntity livingEntity) {
       BlockState blockState = CLIENT.world.getBlockState(supportPosition.up());
@@ -750,7 +711,6 @@ public final class CrystalAura extends ModuleStructure {
          )
          .isEmpty();
    }
-// https://t.me/pasterplace
 
    private void queueCrystalAttack(EndCrystalEntity endCrystalEntity) {
       if (this.pendingAttack == null && CLIENT.player != null) {
@@ -761,7 +721,6 @@ public final class CrystalAura extends ModuleStructure {
 
       this.clearTrackedCrystalSpawn();
    }
-// https://t.me/pasterplace
 
    private boolean queueBlockInteraction(Item item, BlockHitResult blockHitResult) {
       if (this.pendingAttack == null && CLIENT.player != null && CrystalAura.ItemSlotSwapState.containsItem(item)) {
@@ -773,7 +732,6 @@ public final class CrystalAura extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -792,7 +750,6 @@ public final class CrystalAura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean executePendingAttack(CrystalAura.CrystalAttackCandidate attackCandidate) {
       Rotation lIll1Il1lll111l11l1I1llllI2 = RotationPriorityManager.getInstance().getLastMotionRotation();
@@ -836,7 +793,6 @@ public final class CrystalAura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean isExplosionPointSafe(Vec3d explosionPosition, LivingEntity livingEntity) {
       if (!this.enableSmartSafety.getValue()) {
@@ -864,7 +820,6 @@ public final class CrystalAura extends ModuleStructure {
 
       return explosionIsSafe;
    }
-// https://t.me/pasterplace
 
    private CrystalAura.CrystalPlacementHit findReachablePlacementFace(BlockPos targetBlock) {
       CrystalAura.CrystalPlacementHit bestPlacementHit = null;
@@ -873,7 +828,6 @@ public final class CrystalAura extends ModuleStructure {
       Direction[] searchDirections = new Direction[]{
          Direction.DOWN, Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST, Direction.UP
       };
-// https://t.me/pasterplace
 
       for (Direction faceDirection : searchDirections) {
          BlockPos neighborBlock = targetBlock.offset(faceDirection.getOpposite());
@@ -891,7 +845,6 @@ public final class CrystalAura extends ModuleStructure {
 
       return bestPlacementHit;
    }
-// https://t.me/pasterplace
 
    private boolean isEntitySafeForPlacement(Entity entity) {
       if (entity == null || CLIENT.player == null) {
@@ -913,19 +866,16 @@ public final class CrystalAura extends ModuleStructure {
          ? false
          : this.isExplosionPointSafe(entity.getEntityPos(), this.currentTarget);
    }
-// https://t.me/pasterplace
 
    private boolean isValidTarget(LivingEntity entity) {
       return entity instanceof PlayerEntity playerTarget && playerTarget != CLIENT.player && playerTarget.isAlive()
          ? !FriendManager.getInstance().isFriend(playerTarget) && !AntiBot.II1Il11l111II11IIl(playerTarget)
          : false;
    }
-// https://t.me/pasterplace
 
    private static boolean isInventoryScreenOpen() {
       return CLIENT.player != null && CLIENT.player.currentScreenHandler == CLIENT.player.playerScreenHandler;
    }
-// https://t.me/pasterplace
 
    private void attackTrackedCrystalIfReady() {
       if (this.trackedCrystalTicksRemaining > 0 && CLIENT.world != null) {
@@ -952,7 +902,6 @@ public final class CrystalAura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean isTargetAllowedByArmorFilter(LivingEntity entity) {
       if (!this.isValidTarget(entity)) {
@@ -973,7 +922,6 @@ public final class CrystalAura extends ModuleStructure {
       boolean includeUnarmoredPlayers = this.targetCategories.isOptionEnabled("Голые");
       return includeArmoredPlayers || includeUnarmoredPlayers && isUnarmored;
    }
-// https://t.me/pasterplace
 
    private boolean ensureItemSelected(Item item) {
       if (CLIENT.player != null && CLIENT.interactionManager != null) {
@@ -1011,7 +959,6 @@ public final class CrystalAura extends ModuleStructure {
 
       return false;
    }
-// https://t.me/pasterplace
 
    private void trackNearbyCrystal(EndCrystalEntity endCrystalEntity) {
       boolean insideTrackedSearchBox = this.trackedCrystalSearchBox != null
@@ -1024,7 +971,6 @@ public final class CrystalAura extends ModuleStructure {
          this.queueCrystalAttack(endCrystalEntity);
       }
    }
-// https://t.me/pasterplace
 
    private boolean containsCrystalAtBase(BlockPos basePosition) {
       Box box = new Box(
@@ -1037,7 +983,6 @@ public final class CrystalAura extends ModuleStructure {
       );
       return !CLIENT.world.getEntitiesByClass(EndCrystalEntity.class, box, endCrystalEntity -> true).isEmpty();
    }
-// https://t.me/pasterplace
 
    private boolean isExplosionDamageTradeAcceptable(Vec3d explosionPosition, LivingEntity livingEntity) {
       float targetDamage = calculateExplosionDamage(explosionPosition, CLIENT.player);
@@ -1052,7 +997,6 @@ public final class CrystalAura extends ModuleStructure {
          return true;
       }
    }
-// https://t.me/pasterplace
 
    private int findAvailableHotbarSlot() {
       for (int slotIndex = 0; slotIndex < 9; slotIndex++) {
@@ -1070,12 +1014,10 @@ public final class CrystalAura extends ModuleStructure {
 
       return CLIENT.player.getInventory().getSelectedSlot();
    }
-// https://t.me/pasterplace
 
    private BlockPos getTargetFootBlock(LivingEntity livingEntity) {
       return BlockPos.ofFloored(livingEntity.getX(), livingEntity.getY() - 0.05, livingEntity.getZ());
    }
-// https://t.me/pasterplace
 
    private CrystalAura.CrystalPlacementCandidate createPlacementCandidate(
       CrystalAura.CrystalAuraMode lIIl11l111lIIl1ll,
@@ -1097,12 +1039,10 @@ public final class CrystalAura extends ModuleStructure {
       if (this.requireFavorableTrade.getValue() && netDamage < this.minimumDamageAdvantage.getValue()) {
          return null;
       }
-// https://t.me/pasterplace
 
       float placementScore = this.calculatePlacementScore(targetDamage, selfDamage, livingEntity) - placementPenalty;
       return new CrystalAura.CrystalPlacementCandidate(lIIl11l111lIIl1ll, basePosition, targetDamage, selfDamage, netDamage, placementScore, l1lll11l1l);
    }
-// https://t.me/pasterplace
 
    private void attackNearbyCrystals() {
       if (CLIENT.world != null && CLIENT.player != null) {
@@ -1128,7 +1068,6 @@ public final class CrystalAura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private LivingEntity findCloserTargetCandidate(PlayerEntity entity, double maximumDistanceSquared, double nearestDistanceSquared) {
       if (!this.isTargetAllowedByArmorFilter(entity)) {
@@ -1138,7 +1077,6 @@ public final class CrystalAura extends ModuleStructure {
       double candidateDistanceSquared = CLIENT.player.squaredDistanceTo(entity);
       return !(candidateDistanceSquared > maximumDistanceSquared) && !(candidateDistanceSquared >= nearestDistanceSquared) ? entity : null;
    }
-// https://t.me/pasterplace
 
    private CrystalAura.CrystalPlacementCandidate findBestPlacement(LivingEntity livingEntity) {
       BlockPos targetFootBlock = this.getTargetFootBlock(livingEntity);
@@ -1163,12 +1101,10 @@ public final class CrystalAura extends ModuleStructure {
 
       return bestCandidate;
    }
-// https://t.me/pasterplace
 
    private boolean isWithinCrystalPlacementRange(BlockPos basePosition) {
       return CLIENT.player.getEyePos().distanceTo(Vec3d.ofCenter(basePosition)) <= this.placementRange.getValue().floatValue();
    }
-// https://t.me/pasterplace
 
    private float calculatePlacementScore(float targetDamage, float selfDamage, LivingEntity livingEntity) {
       float score = targetDamage * 3.0F - selfDamage * 2.5F;
@@ -1183,13 +1119,11 @@ public final class CrystalAura extends ModuleStructure {
 
       return score;
    }
-// https://t.me/pasterplace
 
    private void clearPlacementState() {
       this.blockToMineForCrystal = null;
       this.blockMiningTicksRemaining = 0;
    }
-// https://t.me/pasterplace
 
    private boolean isProtectedResourceNearEntity(Entity entity) {
       return this.protectedEntities.isOptionEnabled("Ресурсы")
@@ -1211,12 +1145,10 @@ public final class CrystalAura extends ModuleStructure {
                   || item == Items.TRIDENT
             );
    }
-// https://t.me/pasterplace
 
    private void requestRotation(Rotation lIll1Il1lll111l11l1I1llllI2) {
       RotationPriorityManager.getInstance().requestRotation(lIll1Il1lll111l11l1I1llllI2, FocusMode.FREE, 40.0F, 15, false, this);
    }
-// https://t.me/pasterplace
 
    private static Rotation rotationBetweenPoints(Vec3d origin, Vec3d target) {
       Vec3d direction = origin.subtract(target);
@@ -1224,7 +1156,6 @@ public final class CrystalAura extends ModuleStructure {
       float pitch = (float)(-Math.toDegrees(Math.atan2(direction.y, Math.hypot(direction.x, direction.z))));
       return new Rotation(yaw, MathHelper.clamp(pitch, -90.0F, 90.0F));
    }
-// https://t.me/pasterplace
 
    private static Vec3d getEntityLookVector(Entity entity) {
       Vec3d playerEyePosition = CLIENT.player.getEyePos();
@@ -1235,7 +1166,6 @@ public final class CrystalAura extends ModuleStructure {
       );
       return new Vec3d(entity.getX(), clampedTargetY, entity.getZ()).subtract(playerEyePosition);
    }
-// https://t.me/pasterplace
 
    private static boolean containsCobweb(Entity entity) {
       if (entity != null && CLIENT.world != null) {
@@ -1267,7 +1197,6 @@ public final class CrystalAura extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private static void swapInventorySlots(int inventorySlot, int hotbarButton) {
       if (CLIENT.player != null && CLIENT.interactionManager != null) {
@@ -1275,7 +1204,6 @@ public final class CrystalAura extends ModuleStructure {
             .clickSlot(CLIENT.player.playerScreenHandler.syncId, inventorySlot, hotbarButton, SlotActionType.SWAP, CLIENT.player);
       }
    }
-// https://t.me/pasterplace
 
    private static void selectHotbarSlot(int hotbarSlot) {
       if (CLIENT.player != null && hotbarSlot >= 0 && hotbarSlot <= 8 && CLIENT.player.getInventory().getSelectedSlot() != hotbarSlot) {
@@ -1283,24 +1211,20 @@ public final class CrystalAura extends ModuleStructure {
          syncSelectedHotbarSlot();
       }
    }
-// https://t.me/pasterplace
 
    private static void syncSelectedHotbarSlot() {
       if (CLIENT.interactionManager != null) {
          ((MultiPlayerGameModeAccessor)CLIENT.interactionManager).daamky$syncSelectedSlot();
       }
    }
-// https://t.me/pasterplace
 
    private static Vec3d getCrystalSpawnPosition(BlockPos basePosition) {
       return new Vec3d(basePosition.getX() + 0.5, basePosition.getY() + 1.0, basePosition.getZ() + 0.5);
    }
-// https://t.me/pasterplace
 
    private static float getHealthAfterDamage(LivingEntity livingEntity, float damage) {
       return livingEntity == null ? 0.0F : livingEntity.getHealth() + livingEntity.getAbsorptionAmount() - damage;
    }
-// https://t.me/pasterplace
 
    private static float calculateExplosionDamage(Vec3d explosionPosition, LivingEntity livingEntity) {
       if (explosionPosition != null && livingEntity != null && CLIENT.world != null) {
@@ -1308,13 +1232,11 @@ public final class CrystalAura extends ModuleStructure {
          if (distanceRatio > 1.0) {
             return 0.0F;
          }
-// https://t.me/pasterplace
 
          float explosionExposure = calculateExplosionExposure(explosionPosition, livingEntity);
          if (explosionExposure <= 0.0F) {
             return 0.0F;
          }
-// https://t.me/pasterplace
 
          double exposureAdjustedImpact = (1.0 - distanceRatio) * explosionExposure;
          float explosionDamage = (float)((exposureAdjustedImpact * exposureAdjustedImpact + exposureAdjustedImpact) / 2.0 * 7.0 * 12.0 + 1.0);
@@ -1327,7 +1249,6 @@ public final class CrystalAura extends ModuleStructure {
          return 0.0F;
       }
    }
-// https://t.me/pasterplace
 
    private static float calculateExplosionExposure(Vec3d explosionPosition, LivingEntity livingEntity) {
       Box box = livingEntity.getBoundingBox();
@@ -1364,7 +1285,6 @@ public final class CrystalAura extends ModuleStructure {
          return 0.0F;
       }
    }
-// https://t.me/pasterplace
 
    private static float getArmorDamageMultiplier(LivingEntity livingEntity) {
       if (!(livingEntity instanceof PlayerEntity playerTarget)) {
@@ -1382,7 +1302,6 @@ public final class CrystalAura extends ModuleStructure {
          return 1.0F - protectionPoints / 25.0F;
       }
    }
-// https://t.me/pasterplace
 
    private static int getEnchantmentLevel(ItemStack enchantedStack, String enchantmentId) {
       if (enchantedStack != null && !enchantedStack.isEmpty()) {
@@ -1400,7 +1319,6 @@ public final class CrystalAura extends ModuleStructure {
          return 0;
       }
    }
-// https://t.me/pasterplace
 
    private static float getResistanceDamageMultiplier(LivingEntity livingEntity) {
       StatusEffectInstance statusEffectInstance = livingEntity.getStatusEffect(StatusEffects.RESISTANCE);
@@ -1411,7 +1329,6 @@ public final class CrystalAura extends ModuleStructure {
       int resistanceReductionPoints = 5 * (statusEffectInstance.getAmplifier() + 1);
       return Math.max(0.0F, (25.0F - resistanceReductionPoints) / 25.0F);
    }
-// https://t.me/pasterplace
 
    private static float applyArmorDamageReduction(float damage, LivingEntity livingEntity) {
       float armor = livingEntity.getArmor();
@@ -1420,7 +1337,6 @@ public final class CrystalAura extends ModuleStructure {
       float effectiveArmor = MathHelper.clamp(armor - damage / armorDivisor, armor * 0.2F, 20.0F);
       return damage * (1.0F - effectiveArmor / 25.0F);
    }
-// https://t.me/pasterplace
 
    private static float applyDifficultyDamageMultiplier(float baseDamage) {
       return switch (CLIENT.world.getDifficulty()) {
@@ -1430,12 +1346,10 @@ public final class CrystalAura extends ModuleStructure {
          default -> baseDamage;
       };
    }
-// https://t.me/pasterplace
 
    private record CrystalPlacementCandidate(CrystalAura.CrystalAuraMode mode, BlockPos basePosition, float targetDamage, float selfDamage, float netDamage, float placementScore, CrystalAura.CrystalPlacementHit placementHit) {
 
    }
-// https://t.me/pasterplace
 
    private record CrystalAttackCandidate(EndCrystalEntity crystal, Item heldItem, BlockHitResult blockHit, Vec3d position, int ageTicks) {
 
@@ -1447,7 +1361,6 @@ public final class CrystalAura extends ModuleStructure {
          this.ageTicks = ageTicks;
       }
    }
-// https://t.me/pasterplace
 
    private record BlockUpdateMarker(BlockPos blockPosition, long updatedAtMillis) {
 
@@ -1456,7 +1369,6 @@ public final class CrystalAura extends ModuleStructure {
          this.updatedAtMillis = updatedAtMillis;
       }
    }
-// https://t.me/pasterplace
 
    private record CrystalPlacementHit(BlockHitResult hitResult, Vec3d position) {
 
@@ -1465,7 +1377,6 @@ public final class CrystalAura extends ModuleStructure {
          this.position = position;
       }
    }
-// https://t.me/pasterplace
 
    private enum CrystalAuraMode {
       CRYSTAL_ON_BASE,
@@ -1477,7 +1388,6 @@ public final class CrystalAura extends ModuleStructure {
          return new CrystalAura.CrystalAuraMode[]{CRYSTAL_ON_BASE, OBSIDIAN_REPLACEMENT, OBSIDIAN_SUPPORT};
       }
    }
-// https://t.me/pasterplace
 
    private static final class ItemSlotSwapState {
       private int swappedInventorySlot = -1;
@@ -1507,7 +1417,6 @@ public final class CrystalAura extends ModuleStructure {
                   return slotIndex;
                }
             }
-// https://t.me/pasterplace
 
             return -1;
          } else {
@@ -1548,7 +1457,6 @@ public final class CrystalAura extends ModuleStructure {
             if (CrystalAura.CLIENT.player != null && CrystalAura.CLIENT.player.getInventory().getSelectedSlot() == this.lastSelectedHotbarSlot
                )
              {
-// https://t.me/pasterplace
                CrystalAura.selectHotbarSlot(this.originalSelectedSlot);
             }
 
@@ -1583,7 +1491,6 @@ public final class CrystalAura extends ModuleStructure {
          CrystalAura.selectHotbarSlot(hotbarSlot);
          this.lastSelectedHotbarSlot = hotbarSlot;
       }
-// https://t.me/pasterplace
 
       private void rememberOriginalSelectedSlot() {
          if (this.originalSelectedSlot == -1 && CrystalAura.CLIENT.player != null) {

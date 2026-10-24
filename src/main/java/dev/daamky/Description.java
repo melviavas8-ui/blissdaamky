@@ -6,10 +6,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonElement;
 
 public final class Description {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private Description() {
    }
-// https://t.me/pasterplace
 
    public static ModelGeometry parseGeometry(JsonObject geometryJson) {
       JsonArray geometryVariants = geometryJson.getAsJsonArray("minecraft:geometry");
@@ -46,7 +44,6 @@ public final class Description {
          return null;
       }
    }
-// https://t.me/pasterplace
 
    private static ModelBone parseBone(JsonObject boneJson, int textureWidth, int textureHeight) {
       ModelBone bone = new ModelBone(boneJson.get("name").getAsString());
@@ -72,7 +69,6 @@ public final class Description {
 
       return bone;
    }
-// https://t.me/pasterplace
 
    private static ModelBonePose parseCube(JsonObject cubeJson, int textureWidth, int textureHeight) {
       float[] cubeOrigin = getFloatArray(cubeJson, "origin", new float[]{0.0F, 0.0F, 0.0F});
@@ -150,7 +146,6 @@ public final class Description {
 
       return cubePose;
    }
-// https://t.me/pasterplace
 
    private static ModelQuad readJsonFace(
       JsonObject faceUvDefinitions,
@@ -191,7 +186,6 @@ public final class Description {
          uvSize.get(1).getAsFloat() / textureHeight
       );
    }
-// https://t.me/pasterplace
 
    private static ModelQuad createCubeFaceQuadWithAtlasUv(
       String faceName,
@@ -271,7 +265,6 @@ public final class Description {
          faceUvHeight / textureHeight
       );
    }
-// https://t.me/pasterplace
 
    private static ModelQuad createCubeFaceQuad(
       String faceName,
@@ -321,7 +314,6 @@ public final class Description {
 
       return new ModelQuad(vertexPositions, vertexUvs, faceNormalX, faceNormalY, faceNormalZ);
    }
-// https://t.me/pasterplace
 
    private static float[] getFloatArray(JsonObject definitionJson, String propertyName, float[] defaultValues) {
       if (!definitionJson.has(propertyName)) {
@@ -334,7 +326,6 @@ public final class Description {
       for (int valueIndex = 0; valueIndex < jsonValues.size(); valueIndex++) {
          values[valueIndex] = jsonValues.get(valueIndex).getAsFloat();
       }
-// https://t.me/pasterplace
 
       return values;
    }

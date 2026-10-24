@@ -8,7 +8,6 @@ import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 
 public final class MainMenuScreen extends MenuBackground {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final AvatarTexture LOGO_TEXTURE = Avatar.create("logo_hd");
     private static final float MENU_BUTTON_WIDTH = 118.0F;
     private static final float MENU_BUTTON_HEIGHT = 16.0F;
@@ -18,27 +17,22 @@ public final class MainMenuScreen extends MenuBackground {
     .getModContainer("minecraft")
     .map(modContainer -> modContainer.getMetadata().getVersion().getFriendlyString())
     .orElse("");
-// https://t.me/pasterplace
 
     public MainMenuScreen() {
         super("Daamky");
     }
-// https://t.me/pasterplace
 
     public boolean shouldCloseOnEsc() {
         return false;
     }
-// https://t.me/pasterplace
 
     private float getMenuLeft() {
         return (this.viewportWidth - 118.0F) * 0.5F;
     }
-// https://t.me/pasterplace
 
     private float getFirstMenuEntryY() {
         return this.viewportHeight * 0.5F - 8.0F;
     }
-// https://t.me/pasterplace
 
     @Override
     protected void drawContent(DrawContext drawContext, float tickDelta, long animationTimeMillis) {
@@ -103,7 +97,6 @@ public final class MainMenuScreen extends MenuBackground {
         float sessionPanelEntrance = this.easeOutCubic(500.0F, 500.0F);
         this.drawSessionPanel(drawContext, viewportCenterX, settingsY + 16.0F + 18.0F + (1.0F - sessionPanelEntrance) * 8.0F, sessionPanelEntrance * remainingOpacity);
     }
-// https://t.me/pasterplace
 
     private void drawMenuEntry(
     DrawContext drawContext, String hoverKey, String entryLabel, String keyLabel, float entryX, float entryY, float entryWidth, float panelBlur, float entryOpacity
@@ -118,7 +111,6 @@ public final class MainMenuScreen extends MenuBackground {
             .color(Accent.getAccentColorWithAlpha((int)(255.0F * entryOpacity * hoverProgress)))
             .render(drawContext);
         }
-// https://t.me/pasterplace
 
         this.drawCenteredText(
         drawContext,
@@ -140,7 +132,6 @@ public final class MainMenuScreen extends MenuBackground {
         );
         this.popTransformMatrix(drawContext);
     }
-// https://t.me/pasterplace
 
     private void drawQuitIcon(DrawContext drawContext, float centerX, float centerY, RgbaColor l1I1IlllIlI4) {
         for (int segmentIndex = 0; segmentIndex <= 40; segmentIndex++) {
@@ -158,7 +149,6 @@ public final class MainMenuScreen extends MenuBackground {
         .color(l1I1IlllIlI4)
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     private void drawSessionPanel(DrawContext drawContext, float centerX, float panelY, float panelOpacity) {
         String username = MinecraftClient.getInstance().getSession().getUsername();
@@ -179,7 +169,6 @@ public final class MainMenuScreen extends MenuBackground {
         Accent.getDarkerTextColor((int)(220.0F * panelOpacity))
         );
     }
-// https://t.me/pasterplace
 
     @Override
     protected boolean handleContentClick(float mouseX, float mouseY, int mouseButton) {

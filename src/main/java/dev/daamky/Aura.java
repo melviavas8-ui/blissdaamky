@@ -30,7 +30,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class Aura extends ModuleStructure {
-    private static final String PROMOTION_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float MAX_SMOOTH_ROTATION_STEP = 95.0F;
    private static final float MAX_REALLYWORLD2_ROTATION_STEP = 120.0F;
    private static final float MAX_MATRIX_ROTATION_STEP = 85.0F;
@@ -89,7 +88,6 @@ public final class Aura extends ModuleStructure {
    private boolean whiteRiseAccelerating;
    private boolean whiteRiseInitialized;
    private int whiteRiseTick;
-// https://t.me/pasterplace
 
    public Aura() {
       super("Aura", "Автоматически наводится и атакует цели вокруг", ModuleCategory.COMBAT);
@@ -115,28 +113,23 @@ public final class Aura extends ModuleStructure {
          this.attackRestrictions
       );
    }
-// https://t.me/pasterplace
 
    public float getAttackRange() {
       return this.attackRangeSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public LivingEntity getTarget() {
       return this.currentTarget;
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return this.rotationModeSetting.getValue();
    }
-// https://t.me/pasterplace
 
    public boolean isSprintResetActive() {
       return this.isEnabled() && this.sprintResetThisTick;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -149,7 +142,6 @@ public final class Aura extends ModuleStructure {
       this.restorePreviousHotbarSlot();
       RotationPriorityManager.getInstance().clearRotationRequest(this);
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -158,7 +150,6 @@ public final class Aura extends ModuleStructure {
       this.previousHotbarSlot = -1;
       this.sprintResetThisTick = false;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void updateTargetAndRotation(EventUpdate updateEvent) {
@@ -231,7 +222,6 @@ public final class Aura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -244,7 +234,6 @@ public final class Aura extends ModuleStructure {
          inputEvent.setJump(true);
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -272,7 +261,6 @@ public final class Aura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -283,7 +271,6 @@ public final class Aura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget(priority = 0)
    public void processPendingAttack(EventUpdate updateEvent) {
@@ -309,18 +296,15 @@ public final class Aura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean isRotationCoordinatorBusy() {
       ElytraTarget elytraTarget = ElytraTarget.getInstance();
       return elytraTarget != null && elytraTarget.isFireworkSequenceActive() || UseItemRotationQueue.hasQueuedPackets() || Priority.getInstance().hasQueuedActions();
    }
-// https://t.me/pasterplace
 
    private boolean daamky$wasSprinting() {
       return ((LocalPlayerAccessor)CLIENT.player).daamky$wasSprinting();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void beginSprintReset(LivingEntity target, boolean sendPacketReset) {
@@ -329,7 +313,6 @@ public final class Aura extends ModuleStructure {
       this.sprintResetTarget = target;
       CLIENT.player.setSprinting(false);
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void clearSprintReset() {
@@ -338,7 +321,6 @@ public final class Aura extends ModuleStructure {
       this.sprintResetTarget = null;
       this.deferredAttackTarget = null;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void sendStopSprintingPacket() {
@@ -347,7 +329,6 @@ public final class Aura extends ModuleStructure {
          ((LocalPlayerAccessor)CLIENT.player).daamky$setWasSprinting(false);
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void finishSprintReset(boolean attackAfterReset) {
@@ -363,7 +344,6 @@ public final class Aura extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void attackIfReady(LivingEntity target) {
@@ -371,7 +351,6 @@ public final class Aura extends ModuleStructure {
          this.attackTarget();
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private boolean prepareSmartCriticalSprintReset() {
@@ -382,7 +361,6 @@ public final class Aura extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private boolean prepareSprintResetForAttack(LivingEntity target) {
@@ -404,7 +382,6 @@ public final class Aura extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private boolean isDescendingWhileSprinting() {
@@ -414,7 +391,6 @@ public final class Aura extends ModuleStructure {
          ? !CLIENT.player.isOnGround() && CLIENT.player.getVelocity().y < 0.0
          : false;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private boolean shouldDelaySprintResetForCriticalHit() {
@@ -448,17 +424,14 @@ public final class Aura extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private boolean isInWaterOrSwimming() {
       return CLIENT.player.isTouchingWater() || CLIENT.player.isSubmergedInWater() || CLIENT.player.isSwimming();
    }
-// https://t.me/pasterplace
 
    private float getCriticalCooldownRemainder() {
       return Math.max(0.0F, (0.92F - CombatUtils.getAttackCooldownProgress()) * CLIENT.player.getAttackCooldownProgressPerTick());
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private boolean shouldAutoJump() {
@@ -472,7 +445,6 @@ public final class Aura extends ModuleStructure {
             : false;
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void attackTarget() {
@@ -503,7 +475,6 @@ public final class Aura extends ModuleStructure {
       CombatUtils.isInCobweb(this.currentTarget);
       this.lastAttackTimeMillis = System.currentTimeMillis();
    }
-// https://t.me/pasterplace
 
    private boolean isCurrentElytraTarget() {
       ElytraTarget elytraTarget = ElytraTarget.getInstance();
@@ -513,7 +484,6 @@ public final class Aura extends ModuleStructure {
          && CLIENT.player.isGliding()
          && elytraTarget.getTarget() == this.currentTarget;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void restorePreviousHotbarSlot() {
@@ -523,12 +493,10 @@ public final class Aura extends ModuleStructure {
 
       this.previousHotbarSlot = -1;
    }
-// https://t.me/pasterplace
 
    private boolean requiresCriticalHits() {
       return this.attackOptions.isOptionEnabled("Только криты") && !CombatUtils.isInInvalidCriticalState(CLIENT.player);
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private FocusMode getFocusMode() {
@@ -538,14 +506,12 @@ public final class Aura extends ModuleStructure {
          default -> FocusMode.NONE;
       };
    }
-// https://t.me/pasterplace
 
    private boolean isTargetWithinRange() {
       return this.currentTarget != null
          && RotationUtils.distanceToBox(CLIENT.player.getEyePos(), this.currentTarget.getBoundingBox())
             <= this.attackRangeSetting.getValue().floatValue();
    }
-// https://t.me/pasterplace
 
    private boolean canAttackTarget() {
       if (this.currentTarget == null) {
@@ -583,24 +549,20 @@ public final class Aura extends ModuleStructure {
             : !this.hasJumpClearance() || CombatUtils.getAttackCooldownProgress() >= 1.0F && this.isPredictedTargetOutOfRange();
       }
    }
-// https://t.me/pasterplace
 
    private boolean isTargetRecentlyHurt() {
       return this.currentTarget.hurtTime <= 2;
    }
-// https://t.me/pasterplace
 
    private boolean hasJumpClearance() {
       return CLIENT.world.isSpaceEmpty(CLIENT.player, CLIENT.player.getBoundingBox().offset(0.0, 0.3, 0.0));
    }
-// https://t.me/pasterplace
 
    private boolean isPredictedTargetOutOfRange() {
       Vec3d playerEyePosition = CLIENT.player.getEyePos();
       Box box = this.currentTarget.getBoundingBox().offset(this.currentTarget.getVelocity().multiply(3.0));
       return RotationUtils.distanceToBox(playerEyePosition, box) > this.attackRangeSetting.getValue().floatValue();
    }
-// https://t.me/pasterplace
 
    private boolean isFallingIntoBlock() {
       double verticalVelocity = CLIENT.player.getVelocity().y;
@@ -608,23 +570,19 @@ public final class Aura extends ModuleStructure {
          && !CLIENT.world
             .isSpaceEmpty(CLIENT.player, CLIENT.player.getBoundingBox().offset(0.0, verticalVelocity - 0.08, 0.0));
    }
-// https://t.me/pasterplace
 
    private boolean isElytraTargeting() {
       return ElytraTarget.isElytraTargetModuleEnabled();
    }
-// https://t.me/pasterplace
 
    private boolean isElytraTargetSlowEnough() {
       return this.isElytraTargeting() && CLIENT.player.isGliding() && CLIENT.player.getVelocity().length() < 6.0;
    }
-// https://t.me/pasterplace
 
    private Box getTrackedBoundingBox(LivingEntity livingEntity) {
       Vec3d trackedPosition = livingEntity.getTrackedPosition().getPos();
       return livingEntity.getBoundingBox().offset(trackedPosition.subtract(livingEntity.getEntityPos()));
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private boolean isTargetInsideRotationRay(Rotation rotation) {
@@ -639,7 +597,6 @@ public final class Aura extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private LivingEntity findTarget() {
@@ -652,7 +609,6 @@ public final class Aura extends ModuleStructure {
          CLIENT.player.getYaw(), CLIENT.player.getPitch()
       );
       ArrayList<LivingEntity> candidates = new ArrayList<>();
-// https://t.me/pasterplace
 
       for (Entity entity : CLIENT.world.getEntities()) {
          if (entity instanceof LivingEntity livingEntity
@@ -666,7 +622,6 @@ public final class Aura extends ModuleStructure {
       if (candidates.isEmpty()) {
          return null;
       }
-// https://t.me/pasterplace
 
       if (this.currentTarget != null && candidates.contains(this.currentTarget) && this.targetSortSetting.isSelected("Умная")) {
          return this.currentTarget;
@@ -679,7 +634,6 @@ public final class Aura extends ModuleStructure {
       );
       return candidates.getFirst();
    }
-// https://t.me/pasterplace
 
    private Comparator<LivingEntity> createTargetComparator(Vec3d playerEyePosition, Rotation playerRotation) {
       return switch ((String)this.targetSortSetting.getValue()) {
@@ -696,7 +650,6 @@ public final class Aura extends ModuleStructure {
          );
       };
    }
-// https://t.me/pasterplace
 
    private boolean isValidTarget(LivingEntity candidate) {
       if (candidate == CLIENT.player || !candidate.isAlive() || candidate.isDead() || candidate instanceof ArmorStandEntity) {
@@ -727,7 +680,6 @@ public final class Aura extends ModuleStructure {
             : this.targetFilters.isOptionEnabled("Животные");
       }
    }
-// https://t.me/pasterplace
 
    private static boolean isPlayerUnarmored(PlayerEntity player) {
       for (EquipmentSlot equipmentSlot : new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET}) {
@@ -738,12 +690,10 @@ public final class Aura extends ModuleStructure {
 
       return true;
    }
-// https://t.me/pasterplace
 
    private static float randomFloatBetween(float minimum, float maximum) {
       return minimum + ThreadLocalRandom.current().nextFloat() * (maximum - minimum);
    }
-// https://t.me/pasterplace
 
    private Rotation getSmoothRotation(
       Rotation currentRotation, Rotation targetRotation
@@ -761,7 +711,6 @@ public final class Aura extends ModuleStructure {
       float pitchStep = Math.abs(pitchDelta) / totalAngularDistance * maximumAngularStep * 0.75F;
       return RotationUtils.limitRotationChange(currentRotation, targetRotation, yawStep, Math.max(pitchStep, 0.5F));
    }
-// https://t.me/pasterplace
 
    private Rotation getReallyWorld2Rotation(
       Rotation currentRotation, Rotation targetRotation
@@ -779,7 +728,6 @@ public final class Aura extends ModuleStructure {
             currentRotation.getYaw() + yawStep, MathHelper.clamp(currentRotation.getPitch() + pitchStep, -90.0F, 90.0F)
          );
    }
-// https://t.me/pasterplace
 
    private Rotation getMatrixRotation(
       Rotation currentRotation, Rotation targetRotation
@@ -799,12 +747,10 @@ public final class Aura extends ModuleStructure {
          MathHelper.clamp(currentRotation.getPitch() + this.smoothedRotationPitch + pitchDrift, -90.0F, 90.0F)
       );
    }
-// https://t.me/pasterplace
 
    public void selectNeuroRotation() {
       this.rotationModeSetting.setSelectedIndex(this.rotationModeSetting.getOptions().indexOf("Neuro"));
    }
-// https://t.me/pasterplace
 
    private void resetWhiteRiseRotationState() {
       this.whiteRiseTarget = null;
@@ -813,7 +759,6 @@ public final class Aura extends ModuleStructure {
       this.whiteRiseTick = 0;
       this.whiteRiseInitialized = false;
    }
-// https://t.me/pasterplace
 
    private Rotation getWhiteRiseRotation(
       Rotation currentRotation, Rotation targetRotation
@@ -875,7 +820,6 @@ public final class Aura extends ModuleStructure {
       if (criticalHitReady) {
          interpolationProgress = Math.min(interpolationProgress + 0.1F, isGliding ? 0.46F : 0.34F);
       }
-// https://t.me/pasterplace
 
       interpolationProgress += rotationJitter * 0.5F;
       if (this.whiteRiseTick % 7 == 0) {
@@ -903,12 +847,10 @@ public final class Aura extends ModuleStructure {
       this.whiteRisePitch = nextPitch;
       return new Rotation(nextYaw, nextPitch);
    }
-// https://t.me/pasterplace
 
    public static Aura getInstance() {
       return ModuleRegistry.getInstance().getModuleByClass(Aura.class);
    }
-// https://t.me/pasterplace
 
    public static Aura getRegisteredAura() {
       return getInstance();

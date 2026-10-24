@@ -7,41 +7,34 @@ import net.minecraft.client.input.CharInput;
 import net.minecraft.client.input.KeyInput;
 
 final class SearchTextField {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final String label;
    private final int maxLength;
    private final Consumer<String> onSubmit;
    private String text = "";
    private boolean focused;
    private float focusAnimation;
-// https://t.me/pasterplace
 
    SearchTextField(String label, int maximumLength, Consumer<String> submitHandler) {
       this.label = label;
       this.maxLength = maximumLength;
       this.onSubmit = submitHandler;
    }
-// https://t.me/pasterplace
 
    String getText() {
       return this.text;
    }
-// https://t.me/pasterplace
 
    void setText(String newText) {
       this.text = newText;
    }
-// https://t.me/pasterplace
 
    boolean isFocused() {
       return this.focused;
    }
-// https://t.me/pasterplace
 
    void setFocused(boolean focused) {
       this.focused = focused;
    }
-// https://t.me/pasterplace
 
    void render(DrawContext drawContext, float x, float y, float width, float height, long timeMillis, float opacity) {
       this.focusAnimation = this.focusAnimation + ((this.focused ? 1.0F : 0.0F) - this.focusAnimation) * 0.25F;
@@ -97,7 +90,6 @@ final class SearchTextField {
          }
       }
    }
-// https://t.me/pasterplace
 
    boolean keyPressed(KeyInput keyInput) {
       int keyCode = keyInput.getKeycode();
@@ -128,18 +120,15 @@ final class SearchTextField {
          return true;
       }
    }
-// https://t.me/pasterplace
 
    boolean charTyped(CharInput charInput) {
       int codePoint = charInput.codepoint();
       if (codePoint >= 32 && codePoint != 127) {
          this.appendText(charInput.asString());
       }
-// https://t.me/pasterplace
 
       return true;
    }
-// https://t.me/pasterplace
 
    private void appendText(String appendedText) {
       String combinedText = this.text + appendedText;

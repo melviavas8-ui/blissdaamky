@@ -13,7 +13,6 @@ import org.joml.Vector2f;
 import org.jspecify.annotations.Nullable;
 
 public final class GlyphRenderState implements SimpleGuiElementRenderState {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float GLYPH_BOUNDS_PADDING = 2.0F;
    private final GlyphAtlasEntry glyphEntry;
    private final MsdfFont font;
@@ -28,7 +27,6 @@ public final class GlyphRenderState implements SimpleGuiElementRenderState {
    private final @Nullable ScreenRect scissorArea;
    private final ScreenRect transformedBounds;
    private @Nullable TextureSetup textureSetup;
-// https://t.me/pasterplace
 
    GlyphRenderState(
       GlyphAtlasEntry glyphEntry,
@@ -56,7 +54,6 @@ public final class GlyphRenderState implements SimpleGuiElementRenderState {
          matrices, x - 2.0F, y - 2.0F, glyphEntry.advanceWidth() * fontSize + 4.0F, glyphEntry.lineHeight() * fontSize + 4.0F, scissorArea
       );
    }
-// https://t.me/pasterplace
 
    public void setupVertices(VertexConsumer vertices) {
       float[] glyphQuadData = this.glyphEntry.glyphVertexData();
@@ -81,14 +78,12 @@ public final class GlyphRenderState implements SimpleGuiElementRenderState {
          this.emitVertex(vertices, rightX, topY, atlasRightU, atlasTopV, this.resolveVertexColor(glyphTextIndex, rightX * inverseAtlasWidth, topY * inverseAtlasHeight));
       }
    }
-// https://t.me/pasterplace
 
    private int resolveVertexColor(int glyphTextIndex, float textureU, float textureV) {
       return this.colorProvider == null
          ? ColorUtils.scaleAlpha(this.baseColor, this.alpha)
          : ColorUtils.scaleAlpha(this.colorProvider.color(glyphTextIndex, Math.clamp(textureU, 0.0F, 1.0F), Math.clamp(textureV, 0.0F, 1.0F)), this.alpha);
    }
-// https://t.me/pasterplace
 
    private void emitVertex(VertexConsumer vertices, float x, float y, float textureU, float textureV, int argbColor) {
       vertices.vertex(this.matrices, this.x + x * this.fontSize, this.y + y * this.fontSize)
@@ -96,7 +91,6 @@ public final class GlyphRenderState implements SimpleGuiElementRenderState {
          .light(this.distanceRangeLight, 0)
          .color(argbColor);
    }
-// https://t.me/pasterplace
 
    private static ScreenRect computeBounds(Matrix3x2f matrices, float x, float y, float width, float height, @Nullable ScreenRect scissorArea) {
       Vector2f transformedCorner = new Vector2f();
@@ -112,18 +106,15 @@ public final class GlyphRenderState implements SimpleGuiElementRenderState {
          maxX = Math.max(maxX, transformedCorner.x);
          maxY = Math.max(maxY, transformedCorner.y);
       }
-// https://t.me/pasterplace
 
       ScreenRect transformedBounds = new ScreenRect((int)Math.floor(minX), (int)Math.floor(minY), (int)Math.ceil(maxX - minX) + 1, (int)Math.ceil(maxY - minY) + 1);
       ScreenRect clippedBounds = scissorArea != null ? transformedBounds.intersection(scissorArea) : transformedBounds;
       return clippedBounds != null ? clippedBounds : ScreenRect.empty();
    }
-// https://t.me/pasterplace
 
    public RenderPipeline pipeline() {
       return TextRenderPipeline.II1Il11l111II11IIl;
    }
-// https://t.me/pasterplace
 
    public TextureSetup textureSetup() {
       if (this.textureSetup == null) {
@@ -137,12 +128,10 @@ public final class GlyphRenderState implements SimpleGuiElementRenderState {
 
       return this.textureSetup;
    }
-// https://t.me/pasterplace
 
    public @Nullable ScreenRect scissorArea() {
       return this.scissorArea;
    }
-// https://t.me/pasterplace
 
    public @Nullable ScreenRect bounds() {
       return this.transformedBounds;

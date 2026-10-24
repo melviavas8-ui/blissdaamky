@@ -8,24 +8,20 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class NoSlow extends ModuleStructure {
-    private static final String pbef98436 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiOptionSetting l1I1IlllIlI = new MultiOptionSetting("Режим", "ReallyWorld", "ReallyWorld", "Matrix");
    private final FloatSetting IllI1l1l1 = new FloatSetting("Скорость", 100.0F, 20.0F, 100.0F, 1.0F, "%");
    private final BooleanSetting l1lll11l1l = new BooleanSetting("Разрешить бег", true);
    private int lIIl11l111lIIl1ll;
-// https://t.me/pasterplace
 
    public NoSlow() {
       super("NoSlow", "Убирает замедление при использовании предметов", ModuleCategory.MOVEMENT);
       this.addSettings(this.l1I1IlllIlI, this.IllI1l1l1, this.l1lll11l1l);
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return this.l1I1IlllIlI.getValue();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -36,7 +32,6 @@ public final class NoSlow extends ModuleStructure {
          this.lIIl11l111lIIl1ll = 0;
       }
    }
-// https://t.me/pasterplace
 
    private float l1lll11l1l(float inputMultiplier) {
       return switch ((String)this.l1I1IlllIlI.getValue()) {
@@ -52,13 +47,11 @@ public final class NoSlow extends ModuleStructure {
          default -> inputMultiplier;
       };
    }
-// https://t.me/pasterplace
 
    public static float IllI1l1l1(float inputMultiplier) {
       NoSlow module = (NoSlow)ModuleRegistry.getInstance().getModuleByClass(NoSlow.class);
       return module != null && module.isEnabled() ? module.l1lll11l1l(inputMultiplier) : inputMultiplier;
    }
-// https://t.me/pasterplace
 
    public static boolean l1I1IIl111Il1l1l() {
       NoSlow module = (NoSlow)ModuleRegistry.getInstance().getModuleByClass(NoSlow.class);

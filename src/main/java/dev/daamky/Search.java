@@ -10,7 +10,6 @@ import net.minecraft.client.input.CharInput;
 import net.minecraft.client.input.KeyInput;
 
 public final class Search {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final Search INSTANCE = new Search();
     private final EasedAnimation openAnimation = new EasedAnimation();
     private final SearchBar searchBar = new SearchBar();
@@ -31,16 +30,13 @@ public final class Search {
     private float mouseX = 0.0F;
     private float mouseY = 0.0F;
     private final String currentDateLabel = LocalDate.now().toString().replace('-', '.');
-// https://t.me/pasterplace
 
     private Search() {
     }
-// https://t.me/pasterplace
 
     public static Search getInstance() {
         return INSTANCE;
     }
-// https://t.me/pasterplace
 
     public void open() {
         MinecraftClient client = MinecraftClient.getInstance();
@@ -50,7 +46,6 @@ public final class Search {
 
         this.openAnimation.start();
     }
-// https://t.me/pasterplace
 
     public void close() {
         this.openAnimation.stop();
@@ -61,7 +56,6 @@ public final class Search {
         this.moduleSettingsPanel.clearSelection();
         ClientConfigManager.getInstance().saveConfig();
     }
-// https://t.me/pasterplace
 
     public void toggle() {
         if (this.openAnimation.isRunning()) {
@@ -70,19 +64,16 @@ public final class Search {
             this.open();
         }
     }
-// https://t.me/pasterplace
 
     public boolean isOpen() {
         return this.openAnimation.isRunning();
     }
-// https://t.me/pasterplace
 
     public boolean shouldRender() {
         MinecraftClient client = MinecraftClient.getInstance();
         boolean isClickGuiScreenDisplayed = client != null && client.inGameHud != null && client.currentScreen instanceof DaamkyClickGuiScreen;
         return this.openAnimation.isRunning() || !this.openAnimation.isFinished() || isClickGuiScreenDisplayed;
     }
-// https://t.me/pasterplace
 
     private boolean hasModuleListCategory() {
         ModuleCategory moduleCategory = this.categorySidebar.getSelectedCategory();
@@ -93,7 +84,6 @@ public final class Search {
         && moduleCategory != ModuleCategory.CLOUD_CONFIG
         && moduleCategory != ModuleCategory.GLOBALS;
     }
-// https://t.me/pasterplace
 
     public boolean handleMouseClick(Click click) {
         if (!this.openAnimation.isRunning()) {
@@ -182,11 +172,9 @@ public final class Search {
                 return true;
             }
         }
-// https://t.me/pasterplace
 
         return false;
     }
-// https://t.me/pasterplace
 
     public boolean handleMouseScroll(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if (!this.openAnimation.isRunning()) {
@@ -205,7 +193,6 @@ public final class Search {
             : this.moduleSettingsPanel.handleMouseScroll(this.mouseX, this.mouseY, verticalAmount);
         }
     }
-// https://t.me/pasterplace
 
     public boolean handleKeyInput(KeyInput keyInput) {
         if (!this.openAnimation.isRunning()) {
@@ -233,14 +220,12 @@ public final class Search {
                 return false;
             }
         }
-// https://t.me/pasterplace
 
         if (!this.moduleSettingsPanel.hasSelectedModule()) {
             if (this.moduleSettingsPanel.isKeybindCaptureActive()) {
                 this.moduleSettingsPanel.setKeybindCapture(keyInput.getKeycode());
                 return true;
             }
-// https://t.me/pasterplace
 
             if (keyInput.getKeycode() == 256) {
                 if (this.moduleSettingsPanel.cancelOptionSelection()) {
@@ -269,7 +254,6 @@ public final class Search {
             return true;
         }
     }
-// https://t.me/pasterplace
 
     public boolean handleCharInput(CharInput charInput) {
         if (!this.openAnimation.isRunning()) {
@@ -286,17 +270,14 @@ public final class Search {
             : this.searchBar.onCharacterInput(charInput);
         }
     }
-// https://t.me/pasterplace
 
     public SearchBar getSearchBar() {
         return this.searchBar;
     }
-// https://t.me/pasterplace
 
     public ClickGuiSidebar getCategorySidebar() {
         return this.categorySidebar;
     }
-// https://t.me/pasterplace
 
     public void handleMouseRelease(Click click) {
         this.updateMousePosition(click.x(), click.y());
@@ -304,28 +285,23 @@ public final class Search {
         this.themePanel.mouseReleased(click.button());
         this.nameTagPreview.endDrag(click.button());
     }
-// https://t.me/pasterplace
 
     private boolean supportsModuleSearch() {
         ModuleCategory moduleCategory = this.categorySidebar.getSelectedCategory();
         return moduleCategory != ModuleCategory.BOTS && moduleCategory != ModuleCategory.CLOUD_CONFIG && moduleCategory != ModuleCategory.GLOBALS;
     }
-// https://t.me/pasterplace
 
     public boolean isTextInputFocused() {
         return this.openAnimation.isRunning() && (this.searchBar.isEnabled() || this.isGlobalsInputFocused());
     }
-// https://t.me/pasterplace
 
     public boolean isGlobalsInputFocused() {
         return this.openAnimation.isRunning() && this.categorySidebar.getSelectedCategory() == ModuleCategory.GLOBALS && this.globalsPanel.hasFocusedInput();
     }
-// https://t.me/pasterplace
 
     private boolean shouldShowNameTagPreview() {
         return this.categorySidebar.getSelectedCategory() == ModuleCategory.RENDER && this.searchBar.getSearchText().isBlank();
     }
-// https://t.me/pasterplace
 
     public void updateMousePosition(double mouseX, double mouseY) {
         MinecraftClient client = MinecraftClient.getInstance();
@@ -337,7 +313,6 @@ public final class Search {
             this.nameTagPreview.dragTo(this.mouseX, this.mouseY);
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     public void onDisplay(EventDisplay eventDisplay) {
@@ -368,7 +343,6 @@ public final class Search {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void renderClickGui(DrawContext drawContext, float animationProgress) {
         float viewportWidth = GuiEventRenderer.getScreenWidth();
@@ -550,7 +524,6 @@ public final class Search {
             drawContext.getMatrices().popMatrix();
         }
     }
-// https://t.me/pasterplace
 
     private void renderSidebarFooter(DrawContext drawContext, float animationProgress) {
         TextureQuadBuilder.at(Avatar.LOGO_AVATAR, this.panelX + 42.0F - 4.5F, this.panelY + 8.0F, 9.0F, 9.0F)
@@ -579,7 +552,6 @@ public final class Search {
         this.categorySidebar
         .render(drawContext, this.mouseX, this.mouseY, this.panelX, this.panelY + 25.0F, 84.0F, animationProgress);
     }
-// https://t.me/pasterplace
 
     private void renderHeader(DrawContext drawContext, float animationProgress) {
         float headerX = this.panelX + 84.0F + 9.0F;

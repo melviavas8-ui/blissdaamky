@@ -5,10 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 public final class ModuleRegistry {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final ModuleRegistry INSTANCE = new ModuleRegistry();
    private final List<ModuleStructure> modules = new ArrayList<>();
-// https://t.me/pasterplace
 
    private ModuleRegistry() {
       this.registerModule(new Aura());
@@ -121,26 +119,21 @@ public final class ModuleRegistry {
       this.registerModule(new AutoDuel());
       ModuleDescriptionLoader.II1Il11l111II11IIl(this.modules);
    }
-// https://t.me/pasterplace
 
    public static ModuleRegistry getInstance() {
       return INSTANCE;
    }
-// https://t.me/pasterplace
 
    public void registerModule(ModuleStructure moduleStructure) {
       this.modules.add(moduleStructure);
    }
-// https://t.me/pasterplace
 
    public List<ModuleStructure> getModules() {
       return Collections.unmodifiableList(this.modules);
    }
-// https://t.me/pasterplace
 
    public List<ModuleStructure> getModulesByCategory(ModuleCategory moduleCategory) {
       ArrayList arrayList = new ArrayList();
-// https://t.me/pasterplace
 
       for (Object module : this.modules) {
          if (((ModuleStructure)module).getCategory() == moduleCategory) {
@@ -150,7 +143,6 @@ public final class ModuleRegistry {
 
       return arrayList;
    }
-// https://t.me/pasterplace
 
    public <T extends ModuleStructure> T getModuleByClass(Class<T> moduleClass) {
       for (Object module : this.modules) {
@@ -161,7 +153,6 @@ public final class ModuleRegistry {
 
       return null;
    }
-// https://t.me/pasterplace
 
    public ModuleStructure getModuleByName(String moduleName) {
       for (Object module : this.modules) {
@@ -172,7 +163,6 @@ public final class ModuleRegistry {
 
       return null;
    }
-// https://t.me/pasterplace
 
    public void updateAnimations(float tickDelta) {
       for (Object module : this.modules) {

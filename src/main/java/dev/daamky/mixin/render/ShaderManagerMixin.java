@@ -12,10 +12,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ShaderLoader.class)
 public abstract class ShaderManagerMixin {
-    private static final String pbdc2371f = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Unique
    private static final Logger DAAMKY_LOGGER = LoggerFactory.getLogger("Daamky/Shaders");
-// https://t.me/pasterplace
 
    @Redirect(
       method = "apply(Lnet/minecraft/client/gl/ShaderLoader$Definitions;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V",

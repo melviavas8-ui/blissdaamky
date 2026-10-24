@@ -24,14 +24,11 @@ import net.minecraft.util.Arm;
 import org.joml.Quaternionf;
 
 public final class PlayerCosmeticsFeatureRenderer extends FeatureRenderer<PlayerEntityRenderState, PlayerEntityModel> {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final long INITIALIZATION_TIME_MILLIS = System.currentTimeMillis();
-// https://t.me/pasterplace
 
    public PlayerCosmeticsFeatureRenderer(FeatureRendererContext<PlayerEntityRenderState, PlayerEntityModel> featureRendererContext) {
       super(featureRendererContext);
    }
-// https://t.me/pasterplace
 
    @Override
    public void render(
@@ -74,7 +71,6 @@ public final class PlayerCosmeticsFeatureRenderer extends FeatureRenderer<Player
                         } else {
                            entityModel.head.applyTransform(matrices);
                         }
-// https://t.me/pasterplace
 
                         matrices.multiply(new Quaternionf().rotationZ((float) Math.PI));
                          float backOffset = cosmeticModel.getCosmeticType() == Wings.WINGS
@@ -117,7 +113,6 @@ public final class PlayerCosmeticsFeatureRenderer extends FeatureRenderer<Player
          }
       }
    }
-// https://t.me/pasterplace
 
    public static void renderWatch(
       MatrixStack matrices, OrderedRenderCommandQueue orderedRenderCommandQueue, int packedLight, ModelPart armModelPart, boolean isLeftArm, boolean isSlimSkin
@@ -133,7 +128,6 @@ public final class PlayerCosmeticsFeatureRenderer extends FeatureRenderer<Player
          matrices.pop();
       }
    }
-// https://t.me/pasterplace
 
    private static void renderCosmeticModel(
       MatrixStack matrices,
@@ -172,7 +166,6 @@ public final class PlayerCosmeticsFeatureRenderer extends FeatureRenderer<Player
          }
       });
    }
-// https://t.me/pasterplace
 
    private static void setBoneRotation(ModelGeometry geometry, String boneName, float rotationProgress) {
       Object bone = geometry.bonesByName.get(boneName);
@@ -180,7 +173,6 @@ public final class PlayerCosmeticsFeatureRenderer extends FeatureRenderer<Player
          ((ModelBone)bone).I1lIIII1III1lIlIl1l = rotationProgress * (float) (Math.PI * 2);
       }
    }
-// https://t.me/pasterplace
 
    static Collection<Model> getPlayerModels(MinecraftClient client, int playerEntityId) {
       if (playerEntityId == client.player.getId()) {
@@ -195,11 +187,9 @@ public final class PlayerCosmeticsFeatureRenderer extends FeatureRenderer<Player
             return playerCosmetics.cosmetics();
          }
       }
-// https://t.me/pasterplace
 
       return List.of();
    }
-// https://t.me/pasterplace
 
    private static void renderBone(ModelBone bone, MatrixStack matrices, VertexConsumer vertices, int packedLight) {
       matrices.push();
@@ -219,7 +209,6 @@ public final class PlayerCosmeticsFeatureRenderer extends FeatureRenderer<Player
 
       matrices.pop();
    }
-// https://t.me/pasterplace
 
    private static void renderBonePose(ModelBonePose bonePose, MatrixStack matrices, VertexConsumer vertices, int packedLight) {
       matrices.push();
@@ -261,7 +250,6 @@ public final class PlayerCosmeticsFeatureRenderer extends FeatureRenderer<Player
 
       matrices.pop();
    }
-// https://t.me/pasterplace
 
    private static void applyBoneRotation(MatrixStack matrices, float pitch, float yaw, float roll) {
       if (roll != 0.0F) {
@@ -276,7 +264,6 @@ public final class PlayerCosmeticsFeatureRenderer extends FeatureRenderer<Player
          matrices.multiply(new Quaternionf().rotationX(pitch));
       }
    }
-// https://t.me/pasterplace
 
 }
 

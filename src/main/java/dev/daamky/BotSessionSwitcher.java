@@ -16,7 +16,6 @@ import net.minecraft.network.ClientConnection;
 import net.minecraft.text.Text;
 
 final class BotSessionSwitcher {
-    private static final String p3b370f19 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final long SWITCH_NOTICE_DURATION_MILLIS = 900L;
    private volatile BotSession activeDisconnect;
    private volatile BotSession queuedDisconnect;
@@ -28,12 +27,10 @@ final class BotSessionSwitcher {
    private volatile long lastSwitchNoticeTimeMillis;
    private ChatState previousChatState;
    private BotSession chatStateDisconnect;
-// https://t.me/pasterplace
 
    private void updateSwitchNoticeTimestamp() {
       this.lastSwitchNoticeTimeMillis = System.currentTimeMillis();
    }
-// https://t.me/pasterplace
 
    float getSwitchNoticeAlpha() {
       long lastSwitchNoticeTimeMillis = this.lastSwitchNoticeTimeMillis;
@@ -44,7 +41,6 @@ final class BotSessionSwitcher {
       long elapsedMillis = System.currentTimeMillis() - lastSwitchNoticeTimeMillis;
       return elapsedMillis >= 900L ? 0.0F : 1.0F - (float)elapsedMillis / 900.0F;
    }
-// https://t.me/pasterplace
 
    void switchToDisconnect(BotSession disconnect) {
       MinecraftClient client = MinecraftClient.getInstance();
@@ -73,7 +69,6 @@ final class BotSessionSwitcher {
          ModuleToggleProfileManager.resetToDefaultProfile();
       }
    }
-// https://t.me/pasterplace
 
    void restorePreviousSession() {
       ModuleToggleProfileManager.resetToDefaultProfile();
@@ -91,11 +86,9 @@ final class BotSessionSwitcher {
       if (hadActiveDisconnect) {
          this.updateSwitchNoticeTimestamp();
       }
-// https://t.me/pasterplace
 
       this.updateChatForDisconnect(null);
    }
-// https://t.me/pasterplace
 
    private void updateChatForDisconnect(BotSession disconnect) {
       if (this.chatStateDisconnect != disconnect) {
@@ -122,7 +115,6 @@ final class BotSessionSwitcher {
          }
       }
    }
-// https://t.me/pasterplace
 
    private ChatState createChatStateForDisconnect(MinecraftClient client, ChatHud chatHud, BotSession disconnect) {
       int currentTick = client.inGameHud.getTicks();
@@ -135,41 +127,34 @@ final class BotSessionSwitcher {
 
       return new ChatState(arrayList, new ArrayList(chatHud.getMessageHistory()), new ArrayList());
    }
-// https://t.me/pasterplace
 
    BotSession activeDisconnect() {
       return this.activeDisconnect;
    }
-// https://t.me/pasterplace
 
    boolean isActiveDisconnectReady() {
       return this.activeDisconnect != null && this.activeDisconnect.isOnline();
    }
-// https://t.me/pasterplace
 
    boolean owns(Object sessionObject) {
       return this.activeDisconnect != null && this.activeDisconnect.ownsSessionObject(sessionObject);
    }
-// https://t.me/pasterplace
 
    boolean isSwitchingTo(BotSession disconnect) {
       return this.switchInProgress && this.activeDisconnect == disconnect;
    }
-// https://t.me/pasterplace
 
    void restoreIfActive(BotSession disconnect) {
       if (this.activeDisconnect == disconnect) {
          this.restorePreviousSession();
       }
    }
-// https://t.me/pasterplace
 
    void clearQueuedDisconnect(BotSession disconnect) {
       if (this.queuedDisconnect == disconnect) {
          this.queuedDisconnect = null;
       }
    }
-// https://t.me/pasterplace
 
    void queueDisconnect(BotSession disconnect) {
       if (this.activeDisconnect == disconnect) {
@@ -177,7 +162,6 @@ final class BotSessionSwitcher {
          this.queuedDisconnect = disconnect;
       }
    }
-// https://t.me/pasterplace
 
    void processQueuedDisconnect(BotSession disconnect) {
       if (this.queuedDisconnect == disconnect) {
@@ -187,14 +171,12 @@ final class BotSessionSwitcher {
          }
       }
    }
-// https://t.me/pasterplace
 
    void tickQueuedDisconnect() {
       if (this.queuedDisconnect != null && this.queuedDisconnect.isOnline() && !this.switchInProgress) {
          this.processQueuedDisconnect(this.queuedDisconnect);
       }
    }
-// https://t.me/pasterplace
 
    void runWithClientStateIsolation(Runnable runnable) {
       if (this.switchInProgress && this.clientStateBeforeSwitch != null) {
@@ -212,7 +194,6 @@ final class BotSessionSwitcher {
          runnable.run();
       }
    }
-// https://t.me/pasterplace
 
    void tickSavedConnection() {
       if (this.switchInProgress && this.clientStateBeforeSwitch != null) {
@@ -225,7 +206,6 @@ final class BotSessionSwitcher {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void restoreClientState() {
       if (this.switchInProgress) {

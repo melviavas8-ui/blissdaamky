@@ -21,7 +21,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.map.MapState.UpdateData;
 
 public final class Captcha implements BotSessionCallback {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final int MAP_SIZE = 128;
     private static final int SOLVER_IMAGE_WIDTH = 250;
     private static final int SOLVER_IMAGE_HEIGHT = 150;
@@ -58,34 +57,28 @@ public final class Captcha implements BotSessionCallback {
     private volatile long sessionResetAtMs;
     private volatile long lastCaptchaPromptAtMs;
     private volatile long lastSolveFinishedAtMs;
-// https://t.me/pasterplace
 
     public Captcha(BotSession disconnect) {
         this.disconnect = disconnect;
     }
-// https://t.me/pasterplace
 
     public static void setCaptchaEnabled(boolean enabled) {
         captchaEnabled = enabled;
     }
-// https://t.me/pasterplace
 
     public static boolean isCaptchaEnabled() {
         return captchaEnabled;
     }
-// https://t.me/pasterplace
 
     public static void setAnswerPrefix(String prefix) {
         answerPrefix = prefix == null ? "" : prefix;
     }
-// https://t.me/pasterplace
 
     @Override
     public void onSessionReset() {
         synchronized (this.mapPixelsLock) {
             this.mapPixelsById.clear();
         }
-// https://t.me/pasterplace
 
         this.mapFramePositions.clear();
         this.mapIdByFrameId.clear();
@@ -99,7 +92,6 @@ public final class Captcha implements BotSessionCallback {
         this.solveInProgress.set(false);
         this.log("join — captcha armed (window 15000ms)");
     }
-// https://t.me/pasterplace
 
     @Override
     public void onMapDecoration(int frameEntityId, double worldX, double worldY, double worldZ, int entityData) {
@@ -107,7 +99,6 @@ public final class Captcha implements BotSessionCallback {
             this.mapFramePositions.put(frameEntityId, new double[]{worldX, worldY, worldZ, entityData});
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public void onMapColorUpdate(int frameEntityId, int mapId) {
@@ -117,7 +108,6 @@ public final class Captcha implements BotSessionCallback {
             this.scheduleCaptchaAnalysis();
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public void onMapCursorUpdate(int frameEntityId, int rotation) {
@@ -126,18 +116,15 @@ public final class Captcha implements BotSessionCallback {
             this.lastMapUpdateAtMs = System.currentTimeMillis();
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public void onPlayerLookUpdate(double playerX, double playerY, double playerZ, float yawDegrees) {
         this.playerLook = new double[]{playerX, playerY, playerZ, yawDegrees};
     }
-// https://t.me/pasterplace
 
     private void log(String message) {
         BotCaptchaLog.II1Il11l111II11IIl("[" + this.disconnect.getUsername() + "] " + message);
     }
-// https://t.me/pasterplace
 
     @Override
     public void onMapUpdate(int mapId, UpdateData updateData) {
@@ -171,7 +158,6 @@ public final class Captcha implements BotSessionCallback {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void logMapSnapshot(int mapId) {
         long nowMs = System.currentTimeMillis();
@@ -198,13 +184,11 @@ public final class Captcha implements BotSessionCallback {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public void onServerMessage(String message) {
         if (captchaEnabled && message != null && !message.isEmpty()) {
             String lowercaseMessage = message.toLowerCase(Locale.ROOT);
-// https://t.me/pasterplace
 
             for (String captchaKeyword : CAPTCHA_KEYWORDS) {
                 if (lowercaseMessage.contains(captchaKeyword)) {
@@ -223,7 +207,6 @@ public final class Captcha implements BotSessionCallback {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void scheduleCaptchaAnalysis() {
         if (this.lastUpdatedMapId >= 0 || !this.mapIdByFrameId.isEmpty()) {
@@ -253,7 +236,6 @@ public final class Captcha implements BotSessionCallback {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void solveCaptchaMap(int mapId) {
         if (this.solveInProgress.compareAndSet(false, true)) {
@@ -300,7 +282,6 @@ public final class Captcha implements BotSessionCallback {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void waitForCompleteCaptchaWall() throws InterruptedException {
         long deadlineMs = System.currentTimeMillis() + 5000L;
@@ -322,16 +303,13 @@ public final class Captcha implements BotSessionCallback {
 
         this.log("wall still incomplete after 5000ms — sending as is");
     }
-// https://t.me/pasterplace
 
     private Captcha.CaptchaImageRegion buildCaptchaWallImage() {
         return this.createCaptchaWallImage(true);
     }
-// https://t.me/pasterplace
 
     private Captcha.CaptchaImageRegion createCaptchaWallImage(boolean logGeometry) {
         HashMap<Long, List<int[]>> frameGroupsByWallKey = new HashMap<>();
-// https://t.me/pasterplace
 
         for (Map.Entry<Integer, Integer> frameMapEntry : this.mapIdByFrameId.entrySet()) {
             double[] framePosition = this.mapFramePositions.get(frameMapEntry.getKey());
@@ -344,7 +322,6 @@ public final class Captcha implements BotSessionCallback {
                 }
             }
         }
-// https://t.me/pasterplace
 
         if (frameGroupsByWallKey.isEmpty()) {
             return null;
@@ -379,7 +356,6 @@ public final class Captcha implements BotSessionCallback {
             double maxHorizontal = -Double.MAX_VALUE;
             double minVertical = Double.MAX_VALUE;
             double maxVertical = -Double.MAX_VALUE;
-// https://t.me/pasterplace
 
             for (int[] frameAndMapIds : wallFrames) {
                 double[] framePosition = this.mapFramePositions.get(frameAndMapIds[0]);
@@ -437,7 +413,6 @@ public final class Captcha implements BotSessionCallback {
             return null;
         }
     }
-// https://t.me/pasterplace
 
     private List<int[]> selectWallMapsFacingPlayer(Map<Long, List<int[]>> frameGroupsByWallKey) {
         double[] playerLook = this.playerLook;
@@ -486,7 +461,6 @@ public final class Captcha implements BotSessionCallback {
 
         return bestFrameGroup;
     }
-// https://t.me/pasterplace
 
     private int[] copyMapPixels(int mapId) {
         synchronized (this.mapPixelsLock) {
@@ -494,7 +468,6 @@ public final class Captcha implements BotSessionCallback {
             return mapPixels == null ? null : (int[])mapPixels.clone();
         }
     }
-// https://t.me/pasterplace
 
     private static void saveImage(BufferedImage image, String fileName) {
         try {
@@ -503,7 +476,6 @@ public final class Captcha implements BotSessionCallback {
         } catch (Exception saveError) {
         }
     }
-// https://t.me/pasterplace
 
     private void solveCaptchaImage(BufferedImage image) {
         String username = this.disconnect.getUsername();
@@ -528,7 +500,6 @@ public final class Captcha implements BotSessionCallback {
                         } else {
                             notifyCaptchaResult(username + ": капча не отправлена (дисконнект)", true);
                         }
-// https://t.me/pasterplace
 
                         return;
                     }
@@ -554,7 +525,6 @@ public final class Captcha implements BotSessionCallback {
             this.solveInProgress.set(false);
         }
     }
-// https://t.me/pasterplace
 
     private static int countDistinctMapColors(int[] mapPixels) {
         boolean[] seenColors = new boolean[256];
@@ -570,7 +540,6 @@ public final class Captcha implements BotSessionCallback {
 
         return distinctColorCount;
     }
-// https://t.me/pasterplace
 
     private static boolean isUniformMap(int[] mapPixels) {
         int firstColor = mapPixels[0];
@@ -583,7 +552,6 @@ public final class Captcha implements BotSessionCallback {
 
         return true;
     }
-// https://t.me/pasterplace
 
     private static int[] rotateMapPixels(int[] sourcePixels, int quarterTurns) {
         int[] rotatedPixels = sourcePixels;
@@ -602,7 +570,6 @@ public final class Captcha implements BotSessionCallback {
 
         return rotatedPixels;
     }
-// https://t.me/pasterplace
 
     private static BufferedImage resizeCaptchaImage(BufferedImage sourceImage) {
         if (sourceImage.getWidth() == 250 && sourceImage.getHeight() == 150) {
@@ -616,7 +583,6 @@ public final class Captcha implements BotSessionCallback {
         graphics.dispose();
         return resizedImage;
     }
-// https://t.me/pasterplace
 
     private static BufferedImage renderMapPixels(int[] mapPixels) {
         BufferedImage image = new BufferedImage(128, 128, 1);
@@ -634,7 +600,6 @@ public final class Captcha implements BotSessionCallback {
 
         return image;
     }
-// https://t.me/pasterplace
 
     private static void notifyCaptchaResult(String message, boolean isError) {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
@@ -650,7 +615,6 @@ public final class Captcha implements BotSessionCallback {
             });
         }
     }
-// https://t.me/pasterplace
 
     private record CaptchaImageRegion(BufferedImage image, int mapHash, int columnCount, int rowCount, int tileCount) {
 

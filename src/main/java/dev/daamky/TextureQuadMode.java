@@ -3,7 +3,6 @@ package dev.daamky;
 public enum TextureQuadMode {
    STRETCH,
    CONTAIN;
-// https://t.me/pasterplace
 
    // $VF: synthetic method
    private static TextureQuadMode[] II1Il11l111II11IIl() {

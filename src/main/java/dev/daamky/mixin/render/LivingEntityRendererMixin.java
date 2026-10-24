@@ -19,7 +19,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntityRenderer.class)
 public abstract class LivingEntityRendererMixin {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Inject(method = "updateRenderState(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/client/render/entity/state/LivingEntityRenderState;F)V", at = @At("TAIL"))
    private void daamky$serverRotation(LivingEntity entity, LivingEntityRenderState renderState, float tickDelta, CallbackInfo callbackInfo) {
       if (entity != MinecraftClient.getInstance().player && Optimizer.shouldSimplifyEntityRender(renderState.squaredDistanceToCamera, entity instanceof PlayerEntity)) {
@@ -38,7 +37,6 @@ public abstract class LivingEntityRendererMixin {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static void daamky$simplify(LivingEntityRenderState renderState) {
       if (renderState instanceof BipedEntityRenderState bipedRenderState) {
@@ -47,7 +45,6 @@ public abstract class LivingEntityRendererMixin {
          bipedRenderState.equippedLegsStack = ItemStack.EMPTY;
          bipedRenderState.equippedFeetStack = ItemStack.EMPTY;
       }
-// https://t.me/pasterplace
 
       if (renderState instanceof ArmedEntityRenderState armedRenderState) {
          armedRenderState.rightHandItemState.clear();

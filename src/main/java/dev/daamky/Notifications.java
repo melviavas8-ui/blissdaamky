@@ -8,7 +8,6 @@ import java.util.Map;
 import net.minecraft.client.gui.DrawContext;
 
 public final class Notifications extends HudElementPosition {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final float NOTIFICATION_HEIGHT = 18.0F;
     private static final float NOTIFICATION_SPACING = 3.0F;
     private static final float DEFAULT_NOTIFICATION_DURATION = 2.2F;
@@ -19,7 +18,6 @@ public final class Notifications extends HudElementPosition {
     private final List<Notifications.NotificationAnimationState> notificationAnimations = new ArrayList<>();
     private final Map<ModuleStructure, Boolean> previousModuleEnabledStates = new IdentityHashMap<>();
     private boolean moduleStatesInitialized;
-// https://t.me/pasterplace
 
     public Notifications(ModuleStructure moduleStructure) {
         super("Notifications", "notifications", 9999.0F, 9999.0F);
@@ -28,35 +26,29 @@ public final class Notifications extends HudElementPosition {
         this.elementHeight = 18.0F;
 
     }
-// https://t.me/pasterplace
 
     public static void showNotification(String title, String description, RgbaColor l1I1IlllIlI4, float durationSeconds) {
         if (INSTANCE != null && INSTANCE.notificationsModule.isEnabled()) {
             INSTANCE.enqueueNotification(new Notifications.NotificationAnimationState(title, description, true, l1I1IlllIlI4, durationSeconds));
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public void clampPositionToScreen(float screenWidth, float screenHeight) {
         this.setPosition((screenWidth - this.elementWidth) * 0.5F, screenHeight * 0.5F + 20.0F);
     }
-// https://t.me/pasterplace
 
     public void showNotification(String title, String description, boolean enabled) {
         this.enqueueNotification(new Notifications.NotificationAnimationState(title, description, enabled, null, 2.2F));
     }
-// https://t.me/pasterplace
 
     private void enqueueNotification(Notifications.NotificationAnimationState notification) {
         this.notificationAnimations.add(0, notification);
-// https://t.me/pasterplace
 
         while (this.notificationAnimations.size() > 6) {
             this.notificationAnimations.remove(this.notificationAnimations.size() - 1);
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public void updateAnimation(float frameDeltaSeconds) {
@@ -98,13 +90,11 @@ public final class Notifications extends HudElementPosition {
             }
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public boolean isVisibleInCurrentScreen(boolean screenAllowsHud) {
         return screenAllowsHud || !this.notificationAnimations.isEmpty();
     }
-// https://t.me/pasterplace
 
     @Override
     public void render(HudRenderContext renderContext, float hudOpacity) {
@@ -137,7 +127,6 @@ public final class Notifications extends HudElementPosition {
             }
         }
     }
-// https://t.me/pasterplace
 
     private static void renderNotificationCard(
     DrawContext drawContext, String title, String description, boolean enabled, RgbaColor accentColor, float centerX, float topY, float remainingTimeProgress, float opacity
@@ -161,7 +150,6 @@ public final class Notifications extends HudElementPosition {
         BrokkeIcons.drawCenteredText(drawContext, description, textX, textCenterY, 5.7F, BrokkeIcons.mutedGrayWithAlpha(opacity));
         AnimatedListHudElement.drawProgressRing(drawContext, cardLeft + cardWidth - 6.0F - progressRingSize * 0.5F, textCenterY, progressRingSize * 0.5F - 0.4F, 1.0F, 24, remainingTimeProgress, opacity);
     }
-// https://t.me/pasterplace
 
     private static final class NotificationAnimationState {
         final String title;

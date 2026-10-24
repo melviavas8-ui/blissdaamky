@@ -10,21 +10,17 @@ import net.minecraft.scoreboard.Team;
 import net.minecraft.text.MutableText;
 
 public final class ScoreboardBalanceParser {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final Pattern COIN_AMOUNT_PATTERN = Pattern.compile(
       "(?:\\u043c\\u043e\\u043d\\u0435\\u0442(?:\\u043e\\u043a|\\u043a\\u0438|\\u044b)?|coins?)\\s*:\\s*([\\d][\\d\\s\\u00A0.,]*)([k\\u043a]*)", 66
    );
-// https://t.me/pasterplace
 
    private ScoreboardBalanceParser() {
    }
-// https://t.me/pasterplace
 
    public static long findDisplayedBalance(net.minecraft.scoreboard.Scoreboard scoreboard, String scoreboardEntryName) {
       long balanceInHundredths = findBalanceInScoreboard(scoreboard, scoreboardEntryName);
       return balanceInHundredths < 0L ? -1L : Math.round(balanceInHundredths / 100.0);
    }
-// https://t.me/pasterplace
 
    public static long findBalanceInScoreboard(net.minecraft.scoreboard.Scoreboard scoreboard, String scoreboardEntryName) {
       if (scoreboard == null) {
@@ -63,7 +59,6 @@ public final class ScoreboardBalanceParser {
 
       return -1L;
    }
-// https://t.me/pasterplace
 
    public static long parseCoinAmount(String displayedAmount) {
       if (displayedAmount != null && !displayedAmount.isBlank()) {
@@ -77,7 +72,6 @@ public final class ScoreboardBalanceParser {
             String suffix = amountMatcher.group(2) == null ? "" : amountMatcher.group(2);
             char decimalSeparator = findDecimalSeparator(amountWithoutSpaces, suffix);
             StringBuilder normalizedAmountBuilder = new StringBuilder(amountWithoutSpaces.length());
-// https://t.me/pasterplace
 
             for (int digitIndex = 0; digitIndex < amountWithoutSpaces.length(); digitIndex++) {
                char character = amountWithoutSpaces.charAt(digitIndex);
@@ -106,7 +100,6 @@ public final class ScoreboardBalanceParser {
          return -1L;
       }
    }
-// https://t.me/pasterplace
 
    public static String stripFormattingCodes(String formattedText) {
       StringBuilder plainTextBuilder = new StringBuilder(formattedText.length());
@@ -122,7 +115,6 @@ public final class ScoreboardBalanceParser {
 
       return plainTextBuilder.toString();
    }
-// https://t.me/pasterplace
 
    private static char findDecimalSeparator(String amountText, String suffix) {
       int commaIndex = amountText.lastIndexOf(44);
@@ -137,7 +129,6 @@ public final class ScoreboardBalanceParser {
          return '\u0000';
       }
    }
-// https://t.me/pasterplace
 
    private static boolean isDecimalSeparator(String amountText, int separatorIndex, String suffix) {
       int trailingDigitCount = amountText.length() - separatorIndex - 1;

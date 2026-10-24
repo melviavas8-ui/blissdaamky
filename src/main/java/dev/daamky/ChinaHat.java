@@ -10,7 +10,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class ChinaHat extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiOptionSetting hatStyle = new MultiOptionSetting("Стиль", "Градиент", "Градиент", "Сплошной", "Стекло");
    private final BooleanSetting renderForFriends = new BooleanSetting("Друзьям", true);
    private final BooleanSetting renderInFirstPerson = new BooleanSetting("От первого лица", false);
@@ -19,7 +18,6 @@ public final class ChinaHat extends ModuleStructure {
    private final FloatSetting glowRadius = new FloatSetting("Радиус свечения", 2.0F, 0.5F, 5.0F, 0.1F);
    private final FloatSetting glowStrength = new FloatSetting("Сила свечения", 1.5F, 0.2F, 4.0F, 0.1F);
    private final FloatSetting coneHeight = new FloatSetting("Высота", 0.3F, 0.1F, 0.8F, 0.05F);
-// https://t.me/pasterplace
 
    public ChinaHat() {
       super("ChinaHat", "Китайская шляпа над головой", ModuleCategory.RENDER);
@@ -29,7 +27,6 @@ public final class ChinaHat extends ModuleStructure {
          this.hatStyle, this.renderForFriends, this.renderInFirstPerson, this.baseRadius, this.coneHeight, this.glowEnabled, this.glowRadius, this.glowStrength
       );
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -55,7 +52,6 @@ public final class ChinaHat extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    public void renderForPlayer(PlayerEntity player) {
       this.renderHat(player);
@@ -65,7 +61,6 @@ public final class ChinaHat extends ModuleStructure {
          DaamkyWorldRender.flushTexturedQuadBuffer();
       }
    }
-// https://t.me/pasterplace
 
    private void renderHat(PlayerEntity player) {
       float tickDelta = DaamkyWorldRender.getTickDelta();
@@ -79,7 +74,6 @@ public final class ChinaHat extends ModuleStructure {
       Vec3d coneTipPosition = hatCenter.add(-headPitchOffsetX, this.coneHeight.getValue().floatValue(), -headPitchOffsetZ);
       double hatRadius = this.baseRadius.getValue().floatValue();
       float animationOffset = AnimatedColorUtils.animationTime() * 0.6F;
-// https://t.me/pasterplace
 
       for (int segmentIndex = 0; segmentIndex < 48; segmentIndex++) {
          double segmentStartAngle = segmentIndex * Math.PI * 2.0 / 48.0;
@@ -96,7 +90,6 @@ public final class ChinaHat extends ModuleStructure {
          DaamkyWorldRender.drawGradientLine(segmentStartPosition, segmentEndPosition, segmentStartColor.withAlpha(240), segmentEndColor.withAlpha(240), 2.0F, false);
       }
    }
-// https://t.me/pasterplace
 
    private double getConeSurfaceHeight(double angleRadians, float headYawRadians, float pitchRadians) {
       double yawProjection = -Math.sin(headYawRadians);
@@ -104,7 +97,6 @@ public final class ChinaHat extends ModuleStructure {
       double surfaceHeightOffset = Math.cos(angleRadians) * yawProjection + Math.sin(angleRadians) * forwardDirectionCosine;
       return -surfaceHeightOffset * Math.sin(pitchRadians) * this.baseRadius.getValue().floatValue() * 0.35;
    }
-// https://t.me/pasterplace
 
    private RgbaColor getSegmentColor(int segmentIndex, int segmentCount, float animationOffset) {
       float normalizedSegmentPosition = (float)segmentIndex / segmentCount;

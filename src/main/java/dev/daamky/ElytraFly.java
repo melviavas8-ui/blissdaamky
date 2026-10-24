@@ -19,7 +19,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class ElytraFly extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiOptionSetting flightMode = new MultiOptionSetting("Режим", "Контроль", "Контроль", "ReallyWorld глайд", "Страйф", "Набор высоты");
    private final FloatSetting horizontalSpeed = new FloatSetting("Скорость", 1.6F, 0.2F, 4.0F, 0.05F);
    private final FloatSetting verticalSpeed = new FloatSetting("Вертикальная скорость", 0.8F, 0.1F, 3.0F, 0.05F);
@@ -35,7 +34,6 @@ public final class ElytraFly extends ModuleStructure {
    private float previousYaw;
    private float previousPitch;
    private double lockedFlightY = Double.NaN;
-// https://t.me/pasterplace
 
    public ElytraFly() {
       super("ElytraFly", "Управляемый полёт на элитрах", ModuleCategory.MOVEMENT);
@@ -49,13 +47,11 @@ public final class ElytraFly extends ModuleStructure {
          this.flightMode, this.horizontalSpeed, this.verticalSpeed, this.autoTakeoff, this.autoFirework, this.fireworkDelaySeconds, this.jumpToGainHeight
       );
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return this.flightMode.getValue();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -66,14 +62,12 @@ public final class ElytraFly extends ModuleStructure {
       this.flightRotationCaptured = false;
       this.fireworkCooldown.reset();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
    protected void onDisable() {
       this.restoreFlightRotation();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -103,7 +97,6 @@ public final class ElytraFly extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -121,7 +114,6 @@ public final class ElytraFly extends ModuleStructure {
          this.restoreFlightRotation();
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -142,7 +134,6 @@ public final class ElytraFly extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -157,7 +148,6 @@ public final class ElytraFly extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void handleControlMode() {
       double verticalVelocity = 0.0;
@@ -170,14 +160,12 @@ public final class ElytraFly extends ModuleStructure {
       } else if (Double.isNaN(this.lockedFlightY)) {
          this.lockedFlightY = CLIENT.player.getY();
       }
-// https://t.me/pasterplace
 
       CLIENT.player.setVelocity(new Vec3d(0.0, verticalVelocity, 0.0));
       if (MovementUtils.isMoving()) {
          MovementUtils.setHorizontalSpeed(this.horizontalSpeed.getValue().floatValue());
       }
    }
-// https://t.me/pasterplace
 
    private void handleStrafeMode() {
       PlayerInput playerInput = CLIENT.player.input.playerInput;
@@ -201,7 +189,6 @@ public final class ElytraFly extends ModuleStructure {
          this.fireworkCooldown.reset();
       }
    }
-// https://t.me/pasterplace
 
    private void handleHeightGainMode() {
       if (this.jumpToGainHeight.getValue() && !CLIENT.options.jumpKey.isPressed()) {
@@ -227,7 +214,6 @@ public final class ElytraFly extends ModuleStructure {
          this.setFlightRotation(CLIENT.player.getYaw(), flightPitch);
       }
    }
-// https://t.me/pasterplace
 
    private void tryAutoTakeoff() {
       if (!CLIENT.player.isGliding()
@@ -241,7 +227,6 @@ public final class ElytraFly extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void setFlightRotation(float yaw, float pitch) {
       if (!this.flightRotationCaptured) {
@@ -253,7 +238,6 @@ public final class ElytraFly extends ModuleStructure {
       CLIENT.player.setYaw(yaw);
       CLIENT.player.setPitch(MathHelper.clamp(pitch, -90.0F, 90.0F));
    }
-// https://t.me/pasterplace
 
    private void restoreFlightRotation() {
       if (this.flightRotationCaptured && CLIENT.player != null) {

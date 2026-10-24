@@ -5,7 +5,6 @@ import net.minecraft.util.Identifier;
 import org.joml.Matrix3x2f;
 
 public final class TextureQuadBuilder {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float MAX_CORNER_RADIUS = 63.5F;
    private Identifier textureId;
    private float x;
@@ -28,105 +27,86 @@ public final class TextureQuadBuilder {
    private TextureQuadMode mode = TextureQuadMode.STRETCH;
    private int overlayColorArgb;
    private float overlayOpacity;
-// https://t.me/pasterplace
 
    private TextureQuadBuilder(Identifier identifier) {
       this.textureId = identifier;
    }
-// https://t.me/pasterplace
 
    public static TextureQuadBuilder of(Identifier identifier) {
       return new TextureQuadBuilder(identifier);
    }
-// https://t.me/pasterplace
 
    public static TextureQuadBuilder of(AvatarTexture avatarTexture) {
       return new TextureQuadBuilder(avatarTexture.textureIdentifier());
    }
-// https://t.me/pasterplace
 
    public static TextureQuadBuilder at(Identifier identifier, float x, float y, float width, float height) {
       return new TextureQuadBuilder(identifier).bounds(x, y, width, height);
    }
-// https://t.me/pasterplace
 
    public static TextureQuadBuilder at(AvatarTexture avatarTexture, float x, float y, float width, float height) {
       return new TextureQuadBuilder(avatarTexture.textureIdentifier()).bounds(x, y, width, height);
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder texture(Identifier identifier) {
       this.textureId = identifier;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder texture(AvatarTexture avatarTexture) {
       return this.texture(avatarTexture.textureIdentifier());
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder position(float x, float y) {
       this.x = x;
       this.y = y;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder size(float width, float height) {
       this.width = width;
       this.height = height;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder size(float size) {
       return this.size(size, size);
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder bounds(float x, float y, float width, float height) {
       return this.position(x, y).size(width, height);
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder widthWithTextureScale(float width) {
       return this.size(width, width / Avatar.getTextureSize(this.textureId).II1Il11l111II11IIl());
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder heightWithTextureScale(float height) {
       return this.size(height * Avatar.getTextureSize(this.textureId).II1Il11l111II11IIl(), height);
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder scaleToTextureDimensions(float scale) {
       TextureSize textureSize = Avatar.getTextureSize(this.textureId);
       return this.size(textureSize.l1I1IlllIlI() * scale, textureSize.IllI1l1l1() * scale);
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder mode(TextureQuadMode mode) {
       this.mode = mode;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder contain() {
       return this.mode(TextureQuadMode.CONTAIN);
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder roundAllCorners() {
       this.useUniformCornerRadii = true;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder cornerRadius(float radius) {
       return this.cornerRadii(radius, radius, radius, radius);
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder cornerRadii(float topLeftRadius, float topRightRadius, float bottomRightRadius, float bottomLeftRadius) {
       this.useUniformCornerRadii = false;
@@ -136,7 +116,6 @@ public final class TextureQuadBuilder {
       this.bottomLeftCornerRadius = bottomLeftRadius;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder topCornerRadius(float radius) {
       this.useUniformCornerRadii = false;
@@ -144,7 +123,6 @@ public final class TextureQuadBuilder {
       this.topRightCornerRadius = radius;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder bottomCornerRadius(float radius) {
       this.useUniformCornerRadii = false;
@@ -152,7 +130,6 @@ public final class TextureQuadBuilder {
       this.bottomRightCornerRadius = radius;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder leftCornerRadius(float radius) {
       this.useUniformCornerRadii = false;
@@ -160,7 +137,6 @@ public final class TextureQuadBuilder {
       this.bottomLeftCornerRadius = radius;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder rightCornerRadius(float radius) {
       this.useUniformCornerRadii = false;
@@ -168,22 +144,18 @@ public final class TextureQuadBuilder {
       this.bottomRightCornerRadius = radius;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder tint(int argb) {
       return this.cornerTints(argb, argb, argb, argb);
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder verticalGradient(int topArgb, int bottomArgb) {
       return this.cornerTints(topArgb, topArgb, bottomArgb, bottomArgb);
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder horizontalGradient(int leftArgb, int rightArgb) {
       return this.cornerTints(leftArgb, rightArgb, rightArgb, leftArgb);
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder cornerTints(int topLeftArgb, int topRightArgb, int bottomRightArgb, int bottomLeftArgb) {
       this.topLeftTintArgb = topLeftArgb;
@@ -192,78 +164,64 @@ public final class TextureQuadBuilder {
       this.bottomLeftTintArgb = bottomLeftArgb;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder tint(RgbaColor color) {
       return this.tint(color.toArgb());
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder verticalGradient(RgbaColor topColor, RgbaColor bottomColor) {
       return this.verticalGradient(topColor.toArgb(), bottomColor.toArgb());
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder horizontalGradient(RgbaColor leftColor, RgbaColor rightColor) {
       return this.horizontalGradient(leftColor.toArgb(), rightColor.toArgb());
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder cornerTints(RgbaColor topLeftColor, RgbaColor topRightColor, RgbaColor bottomRightColor, RgbaColor bottomLeftColor) {
       return this.cornerTints(topLeftColor.toArgb(), topRightColor.toArgb(), bottomRightColor.toArgb(), bottomLeftColor.toArgb());
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder overlay(int argb, float alpha) {
       this.overlayColorArgb = argb;
       this.overlayOpacity = Math.clamp(alpha, 0.0F, 1.0F);
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder overlay(RgbaColor color, float alpha) {
       return this.overlay(color.toArgb(), alpha);
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder opacity(float opacity) {
       this.opacity = Math.clamp(opacity, 0.0F, 1.0F);
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder setUnusedFlagOne(boolean enabled) {
       this.unusedFlagOne = enabled;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder setUnusedFlagTwo(boolean enabled) {
       this.unusedFlagTwo = enabled;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureQuadBuilder linearFiltering(boolean enabled) {
       this.linearFiltering = enabled;
       return this;
    }
-// https://t.me/pasterplace
 
    public TextureSize textureSize() {
       return Avatar.getTextureSize(this.textureId);
    }
-// https://t.me/pasterplace
 
    public float getWidth() {
       return this.width;
    }
-// https://t.me/pasterplace
 
    public float getHeight() {
       return this.height;
    }
-// https://t.me/pasterplace
 
    public TexturedQuadRenderState buildRenderState(DrawContext drawContext) {
       float[] renderBounds = this.calculateBounds();
@@ -291,7 +249,6 @@ public final class TextureQuadBuilder {
          drawContext.scissorStack.peekLast()
       );
    }
-// https://t.me/pasterplace
 
    public void render(DrawContext drawContext) {
       if (!(this.width <= 0.0F) && !(this.height <= 0.0F) && !(this.opacity <= 0.0F)) {
@@ -312,13 +269,11 @@ public final class TextureQuadBuilder {
          }
       }
    }
-// https://t.me/pasterplace
 
    private float[] calculateBounds() {
       if (this.mode == TextureQuadMode.STRETCH) {
          return new float[]{this.x, this.y, this.width, this.height};
       }
-// https://t.me/pasterplace
 
       TextureSize textureSize = Avatar.getTextureSize(this.textureId);
       float scaleToFit = Math.min(this.width / textureSize.l1I1IlllIlI(), this.height / textureSize.IllI1l1l1());
@@ -326,13 +281,11 @@ public final class TextureQuadBuilder {
       float renderedHeight = textureSize.IllI1l1l1() * scaleToFit;
       return new float[]{this.x + (this.width - renderedWidth) * 0.5F, this.y + (this.height - renderedHeight) * 0.5F, renderedWidth, renderedHeight};
    }
-// https://t.me/pasterplace
 
    private int applyOpacity(int argb) {
       int alpha = Math.round((argb >>> 24) * this.opacity);
       return alpha << 24 | argb & 16777215;
    }
-// https://t.me/pasterplace
 
    private static int packCornerRadius(float radius, float maximumRadius) {
       return Math.clamp(Math.round(Math.clamp(radius, 0.0F, maximumRadius) * 2.0F), 0, 127);

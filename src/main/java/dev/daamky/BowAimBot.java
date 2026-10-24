@@ -13,7 +13,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class BowAimBot extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final FloatSetting targetRange = new FloatSetting("Дистанция", 60.0F, 10.0F, 120.0F, 1.0F, "бл.");
    private final FloatSetting fieldOfView = new FloatSetting("Угол обзора", 90.0F, 10.0F, 180.0F, 5.0F, "°");
    private final FloatSetting rotationSpeed = new FloatSetting("Скорость наводки", 35.0F, 5.0F, 180.0F, 1.0F, "°");
@@ -21,18 +20,15 @@ public final class BowAimBot extends ModuleStructure {
    private final BooleanSetting useCameraRotation = new BooleanSetting("Наводка камерой", false);
    private final BooleanSetting ignoreFriends = new BooleanSetting("Игнорировать друзей", true);
    private PlayerEntity targetPlayer;
-// https://t.me/pasterplace
 
    public BowAimBot() {
       super("BowAimBot", "Наводит лук и арбалет на игроков с учётом баллистики", ModuleCategory.COMBAT);
       this.addSettings(this.targetRange, this.fieldOfView, this.rotationSpeed, this.predictTargetMovement, this.useCameraRotation, this.ignoreFriends);
    }
-// https://t.me/pasterplace
 
    public PlayerEntity getTarget() {
       return this.targetPlayer;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onUpdate(EventUpdate eventUpdate) {
@@ -90,7 +86,6 @@ public final class BowAimBot extends ModuleStructure {
                } else {
                   aimPitch = (float)(-Math.toDegrees(Math.atan((velocitySquared - Math.sqrt(trajectoryDiscriminant)) / (0.05 * horizontalDistance))));
                }
-// https://t.me/pasterplace
 
                float aimYaw = (float)Math.toDegrees(Math.atan2(deltaZ, deltaX)) - 90.0F;
                Rotation lIll1Il1lll111l11l1I1llllI22 = new Rotation(
@@ -105,7 +100,6 @@ public final class BowAimBot extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override

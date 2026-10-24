@@ -16,17 +16,14 @@ import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.util.Identifier;
 
 public final class BotAvatars {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final String MOD_ID = "daamky";
    private static final String AVATAR_TEXTURE_PATH = "bot_avatar/";
    private static final String AVATAR_URL_TEMPLATE = "https://minotar.net/helm/%s/64.png";
    private static final Map<String, Identifier> AVATAR_TEXTURES = new ConcurrentHashMap<>();
    private static final Set<String> AVATAR_LOADS_IN_PROGRESS = ConcurrentHashMap.newKeySet();
-// https://t.me/pasterplace
 
    private BotAvatars() {
    }
-// https://t.me/pasterplace
 
    public static Identifier getAvatarTexture(String username) {
       if (username != null && !username.isEmpty()) {
@@ -42,7 +39,6 @@ public final class BotAvatars {
          return null;
       }
    }
-// https://t.me/pasterplace
 
    private static void loadAvatarAsync(String username, String normalizedUsername) {
       if (AVATAR_LOADS_IN_PROGRESS.add(normalizedUsername)) {
@@ -72,7 +68,6 @@ public final class BotAvatars {
          thread.start();
       }
    }
-// https://t.me/pasterplace
 
    private static byte[] loadAvatarBytes(String username, String normalizedUsername) throws Exception {
       Path path = getAvatarCacheDirectory().resolve(Integer.toHexString(normalizedUsername.hashCode()) + ".png");
@@ -98,12 +93,10 @@ public final class BotAvatars {
 
       return downloadedAvatarBytes;
    }
-// https://t.me/pasterplace
 
    private static Path getAvatarCacheDirectory() {
       return MinecraftClient.getInstance().runDirectory.toPath().resolve("daamky").resolve("bot_avatars");
    }
-// https://t.me/pasterplace
 
    private static byte[] downloadBytes(String url) throws Exception {
       HttpURLConnection uRLConnection = (HttpURLConnection)URI.create(url).toURL().openConnection();
@@ -117,7 +110,6 @@ public final class BotAvatars {
          uRLConnection.disconnect();
       }
    }
-// https://t.me/pasterplace
 
    public static void clearAvatarTextures() {
       MinecraftClient client = MinecraftClient.getInstance();
@@ -128,7 +120,6 @@ public final class BotAvatars {
          } catch (Throwable destroyFailure) {
          }
       }
-// https://t.me/pasterplace
 
       AVATAR_TEXTURES.clear();
    }

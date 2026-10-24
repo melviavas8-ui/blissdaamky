@@ -25,7 +25,6 @@ import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.util.Identifier;
 
 public final class Emoji {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final String emojiCdnBaseUrl = System.getProperty(
       "daamky.emoji.cdn", "https://cdn.jsdelivr.net/npm/emoji-datasource-apple@15.0.1/img/apple/64/"
    );
@@ -43,11 +42,9 @@ public final class Emoji {
       thread.setDaemon(true);
       return thread;
    });
-// https://t.me/pasterplace
 
    private Emoji() {
    }
-// https://t.me/pasterplace
 
    private static void registerEmojiGroup(String categoryName, String encodedEmojiSequences) {
       ArrayList entries = new ArrayList();
@@ -69,17 +66,14 @@ public final class Emoji {
 
       emojiEntriesByCategory.put(categoryName, entries);
    }
-// https://t.me/pasterplace
 
    public static Map<String, List<Emoji.EmojiEntry>> getEmojiGroups() {
       return emojiEntriesByCategory;
    }
-// https://t.me/pasterplace
 
    public static Emoji.EmojiEntry findEmojiEntry(String emojiText) {
       return emojiEntriesByShortcode.get(emojiText);
    }
-// https://t.me/pasterplace
 
    public static Emoji.EmojiEntry findEmojiAt(String sourceText, int startIndex) {
       for (int candidateLength = Math.min(4, sourceText.length() - startIndex); candidateLength >= 1; candidateLength--) {
@@ -91,7 +85,6 @@ public final class Emoji {
 
       return null;
    }
-// https://t.me/pasterplace
 
    public static int matchEmojiLength(String sourceText, int startIndex) {
       for (int candidateLength = Math.min(4, sourceText.length() - startIndex); candidateLength >= 1; candidateLength--) {
@@ -100,7 +93,6 @@ public final class Emoji {
             if (matchEndIndex < sourceText.length() && sourceText.charAt(matchEndIndex) == '️') {
                matchEndIndex++;
             }
-// https://t.me/pasterplace
 
             return matchEndIndex - startIndex;
          }
@@ -108,7 +100,6 @@ public final class Emoji {
 
       return 0;
    }
-// https://t.me/pasterplace
 
    public static String removeEmojiSequences(String sourceText) {
       StringBuilder cleanedTextBuilder = new StringBuilder();
@@ -133,7 +124,6 @@ public final class Emoji {
       String cleanedText = cleanedTextBuilder.toString().trim();
       return cleanedText.isEmpty() && removedEmojiSequence ? "Эмодзи" : cleanedText;
    }
-// https://t.me/pasterplace
 
    public static Identifier getEmojiTextureIdentifier(Emoji.EmojiEntry emojiEntry) {
       Object cachedTextureIdentifier = emojiTextureIdentifiers.get(emojiEntry.emojiText());
@@ -147,7 +137,6 @@ public final class Emoji {
 
       return null;
    }
-// https://t.me/pasterplace
 
    private static void loadEmojiTexture(String emojiCode) {
       try {
@@ -183,7 +172,6 @@ public final class Emoji {
       } catch (Exception downloadException) {
       }
    }
-// https://t.me/pasterplace
 
    static {
       registerEmojiGroup(
@@ -211,7 +199,6 @@ public final class Emoji {
          "1f34f 1f34e 1f350 1f34a 1f34b 1f34c 1f349 1f347 1f353 1f352 1f351 1f96d 1f34d 1f965 1f95d 1f345 1f951 1f955 1f33d 1f336-fe0f 1f952 1f966 1f354 1f35f 1f355 1f32d 1f96a 1f32e 1f37f 1f9c0 1f356 1f357 1f969 1f953 1f95a 1f35e 1f950 1f369 1f36a 1f382 1f370 1f9c1 1f36b 1f36c 1f36d 1f366 1f368 2615 1f375 1f37a 1f37b 1f942 1f377 1f964 1f9c3"
       );
    }
-// https://t.me/pasterplace
 
    public record EmojiEntry(String shortcode, String emojiText) {
 

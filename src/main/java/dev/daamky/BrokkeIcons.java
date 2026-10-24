@@ -7,22 +7,18 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 
 public final class BrokkeIcons {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     public static final float DEFAULT_FONT_SIZE = 5.0F;
     public static final float HEADER_FONT_SIZE = 6.2F;
     public static final float BODY_FONT_SIZE = 5.7F;
     public static final float SMALL_FONT_SIZE = 4.8F;
     public static final MsdfFont iconFont = Medium.loadFont("brokke_icons");
-// https://t.me/pasterplace
 
     private BrokkeIcons() {
     }
-// https://t.me/pasterplace
 
     public static void drawPanelBackground(DrawContext drawContext, float x, float y, float width, float height, float opacity) {
         drawRoundedPanelBackground(drawContext, x, y, width, height, 5.0F, opacity);
     }
-// https://t.me/pasterplace
 
     public static void drawRoundedPanelBackground(DrawContext drawContext, float x, float y, float width, float height, float cornerRadius, float opacity) {
         if (!(opacity <= 0.005F) && !(width <= 0.5F) && !(height <= 0.5F)) {
@@ -53,7 +49,6 @@ public final class BrokkeIcons {
 
             RoundedGradientRectBuilder panelFill = RoundedGradientRectBuilder.at(x, y, width, height).cornerRadius(cornerRadius);
             if (accentBlurEnabled) {
-// https://t.me/pasterplace
 
             }
 
@@ -66,7 +61,6 @@ public final class BrokkeIcons {
             .render(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     public static void drawPanelOutline(DrawContext drawContext, float x, float y, float width, float height, float opacity) {
         if (!(opacity <= 0.01F)) {
@@ -77,7 +71,6 @@ public final class BrokkeIcons {
             .render(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     public static void drawCenteredText(DrawContext drawContext, String displayText, float x, float baselineY, float fontSize, RgbaColor textColor) {
         GuiTextBuilder.createAt(Medium.DEFAULT_FONT, displayText, x, baselineY, fontSize)
@@ -85,12 +78,10 @@ public final class BrokkeIcons {
         .color(textColor)
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     public static float measureTextWidth(String displayText, float fontSize) {
         return Medium.DEFAULT_FONT.measureWidth(displayText, fontSize);
     }
-// https://t.me/pasterplace
 
     public static void drawVerticalDivider(DrawContext drawContext, float x, float centerY, float opacity) {
         RoundedGradientRectBuilder.at(x, centerY - 3.85F, 0.85F, 7.7F)
@@ -98,7 +89,6 @@ public final class BrokkeIcons {
         .color(Accent.getAccentColorWithAlpha((int)(14.0F * opacity)))
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     public static void drawHorizontalDivider(DrawContext drawContext, float x, float y, float width, float opacity) {
         RoundedGradientRectBuilder.at(x, y, width, 0.85F)
@@ -106,7 +96,6 @@ public final class BrokkeIcons {
         .color(Accent.getAccentColorWithAlpha((int)(14.0F * opacity)))
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     public static void drawColorSwatch(DrawContext drawContext, float centerX, float centerY, float diameter, RgbaColor swatchColor) {
         RoundedGradientRectBuilder.at(centerX - diameter * 0.5F, centerY - diameter * 0.5F, diameter, diameter)
@@ -114,7 +103,6 @@ public final class BrokkeIcons {
         .color(swatchColor)
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     public static void drawRoundedPill(DrawContext drawContext, float x, float y, float width, float height, float opacity) {
         RoundedGradientRectBuilder.at(x, y, width, height)
@@ -122,7 +110,6 @@ public final class BrokkeIcons {
         .color(Accent.getAccentColorWithAlpha((int)(16.0F * opacity)))
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     public static void drawProgressBar(
     DrawContext drawContext, float x, float y, float width, float height, float progress, RgbaColor progressColor, float opacity
@@ -139,22 +126,18 @@ public final class BrokkeIcons {
             .render(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     public static RgbaColor whiteWithAlpha(float alpha) {
         return Accent.getAccentColorWithAlpha((int)(255.0F * alpha));
     }
-// https://t.me/pasterplace
 
     public static RgbaColor lightGrayWithAlpha(float alpha) {
         return Accent.getTextColorWithAlpha((int)(250.0F * alpha));
     }
-// https://t.me/pasterplace
 
     public static RgbaColor mutedGrayWithAlpha(float alpha) {
         return Accent.getDarkerTextColor((int)(230.0F * alpha));
     }
-// https://t.me/pasterplace
 
     public static RgbaColor progressColor(float progress, float alpha) {
         float clampedProgress = Math.clamp(progress, 0.0F, 1.0F);
@@ -163,12 +146,10 @@ public final class BrokkeIcons {
         int blue = (int)(110.0F + clampedProgress * 40.0F);
         return RgbaColor.rgba(red, green, blue, (int)(255.0F * alpha));
     }
-// https://t.me/pasterplace
 
     public static void drawCenteredText(DrawContext drawContext, String displayText, float x, float baselineY, float fontSize, float opacity) {
         drawCenteredTextWithFont(drawContext, Medium.ICON_FONT, displayText, x, baselineY, fontSize, opacity);
     }
-// https://t.me/pasterplace
 
     public static void drawCenteredTextWithFont(
     DrawContext drawContext, MsdfFont font, String displayText, float x, float baselineY, float fontSize, float opacity
@@ -178,7 +159,6 @@ public final class BrokkeIcons {
         .color(whiteWithAlpha(opacity))
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     public static void drawTexture(DrawContext drawContext, Identifier identifier, float x, float y, float size, float opacity) {
         if (identifier != null) {
@@ -189,7 +169,6 @@ public final class BrokkeIcons {
             drawContext.getMatrices().popMatrix();
         }
     }
-// https://t.me/pasterplace
 
     public static void drawItemStack(DrawContext drawContext, ItemStack stack, float x, float y, float size) {
         if (stack != null && !stack.isEmpty()) {
@@ -201,7 +180,6 @@ public final class BrokkeIcons {
             drawContext.getMatrices().popMatrix();
         }
     }
-// https://t.me/pasterplace
 
     public static String toRomanNumeral(int value) {
         return switch (value) {
@@ -218,7 +196,6 @@ public final class BrokkeIcons {
             default -> String.valueOf(value);
         };
     }
-// https://t.me/pasterplace
 
     public static String formatDurationTicks(int durationTicks) {
         int totalSeconds = Math.max(0, durationTicks / 20);

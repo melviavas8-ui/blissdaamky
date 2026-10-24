@@ -11,7 +11,6 @@ import net.minecraft.client.input.CharInput;
 import net.minecraft.client.input.KeyInput;
 
 public final class Blur {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final MsdfFont themeHeadingFont = Medium.loadFont("brokke_bold");
    private static final float UNUSED_FLOAT_CONSTANT_5_0_A = 5.0F;
    private static final float UNUSED_FLOAT_CONSTANT_11_5 = 11.5F;
@@ -72,7 +71,6 @@ public final class Blur {
    private float optionPanelTop;
    private float optionPanelWidth;
    private float optionPanelHeight;
-// https://t.me/pasterplace
 
    public Blur() {
       List<Integer> groupIndices = new ArrayList<>();
@@ -106,7 +104,6 @@ public final class Blur {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static List<List<Blur.BlurOption>> createOptionGroups() {
       Accent accent = Accent.getInstance();
@@ -145,12 +142,10 @@ public final class Blur {
       optionGroups.add(List.of(new Blur.ButtonOption("Random Theme", accent::randomizeAccent), new Blur.ButtonOption("Reset", accent::resetToDefaults)));
       return optionGroups;
    }
-// https://t.me/pasterplace
 
    private static boolean isOptionVisible(Blur.BlurOption option) {
       return !(option instanceof Blur.SliderOption sliderOption && !sliderOption.visibleWhen().getAsBoolean());
    }
-// https://t.me/pasterplace
 
    private void rebuildOptionLayout() {
       float verticalOffset = 0.0F;
@@ -168,12 +163,10 @@ public final class Blur {
 
       this.totalOptionListHeight = Math.max(0.0F, verticalOffset - 0.5F);
    }
-// https://t.me/pasterplace
 
    private static String formatPercent(float value) {
       return Math.round(value * 100.0F) + "%";
    }
-// https://t.me/pasterplace
 
    public void updateAnimationState(float deltaSeconds) {
       this.frameDeltaSeconds = deltaSeconds;
@@ -195,7 +188,6 @@ public final class Blur {
          if (Math.abs(targetVisibility - this.optionVisibilityAmounts[optionIndex]) < 0.002F) {
             this.optionVisibilityAmounts[optionIndex] = targetVisibility;
          }
-// https://t.me/pasterplace
 
          if (this.visibleOptions.get(optionIndex) == this.draggedSliderOption && targetVisibility == 0.0F) {
             this.draggedSliderOption = null;
@@ -214,12 +206,10 @@ public final class Blur {
 
       this.rebuildOptionLayout();
    }
-// https://t.me/pasterplace
 
    public boolean hasFocusedInput() {
       return false;
    }
-// https://t.me/pasterplace
 
    public void render(
       DrawContext drawContext,
@@ -258,19 +248,16 @@ public final class Blur {
          this.drawOptionList(drawContext, mouseX, mouseY, currentTimeMs, panelAlpha);
       }
    }
-// https://t.me/pasterplace
 
    private float getThemeListTop() {
       return this.themePanelTop + 11.5F + 7.5F - this.themeScrollOffset;
    }
-// https://t.me/pasterplace
 
    private float getThemeListMaxScrollOffset() {
       float contentHeight = Accent.getThemePresets().size() * 17.5F - 2.5F;
       float visibleHeight = this.themePanelHeight - 11.5F - 7.5F;
       return Math.max(0.0F, contentHeight - visibleHeight);
    }
-// https://t.me/pasterplace
 
    private int getSelectedThemeIndex() {
       List<Accent.ThemePreset> themes = Accent.getThemePresets();
@@ -283,7 +270,6 @@ public final class Blur {
 
       return -1;
    }
-// https://t.me/pasterplace
 
    private void drawThemeList(DrawContext drawContext, float mouseX, float mouseY, long currentTimeMs, float panelAlpha) {
       float headingY = this.themePanelTop + 5.75F;
@@ -293,7 +279,6 @@ public final class Blur {
          PixelRounding.l1I1IlllIlI(this.themePanelLeft + this.themePanelWidth),
          PixelRounding.l1I1IlllIlI(this.themePanelTop + this.themePanelHeight)
       );
-// https://t.me/pasterplace
 
       try {
          GuiTextBuilder.createAt(Medium.ICON_FONT, "J", this.themePanelLeft + 5.0F + 2.8F, headingY, 5.6F)
@@ -379,34 +364,28 @@ public final class Blur {
                }
             }
          }
-// https://t.me/pasterplace
 
          drawContext.disableScissor();
       } finally {
          drawContext.disableScissor();
       }
    }
-// https://t.me/pasterplace
 
    private float getOptionContentLeft() {
       return this.optionPanelLeft + 4.0F;
    }
-// https://t.me/pasterplace
 
    private float getOptionContentWidth() {
       return this.optionPanelWidth - 4.0F - 8.0F;
    }
-// https://t.me/pasterplace
 
    private float getOptionListTop() {
       return this.optionPanelTop + 17.0F;
    }
-// https://t.me/pasterplace
 
    private float getOptionListVisibleHeight() {
       return this.optionPanelHeight - 17.0F;
    }
-// https://t.me/pasterplace
 
    private void drawOptionList(DrawContext drawContext, float mouseX, float mouseY, long currentTimeMs, float panelAlpha) {
       float panelRight = this.optionPanelLeft + this.optionPanelWidth - 6.0F;
@@ -496,7 +475,6 @@ public final class Blur {
          drawContext.disableScissor();
       }
    }
-// https://t.me/pasterplace
 
    private void drawOptionListHeader(DrawContext drawContext, float panelAlpha) {
       float headingY = this.optionPanelTop + 4.25F;
@@ -512,7 +490,6 @@ public final class Blur {
          .color(Accent.getTextColorWithAlpha((int)(250.0F * panelAlpha)))
          .render(drawContext);
    }
-// https://t.me/pasterplace
 
    private void drawOptionControlPreview(DrawContext drawContext, Blur.BlurOption option, int optionIndex, float left, float centerY, float hoverAmount, float panelAlpha) {
       RgbaColor l1I1IlllIlI4 = Accent.getTextColorWithAlpha((int)((150.0F + 80.0F * hoverAmount) * panelAlpha));
@@ -563,7 +540,6 @@ public final class Blur {
             .render(drawContext);
       }
    }
-// https://t.me/pasterplace
 
    private void drawToggleSwitch(DrawContext drawContext, float toggleAmount, float labelRight, float centerY, float panelAlpha) {
       float offLabelWidth = Medium.DEFAULT_FONT.measureWidth("OFF", 4.6F);
@@ -604,17 +580,14 @@ public final class Blur {
          .color(RgbaColor.rgba(255, 255, 255, (int)(255.0F * panelAlpha)))
          .render(drawContext);
    }
-// https://t.me/pasterplace
 
    private float getSliderTrackWidth() {
       return Math.min(46.0F, this.getOptionContentWidth() * 0.32F);
    }
-// https://t.me/pasterplace
 
    private float getSliderTrackLeft() {
       return this.getOptionContentLeft() + this.getOptionContentWidth() - 4.0F - 30.0F - 4.0F - this.getSliderTrackWidth();
    }
-// https://t.me/pasterplace
 
    private void drawSliderOption(DrawContext drawContext, Blur.SliderOption sliderOption, float dragSelectionAmount, float labelRight, float centerY, float hoverAmount, float panelAlpha) {
       String formattedValue = sliderOption.formattedValueSupplier().get();
@@ -664,7 +637,6 @@ public final class Blur {
          )
          .render(drawContext);
    }
-// https://t.me/pasterplace
 
    private float updateHoverAnimation(float[] hoverAmounts, int index, boolean isHovered) {
       float targetAmount = isHovered ? 1.0F : 0.0F;
@@ -679,17 +651,14 @@ public final class Blur {
       hoverAmounts[index] = currentAmount;
       return currentAmount * currentAmount * (3.0F - 2.0F * currentAmount);
    }
-// https://t.me/pasterplace
 
    private static float easeOutCubic(float progress) {
       return 1.0F - (float)Math.pow(1.0F - Math.clamp(progress, 0.0F, 1.0F), 3.0);
    }
-// https://t.me/pasterplace
 
    private static boolean containsPoint(float mouseX, float mouseY, float left, float top, float width, float height) {
       return mouseX >= left && mouseX <= left + width && mouseY >= top && mouseY <= top + height;
    }
-// https://t.me/pasterplace
 
    public boolean mouseClicked(float mouseX, float mouseY, int button) {
       if (button != 0) {
@@ -698,7 +667,6 @@ public final class Blur {
 
       List<Accent.ThemePreset> themes = Accent.getThemePresets();
       float themeListTop = this.getThemeListTop();
-// https://t.me/pasterplace
 
       for (int themeIndex = 0; themeIndex < themes.size(); themeIndex++) {
          float themeRowTop = themeListTop + themeIndex * 17.5F;
@@ -735,7 +703,6 @@ public final class Blur {
                         sliderOption.valueConsumer().accept(Math.clamp((mouseX - trackLeft) / trackWidth, 0.0F, 1.0F));
                      }
                   }
-// https://t.me/pasterplace
 
                   return true;
                }
@@ -747,31 +714,26 @@ public final class Blur {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    public boolean keyPressed(KeyInput keyInput) {
       return false;
    }
-// https://t.me/pasterplace
 
    public boolean charTyped(CharInput charInput) {
       return false;
    }
-// https://t.me/pasterplace
 
    public void mouseDragged(float mouseX, float mouseY) {
       if (this.draggedSliderOption != null) {
          this.draggedSliderOption.valueConsumer().accept(Math.clamp((mouseX - this.sliderDragLeft) / this.sliderDragWidth, 0.0F, 1.0F));
       }
    }
-// https://t.me/pasterplace
 
    public void mouseReleased(int button) {
       if (button == 0) {
          this.draggedSliderOption = null;
       }
    }
-// https://t.me/pasterplace
 
    public boolean mouseScrolled(double mouseX, double mouseY, double scrollAmount) {
       if (mouseX >= this.themePanelLeft
@@ -790,7 +752,6 @@ public final class Blur {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private record ButtonOption(String label, Runnable action) implements Blur.BlurOption {
 
@@ -799,7 +760,6 @@ public final class Blur {
          this.action = action;
       }
    }
-// https://t.me/pasterplace
 
    private record SliderOption(String label, Supplier<Float> valueSupplier, Consumer<Float> valueConsumer, Supplier<String> formattedValueSupplier, BooleanSupplier visibleWhen) implements Blur.BlurOption {
 
@@ -815,7 +775,6 @@ public final class Blur {
          this.visibleWhen = visibleWhen;
       }
    }
-// https://t.me/pasterplace
 
    private record ToggleOption(String label, BooleanSupplier enabledSupplier, Runnable toggleAction) implements Blur.BlurOption {
 
@@ -825,7 +784,6 @@ public final class Blur {
          this.toggleAction = toggleAction;
       }
    }
-// https://t.me/pasterplace
 
    private sealed interface BlurOption permits Blur.ToggleOption, Blur.SliderOption, Blur.ButtonOption {
       String label();

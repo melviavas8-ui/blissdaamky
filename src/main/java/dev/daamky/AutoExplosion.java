@@ -24,7 +24,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public class AutoExplosion extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private BlockPos pendingExplosionPosition;
    private int activeExplosionItemSlot;
    private boolean isRespawnAnchorBoost;
@@ -35,13 +34,11 @@ public class AutoExplosion extends ModuleStructure {
    private boolean deferExplosionUpdate;
    private final BooleanSetting avoidSelfDamage = new BooleanSetting("Не взрывать себя", true);
    private final BooleanSetting preserveValuableDrops = new BooleanSetting("Не взрывать ресурсы", true);
-// https://t.me/pasterplace
 
    public AutoExplosion() {
       super("Auto Explosion", "Автоматичeски взрывает кристаллы", ModuleCategory.COMBAT);
       this.addSettings(this.avoidSelfDamage, this.preserveValuableDrops);
    }
-// https://t.me/pasterplace
 
    public int findItemSlot(Item targetItem, boolean searchHotbarOnly) {
       int slotLimit = searchHotbarOnly ? 9 : 36;
@@ -55,7 +52,6 @@ public class AutoExplosion extends ModuleStructure {
 
       return foundSlot;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void updateExplosionAction(EventUpdate eventUpdate) {
@@ -100,13 +96,11 @@ public class AutoExplosion extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void clearCrystalTracking() {
       this.crystalSearchBounds = null;
       this.pendingCrystalBasePosition = null;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void attackPlacedCrystal(EventUpdate eventUpdate) {
@@ -154,7 +148,6 @@ public class AutoExplosion extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -174,13 +167,11 @@ public class AutoExplosion extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean containsValuableDrops(EndCrystalEntity crystal) {
       if (this.preserveValuableDrops.getValue() && CLIENT.world != null) {
          Vec3d crystalPosition = new Vec3d(crystal.getX(), crystal.getY(), crystal.getZ());
          Box nearbyItemSearchBounds = new Box(crystalPosition, crystalPosition).expand(6.0);
-// https://t.me/pasterplace
 
           for (ItemEntity nearbyItem : CLIENT.world.getEntitiesByClass(ItemEntity.class, nearbyItemSearchBounds, Entity::isAlive)) {
             if (this.isValuableItem(nearbyItem.getStack().getItem())) {
@@ -193,20 +184,17 @@ public class AutoExplosion extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private boolean isReservedBlock(BlockPos blockPosition) {
       BlockPosReservationManager reservationManager = BlockPosReservationManager.getInstance();
       return reservationManager.isReservedByOther(this, blockPosition) || reservationManager.isReservedByOther(this, blockPosition.up());
    }
-// https://t.me/pasterplace
 
    private void clearExplosionTarget() {
       this.pendingExplosionPosition = null;
       this.isRespawnAnchorBoost = false;
       this.deferExplosionUpdate = false;
    }
-// https://t.me/pasterplace
 
    private boolean isValuableItem(Item item) {
       if (item != Items.GOLDEN_APPLE && item != Items.ENCHANTED_GOLDEN_APPLE && item != Items.ELYTRA && item != Items.PLAYER_HEAD && item != Items.END_CRYSTAL) {
@@ -216,7 +204,6 @@ public class AutoExplosion extends ModuleStructure {
          return true;
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onBlockPlaced(EventPlaceBlock eventPlaceBlock) {
@@ -255,7 +242,6 @@ public class AutoExplosion extends ModuleStructure {
          this.deferExplosionUpdate = true;
       }
    }
-// https://t.me/pasterplace
 
    private void syncSelectedSlot() {
       ((MultiPlayerGameModeAccessor)CLIENT.interactionManager).daamky$syncSelectedSlot();

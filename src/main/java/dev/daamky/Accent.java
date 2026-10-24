@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 
 public final class Accent {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final RgbaColor DEFAULT_ACCENT_COLOR = RgbaColor.rgb(120, 190, 255);
    private static final RgbaColor DEFAULT_BACKGROUND_COLOR = RgbaColor.rgb(18, 36, 64);
    private static final RgbaColor LIGHT_TEXT_COLOR = RgbaColor.rgb(238, 244, 252);
@@ -57,21 +56,17 @@ public final class Accent {
    private boolean blackBackgroundEnabled = false;
    private boolean accentBackgroundEnabled = false;
    private Accent.GuiStyle guiStyle = Accent.GuiStyle.GLASS;
-// https://t.me/pasterplace
 
    private Accent() {
    }
-// https://t.me/pasterplace
 
    public static Accent getInstance() {
       return INSTANCE;
    }
-// https://t.me/pasterplace
 
    public static List<Accent.ThemePreset> getThemePresets() {
       return THEME_PRESETS;
    }
-// https://t.me/pasterplace
 
    public RgbaColor getColor(Accent.ColorRole role) {
       return switch (role) {
@@ -80,7 +75,6 @@ public final class Accent {
          case TEXT -> this.textColor;
       };
    }
-// https://t.me/pasterplace
 
    public void setColor(Accent.ColorRole role, RgbaColor color) {
       RgbaColor opaqueColor = color.withAlpha(255);
@@ -98,13 +92,11 @@ public final class Accent {
             this.textColor = opaqueColor;
       }
    }
-// https://t.me/pasterplace
 
    private static RgbaColor deriveBackgroundColorFromAccent(RgbaColor accentColor) {
       float[] hsv = rgbToHsv(accentColor);
       return RgbaColor.fromHsv(hsv[0], Math.min(0.62F, hsv[1] * 0.78F), 0.21F).withAlpha(255);
    }
-// https://t.me/pasterplace
 
    public static float[] rgbToHsv(RgbaColor color) {
       float red = color.red() / 255.0F;
@@ -128,21 +120,18 @@ public final class Accent {
 
       return new float[]{hue, maximumChannel <= 0.0F ? 0.0F : chroma / maximumChannel, maximumChannel};
    }
-// https://t.me/pasterplace
 
    public void applyTheme(Accent.ThemePreset themePreset) {
       this.accentColor = themePreset.accentColor().withAlpha(255);
       this.backgroundColor = themePreset.backgroundColor().withAlpha(255);
       this.textColor = themePreset.textColor().withAlpha(255);
    }
-// https://t.me/pasterplace
 
    public boolean matchesTheme(Accent.ThemePreset themePreset) {
       return this.accentColor.toArgb() == themePreset.accentColor().withAlpha(255).toArgb()
          && this.backgroundColor.toArgb() == themePreset.backgroundColor().withAlpha(255).toArgb()
          && this.textColor.toArgb() == themePreset.textColor().withAlpha(255).toArgb();
    }
-// https://t.me/pasterplace
 
    public void randomizeAccent() {
       float hue = RANDOM.nextFloat();
@@ -151,7 +140,6 @@ public final class Accent {
       this.backgroundColor = deriveBackgroundColorFromAccent(this.accentColor);
       this.textColor = RgbaColor.fromHsv(hue, 0.06F, 0.97F).withAlpha(255);
    }
-// https://t.me/pasterplace
 
    public void resetToDefaults() {
       this.accentColor = DEFAULT_ACCENT_COLOR;
@@ -167,27 +155,22 @@ public final class Accent {
       this.accentBackgroundEnabled = false;
       this.guiStyle = Accent.GuiStyle.GLASS;
    }
-// https://t.me/pasterplace
 
    public float getBlurRadius() {
       return this.blurRadius;
    }
-// https://t.me/pasterplace
 
    public void setBlurRadius(float blurRadius) {
       this.blurRadius = Math.clamp(blurRadius, 1.0F, 6.0F);
    }
-// https://t.me/pasterplace
 
    public float getOpacity() {
       return this.opacity;
    }
-// https://t.me/pasterplace
 
    public void setOpacity(float opacity) {
       this.opacity = Math.clamp(opacity, 0.0F, 1.0F);
    }
-// https://t.me/pasterplace
 
    public JsonObject toJson() {
       JsonObject settings = new JsonObject();
@@ -204,7 +187,6 @@ public final class Accent {
       settings.addProperty("style", this.guiStyle.name());
       return settings;
    }
-// https://t.me/pasterplace
 
    public void fromJson(JsonObject settings) {
       try {
@@ -257,87 +239,70 @@ public final class Accent {
 
       this.cornerRadius = 9.0F;
    }
-// https://t.me/pasterplace
 
    private static int packRgb(RgbaColor color) {
       return color.red() << 16 | color.green() << 8 | color.blue();
    }
-// https://t.me/pasterplace
 
    private static RgbaColor unpackRgb(int packedRgb) {
       return RgbaColor.rgb(packedRgb >> 16 & 0xFF, packedRgb >> 8 & 0xFF, packedRgb & 0xFF);
    }
-// https://t.me/pasterplace
 
    public float getCornerRadius() {
       return this.cornerRadius;
    }
-// https://t.me/pasterplace
 
    public void setCornerRadius(float cornerRadius) {
       this.cornerRadius = Math.clamp(cornerRadius, 0.0F, 16.0F);
    }
-// https://t.me/pasterplace
 
    public float getOutlineOpacity() {
       return this.outlineOpacity;
    }
-// https://t.me/pasterplace
 
    public void setOutlineOpacity(float outlineOpacity) {
       this.outlineOpacity = Math.clamp(outlineOpacity, 0.0F, 1.0F);
    }
-// https://t.me/pasterplace
 
    public float getTintIntensity() {
       return this.tintIntensity;
    }
-// https://t.me/pasterplace
 
    public void setTintIntensity(float tintIntensity) {
       this.tintIntensity = Math.clamp(tintIntensity, 0.0F, 2.0F);
    }
-// https://t.me/pasterplace
 
    public Accent.GuiStyle getGuiStyle() {
       return this.guiStyle;
    }
-// https://t.me/pasterplace
 
    public void setGuiStyle(Accent.GuiStyle style) {
       this.guiStyle = style;
    }
-// https://t.me/pasterplace
 
    public boolean isGlassStyle() {
       return this.guiStyle == Accent.GuiStyle.GLASS;
    }
-// https://t.me/pasterplace
 
    public boolean isAccentBackgroundEnabled() {
       return this.accentBackgroundEnabled;
    }
-// https://t.me/pasterplace
 
    public void setAccentBackgroundEnabled(boolean enabled) {
       this.accentBackgroundEnabled = enabled;
    }
-// https://t.me/pasterplace
 
    public boolean isBlackBackgroundEnabled() {
       return this.blackBackgroundEnabled;
    }
-// https://t.me/pasterplace
 
    public void setBlackBackgroundEnabled(boolean enabled) {
       this.blackBackgroundEnabled = enabled;
    }
-// https://t.me/pasterplace
 
    public boolean isAutoBackgroundEnabled() {
       return this.autoBackgroundEnabled;
    }
-// https://t.me/pasterplace
 
    public void setAutoBackgroundEnabled(boolean enabled) {
       this.autoBackgroundEnabled = enabled;
@@ -345,64 +310,52 @@ public final class Accent {
          this.backgroundColor = deriveBackgroundColorFromAccent(this.accentColor);
       }
    }
-// https://t.me/pasterplace
 
    public static RgbaColor getAccentColorWithAlpha(int alpha) {
       return INSTANCE.accentColor.withAlpha(alpha);
    }
-// https://t.me/pasterplace
 
    public static RgbaColor getLighterAccentColor(int alpha) {
       return INSTANCE.accentColor.lighten(0.22F).withAlpha(alpha);
    }
-// https://t.me/pasterplace
 
    public static RgbaColor getDarkerAccentColor(int alpha) {
       return INSTANCE.accentColor.darken(0.22F).withAlpha(alpha);
    }
-// https://t.me/pasterplace
 
    public static RgbaColor getAccentBackgroundColor(int alpha) {
       return !INSTANCE.accentBackgroundEnabled
          ? INSTANCE.accentColor.withAlpha(0)
          : INSTANCE.accentColor.withAlpha((int)Math.clamp(alpha * INSTANCE.tintIntensity, 0.0F, 255.0F));
    }
-// https://t.me/pasterplace
 
    public static RgbaColor applyOutlineOpacity(RgbaColor color, int alpha) {
       return color.withAlpha((int)Math.clamp(alpha * INSTANCE.outlineOpacity, 0.0F, 255.0F));
    }
-// https://t.me/pasterplace
 
    public static RgbaColor getTintedBackgroundColor(int alpha) {
       return INSTANCE.getEffectiveBackgroundColor().darken(0.18F).withAlpha((int)(alpha * INSTANCE.opacity));
    }
-// https://t.me/pasterplace
 
    public static RgbaColor getDeepBackgroundColor(int alpha) {
       return INSTANCE.getEffectiveBackgroundColor().darken(0.45F).withAlpha((int)(alpha * INSTANCE.opacity));
    }
-// https://t.me/pasterplace
 
    private RgbaColor getEffectiveBackgroundColor() {
       return this.blackBackgroundEnabled ? BLACK_BACKGROUND_COLOR : this.backgroundColor;
    }
-// https://t.me/pasterplace
 
    public static RgbaColor getTextColorWithAlpha(int alpha) {
       return INSTANCE.textColor.withAlpha(alpha);
    }
-// https://t.me/pasterplace
 
    public static RgbaColor getDarkerTextColor(int alpha) {
       return INSTANCE.textColor.darken(0.18F).withAlpha(alpha);
    }
-// https://t.me/pasterplace
 
    public static RgbaColor getDeepTextColor(int alpha) {
       return INSTANCE.textColor.darken(0.28F).withAlpha(alpha);
    }
-// https://t.me/pasterplace
 
    public record ThemePreset(String name, RgbaColor accentColor, RgbaColor backgroundColor, RgbaColor textColor) {
 
@@ -413,14 +366,12 @@ public final class Accent {
          this.textColor = textColor;
       }
    }
-// https://t.me/pasterplace
 
    public enum GuiStyle {
       MINIMAL("Minimal"),
       GLASS("Glass");
 
       private final String displayName;
-// https://t.me/pasterplace
 
       GuiStyle(String displayName) {
          this.displayName = displayName;
@@ -435,7 +386,6 @@ public final class Accent {
          return new Accent.GuiStyle[]{MINIMAL, GLASS};
       }
    }
-// https://t.me/pasterplace
 
    public enum ColorRole {
       ACCENT("Accent"),
@@ -451,7 +401,6 @@ public final class Accent {
       public String displayName() {
          return this.displayName;
       }
-// https://t.me/pasterplace
 
       // $VF: synthetic method
       private static Accent.ColorRole[] $values() {

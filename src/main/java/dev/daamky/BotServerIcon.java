@@ -15,7 +15,6 @@ import net.minecraft.network.NetworkingBackend;
 import net.minecraft.util.Identifier;
 
 public final class BotServerIcon {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final MultiplayerServerListPinger SERVER_LIST_PINGER = new MultiplayerServerListPinger();
    private static final ExecutorService PING_EXECUTOR = Executors.newFixedThreadPool(3, runnable -> {
       Thread thread = new Thread(runnable, "bot-server-icon");
@@ -23,11 +22,9 @@ public final class BotServerIcon {
       return thread;
    });
    private static final Map<String, BotServerIcon.IconCacheEntry> ICON_CACHE = new ConcurrentHashMap<>();
-// https://t.me/pasterplace
 
    private BotServerIcon() {
    }
-// https://t.me/pasterplace
 
    public static Identifier getServerIcon(String serverAddress) {
       if (serverAddress != null && !serverAddress.isEmpty() && !"No Server".equalsIgnoreCase(serverAddress)) {
@@ -50,7 +47,6 @@ public final class BotServerIcon {
          return null;
       }
    }
-// https://t.me/pasterplace
 
    private static void pingServer(BotServerIcon.IconCacheEntry cacheEntry) {
       cacheEntry.serverInfo.setStatus(Status.PINGING);
@@ -66,7 +62,6 @@ public final class BotServerIcon {
          }
       );
    }
-// https://t.me/pasterplace
 
    public static void tick() {
       try {
@@ -86,7 +81,6 @@ public final class BotServerIcon {
          }
       }
    }
-// https://t.me/pasterplace
 
    public static void clear() {
       try {
@@ -103,14 +97,12 @@ public final class BotServerIcon {
 
       ICON_CACHE.clear();
    }
-// https://t.me/pasterplace
 
    private static final class IconCacheEntry {
       final ServerInfo serverInfo;
       final WorldIcon worldIcon;
       byte[] lastFaviconBytes;
       boolean hasIcon;
-// https://t.me/pasterplace
 
       IconCacheEntry(ServerInfo serverInfo, WorldIcon worldIcon) {
          this.serverInfo = serverInfo;

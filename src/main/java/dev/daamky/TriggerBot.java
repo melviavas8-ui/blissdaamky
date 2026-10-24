@@ -16,7 +16,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class TriggerBot extends ModuleStructure {
-    private static final String p32abae49 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiOptionSetting l1I1IlllIlI = new MultiOptionSetting("Режим", "Умный", "Обычный", "Умный", "Задержка");
    private final FloatSetting IllI1l1l1 = new FloatSetting("Дистанция атаки", 3.0F, 2.0F, 6.0F, 0.1F, "бл.");
    private final FloatSetting l1lll11l1l = new FloatSetting("Мин. задержка", 90.0F, 0.0F, 500.0F, 10.0F, "мс");
@@ -32,7 +31,6 @@ public final class TriggerBot extends ModuleStructure {
    private final Stopwatch Ill111IlI11l = new Stopwatch();
    private long I1l11IIlIIIll1l1lI1II;
    private int I1I1lI111lII1 = -1;
-// https://t.me/pasterplace
 
    public TriggerBot() {
       super("TriggerBot", "Атакует цель, на которую наведён прицел", ModuleCategory.COMBAT);
@@ -49,13 +47,11 @@ public final class TriggerBot extends ModuleStructure {
          this.l1IIl11lI2
       );
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return this.l1I1IlllIlI.getValue();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void II1Il11l111II11IIl(EventUpdate eventUpdate) {
@@ -64,7 +60,6 @@ public final class TriggerBot extends ModuleStructure {
             InventoryUtils.setSelectedHotbarSlot(this.I1I1lI111lII1);
             this.I1I1lI111lII1 = -1;
          }
-// https://t.me/pasterplace
 
          HitResult hitResult = CLIENT.crosshairTarget;
          if (hitResult instanceof EntityHitResult) {
@@ -126,7 +121,6 @@ public final class TriggerBot extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean II1Il11l111II11IIl(Entity entity) {
       if (!entity.isAlive() || entity instanceof ArmorStandEntity) {
@@ -141,7 +135,6 @@ public final class TriggerBot extends ModuleStructure {
          return entity instanceof AnimalEntity ? this.l1IIl11lI.isOptionEnabled("Животные") : this.l1IIl11lI.isOptionEnabled("Мобы");
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override

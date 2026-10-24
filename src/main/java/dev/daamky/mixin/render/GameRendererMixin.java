@@ -23,7 +23,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin {
-    private static final String pcae94e6c = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Shadow
    @Final
    private MinecraftClient client;
@@ -36,7 +35,6 @@ public abstract class GameRendererMixin {
    @Shadow
    @Final
    private Camera camera;
-// https://t.me/pasterplace
 
    @Inject(
       method = "render",
@@ -47,7 +45,6 @@ public abstract class GameRendererMixin {
          GuiEventRenderer.dispatchDisplayEvent(this.client, this.guiState);
       }
    }
-// https://t.me/pasterplace
 
    @ModifyArg(
       method = "renderWorld",
@@ -60,13 +57,11 @@ public abstract class GameRendererMixin {
       if (BotPictureInPictureRenderer.renderingBotWorld) {
          return projectionMatrix;
       }
-// https://t.me/pasterplace
 
       WorldJumpCircleUniforms.getInstance().captureProjectionMatrix(projectionMatrix);
       WorldFxUniforms.getInstance().captureProjectionMatrix(projectionMatrix);
       return projectionMatrix;
    }
-// https://t.me/pasterplace
 
    @Inject(
       method = "renderWorld",

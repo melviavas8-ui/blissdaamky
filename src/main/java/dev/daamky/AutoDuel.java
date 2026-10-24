@@ -20,7 +20,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class AutoDuel extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final Pattern PLAYER_NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_]{3,16}$");
    private final MultiToggleSetting enabledDuelKits = new MultiToggleSetting("Наборы")
       .addOption("Щит", true)
@@ -42,14 +41,12 @@ public final class AutoDuel extends ModuleStructure {
    private final List<String> challengedPlayerNames = new ArrayList<>();
    private int lastScreenHandlerId = -1;
    private volatile boolean stopAfterDuelResponse;
-// https://t.me/pasterplace
 
    public AutoDuel() {
       super("AutoDuel", "Автоматически вызывает игроков на дуэль и выбирает набор", ModuleCategory.WORLD);
       this.wagerAmount.visibleWhen(this.wagerEnabled::getValue);
       this.addSettings(this.enabledDuelKits, this.wagerEnabled, this.wagerAmount, this.challengeCooldown, this.menuClickDelay);
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -60,7 +57,6 @@ public final class AutoDuel extends ModuleStructure {
       this.lastScreenHandlerId = -1;
       this.challengeStopwatch.reset();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onTick(EventTick eventTick) {
@@ -102,7 +98,6 @@ public final class AutoDuel extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void handleDuelMenu(GenericContainerScreen genericContainerScreen) {
       String lowercaseScreenTitle = genericContainerScreen.getTitle().getString().toLowerCase(Locale.ROOT);
@@ -135,14 +130,12 @@ public final class AutoDuel extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void clickMenuSlot(GenericContainerScreenHandler genericContainerScreenHandler, int slotIndex) {
       CLIENT.interactionManager.clickSlot(genericContainerScreenHandler.syncId, slotIndex, 0, SlotActionType.PICKUP, CLIENT.player);
       this.processedMenuSlotIds.add(slotIndex);
       this.menuClickStopwatch.reset();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -156,7 +149,6 @@ public final class AutoDuel extends ModuleStructure {
                this.stopAfterDuelResponse = true;
                CLIENT.execute(() -> this.setEnabled(false));
             }
-// https://t.me/pasterplace
 
             return;
          }

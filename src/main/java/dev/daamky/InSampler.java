@@ -17,43 +17,35 @@ import net.minecraft.client.gl.SimpleFramebuffer;
 import net.minecraft.client.gui.screen.world.LevelLoadingScreen;
 
 public final class InSampler {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final int BLUR_READY_FRAME_COUNT = 5;
     private static final Down downsampleFramebuffers = new Down();
     private static final Set<KawaseGaussianBlurPass> pendingBlurPasses = new LinkedHashSet<>();
     private static final Set<KawaseGaussianBlurPass> completedBlurPasses = new HashSet<>();
     private static int blurReadyFrameCount = 5;
-// https://t.me/pasterplace
 
     private InSampler() {
     }
-// https://t.me/pasterplace
 
     public static void enqueueBlurPass(KawaseGaussianBlurPass iI1Il11l111II11IIl8) {
         pendingBlurPasses.add(iI1Il11l111II11IIl8);
     }
-// https://t.me/pasterplace
 
     public static boolean isBlurPassComplete(KawaseGaussianBlurPass iI1Il11l111II11IIl8) {
         return isBlurReady() && completedBlurPasses.contains(iI1Il11l111II11IIl8);
     }
-// https://t.me/pasterplace
 
     public static boolean isBlurReady() {
         return blurReadyFrameCount >= 5;
     }
-// https://t.me/pasterplace
 
     public static void clearCompletedBlurPasses() {
         completedBlurPasses.clear();
 
     }
-// https://t.me/pasterplace
 
     public static void clearPendingBlurPasses() {
         pendingBlurPasses.clear();
     }
-// https://t.me/pasterplace
 
     public static GpuTextureView getBlurTexture(KawaseGaussianBlurPass iI1Il11l111II11IIl8) {
         Framebuffer framebuffer = getMainFramebuffer();
@@ -65,7 +57,6 @@ public final class InSampler {
             return null;
         }
     }
-// https://t.me/pasterplace
 
     public static void processPendingBlurPasses() {
         advanceBlurReadiness();
@@ -82,7 +73,6 @@ public final class InSampler {
                     .max()
                     .orElse(0);
                     boolean passesReady = true;
-// https://t.me/pasterplace
 
                     for (int passIndex = 1; passIndex <= highestRequiredPass; passIndex++) {
                         SimpleFramebuffer simpleFramebuffer = downsampleFramebuffers.getFramebuffer(passIndex);
@@ -113,14 +103,12 @@ public final class InSampler {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static void close() {
         pendingBlurPasses.clear();
         completedBlurPasses.clear();
         downsampleFramebuffers.close();
     }
-// https://t.me/pasterplace
 
     private static void advanceBlurReadiness() {
         if (!isBlurReady()) {
@@ -130,7 +118,6 @@ public final class InSampler {
             }
         }
     }
-// https://t.me/pasterplace
 
     private static boolean executeBlurPass(KawaseGaussianBlurPass iI1Il11l111II11IIl8) {
         return switch (iI1Il11l111II11IIl8.mode()) {
@@ -139,7 +126,6 @@ public final class InSampler {
         case BOX -> executeRepeatedBlurPasses(iI1Il11l111II11IIl8, Downsample.l1IIl11lI, Downsample.I1lIIII1III1lIlIl1l);
         };
     }
-// https://t.me/pasterplace
 
     private static boolean executeKawasePasses(KawaseGaussianBlurPass iI1Il11l111II11IIl8) {
         SimpleFramebuffer simpleFramebuffer = downsampleFramebuffers.getFramebuffer(iI1Il11l111II11IIl8.passIndex());
@@ -166,7 +152,6 @@ public final class InSampler {
 
         return true;
     }
-// https://t.me/pasterplace
 
     private static boolean executeRepeatedBlurPasses(KawaseGaussianBlurPass iI1Il11l111II11IIl8, RenderPipeline renderPipeline, RenderPipeline renderPipeline2) {
         int requiredPassCount = iI1Il11l111II11IIl8.mode().II1Il11l111II11IIl(iI1Il11l111II11IIl8.passIndex());
@@ -179,7 +164,6 @@ public final class InSampler {
             if (gpuTextureView == null) {
                 return false;
             }
-// https://t.me/pasterplace
 
             for (int blurIteration = 0; blurIteration < repetitions; blurIteration++) {
                 if (!renderBlurPass(renderPipeline, gpuTextureView, simpleFramebuffer)) {
@@ -205,7 +189,6 @@ public final class InSampler {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     private static boolean renderBlurPass(RenderPipeline renderPipeline, GpuTextureView gpuTextureView, SimpleFramebuffer simpleFramebuffer) {
         if (gpuTextureView != null && simpleFramebuffer != null) {
@@ -259,14 +242,12 @@ public final class InSampler {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     private static void clearCompletedPassesAfterResize(Framebuffer framebuffer) {
         if (downsampleFramebuffers.ensureFramebufferSize(framebuffer)) {
             completedBlurPasses.clear();
         }
     }
-// https://t.me/pasterplace
 
     private static Framebuffer getMainFramebuffer() {
         MinecraftClient client = MinecraftClient.getInstance();

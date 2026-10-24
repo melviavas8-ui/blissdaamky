@@ -20,7 +20,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.HitResult;
 
 public final class BotPictureInPictureRenderer implements DisconnectScreenExtension {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     public static final BotPictureInPictureRenderer INSTANCE = new BotPictureInPictureRenderer();
     public static final Identifier TEXTURE_ID = Identifier.of("daamky", "bot/pip");
     public static volatile boolean renderingBotWorld;
@@ -33,17 +32,14 @@ public final class BotPictureInPictureRenderer implements DisconnectScreenExtens
     private SimpleFramebuffer framebuffer;
     private boolean textureRegistered;
     private boolean renderingDisabled;
-// https://t.me/pasterplace
 
     private BotPictureInPictureRenderer() {
     }
-// https://t.me/pasterplace
 
     @Override
     public boolean hasPictureInPicture(BotSessionInfo sessionInfo) {
         return this.activeSession == sessionInfo && this.framebuffer != null && this.textureRegistered;
     }
-// https://t.me/pasterplace
 
     public void renderBotWorldPreview(BotSessionInfo sessionInfo) {
         MinecraftClient client = MinecraftClient.getInstance();
@@ -64,7 +60,6 @@ public final class BotPictureInPictureRenderer implements DisconnectScreenExtens
                         this.disableAfterRenderFailure(initialRenderFailure);
                         return;
                     }
-// https://t.me/pasterplace
 
                     if (this.worldRenderer != null && this.framebuffer != null) {
                         MinecraftAccessor client2 = (MinecraftAccessor)client;
@@ -117,7 +112,6 @@ public final class BotPictureInPictureRenderer implements DisconnectScreenExtens
             }
         }
     }
-// https://t.me/pasterplace
 
     public void renderScreenPreview(
     BotSessionInfo lI1ll11IlIl1II1lIlll1I, DrawContext drawContext, float x, float y, float width, float height
@@ -129,7 +123,6 @@ public final class BotPictureInPictureRenderer implements DisconnectScreenExtens
             }
         }
     }
-// https://t.me/pasterplace
 
     private void prepareFramebuffer(MinecraftClient client, BotSession disconnect, ClientWorld clientWorld, int framebufferWidth, int framebufferHeight) {
         boolean framebufferChanged = this.framebuffer == null || this.framebuffer.textureWidth != framebufferWidth || this.framebuffer.textureHeight != framebufferHeight;
@@ -169,7 +162,6 @@ public final class BotPictureInPictureRenderer implements DisconnectScreenExtens
             this.worldRenderer.onResized(framebufferWidth, framebufferHeight);
         }
     }
-// https://t.me/pasterplace
 
     private void renderScreenContents(Screen screen, DrawContext drawContext, float x, float y, float width, float height) {
         MinecraftClient client = MinecraftClient.getInstance();
@@ -191,7 +183,6 @@ public final class BotPictureInPictureRenderer implements DisconnectScreenExtens
             drawContext.disableScissor();
         }
     }
-// https://t.me/pasterplace
 
     private void disableAfterRenderFailure(Throwable throwable) {
         if (!this.renderingDisabled) {
@@ -200,7 +191,6 @@ public final class BotPictureInPictureRenderer implements DisconnectScreenExtens
             throwable.printStackTrace();
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public void closePictureInPicture() {
@@ -227,7 +217,6 @@ public final class BotPictureInPictureRenderer implements DisconnectScreenExtens
         this.activeSession = null;
         this.activeWorld = null;
     }
-// https://t.me/pasterplace
 
     private static final class FramebufferTexture extends AbstractTexture {
         FramebufferTexture() {

@@ -12,20 +12,16 @@ import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.util.Util;
 
 public final class CaptchaLinkOpener {
-    private static final String pe3dc9ddb = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final CaptchaLinkOpener II1Il11l111II11IIl = new CaptchaLinkOpener();
    private static final Pattern l1I1IlllIlI = Pattern.compile("https?://captcha\\.[^\\s]+");
    private static final Set<String> IllI1l1l1 = ConcurrentHashMap.newKeySet();
-// https://t.me/pasterplace
 
    private CaptchaLinkOpener() {
    }
-// https://t.me/pasterplace
 
    public static CaptchaLinkOpener II1Il11l111II11IIl() {
       return II1Il11l111II11IIl;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void II1Il11l111II11IIl(EventPacket eventPacket) {
@@ -37,7 +33,6 @@ public final class CaptchaLinkOpener {
          }
       }
    }
-// https://t.me/pasterplace
 
    public static void II1Il11l111II11IIl(String chatMessage, String serverName) {
       if (chatMessage != null) {

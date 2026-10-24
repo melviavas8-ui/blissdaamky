@@ -18,7 +18,6 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
 
 public final class Spooky {
-    private static final String p2291d78d = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final Spooky INSTANCE = new Spooky();
    private static final long RECONNECT_TIMEOUT_MS = 25000L;
    private Spooky.ReconnectState reconnectState = Spooky.ReconnectState.IDLE;
@@ -26,21 +25,17 @@ public final class Spooky {
    private long reconnectStartedAtMs;
    private int phaseTicks;
    private int lastMenuSyncId = -1;
-// https://t.me/pasterplace
 
    private Spooky() {
    }
-// https://t.me/pasterplace
 
    public static Spooky getInstance() {
       return INSTANCE;
    }
-// https://t.me/pasterplace
 
    public boolean isReconnecting() {
       return this.reconnectState != Spooky.ReconnectState.IDLE;
    }
-// https://t.me/pasterplace
 
    public void startAnarchyReconnect(String[] textArray) {
       MinecraftClient client = MinecraftClient.getInstance();
@@ -74,13 +69,11 @@ public final class Spooky {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static boolean serverAddressContains(String serverFragment) {
       ServerInfo serverInfo = MinecraftClient.getInstance().getCurrentServerEntry();
       return serverInfo != null && serverInfo.address != null && serverInfo.address.toLowerCase(Locale.ROOT).contains(serverFragment);
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onWorldChange(EventWorldChange eventWorldChange) {
@@ -89,7 +82,6 @@ public final class Spooky {
          this.phaseTicks = 0;
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void tickReconnect(EventTick eventTick) {
@@ -162,7 +154,6 @@ public final class Spooky {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static int findSlotByName(GenericContainerScreenHandler container, int slotLimit, Predicate<String> namePredicate) {
       for (int slotIndex = 0; slotIndex < slotLimit && slotIndex < container.slots.size(); slotIndex++) {
@@ -171,17 +162,14 @@ public final class Spooky {
             return slotIndex;
          }
       }
-// https://t.me/pasterplace
 
       return -1;
    }
-// https://t.me/pasterplace
 
    private static void clickMenuSlot(GenericContainerScreenHandler container, int slotIndex) {
       MinecraftClient client = MinecraftClient.getInstance();
       client.interactionManager.clickSlot(container.syncId, slotIndex, 0, SlotActionType.PICKUP, client.player);
    }
-// https://t.me/pasterplace
 
    private enum ReconnectState {
       IDLE,

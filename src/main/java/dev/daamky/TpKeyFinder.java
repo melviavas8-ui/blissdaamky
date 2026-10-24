@@ -62,7 +62,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class TpKeyFinder extends ModuleStructure {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final double UNUSED_MOVE_DISTANCE_9_5 = 9.5;
    private static final double SEARCH_RANGE = 50.0;
    private static final double SEARCH_STEP_BLOCKS = 96.0;
@@ -143,7 +142,6 @@ public final class TpKeyFinder extends ModuleStructure {
    private double worldBorderFallbackDirectionZ;
    private int worldBorderFallbackStepsRemaining;
    private int worldBorderDirectionSign = 1;
-// https://t.me/pasterplace
 
    public TpKeyFinder() {
       super("TpKeyFinder", "Ищет вагонетки и сундуки в данжах под картой, проверяет приваты и складывает ключи в /ec", ModuleCategory.PLAYER);
@@ -152,7 +150,6 @@ public final class TpKeyFinder extends ModuleStructure {
          ClientInitializer.getEventBus().register(new TpKeyFinder.ContainerKeyTracker());
       }
    }
-// https://t.me/pasterplace
 
    @Override
    protected void onEnable() {
@@ -212,7 +209,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -250,7 +246,6 @@ public final class TpKeyFinder extends ModuleStructure {
          ClientChatLogger.II1Il11l111II11IIl("TeleportKeyCard остановлен.");
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -260,7 +255,6 @@ public final class TpKeyFinder extends ModuleStructure {
          this.setEnabled(false);
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -281,7 +275,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onTick(EventTick eventTick) {
@@ -324,7 +317,6 @@ public final class TpKeyFinder extends ModuleStructure {
                   this.markNearbyContainersVisited(this.currentContainerPosition);
                   this.resumeDescentAfterEnderChest();
                }
-// https://t.me/pasterplace
 
                if (this.enderChestReturnDelayTicks > 0) {
                   if (--this.enderChestReturnDelayTicks == 0) {
@@ -340,7 +332,6 @@ public final class TpKeyFinder extends ModuleStructure {
                   if (this.travelCooldownTicks > 0) {
                      this.travelCooldownTicks--;
                   }
-// https://t.me/pasterplace
 
                   if (this.stateTransitionDelayTicks > 0) {
                      this.stateTransitionDelayTicks--;
@@ -383,7 +374,6 @@ public final class TpKeyFinder extends ModuleStructure {
                               this.lootEnderChest(clientPlayerEntity);
                         }
                      }
-// https://t.me/pasterplace
 
                      if (this.scanState != TpKeyFinder.ContainerScanState.IDLE) {
                         this.holdPlayerAtSearchCursor(clientPlayerEntity);
@@ -394,20 +384,17 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void requestDownwardFlightRotation(ClientPlayerEntity clientPlayerEntity) {
       RotationPriorityManager.getInstance()
          .requestRotation(new Rotation(this.initialPlayerYaw, 90.0F), FocusMode.FREE, 180.0F, 20, false, this);
    }
-// https://t.me/pasterplace
 
    private void retryCurrentContainerTravel(ClientWorld clientWorld) {
       if (this.scanState == TpKeyFinder.ContainerScanState.TRAVELING_TO_CONTAINER && CLIENT.player != null) {
          this.travelToCurrentContainer(CLIENT.player, clientWorld);
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void holdPlayerAtSearchCursor(ClientPlayerEntity clientPlayerEntity) {
@@ -416,12 +403,10 @@ public final class TpKeyFinder extends ModuleStructure {
       clientPlayerEntity.setVelocity(Vec3d.ZERO);
       clientPlayerEntity.fallDistance = 0.0;
    }
-// https://t.me/pasterplace
 
    private void beginSearchDescent() {
       this.scanState = TpKeyFinder.ContainerScanState.DESCENDING_TO_SEARCH_HEIGHT;
    }
-// https://t.me/pasterplace
 
    private void scanForContainerTargets(ClientWorld clientWorld) {
       if (this.isSearchAreaReady(clientWorld, this.searchCursorPosition.x, this.searchCursorPosition.z, 0)
@@ -461,7 +446,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void travelToCurrentContainer(ClientPlayerEntity clientPlayerEntity, ClientWorld clientWorld) {
       if (this.currentContainerType == TpKeyFinder.ContainerActionResult.CHEST_MINECART) {
@@ -505,7 +489,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void advanceSearchCursorToward(ClientWorld clientWorld, Vec3d targetPosition) {
       double deltaX = targetPosition.x - this.searchCursorPosition.x;
@@ -547,7 +530,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void prepareCurrentContainerInteraction() {
@@ -565,7 +547,6 @@ public final class TpKeyFinder extends ModuleStructure {
          if (this.scanState == TpKeyFinder.ContainerScanState.OPENING_CONTAINER) {
             this.stateTransitionDelayTicks = 1;
          }
-// https://t.me/pasterplace
 
          if (this.scanState == TpKeyFinder.ContainerScanState.OPENING_CONTAINER) {
             this.containerOpenStartedAtMs = System.currentTimeMillis();
@@ -578,7 +559,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void openCurrentContainer(ClientPlayerEntity clientPlayerEntity, ClientWorld clientWorld) {
       if (clientPlayerEntity.currentScreenHandler instanceof GenericContainerScreenHandler) {
@@ -674,7 +654,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void lootCurrentContainer(ClientPlayerEntity clientPlayerEntity) {
       ScreenHandler currentScreenHandler = clientPlayerEntity.currentScreenHandler;
@@ -709,7 +688,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void finishCurrentContainerLooting(ClientPlayerEntity clientPlayerEntity) {
@@ -730,7 +708,6 @@ public final class TpKeyFinder extends ModuleStructure {
          this.resumeDescentAfterEnderChest();
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void requestEnderChest() {
@@ -740,7 +717,6 @@ public final class TpKeyFinder extends ModuleStructure {
          this.scanState = TpKeyFinder.ContainerScanState.OPENING_ENDER_MENU;
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void openEnderChestMenu(ClientPlayerEntity clientPlayerEntity) {
@@ -765,7 +741,6 @@ public final class TpKeyFinder extends ModuleStructure {
                      }
                   }
                }
-// https://t.me/pasterplace
 
                this.enderChestMenuLastActionAtMs = System.currentTimeMillis();
                this.scanState = TpKeyFinder.ContainerScanState.LOOTING_ENDER_CHEST;
@@ -773,7 +748,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void lootEnderChest(ClientPlayerEntity clientPlayerEntity) {
@@ -801,20 +775,17 @@ public final class TpKeyFinder extends ModuleStructure {
       clientPlayerEntity.closeHandledScreen();
       this.beginEnderChestReturnDelay();
    }
-// https://t.me/pasterplace
 
    private void beginEnderChestReturnDelay() {
       this.resumeDescentAfterEnderChest();
       this.enderChestReturnDelayTicks = 20;
    }
-// https://t.me/pasterplace
 
    private void resumeDescentAfterEnderChest() {
       this.clearCurrentContainerTarget();
       this.enderChestReturnDelayTicks = 0;
       this.scanState = TpKeyFinder.ContainerScanState.DESCENDING_TO_SEARCH_HEIGHT;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void clearCurrentContainerTarget() {
@@ -827,7 +798,6 @@ public final class TpKeyFinder extends ModuleStructure {
       this.openedContainerLootDelayTicks = 0;
       this.containerInteractionAttempted = false;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void selectMinecartTarget(ClientWorld clientWorld, ChestMinecartEntity chestMinecartEntity) {
@@ -845,7 +815,6 @@ public final class TpKeyFinder extends ModuleStructure {
          this.clearCurrentContainerTarget();
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void selectStructureChestTarget(ClientWorld clientWorld, BlockPos chestPosition) {
@@ -870,7 +839,6 @@ public final class TpKeyFinder extends ModuleStructure {
          this.clearCurrentContainerTarget();
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private ChestMinecartEntity findNearestUnvisitedMinecart(ClientWorld clientWorld) {
@@ -901,7 +869,6 @@ public final class TpKeyFinder extends ModuleStructure {
 
        return nearestMinecart;
    }
-// https://t.me/pasterplace
 
    private ChestMinecartEntity findCurrentMinecart() {
       if (this.currentChestMinecart != null && this.currentChestMinecart.isAlive()) {
@@ -923,7 +890,6 @@ public final class TpKeyFinder extends ModuleStructure {
          return null;
       }
    }
-// https://t.me/pasterplace
 
    private BlockPos findNearestDungeonChest(ClientWorld clientWorld) {
       int centerChunkX = ChunkSectionPos.getSectionCoordFloored(this.searchCursorPosition.x);
@@ -964,7 +930,6 @@ public final class TpKeyFinder extends ModuleStructure {
 
       return nearestChestPosition;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private boolean areNearbyChunksLoaded(ClientWorld clientWorld, BlockPos chestPosition) {
@@ -983,7 +948,6 @@ public final class TpKeyFinder extends ModuleStructure {
 
       return true;
    }
-// https://t.me/pasterplace
 
    private boolean isDungeonChest(ClientWorld clientWorld, BlockPos chestPosition) {
       BlockState blockState = clientWorld.getBlockState(chestPosition);
@@ -1009,7 +973,6 @@ public final class TpKeyFinder extends ModuleStructure {
             }
          }
       }
-// https://t.me/pasterplace
 
       int dungeonBlockCount = 0;
 
@@ -1041,7 +1004,6 @@ public final class TpKeyFinder extends ModuleStructure {
 
       return false;
    }
-// https://t.me/pasterplace
 
    private boolean isContainerInProtectedRegion(ClientWorld clientWorld, BlockPos containerPosition) {
       for (int box = -6; box <= 6; box++) {
@@ -1096,7 +1058,6 @@ public final class TpKeyFinder extends ModuleStructure {
 
       return this.hasNearbyPlayerBaseStructures(clientWorld, containerPosition, 4);
    }
-// https://t.me/pasterplace
 
    private boolean hasNearbyPlayerBaseStructures(ClientWorld clientWorld, BlockPos centerPosition, int radiusBlocks) {
       for (int offsetX = -radiusBlocks; offsetX <= radiusBlocks; offsetX++) {
@@ -1124,7 +1085,6 @@ public final class TpKeyFinder extends ModuleStructure {
 
       return false;
    }
-// https://t.me/pasterplace
 
    private boolean containsProtectionText(SignBlockEntity signBlockEntity) {
       for (boolean frontSide : new boolean[]{true, false}) {
@@ -1137,7 +1097,6 @@ public final class TpKeyFinder extends ModuleStructure {
 
       return false;
    }
-// https://t.me/pasterplace
 
    private boolean isProtectionRelatedText(String candidateText) {
       if (candidateText != null && !candidateText.isBlank()) {
@@ -1159,7 +1118,6 @@ public final class TpKeyFinder extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private boolean isAccessDeniedMessage(String messageText) {
       return messageText.contains("приват")
@@ -1180,7 +1138,6 @@ public final class TpKeyFinder extends ModuleStructure {
          || messageText.contains("no permission")
          || messageText.contains("not allowed");
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private String extractPacketMessageText(Object packet) {
@@ -1198,7 +1155,6 @@ public final class TpKeyFinder extends ModuleStructure {
          return gameMessagePacket.content().getString();
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private Vec3d findSafeStandingPositionAtChest(ClientPlayerEntity clientPlayerEntity, ClientWorld clientWorld, BlockPos chestPosition) {
@@ -1220,7 +1176,6 @@ public final class TpKeyFinder extends ModuleStructure {
 
       return null;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private Vec3d findSafeStandingPositionAtMinecart(ClientPlayerEntity clientPlayerEntity, ClientWorld clientWorld, ChestMinecartEntity chestMinecartEntity) {
@@ -1241,18 +1196,15 @@ public final class TpKeyFinder extends ModuleStructure {
       Vec3d fallbackStandingPosition = new Vec3d(minecartPosition.x, Math.floor(minecartPosition.y) + 1.0, minecartPosition.z);
       return !clientWorld.isSpaceEmpty(clientPlayerEntity, entityDimensions.getBoxAt(fallbackStandingPosition)) ? null : fallbackStandingPosition;
    }
-// https://t.me/pasterplace
 
    private void requestDownwardInteractionRotation(ClientPlayerEntity clientPlayerEntity) {
       this.requestDownwardFlightRotation(clientPlayerEntity);
       this.containerInteractionAttempted = true;
    }
-// https://t.me/pasterplace
 
    private void runContainerInteraction(ClientPlayerEntity clientPlayerEntity, Runnable runnable) {
       runnable.run();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void markContainerLooted() {
@@ -1262,13 +1214,11 @@ public final class TpKeyFinder extends ModuleStructure {
             if (this.currentContainerType == TpKeyFinder.ContainerActionResult.STRUCTURE_CHEST && CLIENT.world != null) {
                this.markAdjacentChestVisited(CLIENT.world, this.currentContainerPosition);
             }
-// https://t.me/pasterplace
 
             this.saveVisitedContainers();
          }
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void markAdjacentChestVisited(ClientWorld clientWorld, BlockPos chestPosition) {
@@ -1282,7 +1232,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean isWantedLootItem(ItemStack stack) {
       if (stack.isEmpty()) {
@@ -1306,7 +1255,6 @@ public final class TpKeyFinder extends ModuleStructure {
 
       return false;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private int countWantedItemsInInventory() {
@@ -1325,7 +1273,6 @@ public final class TpKeyFinder extends ModuleStructure {
          return 0;
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void resetSearchProgress() {
@@ -1342,7 +1289,6 @@ public final class TpKeyFinder extends ModuleStructure {
       this.worldBorderDirectionSign = 1;
       this.nextSearchPosition = null;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void initializeSearchDirectionFromYaw(ClientPlayerEntity clientPlayerEntity) {
@@ -1358,7 +1304,6 @@ public final class TpKeyFinder extends ModuleStructure {
          this.searchDirectionZ = 0.0;
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void advanceSearchSpiral() {
@@ -1376,7 +1321,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private Vec3d getNextSearchPosition() {
@@ -1412,7 +1356,6 @@ public final class TpKeyFinder extends ModuleStructure {
 
       return null;
    }
-// https://t.me/pasterplace
 
    private boolean hasChunkBottomBlocksLoaded(ClientWorld clientWorld, int chunkX, int chunkZ) {
       WorldChunk worldChunk = clientWorld.getChunk(chunkX, chunkZ);
@@ -1423,7 +1366,6 @@ public final class TpKeyFinder extends ModuleStructure {
       int blockOriginX = ChunkSectionPos.getBlockCoord(chunkX);
       int blockOriginZ = ChunkSectionPos.getBlockCoord(chunkZ);
       Mutable mutable = new Mutable();
-// https://t.me/pasterplace
 
       for (int sampleCorner = 0; sampleCorner < 4; sampleCorner++) {
          mutable.set(blockOriginX + (sampleCorner & 1) * 15, clientWorld.getBottomY(), blockOriginZ + (sampleCorner >> 1) * 15);
@@ -1434,7 +1376,6 @@ public final class TpKeyFinder extends ModuleStructure {
 
       return false;
    }
-// https://t.me/pasterplace
 
    private boolean isSearchAreaReady(ClientWorld clientWorld, double searchX, double searchZ, int chunkRadius) {
       int searchChunkX = ChunkSectionPos.getSectionCoordFloored(searchX);
@@ -1450,7 +1391,6 @@ public final class TpKeyFinder extends ModuleStructure {
 
       int playerTickAge = CLIENT.player == null ? 0 : CLIENT.player.age;
       boolean allChunksReady = true;
-// https://t.me/pasterplace
 
       for (int chunkX = searchChunkX - chunkRadius; chunkX <= searchChunkX + chunkRadius; chunkX++) {
          for (int chunkZ = searchChunkZ - chunkRadius; chunkZ <= searchChunkZ + chunkRadius; chunkZ++) {
@@ -1473,7 +1413,6 @@ public final class TpKeyFinder extends ModuleStructure {
 
       return allChunksReady;
    }
-// https://t.me/pasterplace
 
    private void markNearbyContainersVisited(BlockPos referencePosition) {
       ClientWorld clientWorld = CLIENT.world;
@@ -1516,7 +1455,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
     private void transitionToStateAtPosition(Vec3d targetPosition, TpKeyFinder.ContainerScanState nextScanState) {
@@ -1527,7 +1465,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private boolean setSearchCursorIfLoaded(Vec3d searchPosition) {
@@ -1538,45 +1475,37 @@ public final class TpKeyFinder extends ModuleStructure {
       this.searchCursorPosition = searchPosition;
       return true;
    }
-// https://t.me/pasterplace
 
    private static int calculateMovementPacketCount(double distance) {
       return Math.max(1, (int)Math.ceil(distance / 9.5));
    }
-// https://t.me/pasterplace
 
    private static void sendPositionUpdatePackets(Vec3d position) {
       PacketSender.l1I1IlllIlI(new PositionAndOnGround(position.x, position.y, position.z, false, false));
       PacketSender.l1I1IlllIlI(ClientTickEndC2SPacket.INSTANCE);
    }
-// https://t.me/pasterplace
 
    private double horizontalDistanceSquared(Vec3d firstPosition, Vec3d secondPosition) {
       double deltaX = firstPosition.x - secondPosition.x;
       double deltaZ = firstPosition.z - secondPosition.z;
       return deltaX * deltaX + deltaZ * deltaZ;
    }
-// https://t.me/pasterplace
 
    private double horizontalDistance(Vec3d firstPosition, Vec3d secondPosition) {
       return Math.hypot(firstPosition.x - secondPosition.x, firstPosition.z - secondPosition.z);
    }
-// https://t.me/pasterplace
 
    private String chestPositionKey(BlockPos chestPosition) {
       return "chest:" + chestPosition.getX() + ":" + chestPosition.getY() + ":" + chestPosition.getZ();
    }
-// https://t.me/pasterplace
 
    private String minecartPositionKey(BlockPos minecartPosition) {
       return "minecart:" + minecartPosition.getX() + ":" + minecartPosition.getY() + ":" + minecartPosition.getZ();
    }
-// https://t.me/pasterplace
 
    private Path visitedContainerFile() {
       return FabricLoader.getInstance().getGameDir().resolve("daamky").resolve("temp").resolve("tpkeyfinder.txt");
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void loadVisitedContainers() {
@@ -1594,7 +1523,6 @@ public final class TpKeyFinder extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.BALANCED)
    private void saveVisitedContainers() {
@@ -1607,14 +1535,12 @@ public final class TpKeyFinder extends ModuleStructure {
       } catch (IOException ignoredWriteException) {
       }
    }
-// https://t.me/pasterplace
 
    private static final class PackedBlockPosition {
       private static long packChunkCoordinates(int chunkX, int chunkZ) {
          return chunkX & 4294967295L | (chunkZ & 4294967295L) << 32;
       }
    }
-// https://t.me/pasterplace
 
    private enum ContainerScanState {
       IDLE,
@@ -1644,7 +1570,6 @@ public final class TpKeyFinder extends ModuleStructure {
          };
       }
    }
-// https://t.me/pasterplace
 
    private enum ContainerActionResult {
       CHEST_MINECART,
@@ -1655,7 +1580,6 @@ public final class TpKeyFinder extends ModuleStructure {
          return new TpKeyFinder.ContainerActionResult[]{CHEST_MINECART, STRUCTURE_CHEST};
       }
    }
-// https://t.me/pasterplace
 
    public final class ContainerKeyTracker {
       private boolean previousContainerScreenOpen;
@@ -1689,7 +1613,6 @@ public final class TpKeyFinder extends ModuleStructure {
             this.containerUnderCrosshairPosition = null;
          }
       }
-// https://t.me/pasterplace
 
       @Allow2Generation(level = GenerationLevel.BALANCED)
       private void captureContainerUnderCrosshair() {

@@ -8,7 +8,6 @@ import net.minecraft.util.Arm;
 import net.minecraft.world.GameMode;
 
 public final class Hotbar extends HudElementPosition {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float HOTBAR_SLOT_SIZE = 16.0F;
    private static final float HOTBAR_SLOT_GAP = 2.0F;
    private static final float HOTBAR_PANEL_PADDING = 3.0F;
@@ -29,49 +28,41 @@ public final class Hotbar extends HudElementPosition {
    private int previousSelectedHotbarSlot = -1;
    private ItemStack previousSelectedItemStack = ItemStack.EMPTY;
    private float itemNameDisplayTimeRemaining;
-// https://t.me/pasterplace
 
    public Hotbar() {
       super("Hotbar", "hotbar", 0.0F, 0.0F);
       this.elementWidth = 166.0F;
       this.elementHeight = 22.0F;
    }
-// https://t.me/pasterplace
 
    @Override
    public boolean isDraggable() {
       return false;
    }
-// https://t.me/pasterplace
 
    @Override
    public boolean containsPoint(float pointX, float pointY) {
       return false;
    }
-// https://t.me/pasterplace
 
    @Override
    public boolean isHiddenByPosition() {
       return false;
    }
-// https://t.me/pasterplace
 
    @Override
    public float getX() {
       return GuiEventRenderer.getScreenWidth() * 0.5F - this.elementWidth * 0.5F;
    }
-// https://t.me/pasterplace
 
    @Override
    public float getY() {
       return GuiEventRenderer.getScreenHeight() - this.elementHeight - 3.0F;
    }
-// https://t.me/pasterplace
 
    private static boolean hasStatusBars() {
       return CLIENT.interactionManager != null && CLIENT.interactionManager.hasStatusBars();
    }
-// https://t.me/pasterplace
 
    @Override
    public void updateAnimation(float tickDelta) {
@@ -96,7 +87,6 @@ public final class Hotbar extends HudElementPosition {
          this.itemNameDisplayTimeRemaining = Math.max(0.0F, this.itemNameDisplayTimeRemaining - tickDelta);
       }
    }
-// https://t.me/pasterplace
 
    @Override
    public boolean isVisibleInCurrentScreen(boolean chatScreenOpen) {
@@ -104,7 +94,6 @@ public final class Hotbar extends HudElementPosition {
          && CLIENT.interactionManager != null
          && CLIENT.interactionManager.getCurrentGameMode() != GameMode.SPECTATOR;
    }
-// https://t.me/pasterplace
 
    @Override
    public void render(HudRenderContext renderContext, float visibilityAlpha) {
@@ -138,7 +127,6 @@ public final class Hotbar extends HudElementPosition {
             BrokkeIcons.drawRoundedPill(drawContext, offhandPanelX + 3.0F, slotTop, 16.0F, 16.0F, visibilityAlpha);
             renderHotbarItem(renderContext, offhandStack, offhandPanelX + 3.0F, slotTop, visibilityAlpha);
          }
-// https://t.me/pasterplace
 
          float attackCooldownProgress = clientPlayerEntity.getAttackCooldownProgress(0.0F);
          if (attackCooldownProgress < 1.0F) {
@@ -179,7 +167,6 @@ public final class Hotbar extends HudElementPosition {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void renderHealthPanel(DrawContext drawContext, PlayerEntity playerEntity, float panelX, float panelY, float panelWidth, float visibilityAlpha) {
       BrokkeIcons.drawPanelBackground(drawContext, panelX, panelY, panelWidth, 12.0F, visibilityAlpha);
@@ -219,7 +206,6 @@ public final class Hotbar extends HudElementPosition {
             .render(drawContext);
       }
    }
-// https://t.me/pasterplace
 
    private void renderFoodPanel(DrawContext drawContext, PlayerEntity playerEntity, float panelX, float panelY, float panelWidth, float visibilityAlpha) {
       BrokkeIcons.drawPanelBackground(drawContext, panelX, panelY, panelWidth, 12.0F, visibilityAlpha);
@@ -245,7 +231,6 @@ public final class Hotbar extends HudElementPosition {
             .render(drawContext);
       }
    }
-// https://t.me/pasterplace
 
    private static void renderHotbarItem(HudRenderContext renderContext, ItemStack stack, float slotX, float slotY, float visibilityAlpha) {
       if (!stack.isEmpty() && !(visibilityAlpha < 0.4F)) {
@@ -286,7 +271,6 @@ public final class Hotbar extends HudElementPosition {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static void drawHudIcon(
       DrawContext drawContext, AvatarTexture texture, float x, float y, RgbaColor tintColor

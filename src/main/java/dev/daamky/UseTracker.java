@@ -17,20 +17,17 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class UseTracker extends ModuleStructure {
-    private static final String p892b4bc7 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiToggleSetting l1I1IlllIlI = new MultiToggleSetting("Сообщать о")
       .addOption("Золотых яблоках", true)
       .addOption("Зельях", true)
       .addOption("Тотемах", true);
    private final FloatSetting IllI1l1l1 = new FloatSetting("Дистанция", 30.0F, 5.0F, 100.0F, 1.0F, "бл.");
    private final Set<UUID> l1lll11l1l = new HashSet<>();
-// https://t.me/pasterplace
 
    public UseTracker() {
       super("UseTracker", "Сообщает в чат, когда соперник ест гепл, пьёт зелье или ломает тотем", ModuleCategory.WORLD);
       this.addSettings(this.l1I1IlllIlI, this.IllI1l1l1);
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -52,7 +49,6 @@ public final class UseTracker extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void II1Il11l111II11IIl(PlayerEntity playerEntity, ItemStack activeItemStack) {
       String playerName = playerEntity.getGameProfile().name();
@@ -64,7 +60,6 @@ public final class UseTracker extends ModuleStructure {
          ClientChatLogger.II1Il11l111II11IIl(playerName + " ест " + activeItemStack.getName().getString());
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -90,7 +85,6 @@ public final class UseTracker extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)

@@ -23,33 +23,28 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class KillEffect extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final long RECENT_ATTACK_EXPIRY_MILLIS = 3000L;
     private final MultiOptionSetting effectType = new MultiOptionSetting("Эффект", "Молния", "Молния", "Взрыв душ", "Тотем", "Спираль");
     private final FloatSetting particleCount = new FloatSetting("Кол-во частиц", 40.0F, 10.0F, 150.0F, 5.0F);
     private final Map<Integer, Long> recentlyAttackedEntityTimestamps = new HashMap<>();
-// https://t.me/pasterplace
 
     public KillEffect() {
         super("KillEffect", "Визуальный эффект при убийстве", ModuleCategory.RENDER);
         this.particleCount.visibleWhen(() -> !this.effectType.isSelected("Молния"));
         this.addSettings(this.effectType, this.particleCount);
     }
-// https://t.me/pasterplace
 
     @Allow2Generation(level = GenerationLevel.FAST)
     @Override
     protected void onDisable() {
         this.recentlyAttackedEntityTimestamps.clear();
     }
-// https://t.me/pasterplace
 
     @EventTarget
     @Allow2Generation(level = GenerationLevel.FAST)
     public void onWorldChange(EventWorldChange eventWorldChange) {
         this.recentlyAttackedEntityTimestamps.clear();
     }
-// https://t.me/pasterplace
 
     @EventTarget
     @Allow2Generation(level = GenerationLevel.FAST)
@@ -62,7 +57,6 @@ public final class KillEffect extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     @Allow2Generation(level = GenerationLevel.FAST)
@@ -88,7 +82,6 @@ public final class KillEffect extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void spawnKillEffect(ClientWorld clientWorld, LivingEntity livingEntity) {
         Vec3d entityPosition = livingEntity.getEntityPos();
@@ -134,7 +127,6 @@ public final class KillEffect extends ModuleStructure {
             for (int particleIndex = 0; particleIndex < particleCount; particleIndex++) {
                 float heightProgress = (float)particleIndex / particleCount;
                 float spiralAngle = heightProgress * (float) (Math.PI * 2) * 3.0F;
-// https://t.me/pasterplace
 
                 spawnParticle(
                 clientWorld,
@@ -149,7 +141,6 @@ public final class KillEffect extends ModuleStructure {
             }
         }
     }
-// https://t.me/pasterplace
 
     private static void spawnParticle(
     ClientWorld clientWorld, ParticleEffect particleEffect, double x, double y, double z, double velocityX, double velocityY, double velocityZ

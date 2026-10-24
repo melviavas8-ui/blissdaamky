@@ -23,50 +23,41 @@ import org.joml.Quaternionf;
 import org.joml.Vector4f;
 
 public final class DaamkyEspPreview extends SpecialGuiElementRenderer<EspPreviewRenderState> {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final double DROPPED_ITEM_OFFSET_X = 0.85;
     private static final double DROPPED_ITEM_OFFSET_Z = 0.35;
     private static volatile float projectedHeadX = 0.5F;
     private static volatile float projectedHeadY = 0.1F;
     private static volatile boolean previewActive = false;
     private final EntityRenderManager entityRenderManager;
-// https://t.me/pasterplace
 
     public DaamkyEspPreview(Immediate immediate, EntityRenderManager entityRenderManager) {
         super(immediate);
         this.entityRenderManager = entityRenderManager;
     }
-// https://t.me/pasterplace
 
     public static boolean isPreviewActive() {
         return previewActive;
     }
-// https://t.me/pasterplace
 
     public static float getProjectedHeadX() {
         return projectedHeadX;
     }
-// https://t.me/pasterplace
 
     public static float getProjectedHeadY() {
         return projectedHeadY;
     }
-// https://t.me/pasterplace
 
     public Class<EspPreviewRenderState> getElementClass() {
         return EspPreviewRenderState.class;
     }
-// https://t.me/pasterplace
 
     protected float getYOffset(int previewWidth, int previewHeight) {
         return previewWidth / 2.0F;
     }
-// https://t.me/pasterplace
 
     protected String getName() {
         return "daamky esp preview";
     }
-// https://t.me/pasterplace
 
     @Override
     public void render(EspPreviewRenderState previewState, MatrixStack matrices) {
@@ -75,7 +66,6 @@ public final class DaamkyEspPreview extends SpecialGuiElementRenderer<EspPreview
         OrderedRenderCommandQueueImpl orderedRenderCommandQueueImpl = renderDispatcher.getQueue();
         ClientPlayerEntity clientPlayerEntity = client.player;
         if (clientPlayerEntity == null) {
-// https://t.me/pasterplace
 
         } else {
             float renderTickDelta = client.getRenderTickCounter().getTickProgress(false);
@@ -110,7 +100,6 @@ public final class DaamkyEspPreview extends SpecialGuiElementRenderer<EspPreview
             }
         }
     }
-// https://t.me/pasterplace
 
     private void renderPlayerPreview(
     EspPreviewRenderState previewState,
@@ -182,7 +171,6 @@ public final class DaamkyEspPreview extends SpecialGuiElementRenderer<EspPreview
         projectedHeadY = vector4f.y / previewPixelHeight;
 
     }
-// https://t.me/pasterplace
 
 }
 

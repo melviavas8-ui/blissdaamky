@@ -18,14 +18,11 @@ import net.minecraft.world.RaycastContext.FluidHandling;
 import net.minecraft.world.RaycastContext.ShapeType;
 
 public final class WorldInteractionUtils {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final MinecraftClient CLIENT = MinecraftClient.getInstance();
    private static final float DEGREES_TO_RADIANS = (float) (Math.PI / 180.0);
-// https://t.me/pasterplace
 
    private WorldInteractionUtils() {
    }
-// https://t.me/pasterplace
 
    public static Vec3d directionVector(float yawDegrees, float pitchDegrees) {
       float negativeYawRadians = -yawDegrees * (float) (Math.PI / 180.0);
@@ -33,7 +30,6 @@ public final class WorldInteractionUtils {
       float pitchCosine = (float)Math.cos(negativePitchRadians);
       return new Vec3d(Math.sin(negativeYawRadians) * pitchCosine, Math.sin(negativePitchRadians), Math.cos(negativeYawRadians) * pitchCosine);
    }
-// https://t.me/pasterplace
 
    private static double distanceSquaredToSegment(Vec3d point, Vec3d segmentStart, Vec3d segmentEnd) {
       Vec3d segmentVector = segmentEnd.subtract(segmentStart);
@@ -45,7 +41,6 @@ public final class WorldInteractionUtils {
       double projectionFactor = Math.max(0.0, Math.min(1.0, point.subtract(segmentStart).dotProduct(segmentVector) / segmentLengthSquared));
       return point.squaredDistanceTo(segmentStart.add(segmentVector.multiply(projectionFactor)));
    }
-// https://t.me/pasterplace
 
    public static boolean hasClearRayToBox(Box targetBox, float yawDegrees, float pitchDegrees, double reachDistance, boolean checkBlockOcclusion) {
       if (CLIENT.player != null && CLIENT.world != null) {
@@ -63,7 +58,6 @@ public final class WorldInteractionUtils {
          if (!checkBlockOcclusion) {
             return true;
          }
-// https://t.me/pasterplace
 
          BlockHitResult blockOcclusionHit = CLIENT.world
             .raycast(new RaycastContext(eyePosition, (Vec3d)intersection.get(), ShapeType.OUTLINE, FluidHandling.NONE, CLIENT.player));
@@ -73,19 +67,16 @@ public final class WorldInteractionUtils {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    public static boolean isPointNearViewRay(Vec3d targetPosition, float yawDegrees, float pitchDegrees, double reachDistance, double viewRayRadius) {
       Vec3d eyePosition = CLIENT.player.getEyePos();
       Vec3d viewRayEnd = eyePosition.add(directionVector(yawDegrees, pitchDegrees).multiply(reachDistance));
       return distanceSquaredToSegment(targetPosition, eyePosition, viewRayEnd) <= viewRayRadius * viewRayRadius;
    }
-// https://t.me/pasterplace
 
    public static boolean isEntityNearViewRay(Entity targetEntity, float yawDegrees, float pitchDegrees, double reachDistance, boolean checkBlockOcclusion) {
       return hasClearRayToBox(targetEntity.getBoundingBox(), yawDegrees, pitchDegrees, reachDistance, checkBlockOcclusion);
    }
-// https://t.me/pasterplace
 
    public static float getBlockBreakingSpeed(BlockState blockState, ItemStack toolStack) {
       float miningSpeed = toolStack.getMiningSpeedMultiplier(blockState);

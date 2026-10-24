@@ -16,43 +16,34 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface MinecraftAccessor {
    @Accessor("itemUseCooldown")
    int daamky$getRightClickDelay();
-// https://t.me/pasterplace
 
    @Accessor("itemUseCooldown")
    void daamky$setRightClickDelay(int delayTicks);
-// https://t.me/pasterplace
 
    @Accessor("cameraEntity")
    Entity daamky$getCameraEntity();
-// https://t.me/pasterplace
 
    @Accessor("cameraEntity")
    void daamky$setCameraEntity(Entity entity);
-// https://t.me/pasterplace
 
    @Mutable
    @Accessor("session")
    void daamky$setUser(Session session);
-// https://t.me/pasterplace
 
    @Mutable
    @Accessor("gameProfileFuture")
    void daamky$setProfileFuture(CompletableFuture<ProfileResult> profileFuture);
-// https://t.me/pasterplace
 
    @Mutable
    @Accessor("framebuffer")
    void daamky$setMainRenderTarget(Framebuffer framebuffer);
-// https://t.me/pasterplace
 
    @Mutable
    @Accessor("worldRenderer")
    void daamky$setLevelRenderer(WorldRenderer worldRenderer);
-// https://t.me/pasterplace
 
    @Invoker("doAttack")
    boolean daamky$startAttack();
-// https://t.me/pasterplace
 
    @Invoker("doItemUse")
    void daamky$startUseItem();

@@ -14,7 +14,6 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public final class Cosmetics {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float UNUSED_LAYOUT_CONSTANT_5_0 = 5.0F;
    private static final float UNUSED_LAYOUT_CONSTANT_11_5 = 11.5F;
    private static final float UNUSED_LAYOUT_CONSTANT_7_5 = 7.5F;
@@ -59,7 +58,6 @@ public final class Cosmetics {
    private float modelPanelTop;
    private float modelPanelWidth;
    private float modelPanelHeight;
-// https://t.me/pasterplace
 
    public void updateAnimationState(float deltaSeconds) {
       this.frameDeltaSeconds = deltaSeconds;
@@ -79,7 +77,6 @@ public final class Cosmetics {
          animationState[2] += (0.0F - animationState[2]) * (1.0F - (float)Math.exp(-11.0F * deltaSeconds));
       }
    }
-// https://t.me/pasterplace
 
    public void render(
       DrawContext drawContext,
@@ -101,7 +98,6 @@ public final class Cosmetics {
             this.categoryEntryAnimationStartMs = currentTimeMs;
             this.modelEntryAnimationStartMs = currentTimeMs;
          }
-// https://t.me/pasterplace
 
          this.lastRenderTimeMs = currentTimeMs;
          this.categoryPanelLeft = categoryPanelLeft;
@@ -116,32 +112,26 @@ public final class Cosmetics {
          this.drawModelPanel(drawContext, mouseX, mouseY, currentTimeMs, panelAlpha);
       }
    }
-// https://t.me/pasterplace
 
    private float getCategoryListTop() {
       return this.categoryPanelTop + 11.5F + 7.5F;
    }
-// https://t.me/pasterplace
 
    private float getModelListTop() {
       return this.getCategoryListTop() + 22.0F + 9.0F;
    }
-// https://t.me/pasterplace
 
    private float getCategoryTileWidth() {
       return (this.categoryPanelWidth - 2.5F * (cosmeticCategories.length - 1)) / cosmeticCategories.length;
    }
-// https://t.me/pasterplace
 
    private float getCategoryTabLeft(int categoryIndex) {
       return this.categoryPanelLeft + categoryIndex * (this.getCategoryTileWidth() + 2.5F);
    }
-// https://t.me/pasterplace
 
    private static String getCategoryLabel(Wings wings) {
       return wings == null ? "Все" : wings.getDisplayName();
    }
-// https://t.me/pasterplace
 
    private void drawCategoryTabs(DrawContext drawContext, float mouseX, float mouseY, long currentTimeMs, float panelAlpha) {
       float headingY = this.categoryPanelTop + 5.75F;
@@ -225,22 +215,18 @@ public final class Cosmetics {
          .color(Accent.getTextColorWithAlpha((int)(12.0F * panelAlpha)))
          .render(drawContext);
    }
-// https://t.me/pasterplace
 
    private float getModelListLeft() {
       return this.modelPanelLeft + 4.0F;
    }
-// https://t.me/pasterplace
 
    private float getModelListWidth() {
       return this.modelPanelWidth - 4.0F - 8.0F;
    }
-// https://t.me/pasterplace
 
    private float getModelListContentTop() {
       return this.modelPanelTop + 17.0F;
    }
-// https://t.me/pasterplace
 
    private static void drawRotatedShape(DrawContext drawContext, float centerX, float centerY, float width, float height, float rotationDegrees, int color) {
       drawContext.getMatrices().pushMatrix();
@@ -252,7 +238,6 @@ public final class Cosmetics {
          .render(drawContext);
       drawContext.getMatrices().popMatrix();
    }
-// https://t.me/pasterplace
 
    private static void drawCircle(DrawContext drawContext, float centerX, float centerY, float diameter, int color) {
       RoundedGradientRectBuilder.at(centerX - diameter * 0.5F, centerY - diameter * 0.5F, diameter, diameter)
@@ -260,7 +245,6 @@ public final class Cosmetics {
          .color(color)
          .render(drawContext);
    }
-// https://t.me/pasterplace
 
    private static void drawCategoryIcon(DrawContext drawContext, Wings wings, float iconX, float iconY, float scale, int iconColor) {
       drawContext.getMatrices().pushMatrix();
@@ -321,42 +305,34 @@ public final class Cosmetics {
          drawContext.getMatrices().popMatrix();
       }
    }
-// https://t.me/pasterplace
 
    private float getCategoryPanelLeft() {
       return this.categoryPanelLeft;
    }
-// https://t.me/pasterplace
 
    private float getCategoryPanelWidth() {
       return this.categoryPanelWidth;
    }
-// https://t.me/pasterplace
 
    private float getWingsListTopY() {
       return this.getModelListTop();
    }
-// https://t.me/pasterplace
 
    private float getVisibleModelListHeight() {
       return this.categoryPanelTop + this.categoryPanelHeight - this.getWingsListTopY();
    }
-// https://t.me/pasterplace
 
    private float getModelPreviewHeight() {
       return this.modelPanelTop + this.modelPanelHeight - this.getModelListContentTop() - 2.0F;
    }
-// https://t.me/pasterplace
 
    private List<Model> getModelsInSelectedCategory() {
       return Cape.getInstance().getModelsByCategory(cosmeticCategories[this.selectedCategoryIndex]);
    }
-// https://t.me/pasterplace
 
    private float[] getModelAnimationState(Model model) {
       return this.modelAnimationStates.computeIfAbsent(model, modelx -> new float[]{0.0F, Cape.getInstance().isEquipped(modelx) ? 1.0F : 0.0F, 0.0F});
    }
-// https://t.me/pasterplace
 
    private void drawModelPanel(DrawContext drawContext, float panelAlpha, float mouseY, long currentTimeMs, float panelOpacity) {
       float panelRight = this.modelPanelLeft + this.modelPanelWidth - 6.0F;
@@ -376,7 +352,6 @@ public final class Cosmetics {
 
       this.drawModelList(drawContext, panelAlpha, mouseY, currentTimeMs, panelOpacity);
    }
-// https://t.me/pasterplace
 
    private void drawModelList(DrawContext drawContext, float mouseX, float mouseY, long currentTimeMs, float panelAlpha) {
       drawContext.enableScissor(
@@ -474,7 +449,6 @@ public final class Cosmetics {
                      }
                   }
                }
-// https://t.me/pasterplace
 
                return;
             } finally {
@@ -485,7 +459,6 @@ public final class Cosmetics {
          drawContext.disableScissor();
       }
    }
-// https://t.me/pasterplace
 
    private void drawModelPanelHeader(DrawContext drawContext, float panelAlpha) {
       float headingY = this.modelPanelTop + 4.25F;
@@ -499,7 +472,6 @@ public final class Cosmetics {
          .color(Accent.getTextColorWithAlpha((int)(250.0F * panelAlpha)))
          .render(drawContext);
    }
-// https://t.me/pasterplace
 
    private void drawModelPreview(DrawContext drawContext, float mouseX, float mouseY, long currentTimeMs, float panelAlpha) {
       float previewLeft = this.getModelListLeft();
@@ -527,7 +499,6 @@ public final class Cosmetics {
          this.renderEntityPreview(drawContext, previewLeftPixel, previewTopPixel, previewRightPixel, previewBottomPixel, entityRenderSize, mousePositionScreen.x, mousePositionScreen.y, client.player);
       }
    }
-// https://t.me/pasterplace
 
    private void renderEntityPreview(
       DrawContext drawContext, int previewLeft, int previewTop, int previewRight, int previewBottom, int packedLight, float mouseX, float mouseY, LivingEntity livingEntity
@@ -556,7 +527,6 @@ public final class Cosmetics {
       GuiEventRenderer.flushBatchedElements();
       drawContext.addEntity(entityRenderState, packedLight, entityRenderOffset, modelRotation, headRotation, previewLeft, previewTop, previewRight, previewBottom);
    }
-// https://t.me/pasterplace
 
    private void drawToggleSwitch(DrawContext drawContext, float toggleAmount, float switchRight, float centerY, float panelAlpha) {
       float switchTop = centerY - 3.5F;
@@ -579,7 +549,6 @@ public final class Cosmetics {
          .color(RgbaColor.rgba(255, 255, 255, (int)(255.0F * panelAlpha)))
          .render(drawContext);
    }
-// https://t.me/pasterplace
 
    private float updateHoverAnimation(float[] animationAmounts, int index, boolean isHovered) {
       float targetAmount = isHovered ? 1.0F : 0.0F;
@@ -594,22 +563,18 @@ public final class Cosmetics {
       animationAmounts[index] = currentAmount;
       return smoothStep(currentAmount);
    }
-// https://t.me/pasterplace
 
    private static float smoothStep(float value) {
       return value * value * (3.0F - 2.0F * value);
    }
-// https://t.me/pasterplace
 
    private static float easeOutCubic(float progress) {
       return 1.0F - (float)Math.pow(1.0F - Math.clamp(progress, 0.0F, 1.0F), 3.0);
    }
-// https://t.me/pasterplace
 
    private static boolean containsPoint(float mouseX, float mouseY, float left, float top, float width, float height) {
       return mouseX >= left && mouseX <= left + width && mouseY >= top && mouseY <= top + height;
    }
-// https://t.me/pasterplace
 
    public boolean mouseClicked(float mouseX, float mouseY, int button) {
       if (button != 0) {
@@ -630,7 +595,6 @@ public final class Cosmetics {
             return true;
          }
       }
-// https://t.me/pasterplace
 
       Cape cosmeticManager = Cape.getInstance();
       float categoryPanelLeft = this.getCategoryPanelLeft();
@@ -657,7 +621,6 @@ public final class Cosmetics {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    public boolean mouseScrolled(double mouseX, double mouseY, double scrollAmount) {
       if (mouseX >= this.getCategoryPanelLeft()

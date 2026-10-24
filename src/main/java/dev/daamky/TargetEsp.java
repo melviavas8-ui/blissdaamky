@@ -30,7 +30,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class TargetEsp extends ModuleStructure {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final Identifier BLOOM_TEXTURE = Identifier.of("daamky", "textures/targetesp/bloom.png");
    private static final Identifier GLOW_TEXTURE = Identifier.of("daamky", "textures/targetesp/glowing.png");
    private static final Identifier CUBE_TEXTURE = Identifier.of("daamky", "textures/targetesp/cube.png");
@@ -70,7 +69,6 @@ public final class TargetEsp extends ModuleStructure {
    private Vec3d cameraPosition = Vec3d.ZERO;
    private Vector3f cameraRight = new Vector3f(1.0F, 0.0F, 0.0F);
    private Vector3f cameraUp = new Vector3f(0.0F, 1.0F, 0.0F);
-// https://t.me/pasterplace
 
    public TargetEsp() {
       super("TargetEsp", "Отображение таргета при включенной киллауре", ModuleCategory.RENDER);
@@ -81,7 +79,6 @@ public final class TargetEsp extends ModuleStructure {
          this.modeSetting, this.rotationSpeedSetting, this.lightningCountSetting, this.lightningWidthSetting, this.colorOnHitSetting, this.showOnCrosshairSetting
       );
    }
-// https://t.me/pasterplace
 
    private void clearGhostTrails() {
       for (List<TargetEsp.PositionSample> trailHistory : this.ghostTrailHistory) {
@@ -90,7 +87,6 @@ public final class TargetEsp extends ModuleStructure {
 
       this.ghostParticles.clear();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -102,7 +98,6 @@ public final class TargetEsp extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -113,7 +108,6 @@ public final class TargetEsp extends ModuleStructure {
       this.clearGhostTrails();
       this.lightningTrails.clear();
    }
-// https://t.me/pasterplace
 
    private LivingEntity findCurrentTarget() {
       Aura aura = Aura.getInstance();
@@ -128,13 +122,11 @@ public final class TargetEsp extends ModuleStructure {
             }
          }
       }
-// https://t.me/pasterplace
 
       return this.lastAttackedTarget != null && this.lastAttackedTarget.isAlive() && !this.lastAttackedTarget.isRemoved() && System.currentTimeMillis() - this.lastAttackMillis < 2000L
          ? this.lastAttackedTarget
          : null;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onRender3D(EventRender3D event) {
@@ -257,32 +249,26 @@ public final class TargetEsp extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static BufferBuilder createTexturedBuffer() {
       return DynamicTransforms.createBufferBuilder(DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
    }
-// https://t.me/pasterplace
 
    private static BufferBuilder createColorBuffer() {
       return DynamicTransforms.createBufferBuilder(DrawMode.TRIANGLES, VertexFormats.POSITION_COLOR);
    }
-// https://t.me/pasterplace
 
    private static void drawTexturedBuffer(BufferBuilder bufferBuilder, GpuTextureView gpuTextureView, RenderPipeline renderPipeline) {
       DynamicTransforms.submitDraw(bufferBuilder, DrawMode.QUADS, renderPipeline, gpuTextureView);
    }
-// https://t.me/pasterplace
 
    private float getEntityWidth(LivingEntity target) {
       return target != null ? target.getWidth() : this.lastTargetWidth;
    }
-// https://t.me/pasterplace
 
    private float getEntityHeight(LivingEntity target) {
       return target != null ? target.getHeight() : this.lastTargetHeight;
    }
-// https://t.me/pasterplace
 
    private void drawCrystalMesh(BufferBuilder buffer, Vec3d targetPosition, LivingEntity target, float red, float green, float blue, float alpha) {
       float baseOrbitRadius = this.getEntityWidth(target) * 1.5F;
@@ -328,7 +314,6 @@ public final class TargetEsp extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void drawCrystalOrbit(BufferBuilder buffer, Vec3d targetPosition, LivingEntity target, float red, float green, float blue, float alpha) {
       float baseOrbitRadius = this.getEntityWidth(target) * 1.5F;
@@ -344,7 +329,6 @@ public final class TargetEsp extends ModuleStructure {
          this.drawBillboard(buffer, crystalPosition, Math.min(1.0F, alpha * 1.25F), red, green, blue, alpha * 0.2F);
       }
    }
-// https://t.me/pasterplace
 
    private void drawSoulEffect(BufferBuilder buffer, Vec3d targetPosition, LivingEntity target, float red, float green, float blue, float alpha) {
       float baseOrbitRadius = this.getEntityWidth(target) * 1.5F;
@@ -375,7 +359,6 @@ public final class TargetEsp extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void drawOrbitingDots(BufferBuilder buffer, Vec3d targetPosition, LivingEntity target, float red, float green, float blue, float alpha) {
       float baseOrbitRadius = this.getEntityWidth(target) * 1.5F;
@@ -395,20 +378,17 @@ public final class TargetEsp extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void drawJelloTrail(BufferBuilder buffer, Vec3d targetPosition, LivingEntity target, float red, float green, float blue, float alpha) {
       float baseOrbitRadius = this.getEntityWidth(target) * 1.45F;
       float targetHeight = this.getEntityHeight(target);
       float hurtFlashAmount = this.getHurtFlashAmount(target);
       float orbitRadius = baseOrbitRadius * Math.max(0.5F, 0.7F - 0.2F * hurtFlashAmount + (1.0F - alpha) * 0.4F);
-// https://t.me/pasterplace
 
       for (int angleDegrees = 0; angleDegrees < 360; angleDegrees += 2) {
          double orbitAngleRadians = Math.toRadians(angleDegrees + this.rotationDegrees);
          double orbitOffsetX = Math.sin(orbitAngleRadians) * orbitRadius;
          double orbitOffsetZ = Math.cos(orbitAngleRadians) * orbitRadius;
-// https://t.me/pasterplace
 
          for (int trailStep = 0; trailStep < 15; trailStep++) {
             double verticalOffset = targetHeight / 1.75F + targetHeight / 2.0F * Math.sin(Math.toRadians(this.rotationDegrees / 1.5F + trailStep * 2.0F));
@@ -418,14 +398,12 @@ public final class TargetEsp extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void drawJelloRing(BufferBuilder buffer, Vec3d targetPosition, LivingEntity target, float red, float green, float blue, float alpha) {
       float baseOrbitRadius = this.getEntityWidth(target) * 1.45F;
       float targetHeight = this.getEntityHeight(target);
       float hurtFlashAmount = this.getHurtFlashAmount(target);
       float orbitRadius = baseOrbitRadius * Math.max(0.5F, 0.7F - 0.2F * hurtFlashAmount + (1.0F - alpha) * 0.4F);
-// https://t.me/pasterplace
 
       for (int angleDegrees = 0; angleDegrees < 360; angleDegrees += 2) {
          double orbitAngleRadians = Math.toRadians(angleDegrees + this.rotationDegrees);
@@ -436,7 +414,6 @@ public final class TargetEsp extends ModuleStructure {
          this.drawBillboard(buffer, spritePosition, 0.2F * Math.min(1.0F, alpha * 1.25F), red, green, blue, alpha * 0.2F);
       }
    }
-// https://t.me/pasterplace
 
    private void updateGhostTrails(Vec3d targetPosition, LivingEntity target, long currentTimeMillis, float frameDeltaMillis) {
       float widthScale = this.getEntityWidth(target) * 1.4F;
@@ -498,7 +475,6 @@ public final class TargetEsp extends ModuleStructure {
             }
          }
       }
-// https://t.me/pasterplace
 
       float deltaSeconds = frameDeltaMillis / 1000.0F;
       Iterator<TargetEsp.GhostParticle> particleIterator = this.ghostParticles.iterator();
@@ -513,7 +489,6 @@ public final class TargetEsp extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void drawGhostTrail(BufferBuilder buffer, float red, float green, float blue, float alpha, long currentTimeMillis) {
       float trailOpacityScale = Math.min(1.0F, alpha * 1.25F);
@@ -554,7 +529,6 @@ public final class TargetEsp extends ModuleStructure {
          );
       }
    }
-// https://t.me/pasterplace
 
    private void drawGhostGlow(BufferBuilder buffer, float red, float green, float blue, float alpha, long currentTimeMillis) {
       float glowOpacityScale = Math.min(1.0F, alpha * 1.25F);
@@ -608,20 +582,17 @@ public final class TargetEsp extends ModuleStructure {
          );
       }
    }
-// https://t.me/pasterplace
 
    private static float getTrailPointOpacity(TargetEsp.PositionSample from, TargetEsp.PositionSample to, double interpolation, long currentTimeMillis) {
       double interpolatedTimestamp = from.timestampMillis() * (1.0 - interpolation) + to.timestampMillis() * interpolation;
       float ageProgress = Math.clamp((float)(currentTimeMillis - interpolatedTimestamp) / 420.0F, 0.0F, 1.0F);
       return 1.0F - ageProgress;
    }
-// https://t.me/pasterplace
 
    private static float getGhostParticleOpacity(TargetEsp.GhostParticle particle, long currentTimeMillis) {
       float ageProgress = Math.clamp((float)(currentTimeMillis - particle.createdAtMillis) / (float)particle.durationMillis, 0.0F, 1.0F);
       return (float)Math.sin(ageProgress * Math.PI);
    }
-// https://t.me/pasterplace
 
    private void drawRotatingCube(BufferBuilder buffer, Vec3d targetPosition, LivingEntity target, float red, float green, float blue, float alpha) {
       float entityHeight = this.getEntityHeight(target);
@@ -631,12 +602,10 @@ public final class TargetEsp extends ModuleStructure {
       float cubeRotationDegrees = 45.0F + this.rotationDegrees * 0.5F;
       this.drawRotatedBillboard(buffer, cubeCenter, cubeSize, cubeRotationDegrees, red, green, blue, alpha);
    }
-// https://t.me/pasterplace
 
    private void drawBillboard(BufferBuilder buffer, Vec3d position, float size, float red, float green, float blue, float alpha) {
       this.drawRotatedBillboard(buffer, position, size, 0.0F, red, green, blue, alpha);
    }
-// https://t.me/pasterplace
 
    private void drawRotatedBillboard(
       BufferBuilder buffer, Vec3d position, float size, float rotationDegrees, float red, float green, float blue, float alpha
@@ -684,7 +653,6 @@ public final class TargetEsp extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private BufferBuilder vertexAtCameraOffset(
       BufferBuilder buffer, float x, float y, float z, float rightOffset, float upOffset, float cosRotation, float sinRotation
@@ -698,7 +666,6 @@ public final class TargetEsp extends ModuleStructure {
       );
       return buffer;
    }
-// https://t.me/pasterplace
 
    private void updateLightningTrails(Vec3d targetPosition, boolean hasTarget, long currentTimeMillis) {
       if (this.currentTarget != null || this.lastTargetPosition != null) {
@@ -759,7 +726,6 @@ public final class TargetEsp extends ModuleStructure {
                   hasRibbonGeometry |= this.drawLightningRibbon(
                      lightningRibbonBuffer, targetPosition, trail.points, 0.005F * widthScale, withAlpha(highlightColorArgb, ribbonAlpha)
                   );
-// https://t.me/pasterplace
 
                   for (List<Vec3d> branchPoints : trail.branches) {
                      hasRibbonGeometry |= this.drawLightningRibbon(
@@ -792,7 +758,6 @@ public final class TargetEsp extends ModuleStructure {
                            );
                         }
                      }
-// https://t.me/pasterplace
 
                      int pointAlpha = (int)(trailOpacity * 120.0F);
                      if (pointAlpha > 0) {
@@ -802,21 +767,18 @@ public final class TargetEsp extends ModuleStructure {
                      }
                   }
                }
-// https://t.me/pasterplace
 
                drawTexturedBuffer(lightningGlowBuffer, lightningTextureView, WorldRenderPipelines.I1lIIII1III1lIlIl1l);
             }
          }
       }
    }
-// https://t.me/pasterplace
 
    private void drawTexturedBillboard(BufferBuilder buffer, Vec3d position, float size, int colorArgb) {
       this.drawBillboard(
          buffer, position, size, (colorArgb >> 16 & 0xFF) / 255.0F, (colorArgb >> 8 & 0xFF) / 255.0F, (colorArgb & 0xFF) / 255.0F, (colorArgb >>> 24 & 0xFF) / 255.0F
       );
    }
-// https://t.me/pasterplace
 
    private TargetEsp.LightningTrail createLightningTrail(LivingEntity target) {
       ThreadLocalRandom threadLocalRandom = ThreadLocalRandom.current();
@@ -849,7 +811,6 @@ public final class TargetEsp extends ModuleStructure {
 
       return new TargetEsp.LightningTrail(mainPath, branches, 140L + threadLocalRandom.nextLong(160L), threadLocalRandom.nextFloat() * 6.28F);
    }
-// https://t.me/pasterplace
 
    private List<Vec3d> subdivideLightningPath(List<Vec3d> points, double initialDisplacement, int subdivisionPasses) {
       List<Vec3d> subdividedPoints = new ArrayList<>(points);
@@ -879,7 +840,6 @@ public final class TargetEsp extends ModuleStructure {
 
       return subdividedPoints;
    }
-// https://t.me/pasterplace
 
    private Vec3d randomPerpendicular(Vec3d direction) {
       Vec3d referenceAxis = Math.abs(direction.y) < 0.9 ? new Vec3d(0.0, 1.0, 0.0) : new Vec3d(1.0, 0.0, 0.0);
@@ -888,7 +848,6 @@ public final class TargetEsp extends ModuleStructure {
       double randomAngleRadians = ThreadLocalRandom.current().nextDouble() * Math.PI * 2.0;
       return firstPerpendicular.multiply(Math.cos(randomAngleRadians)).add(secondPerpendicular.multiply(Math.sin(randomAngleRadians)));
    }
-// https://t.me/pasterplace
 
    private boolean drawLightningRibbon(BufferBuilder buffer, Vec3d origin, List<Vec3d> pathPoints, float width, int colorArgb) {
       int alphaByte = colorArgb >>> 24 & 0xFF;
@@ -946,7 +905,6 @@ public final class TargetEsp extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private static void emitTriangle(
       BufferBuilder buffer, Vec3d firstVertex, Vec3d secondVertex, Vec3d thirdVertex, float red, float green, float blue, float alpha
@@ -955,7 +913,6 @@ public final class TargetEsp extends ModuleStructure {
       buffer.vertex((float)secondVertex.x, (float)secondVertex.y, (float)secondVertex.z).color(red, green, blue, alpha);
       buffer.vertex((float)thirdVertex.x, (float)thirdVertex.y, (float)thirdVertex.z).color(red, green, blue, alpha);
    }
-// https://t.me/pasterplace
 
    private float getLightningOpacity(TargetEsp.LightningTrail trail, long currentTimeMillis) {
       float ageProgress = MathHelper.clamp((float)(currentTimeMillis - trail.createdAtMillis) / (float)trail.durationMillis, 0.0F, 1.0F);
@@ -963,7 +920,6 @@ public final class TargetEsp extends ModuleStructure {
       float flickerAmount = 0.78F + 0.22F * (float)Math.sin((float)currentTimeMillis * 0.045F + trail.phase);
       return MathHelper.clamp(fadeProgress, 0.0F, 1.0F) * flickerAmount;
    }
-// https://t.me/pasterplace
 
    private float getHitFlashAmount(LivingEntity target) {
       if (!this.colorOnHitSetting.getValue()) {
@@ -985,7 +941,6 @@ public final class TargetEsp extends ModuleStructure {
       float combinedFlashAmount = Math.max(hurtFlashAmount, attackFlashAmount);
       return MathHelper.clamp(combinedFlashAmount * combinedFlashAmount * (3.0F - 2.0F * combinedFlashAmount), 0.0F, 1.0F);
    }
-// https://t.me/pasterplace
 
    private static int blendArgb(int startColor, int endColor, float progress) {
       progress = MathHelper.clamp(progress, 0.0F, 1.0F);
@@ -1003,13 +958,11 @@ public final class TargetEsp extends ModuleStructure {
       int alpha = (int)(startAlpha + (endAlpha - startAlpha) * progress);
       return alpha << 24 | red << 16 | green << 8 | blue;
    }
-// https://t.me/pasterplace
 
    private static int withAlpha(int rgb, int alpha) {
       alpha = Math.max(0, Math.min(255, alpha));
       return alpha << 24 | rgb & 16777215;
    }
-// https://t.me/pasterplace
 
    private static float approach(float current, float target, float maxStep) {
       if (current < target) {
@@ -1018,13 +971,11 @@ public final class TargetEsp extends ModuleStructure {
          return current > target ? Math.max(current - maxStep, target) : current;
       }
    }
-// https://t.me/pasterplace
 
    private Vec3d getTargetRenderPosition(float partialTicks) {
       LivingEntity livingEntity = this.currentTarget;
       return livingEntity != null && livingEntity.isAlive() ? DaamkyWorldRender.getInterpolatedPosition(livingEntity, partialTicks) : this.lastTargetPosition;
    }
-// https://t.me/pasterplace
 
    private float getHurtFlashAmount(LivingEntity target) {
       if (this.colorOnHitSetting.getValue() && target != null) {
@@ -1034,7 +985,6 @@ public final class TargetEsp extends ModuleStructure {
          return 0.0F;
       }
    }
-// https://t.me/pasterplace
 
    private GpuTextureView getTextureView(Identifier textureId) {
       GpuTextureView cachedTextureView = TEXTURE_CACHE.get(textureId);
@@ -1097,12 +1047,10 @@ public final class TargetEsp extends ModuleStructure {
          return null;
       }
    }
-// https://t.me/pasterplace
 
    private static NativeImage createRadialGlowTexture(int size) {
       NativeImage nativeImage = new NativeImage(size, size, true);
       float radius = size / 2.0F;
-// https://t.me/pasterplace
 
       for (int pixelY = 0; pixelY < size; pixelY++) {
          for (int pixelX = 0; pixelX < size; pixelX++) {
@@ -1122,7 +1070,6 @@ public final class TargetEsp extends ModuleStructure {
 
       return nativeImage;
    }
-// https://t.me/pasterplace
 
    private static final class LightningTrail {
       final List<Vec3d> points;
@@ -1139,7 +1086,6 @@ public final class TargetEsp extends ModuleStructure {
          this.phase = phase;
       }
    }
-// https://t.me/pasterplace
 
    private record PositionSample(Vec3d position, long timestampMillis) {
 
@@ -1148,7 +1094,6 @@ public final class TargetEsp extends ModuleStructure {
          this.timestampMillis = timestampMillis;
       }
    }
-// https://t.me/pasterplace
 
    private static final class GhostParticle {
       Vec3d position;

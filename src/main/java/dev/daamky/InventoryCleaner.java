@@ -10,7 +10,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class InventoryCleaner extends ModuleStructure {
-    private static final String p1991b6de = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final ReallyWorld l1I1IlllIlI = new ReallyWorld();
    private final MultiToggleSetting IllI1l1l1 = new MultiToggleSetting("Выбрасывать")
       .addOption("Земля и камень", true)
@@ -20,13 +19,11 @@ public final class InventoryCleaner extends ModuleStructure {
       .addOption("Яды", true);
    private final FloatSetting l1lll11l1l = new FloatSetting("Задержка", 120.0F, 0.0F, 1000.0F, 10.0F, "мс");
    private final Stopwatch lIIl11l111lIIl1ll = new Stopwatch();
-// https://t.me/pasterplace
 
    public InventoryCleaner() {
       super("InventoryCleaner", "Выбрасывает мусор из инвентаря", ModuleCategory.PLAYER);
       this.addSettings(this.IllI1l1l1, this.l1lll11l1l, this.l1I1IlllIlI);
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -45,13 +42,11 @@ public final class InventoryCleaner extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean II1Il11l111II11IIl(ItemStack stack) {
       if (stack.isEmpty()) {
          return false;
       }
-// https://t.me/pasterplace
 
       if (!this.IllI1l1l1.isOptionEnabled("Земля и камень")
          || !stack.isOf(Items.DIRT)

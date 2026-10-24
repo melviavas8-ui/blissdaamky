@@ -13,17 +13,14 @@ import net.minecraft.client.gl.SimpleFramebuffer;
 import org.lwjgl.system.MemoryStack;
 
 public final class BeautifulyUniforms {
-    private static final String p6eacbd1 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final BeautifulyUniforms II1Il11l111II11IIl = new BeautifulyUniforms();
    private static final int l1I1IlllIlI = new Std140SizeCalculator().putVec4().get();
    private GpuBuffer IllI1l1l1;
    private SimpleFramebuffer l1lll11l1l;
-// https://t.me/pasterplace
 
    public static BeautifulyUniforms II1Il11l111II11IIl() {
       return II1Il11l111II11IIl;
    }
-// https://t.me/pasterplace
 
    public void l1I1IlllIlI() {
       Beautifuly beautifuly = Beautifuly.l1I1IIl111Il1l1l();
@@ -40,7 +37,6 @@ public final class BeautifulyUniforms {
 
                   this.l1lll11l1l = new SimpleFramebuffer("daamky beautifuly copy", framebuffer.textureWidth, framebuffer.textureHeight, false);
                }
-// https://t.me/pasterplace
 
                if (this.IllI1l1l1 == null || this.IllI1l1l1.isClosed()) {
                   this.IllI1l1l1 = RenderSystem.getDevice().createBuffer(() -> "daamky beautifuly ubo", 136, l1I1IlllIlI);

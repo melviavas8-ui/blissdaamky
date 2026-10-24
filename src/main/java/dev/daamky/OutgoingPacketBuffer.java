@@ -13,16 +13,13 @@ import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 
 public final class OutgoingPacketBuffer {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final Deque<Packet<?>> queuedPackets = new ArrayDeque<>();
     private static boolean bufferingEnabled;
     private static boolean bypassingPackets;
     private static boolean flushingPackets;
-// https://t.me/pasterplace
 
     private OutgoingPacketBuffer() {
     }
-// https://t.me/pasterplace
 
     public static void withBypass(Runnable runnable) {
         boolean wasBypassingPackets = bypassingPackets;
@@ -31,16 +28,13 @@ public final class OutgoingPacketBuffer {
             runnable.run();
         } finally {
             bypassingPackets = wasBypassingPackets;
-// https://t.me/pasterplace
 
         }
     }
-// https://t.me/pasterplace
 
     public static void startBuffering() {
         bufferingEnabled = true;
     }
-// https://t.me/pasterplace
 
     public static boolean queuePacketIfBuffering(Packet<?> packet) {
         if (bufferingEnabled && !bypassingPackets && !flushingPackets && isBufferablePacket(packet)) {
@@ -50,7 +44,6 @@ public final class OutgoingPacketBuffer {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     public static void flush() {
         bufferingEnabled = false;
@@ -65,13 +58,11 @@ public final class OutgoingPacketBuffer {
             }
         }
     }
-// https://t.me/pasterplace
 
     public static void clear() {
         queuedPackets.clear();
         bufferingEnabled = false;
     }
-// https://t.me/pasterplace
 
     private static boolean isBufferablePacket(Packet<?> packet) {
         return packet instanceof PlayerInteractEntityC2SPacket

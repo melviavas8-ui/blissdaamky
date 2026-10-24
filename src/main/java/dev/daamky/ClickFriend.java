@@ -10,21 +10,17 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class ClickFriend extends ModuleStructure {
-    private static final String pc6979212 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final IntSetting l1I1IlllIlI = new IntSetting("Bind", dev.daamky.KeybindManager.encodeMouseButton(2));
-// https://t.me/pasterplace
 
    public ClickFriend() {
       super("ClickFriend", "Adds or removes players from friends by keybind", ModuleCategory.WORLD);
       this.addSetting(this.l1I1IlllIlI);
       this.setEnabled(true);
    }
-// https://t.me/pasterplace
 
    public boolean matchesKey(int key) {
       return this.l1I1IlllIlI.matchesKeyCode(key);
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)

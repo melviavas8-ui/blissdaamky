@@ -21,23 +21,19 @@ import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.chunk.WorldChunk;
 
 public final class DaamkyBotMap {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final DaamkyBotMap INSTANCE = new DaamkyBotMap();
     private static final int MAP_SIZE = 96;
     private static final Identifier MAP_TEXTURE_ID = Identifier.of("daamky", "bot/map");
     private NativeImageBackedTexture mapTexture;
     private long lastMapRefreshMillis;
     private float fadeOpacity;
-// https://t.me/pasterplace
 
     private DaamkyBotMap() {
     }
-// https://t.me/pasterplace
 
     public static DaamkyBotMap getInstance() {
         return INSTANCE;
     }
-// https://t.me/pasterplace
 
     private static boolean shouldRenderMap() {
         MinecraftClient client = MinecraftClient.getInstance();
@@ -49,7 +45,6 @@ public final class DaamkyBotMap {
             : SavedBots.getSessionRegistry().isPanelOpen() && !SavedBots.getSessionRegistry().getSessions().isEmpty();
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     public void onDisplay(EventDisplay eventDisplay) {
@@ -65,7 +60,6 @@ public final class DaamkyBotMap {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void renderBotCard(DrawContext drawContext, BotSession disconnect, float opacity) {
         float screenWidth = GuiEventRenderer.getScreenWidth();
@@ -131,7 +125,6 @@ public final class DaamkyBotMap {
         } else {
             statusDetailsText = "Мир бота ещё не загружен";
         }
-// https://t.me/pasterplace
 
         GuiTextBuilder.createAt(
         Medium.DEFAULT_FONT, Medium.DEFAULT_FONT.truncateToWidth(statusDetailsText, 4.4F, cardWidth - 12.0F), contentLeft, 28.0F, 4.4F
@@ -187,7 +180,6 @@ public final class DaamkyBotMap {
 
         float chatTop = hotbarTop + slotSize + 5.0F;
         float chatBottom = 8.0F + cardHeight - 6.0F;
-// https://t.me/pasterplace
 
         int visibleChatLineCount = Math.max(0, (int)((chatBottom - chatTop) / 6.6F));
         List<String> chatLines = disconnect.getFormattedSessionHistory();
@@ -207,7 +199,6 @@ public final class DaamkyBotMap {
             chatLineY += 6.6F;
         }
     }
-// https://t.me/pasterplace
 
     private void renderWorldMarkers(
     DrawContext drawContext, ClientWorld clientWorld, ClientPlayerEntity clientPlayerEntity, float mapLeft, float mapTop, float mapSize, float opacity
@@ -248,7 +239,6 @@ public final class DaamkyBotMap {
         .color(RgbaColor.rgba(255, 255, 255, (int)(255.0F * opacity)))
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     private void updateMapTexture(ClientWorld clientWorld, ClientPlayerEntity clientPlayerEntity) {
         long currentTimeMillis = System.currentTimeMillis();

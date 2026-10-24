@@ -38,7 +38,6 @@ import net.minecraft.server.ServerLinks;
 import net.minecraft.util.Identifier;
 
 abstract class BotPacketListenerInvocationHandler implements BotPacketListenerProxy, InvocationHandler {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final ScheduledExecutorService RESOURCE_PACK_STATUS_EXECUTOR = Executors.newSingleThreadScheduledExecutor(runnable -> {
         Thread thread = new Thread(runnable, "bot-resourcepack");
         thread.setDaemon(true);
@@ -53,7 +52,6 @@ abstract class BotPacketListenerInvocationHandler implements BotPacketListenerPr
     protected Map<String, String> customReportDetails = Map.of();
     protected ServerLinks serverLinks = ServerLinks.EMPTY;
     protected Object proxyInstance;
-// https://t.me/pasterplace
 
     BotPacketListenerInvocationHandler(MinecraftClient client, ClientConnection clientConnection, BotSession disconnect, BotSessionProfile l1lll11l1l, Map<Identifier, byte[]> entries) {
         this.client = client;
@@ -62,7 +60,6 @@ abstract class BotPacketListenerInvocationHandler implements BotPacketListenerPr
         this.sessionProfile = l1lll11l1l;
         this.serverCookies = entries == null ? new HashMap<>() : entries;
     }
-// https://t.me/pasterplace
 
     protected <T> T createProxy(Class<T> type, Class<?>... classArray) {
         Class[] proxyInterfaces = new Class[classArray.length + 3];
@@ -74,12 +71,10 @@ abstract class BotPacketListenerInvocationHandler implements BotPacketListenerPr
         this.proxyInstance = proxyInstance;
         return (T)proxyInstance;
     }
-// https://t.me/pasterplace
 
     protected boolean requiresClientThreadDispatch() {
         return false;
     }
-// https://t.me/pasterplace
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] objectArray) throws Throwable {
@@ -129,7 +124,6 @@ abstract class BotPacketListenerInvocationHandler implements BotPacketListenerPr
                     } else {
                         this.dispatchPacket(name);
                     }
-// https://t.me/pasterplace
 
                     return null;
                 } else if (method.isDefault()) {
@@ -142,7 +136,6 @@ abstract class BotPacketListenerInvocationHandler implements BotPacketListenerPr
             }
         }
     }
-// https://t.me/pasterplace
 
     protected void dispatchPacket(Packet<?> packet) {
         if (this.connection.isOpen() || packet instanceof DisconnectS2CPacket || packet instanceof LoginDisconnectS2CPacket) {
@@ -157,14 +150,11 @@ abstract class BotPacketListenerInvocationHandler implements BotPacketListenerPr
             }
         }
     }
-// https://t.me/pasterplace
 
     protected abstract boolean handleLoginOrConfigurationPacket(Packet<?> packet);
-// https://t.me/pasterplace
 
     protected void tickConnection() {
     }
-// https://t.me/pasterplace
 
     private boolean handleCommonPacket(Packet<?> packet) {
         if (packet instanceof KeepAliveS2CPacket keepAlivePacket) {
@@ -205,19 +195,16 @@ abstract class BotPacketListenerInvocationHandler implements BotPacketListenerPr
 
         return true;
     }
-// https://t.me/pasterplace
 
     protected void onDisconnected(DisconnectionInfo disconnectionInfo) {
         this.disconnect.handleDisconnection(disconnectionInfo == null ? "" : disconnectionInfo.reason().getString());
     }
-// https://t.me/pasterplace
 
     public void sendPacketIfOpen(Packet<?> packet) {
         if (this.connection.isOpen()) {
             this.connection.send(packet);
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public Packet<?> filterOutgoingPacket(Packet<?> packet) {
@@ -233,17 +220,14 @@ abstract class BotPacketListenerInvocationHandler implements BotPacketListenerPr
             return eventPacket.isCancelled() ? null : eventPacket.packet();
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public void onOutgoingPacketSent(Packet<?> packet) {
     }
-// https://t.me/pasterplace
 
     protected void runWithModuleProfile(Runnable runnable) {
         ModuleToggleProfileManager.runWithProfile(this.disconnect.getUsername(), runnable);
     }
-// https://t.me/pasterplace
 
     private static Object defaultValueForType(Class<?> type) {
         if (type == boolean.class) {

@@ -12,11 +12,9 @@ import net.minecraft.client.option.KeyBinding.Category;
 import net.minecraft.client.util.InputUtil.Type;
 
 public class ClientInitializer implements ClientModInitializer {
-    private static final String p13084e61 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     static ClientInitializer instance;
     private EventBus eventBus;
     private static KeyBinding clickGuiKey;
-// https://t.me/pasterplace
 
     public void onInitializeClient() {
         StackDepthProbe.II1Il11l111II11IIl();
@@ -70,7 +68,6 @@ public class ClientInitializer implements ClientModInitializer {
                 this.eventBus.register(module);
             }
         }
-// https://t.me/pasterplace
 
         ClientConfigManager.getInstance().loadConfig();
         GlobalsClient.getInstance().start();
@@ -80,7 +77,6 @@ public class ClientInitializer implements ClientModInitializer {
             SavedBots.shutdownSessions();
         });
     }
-// https://t.me/pasterplace
 
     public static EventBus getEventBus() {
         return instance == null ? null : instance.eventBus;

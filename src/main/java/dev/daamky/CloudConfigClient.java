@@ -38,7 +38,6 @@ import java.util.regex.Pattern;
 import net.fabricmc.loader.api.FabricLoader;
 
 public final class CloudConfigClient {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     public static final Pattern CONFIG_NAME_PATTERN = Pattern.compile("[A-Za-z0-9А-Яа-яЁё _.-]{1,32}");
     private static final String DEFAULT_API_URL = "https://api.daamky.pw";
     private static final CloudConfigClient INSTANCE = new CloudConfigClient();
@@ -48,17 +47,14 @@ public final class CloudConfigClient {
     private String apiToken;
     private volatile UserIdentity authenticatedUser;
     private volatile String lastErrorMessage = "";
-// https://t.me/pasterplace
 
     private CloudConfigClient() {
         this.loadCredentials();
     }
-// https://t.me/pasterplace
 
     public static CloudConfigClient getInstance() {
         return INSTANCE;
     }
-// https://t.me/pasterplace
 
     public String getTokenFingerprint() {
         try {
@@ -69,22 +65,18 @@ public final class CloudConfigClient {
             return "????????";
         }
     }
-// https://t.me/pasterplace
 
     public String getApiBaseUrl() {
         return this.apiBaseUrl;
     }
-// https://t.me/pasterplace
 
     public UserIdentity getAuthenticatedUser() {
         return this.authenticatedUser;
     }
-// https://t.me/pasterplace
 
     public String getLastErrorMessage() {
         return this.lastErrorMessage;
     }
-// https://t.me/pasterplace
 
     public CompletableFuture<UserIdentity> fetchCurrentUser() {
         HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(URI.create(this.apiBaseUrl + "/api/v1/client/me")).timeout(Duration.ofSeconds(10L)).header("Authorization", "Bearer " + this.apiToken).GET();
@@ -102,7 +94,6 @@ public final class CloudConfigClient {
             }
         });
     }
-// https://t.me/pasterplace
 
     public CompletableFuture<List<CloudConfigEntry>> listPublicConfigs() {
         return this.sendRequest(this.createConfigRequest("").GET()).thenApply(responseBody -> {
@@ -115,17 +106,14 @@ public final class CloudConfigClient {
             return configEntries;
         });
     }
-// https://t.me/pasterplace
 
     public CompletableFuture<List<CloudConfigEntry>> listUserConfigs() {
         return this.sendRequest(this.createUserConfigRequest("").GET()).thenApply(responseBody -> CloudConfigClient.parseConfigEntries(responseBody, ConfigEndpoint.USER));
     }
-// https://t.me/pasterplace
 
     public CompletableFuture<List<CloudConfigEntry>> listSharedConfigs() {
         return this.sendRequest(this.createSharedConfigRequest("").GET()).thenApply(responseBody -> CloudConfigClient.parseConfigEntries(responseBody, ConfigEndpoint.SHARED));
     }
-// https://t.me/pasterplace
 
     private static List<CloudConfigEntry> parseConfigEntries(String responseBody, ConfigEndpoint endpoint) {
         ArrayList<CloudConfigEntry> configEntries = new ArrayList<>();
@@ -135,69 +123,56 @@ public final class CloudConfigClient {
         }
         return configEntries;
     }
-// https://t.me/pasterplace
 
     public CompletableFuture<String> createShareCode(String configName) {
         return this.sendRequest(this.createConfigRequest(CloudConfigClient.encodeConfigName(configName) + "/share").POST(HttpRequest.BodyPublishers.noBody())).thenApply(responseBody -> JsonParser.parseString((String)responseBody).getAsJsonObject().get("code").getAsString());
     }
-// https://t.me/pasterplace
 
     public CompletableFuture<Void> revokeShareCode(String configName) {
         return this.sendRequest(this.createConfigRequest(CloudConfigClient.encodeConfigName(configName) + "/share").DELETE()).thenApply(responseBody -> null);
     }
-// https://t.me/pasterplace
 
     public CompletableFuture<Void> redeemShareCode(String shareCode) {
         JsonObject requestJson = new JsonObject();
         requestJson.addProperty("code", shareCode);
         return this.sendRequest(this.createSharedConfigRequest("").header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers.ofString(requestJson.toString(), StandardCharsets.UTF_8))).thenApply(responseBody -> null);
     }
-// https://t.me/pasterplace
 
     public CompletableFuture<JsonObject> fetchSharedConfig(String sharedConfigId) {
         return this.sendRequest(this.createSharedConfigRequest(CloudConfigClient.encodePathSegment(sharedConfigId)).GET()).thenApply(responseBody -> JsonParser.parseString((String)responseBody).getAsJsonObject());
     }
-// https://t.me/pasterplace
 
     public CompletableFuture<Void> deleteSharedConfig(String sharedConfigId) {
         return this.sendRequest(this.createSharedConfigRequest(CloudConfigClient.encodePathSegment(sharedConfigId)).DELETE()).thenApply(responseBody -> null);
     }
-// https://t.me/pasterplace
 
     private static String encodePathSegment(String pathSegment) {
         return "/" + URLEncoder.encode(pathSegment, StandardCharsets.UTF_8).replace("+", "%20");
     }
-// https://t.me/pasterplace
 
     private HttpRequest.Builder createSharedConfigRequest(String pathSuffix) {
         return HttpRequest.newBuilder(URI.create(this.apiBaseUrl + "/api/v1/shared" + pathSuffix)).timeout(Duration.ofSeconds(10L)).header("Authorization", "Bearer " + this.apiToken);
     }
-// https://t.me/pasterplace
 
     public CompletableFuture<JsonObject> fetchUserConfig(String configId) {
         return this.sendRequest(this.createUserConfigRequest("/" + URLEncoder.encode(configId, StandardCharsets.UTF_8).replace("+", "%20")).GET()).thenApply(responseBody -> JsonParser.parseString((String)responseBody).getAsJsonObject());
     }
-// https://t.me/pasterplace
 
     private HttpRequest.Builder createUserConfigRequest(String pathSuffix) {
         return HttpRequest.newBuilder(URI.create(this.apiBaseUrl + "/api/v1/client/configs" + pathSuffix)).timeout(Duration.ofSeconds(10L)).header("Authorization", "Bearer " + this.apiToken);
     }
-// https://t.me/pasterplace
 
     public CompletableFuture<JsonObject> fetchPublicConfig(String configName) {
         return this.sendRequest(this.createConfigRequest(CloudConfigClient.encodeConfigName(configName)).GET()).thenApply(responseBody -> JsonParser.parseString((String)responseBody).getAsJsonObject());
     }
-// https://t.me/pasterplace
 
     public CompletableFuture<Void> updateCloudConfig(String configName, JsonObject configJson) {
         return this.sendRequest(this.createConfigRequest(CloudConfigClient.encodeConfigName(configName)).header("Content-Type", "application/json").PUT(HttpRequest.BodyPublishers.ofString(configJson.toString(), StandardCharsets.UTF_8))).thenApply(responseBody -> null);
     }
-// https://t.me/pasterplace
 
     public CompletableFuture<Void> deleteCloudConfig(String configName) {
         return this.sendRequest(this.createConfigRequest(CloudConfigClient.encodeConfigName(configName)).DELETE()).thenApply(responseBody -> null);
     }
-// https://t.me/pasterplace
 
     private static String encodeConfigName(String configName) {
         if (!CONFIG_NAME_PATTERN.matcher(configName).matches()) {
@@ -205,12 +180,10 @@ public final class CloudConfigClient {
         }
         return "/" + URLEncoder.encode(configName, StandardCharsets.UTF_8).replace("+", "%20");
     }
-// https://t.me/pasterplace
 
     private HttpRequest.Builder createConfigRequest(String pathSuffix) {
         return HttpRequest.newBuilder(URI.create(this.apiBaseUrl + "/api/v1/configs" + pathSuffix)).timeout(Duration.ofSeconds(10L)).header("Authorization", "Bearer " + this.apiToken);
     }
-// https://t.me/pasterplace
 
     private CompletableFuture<String> sendRequest(HttpRequest.Builder requestBuilder) {
         return this.HTTP_CLIENT.sendAsync(requestBuilder.build(), HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8)).thenApply(response -> {
@@ -220,7 +193,6 @@ public final class CloudConfigClient {
             return (String)response.body();
         });
     }
-// https://t.me/pasterplace
 
     private static String parseApiErrorMessage(String responseBody) {
         try {
@@ -230,7 +202,6 @@ public final class CloudConfigClient {
             return "Ошибка сервера";
         }
     }
-// https://t.me/pasterplace
 
     private void loadCredentials() {
         try {
@@ -258,7 +229,6 @@ public final class CloudConfigClient {
             this.saveCredentials();
         }
     }
-// https://t.me/pasterplace
 
     private void saveCredentials() {
         JsonObject credentialsJson = new JsonObject();

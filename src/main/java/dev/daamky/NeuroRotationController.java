@@ -34,7 +34,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public final class NeuroRotationController {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     public static final int RECORDING_SAMPLE_SIZE = 16;
     public static final int TRAINING_INPUT_SIZE = 17;
     private static final float PREDICTION_OUTPUT_SCALE = 5.0F;
@@ -81,32 +80,26 @@ public final class NeuroRotationController {
     private float previousYawDelta;
     private float previousPitchDelta;
     private int inferenceStepCount = -1;
-// https://t.me/pasterplace
 
     private NeuroRotationController() {
     }
-// https://t.me/pasterplace
 
     public static NeuroRotationController getInstance() {
         return INSTANCE;
     }
-// https://t.me/pasterplace
 
     public static void accumulateMouseDelta(double yawDelta, double pitchDelta) {
         INSTANCE.accumulatedMouseYawDelta += yawDelta * 0.15;
         INSTANCE.accumulatedMousePitchDelta += pitchDelta * 0.15;
     }
-// https://t.me/pasterplace
 
     public boolean isModelLoaded() {
         return this.activeModel != null;
     }
-// https://t.me/pasterplace
 
     public String getActiveModelName() {
         return this.activeModelName;
     }
-// https://t.me/pasterplace
 
     public void handleNeuroCommand(String[] textArray) {
         if (textArray.length == 0) {
@@ -144,19 +137,16 @@ public final class NeuroRotationController {
             }
         }
     }
-// https://t.me/pasterplace
 
     private static void requireName(String name) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("укажите имя");
         }
     }
-// https://t.me/pasterplace
 
     private static String sanitizeFileName(String fileName) {
         return fileName.replaceAll("[^A-Za-z0-9_\\-а-яА-ЯёЁ]", "");
     }
-// https://t.me/pasterplace
 
     private void startRecording(String recordingName) {
         if (this.currentRecordingName != null) {
@@ -170,7 +160,6 @@ public final class NeuroRotationController {
         this.currentTarget = null;
         ClientChatLogger.II1Il11l111II11IIl("Запись «" + recordingName + "» начата. Записываются бои: удар по игроку + 3 с после последнего удара.");
     }
-// https://t.me/pasterplace
 
     private void stopCurrentOperation() {
         if (this.currentRecordingName != null) {
@@ -190,7 +179,6 @@ public final class NeuroRotationController {
             ClientChatLogger.II1Il11l111II11IIl("Нечего останавливать");
         }
     }
-// https://t.me/pasterplace
 
     private void listRecordings() {
         try {
@@ -206,7 +194,6 @@ public final class NeuroRotationController {
             ClientChatLogger.l1I1IlllIlI(listFailure.getMessage());
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     public void onAttack(EventAttack eventAttack) {
@@ -220,7 +207,6 @@ public final class NeuroRotationController {
                         if (this.currentTarget != entity2 && !this.recordedSamples.isEmpty()) {
                             this.flushRecordingBatch();
                         }
-// https://t.me/pasterplace
 
                         if (this.recordedSamples.isEmpty() && this.currentRecordingSample == null) {
                             this.pendingTargetEntityId = entity2.getId();
@@ -233,7 +219,6 @@ public final class NeuroRotationController {
             }
         }
     }
-// https://t.me/pasterplace
 
     @EventTarget
     public void onWorldChange(EventWorldChange eventWorldChange) {
@@ -241,7 +226,6 @@ public final class NeuroRotationController {
         this.currentTarget = null;
         this.resetInferenceState();
     }
-// https://t.me/pasterplace
 
     @EventTarget(priority = 0)
     public void onUpdate(EventUpdate eventUpdate) {
@@ -309,7 +293,6 @@ public final class NeuroRotationController {
             this.pendingTargetEntityId = -1;
         }
     }
-// https://t.me/pasterplace
 
     private NeuroRotationController.RotationTrainingSnapshot captureRotationSnapshot(Rotation lIll1Il1lll111l11l1I1llllI2) {
         HashMap<Integer, float[]> hashMap = new HashMap<>();
@@ -330,13 +313,11 @@ public final class NeuroRotationController {
 
         return new NeuroRotationController.RotationTrainingSnapshot(this.createRecordingSample(lIll1Il1lll111l11l1I1llllI2, null, 0.0F), hashMap);
     }
-// https://t.me/pasterplace
 
     private void appendTargetHistoryToRecording(int targetEntityId) {
         if (this.recordedSamples.isEmpty()) {
             ArrayList arrayList = new ArrayList();
             Iterator snapshotIterator = this.rotationSnapshotHistory.descendingIterator();
-// https://t.me/pasterplace
 
             while (snapshotIterator.hasNext()) {
                 Object snapshot = (NeuroRotationController.RotationTrainingSnapshot)snapshotIterator.next();
@@ -344,7 +325,6 @@ public final class NeuroRotationController {
                 if (targetState == null) {
                     break;
                 }
-// https://t.me/pasterplace
 
                 Object sampleFeatures = (float[])((NeuroRotationController.RotationTrainingSnapshot)snapshot).inputFeatures.clone();
                 ((Object[])sampleFeatures)[2] = ((Object[])targetState)[0];
@@ -359,7 +339,6 @@ public final class NeuroRotationController {
             this.rotationSnapshotHistory.clear();
         }
     }
-// https://t.me/pasterplace
 
     private Rotation calculateTargetRotation(LivingEntity entity, Rotation lIll1Il1lll111l11l1I1llllI2) {
         Vec3d playerEyePosition = this.client.player.getEyePos();
@@ -371,7 +350,6 @@ public final class NeuroRotationController {
         lIll1Il1lll111l11l1I1llllI22.getPitch()
         );
     }
-// https://t.me/pasterplace
 
     private float[] createRecordingSample(
     Rotation lIll1Il1lll111l11l1I1llllI2, Rotation lIll1Il1lll111l11l1I1llllI22, float targetDistance
@@ -397,7 +375,6 @@ public final class NeuroRotationController {
             0.0F
         };
     }
-// https://t.me/pasterplace
 
     private void flushRecordingBatch() {
         if (this.currentRecordingSample != null) {
@@ -444,7 +421,6 @@ public final class NeuroRotationController {
             this.recordedSamples.clear();
         }
     }
-// https://t.me/pasterplace
 
     static void buildTrainingInputFeatures(float[] previousSample, float[] currentSample, float mouseYawDelta, float mousePitchDelta, float[] trainingInput) {
         trainingInput[0] = MathHelper.wrapDegrees(currentSample[2] - currentSample[0]) / 30.0F;
@@ -471,7 +447,6 @@ public final class NeuroRotationController {
         trainingInput[15] = currentSample[13] / 20.0F;
         trainingInput[16] = currentSample[1] / 90.0F;
     }
-// https://t.me/pasterplace
 
     private List<float[][]> readRecordingBatches(Path path) throws IOException {
         ArrayList<float[][]> arrayList = new ArrayList<>();
@@ -500,7 +475,6 @@ public final class NeuroRotationController {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void startTraining(String modelName, String recordingName, boolean fineTuneExistingModel, int epochCount) {
         if (this.trainingInProgress) {
@@ -625,7 +599,6 @@ public final class NeuroRotationController {
 
                                 return;
                             }
-// https://t.me/pasterplace
 
                             this.trainingStatus = "Мало данных";
                             this.publishTrainingStatus("§cСлишком мало данных для обучения");
@@ -648,42 +621,34 @@ public final class NeuroRotationController {
             }
         }
     }
-// https://t.me/pasterplace
 
     public boolean isRecording() {
         return this.currentRecordingName != null;
     }
-// https://t.me/pasterplace
 
     public String getRecordingName() {
         return this.currentRecordingName;
     }
-// https://t.me/pasterplace
 
     public int getRecordedSampleCount() {
         return this.savedSampleCount + this.recordedSamples.size();
     }
-// https://t.me/pasterplace
 
     public boolean isTrainingInProgress() {
         return this.trainingInProgress;
     }
-// https://t.me/pasterplace
 
     public boolean isTrainingOverlayVisible() {
         return this.trainingInProgress || this.trainingFinishedAtMillis > 0L && System.currentTimeMillis() - this.trainingFinishedAtMillis < 6000L;
     }
-// https://t.me/pasterplace
 
     public String getTrainingModelName() {
         return this.trainingModelName == null ? "" : this.trainingModelName;
     }
-// https://t.me/pasterplace
 
     public boolean hasTrainingError() {
         return "������".equals(this.trainingStatus) || "���� ������".equals(this.trainingStatus);
     }
-// https://t.me/pasterplace
 
     public String getDisplayInfo() {
         NeuralNetworkTrainer trainer = this.trainingWorker;
@@ -691,7 +656,6 @@ public final class NeuroRotationController {
         ? (this.isFineTuning ? "Дообучение " : "Эпоха ") + (trainer.currentEpoch + 1) + "/" + trainer.totalEpochs
         : this.trainingStatus;
     }
-// https://t.me/pasterplace
 
     public float getTrainingProgress() {
         if (!this.trainingInProgress && this.trainingSucceeded) {
@@ -701,7 +665,6 @@ public final class NeuroRotationController {
         NeuralNetworkTrainer trainer = this.trainingWorker;
         return trainer == null ? 0.0F : trainer.progress;
     }
-// https://t.me/pasterplace
 
     public String getTrainingSummary() {
         String summaryText = this.trainingSampleCount + " тиков";
@@ -709,16 +672,13 @@ public final class NeuroRotationController {
         if (trainer != null && !Float.isNaN(trainer.validationLoss)) {
             summaryText = summaryText + " · val " + String.format("%.3f", trainer.validationLoss);
         }
-// https://t.me/pasterplace
 
         return summaryText;
     }
-// https://t.me/pasterplace
 
     private void publishTrainingStatus(String statusMessage) {
         this.client.execute(() -> ClientChatLogger.II1Il11l111II11IIl(statusMessage));
     }
-// https://t.me/pasterplace
 
     private void loadAndActivateModel(String modelName) {
         Path path = this.datasetDirectory.resolve(modelName + ".nn");
@@ -748,7 +708,6 @@ public final class NeuroRotationController {
             }
         }
     }
-// https://t.me/pasterplace
 
     public void resetInferenceState() {
         this.recurrentHiddenState = this.activeModel == null ? null : new float[this.activeModel.hiddenSize];
@@ -757,7 +716,6 @@ public final class NeuroRotationController {
         this.previousPitchDelta = 0.0F;
         this.inferenceStepCount = -1;
     }
-// https://t.me/pasterplace
 
     public Rotation predictRotationForTarget(
     Rotation lIll1Il1lll111l11l1I1llllI2, Rotation lIll1Il1lll111l11l1I1llllI22, LivingEntity livingEntity
@@ -770,7 +728,6 @@ public final class NeuroRotationController {
             return null;
         }
     }
-// https://t.me/pasterplace
 
     public Rotation predictRotationWithoutTarget(Rotation lIll1Il1lll111l11l1I1llllI2) {
         if (this.activeModel != null && this.client.player != null && this.recurrentHiddenState != null && this.previousFeatureVector != null) {
@@ -799,7 +756,6 @@ public final class NeuroRotationController {
             return null;
         }
     }
-// https://t.me/pasterplace
 
     private Rotation inferRotation(
     Rotation lIll1Il1lll111l11l1I1llllI2,
@@ -840,7 +796,6 @@ public final class NeuroRotationController {
         this.previousFeatureVector = currentFeatures;
         return new Rotation(lIll1Il1lll111l11l1I1llllI2.getYaw() + yawDelta, predictedPitch);
     }
-// https://t.me/pasterplace
 
     private record RotationTrainingSnapshot(float[] inputFeatures, Map<Integer, float[]> targetLabelsByEntityId) {
 

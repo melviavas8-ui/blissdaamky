@@ -16,7 +16,6 @@ import org.joml.Vector3f;
 import org.lwjgl.system.MemoryStack;
 
 public final class WorldFxUniforms {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final WorldFxUniforms INSTANCE = new WorldFxUniforms();
    private static final int UNIFORM_BUFFER_SIZE_BYTES = new Std140SizeCalculator()
       .putMat4f()
@@ -38,12 +37,10 @@ public final class WorldFxUniforms {
    private SimpleFramebuffer sceneCopyFramebuffer;
    private final Matrix4f capturedProjectionMatrix = new Matrix4f();
    private boolean hasCapturedProjectionMatrix;
-// https://t.me/pasterplace
 
    public static WorldFxUniforms getInstance() {
       return INSTANCE;
    }
-// https://t.me/pasterplace
 
    public void captureProjectionMatrix(Matrix4f matrix4f) {
       if (matrix4f != null) {
@@ -51,7 +48,6 @@ public final class WorldFxUniforms {
          this.hasCapturedProjectionMatrix = true;
       }
    }
-// https://t.me/pasterplace
 
    public void renderWorldEffects(CameraRenderState cameraRenderState, Matrix4f matrix4f, float sunAngle) {
       Ambience ambience = Ambience.getInstance();
@@ -101,7 +97,6 @@ public final class WorldFxUniforms {
                Vector3f vector3f3 = cameraRenderState.orientation.transform(new Vector3f(1.0F, 0.0F, 0.0F));
                Vector3f vector3f4 = new Matrix4f().rotateY((float)Math.toRadians(-90.0)).rotateX(sunAngle).transformDirection(new Vector3f(0.0F, 1.0F, 0.0F));
                MemoryStack memoryStack = MemoryStack.stackPush();
-// https://t.me/pasterplace
 
                try {
                   Std140Builder std140Builder = Std140Builder.onStack(memoryStack, UNIFORM_BUFFER_SIZE_BYTES)

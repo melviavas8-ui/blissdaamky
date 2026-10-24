@@ -31,7 +31,6 @@ import net.minecraft.util.Identifier;
 import org.lwjgl.system.MemoryStack;
 
 public final class TrailSampler {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    public static final TrailSampler INSTANCE = new TrailSampler();
    private final RenderPipeline compositePipeline = createCompositePipeline(-1);
    private final RenderPipeline[] compositeStylePipelines = new RenderPipeline[6];
@@ -87,7 +86,6 @@ public final class TrailSampler {
    private final TrailSampler.TrailSampleState glowSampleState = new TrailSampler.TrailSampleState();
    private final TrailSampler.TrailSampleState outlineSampleState = new TrailSampler.TrailSampleState();
    private static int pipelineIdCounter;
-// https://t.me/pasterplace
 
    private TrailSampler() {
       this.noEffectCompositePipeline = createHandsPipeline(
@@ -189,11 +187,9 @@ public final class TrailSampler {
       this.itemBloomFramebuffers = new TrailSampler.TrailFramebuffer("hands-item-bloom", TextureFormat.RGBA8);
       this.mirrorFramebuffers = new TrailSampler.TrailFramebuffer("hands-mirror", TextureFormat.RGBA8);
    }
-// https://t.me/pasterplace
 
    public static void initialize() {
    }
-// https://t.me/pasterplace
 
    private static RenderPipeline createHandsPipeline(
       String fragmentShaderName, TextureFormat textureFormat, Optional<BlendFunction> blendFunction, int handsStyle, String[] samplerNames, String[] uniformNames, boolean useHandMask
@@ -231,7 +227,6 @@ public final class TrailSampler {
 
       return RenderPipelines.register(pipelineBuilder.build());
    }
-// https://t.me/pasterplace
 
    private static RenderPipeline createSimpleHandsPipeline(String fragmentShaderName, TextureFormat textureFormat, boolean useMaskVariant) {
       return createHandsPipeline(
@@ -244,7 +239,6 @@ public final class TrailSampler {
          textureFormat == TextureFormat.RED8
       );
    }
-// https://t.me/pasterplace
 
    private static RenderPipeline createCompositePipeline(int handsStyle) {
       return createHandsPipeline(
@@ -257,34 +251,28 @@ public final class TrailSampler {
          false
       );
    }
-// https://t.me/pasterplace
 
    private static GpuSampler linearSampler() {
       return RenderSystem.getSamplerCache().get(FilterMode.LINEAR);
    }
-// https://t.me/pasterplace
 
    private static GpuSampler nearestSampler() {
       return RenderSystem.getSamplerCache().get(FilterMode.NEAREST);
    }
-// https://t.me/pasterplace
 
    private static Std140Builder putColor(Std140Builder uniformBuilder, int argbColor) {
       return uniformBuilder.putVec4((argbColor >>> 16 & 0xFF) / 255.0F, (argbColor >>> 8 & 0xFF) / 255.0F, (argbColor & 0xFF) / 255.0F, (argbColor >>> 24 & 0xFF) / 255.0F);
    }
-// https://t.me/pasterplace
 
    private static GpuBuffer ensureGpuBuffer(GpuBuffer existingBuffer, int bufferSizeBytes, String debugLabel) {
       return existingBuffer != null && !existingBuffer.isClosed() ? existingBuffer : RenderSystem.getDevice().createBuffer(() -> debugLabel, 136, bufferSizeBytes);
    }
-// https://t.me/pasterplace
 
    private static void closeGpuBuffer(GpuBuffer gpuBuffer) {
       if (gpuBuffer != null && !gpuBuffer.isClosed()) {
          gpuBuffer.close();
       }
    }
-// https://t.me/pasterplace
 
    private static Framebuffer getOrResizeFramebuffer(Framebuffer existingFramebuffer, String debugLabel, int width, int height, TextureFormat textureFormat) {
       if (existingFramebuffer == null) {
@@ -297,13 +285,11 @@ public final class TrailSampler {
 
       return existingFramebuffer;
    }
-// https://t.me/pasterplace
 
    private void renderGaussianPass(
       Framebuffer sourceFramebuffer, Framebuffer destinationFramebuffer, RenderPipeline gaussianPipeline, GpuBuffer blurUniformBuffer, CommandEncoder commandEncoder
    ) {
       RenderPass gaussianPass = commandEncoder.createRenderPass(() -> "handsBlur", destinationFramebuffer.getColorAttachmentView(), OptionalInt.empty());
-// https://t.me/pasterplace
 
       try {
          gaussianPass.setPipeline(gaussianPipeline);
@@ -329,7 +315,6 @@ public final class TrailSampler {
          gaussianPass.close();
       }
    }
-// https://t.me/pasterplace
 
    private void clearTrailHistory(CommandEncoder commandEncoder) {
       if (this.trailHistoryFront != null && this.trailHistoryBack != null) {
@@ -337,7 +322,6 @@ public final class TrailSampler {
          commandEncoder.clearColorTexture(this.trailHistoryBack.getColorAttachment(), 0);
       }
    }
-// https://t.me/pasterplace
 
    private void ensureTrailHistoryFramebuffers(int width, int height, CommandEncoder commandEncoder) {
       if (this.trailHistoryFront == null) {
@@ -350,7 +334,6 @@ public final class TrailSampler {
          this.clearTrailHistory(commandEncoder);
       }
    }
-// https://t.me/pasterplace
 
    private void renderEnergyTrailPass(CommandEncoder commandEncoder, Framebuffer bloomFramebuffer, Hands hands, float animationPhase, float energyScale) {
       MemoryStack uniformStack = MemoryStack.stackPush();
@@ -403,7 +386,6 @@ public final class TrailSampler {
          energyPass.close();
       }
    }
-// https://t.me/pasterplace
 
    private void renderFlameTrailPass(CommandEncoder commandEncoder, Framebuffer bloomFramebuffer, Hands hands, float animationPhase) {
       MemoryStack uniformStack = MemoryStack.stackPush();
@@ -446,7 +428,6 @@ public final class TrailSampler {
                renderFailure.addSuppressed(closeFailure);
             }
          }
-// https://t.me/pasterplace
 
          throw renderFailure;
       }
@@ -455,7 +436,6 @@ public final class TrailSampler {
          flamePass.close();
       }
    }
-// https://t.me/pasterplace
 
    private void renderRibbonTrailPass(CommandEncoder commandEncoder, Framebuffer bloomFramebuffer, Hands hands, float ribbonScale, float animationPhase) {
       float scaledRibbonWidth = hands.getGlowBrightness() * hands.getRibbonBrightness() * this.handSwingScale;
@@ -512,7 +492,6 @@ public final class TrailSampler {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void updateTrailAnimationState(Hands hands, MinecraftClient minecraftClient, float deltaSeconds) {
       float targetHandUseScale = hands.getRibbonLength();
@@ -538,7 +517,6 @@ public final class TrailSampler {
       this.animatedTrailTimeSeconds = this.animatedTrailTimeSeconds + deltaSeconds * hands.getRibbonWaveSpeed();
       this.trailAnimationPhase = this.trailAnimationPhase + 1 & 4095;
    }
-// https://t.me/pasterplace
 
    private void renderHandMask(Framebuffer handColorFramebuffer, CommandEncoder commandEncoder) {
       RenderPass maskPass = commandEncoder.createRenderPass(() -> "handsMask", this.handMaskFramebuffer.getColorAttachmentView(), OptionalInt.empty());
@@ -559,13 +537,11 @@ public final class TrailSampler {
 
          throw renderFailure;
       }
-// https://t.me/pasterplace
 
       if (maskPass != null) {
          maskPass.close();
       }
    }
-// https://t.me/pasterplace
 
    private void renderItemColor(Framebuffer sourceFramebuffer, Framebuffer destinationFramebuffer, CommandEncoder commandEncoder) {
       RenderPass itemColorPass = commandEncoder.createRenderPass(() -> "handsItemColor", destinationFramebuffer.getColorAttachmentView(), OptionalInt.empty());
@@ -583,7 +559,6 @@ public final class TrailSampler {
                renderFailure.addSuppressed(closeFailure);
             }
          }
-// https://t.me/pasterplace
 
          throw renderFailure;
       }
@@ -592,7 +567,6 @@ public final class TrailSampler {
          itemColorPass.close();
       }
    }
-// https://t.me/pasterplace
 
    private Framebuffer renderDownsampledBlur(
       Framebuffer sourceFramebuffer,
@@ -654,7 +628,6 @@ public final class TrailSampler {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void updateGaussianUniforms(TrailSampler.TrailFramebuffer trailFramebuffer, int width, int height, float gaussianRadius, CommandEncoder commandEncoder) {
       boolean uniformBuffersReady = trailFramebuffer.horizontalGaussianUniformBuffer != null && !trailFramebuffer.horizontalGaussianUniformBuffer.isClosed() && trailFramebuffer.verticalGaussianUniformBuffer != null && !trailFramebuffer.verticalGaussianUniformBuffer.isClosed();
@@ -712,7 +685,6 @@ public final class TrailSampler {
          trailFramebuffer.cachedGaussianRadius = gaussianRadius;
       }
    }
-// https://t.me/pasterplace
 
    private Framebuffer createTrailBloom(Framebuffer sourceFramebuffer, Hands hands, int downsamplePassCount, float gaussianRadius, boolean compositeIntoFirstLevel, CommandEncoder commandEncoder) {
       return this.renderDownsampledBlur(
@@ -725,7 +697,6 @@ public final class TrailSampler {
          commandEncoder
       );
    }
-// https://t.me/pasterplace
 
    private void renderGlowOrOutline(
       Framebuffer bloomFramebuffer,
@@ -804,17 +775,14 @@ public final class TrailSampler {
                renderFailure.addSuppressed(closeFailure);
             }
          }
-// https://t.me/pasterplace
 
          throw renderFailure;
       }
-// https://t.me/pasterplace
 
       if (effectPass != null) {
          effectPass.close();
       }
    }
-// https://t.me/pasterplace
 
    private void renderDisplacedTrail(Framebuffer currentTrailFramebuffer, Framebuffer outputFramebuffer, Hands hands, CommandEncoder commandEncoder) {
       this.ensureTrailHistoryFramebuffers(currentTrailFramebuffer.textureWidth, currentTrailFramebuffer.textureHeight, commandEncoder);
@@ -905,7 +873,6 @@ public final class TrailSampler {
                uniformWriteFailure.addSuppressed(stackCloseFailure);
             }
          }
-// https://t.me/pasterplace
 
          throw uniformWriteFailure;
       }
@@ -913,7 +880,6 @@ public final class TrailSampler {
       if (uniformStack != null) {
          uniformStack.close();
       }
-// https://t.me/pasterplace
 
       RenderPass displacementPass = commandEncoder.createRenderPass(() -> "handsTrailDisplace", this.trailHistoryBack.getColorAttachmentView(), OptionalInt.of(0));
 
@@ -972,7 +938,6 @@ public final class TrailSampler {
       this.trailHistoryFront = this.trailHistoryBack;
       this.trailHistoryBack = previousHistoryFront;
    }
-// https://t.me/pasterplace
 
    private void resetTrailAnimationState() {
       this.lastFrameNanos = 0L;
@@ -983,7 +948,6 @@ public final class TrailSampler {
       this.trailAnimationPhase = 0;
       this.animationStateInitialized = false;
    }
-// https://t.me/pasterplace
 
    private void closeTrailFramebuffer(TrailSampler.TrailFramebuffer trailFramebuffer) {
       for (Framebuffer downsampleFramebuffer : trailFramebuffer.downsampleFramebuffers) {
@@ -1002,7 +966,6 @@ public final class TrailSampler {
       trailFramebuffer.verticalGaussianUniformBuffer = null;
       trailFramebuffer.cachedGaussianRadius = Float.NaN;
    }
-// https://t.me/pasterplace
 
    public void close() {
       if (this.handMaskFramebuffer != null) {
@@ -1048,7 +1011,6 @@ public final class TrailSampler {
       this.energyTrailUniformBuffer = null;
       this.ribbonTrailUniformBuffer = null;
    }
-// https://t.me/pasterplace
 
    public void render(Framebuffer handColorFramebuffer, Framebuffer outputFramebuffer, Hands hands) {
       CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
@@ -1167,7 +1129,6 @@ public final class TrailSampler {
                uniformWriteFailure.addSuppressed(stackCloseFailure);
             }
          }
-// https://t.me/pasterplace
 
          throw uniformWriteFailure;
       }
@@ -1206,7 +1167,6 @@ public final class TrailSampler {
                compositePassFailure.addSuppressed(closeFailure);
             }
          }
-// https://t.me/pasterplace
 
          throw compositePassFailure;
       }
@@ -1215,7 +1175,6 @@ public final class TrailSampler {
          compositePass.close();
       }
    }
-// https://t.me/pasterplace
 
    private static final class TrailFramebuffer {
       private final String resourceName;
@@ -1235,7 +1194,6 @@ public final class TrailSampler {
          this.isMaskTexture = textureFormat == TextureFormat.RED8;
       }
    }
-// https://t.me/pasterplace
 
    private static final class TrailSampleState {
       private float cachedIntensity = Float.NaN;

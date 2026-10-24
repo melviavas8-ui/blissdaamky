@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class ModelBone {
-    private static final String p6f54d942 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    public final String II1Il11l111II11IIl;
    public final List<ModelBone> l1I1IlllIlI = new ArrayList<>();
    public final List<ModelBonePose> IllI1l1l1 = new ArrayList<>();
@@ -20,12 +19,10 @@ public final class ModelBone {
    public float lIll1Il1lll111l11l1I1llllI = 1.0F;
    public float lIIIlI1III1 = 1.0F;
    public float IIl1IlII1III1IIl1IIl = 1.0F;
-// https://t.me/pasterplace
 
    public ModelBone(String boneName) {
       this.II1Il11l111II11IIl = boneName;
    }
-// https://t.me/pasterplace
 
    public float[] II1Il11l111II11IIl() {
       return new float[]{
@@ -40,7 +37,6 @@ public final class ModelBone {
          this.IIl1IlII1III1IIl1IIl
       };
    }
-// https://t.me/pasterplace
 
    public void II1Il11l111II11IIl(float[] transformValues) {
       this.I1lIIII1III1lIlIl1l = transformValues[0];

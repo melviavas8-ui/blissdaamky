@@ -5,7 +5,6 @@ import dev.daamky.core.event.impl.EventUpdate;
 import net.minecraft.client.MinecraftClient;
 
 public final class Priority4 {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final Priority4 INSTANCE = new Priority4();
    private int currentPriority;
    private Rotation requestedRotation;
@@ -16,42 +15,34 @@ public final class Priority4 {
    private int maximumRequestAge;
    private int requestPlayerAge = Integer.MIN_VALUE;
    private boolean eventListenerRegistered;
-// https://t.me/pasterplace
 
    private Priority4() {
    }
-// https://t.me/pasterplace
 
    public static Priority4 getInstance() {
       INSTANCE.registerEventListener();
       return INSTANCE;
    }
-// https://t.me/pasterplace
 
    public static Rotation getLastMotionRotation() {
       return RotationPriorityManager.getInstance().getLastMotionRotation();
    }
-// https://t.me/pasterplace
 
    public static Rotation getCurrentRotation() {
       return RotationPriorityManager.getInstance().getCurrentRotation();
    }
-// https://t.me/pasterplace
 
    public int getPriority() {
       return this.currentPriority;
    }
-// https://t.me/pasterplace
 
    public void setPriority(int priority) {
       this.currentPriority = priority;
    }
-// https://t.me/pasterplace
 
    public Rotation getRequestedRotation() {
       return this.requestedRotation;
    }
-// https://t.me/pasterplace
 
    public static void requestRotation(
       Rotation requestedRotation, float yawSpeed, float pitchSpeed, float minimumTurnSpeed, float maximumTurnSpeed, int requestPriority, int maximumRequestAge
@@ -74,17 +65,14 @@ public final class Priority4 {
          }
       }
    }
-// https://t.me/pasterplace
 
    public static void requestRotation(Rotation requestedRotation, float yawSpeed, float pitchSpeed, int requestPriority, int maximumRequestAge) {
       requestRotation(requestedRotation, yawSpeed, yawSpeed, pitchSpeed, pitchSpeed, requestPriority, maximumRequestAge);
    }
-// https://t.me/pasterplace
 
    public static void requestRotation(Rotation requestedRotation, float rotationSpeed, int requestPriority, int maximumRequestAge) {
       requestRotation(requestedRotation, rotationSpeed, rotationSpeed, requestPriority, maximumRequestAge);
    }
-// https://t.me/pasterplace
 
    private void applyRotationRequest() {
       if (this.requestedRotation != null && MinecraftClient.getInstance().player != null) {
@@ -95,7 +83,6 @@ public final class Priority4 {
             .requestRotation(lIll1Il1lll111l11l1I1llllI2, FocusMode.FREE, Math.max(1.0F, this.minimumTurnSpeed), this.currentPriority, false, this);
       }
    }
-// https://t.me/pasterplace
 
    private void clearRotationRequest() {
       RotationPriorityManager.getInstance().clearRotationRequest(this);
@@ -103,7 +90,6 @@ public final class Priority4 {
       this.currentPriority = 0;
       this.maximumRequestAge = 0;
    }
-// https://t.me/pasterplace
 
    private void registerEventListener() {
       if (!this.eventListenerRegistered && ClientInitializer.getEventBus() != null) {
@@ -111,7 +97,6 @@ public final class Priority4 {
          this.eventListenerRegistered = true;
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget(priority = 3)
    public void onUpdate(EventUpdate eventUpdate) {

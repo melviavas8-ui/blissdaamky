@@ -14,12 +14,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayerEntity.class)
 public abstract class LocalPlayerMixin {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Unique
    private float daamky$realYaw;
    @Unique
    private float daamky$realPitch;
-// https://t.me/pasterplace
 
    @Inject(method = "tick()V", at = @At("HEAD"))
    private void daamky$onTick(CallbackInfo callbackInfo) {
@@ -27,13 +25,11 @@ public abstract class LocalPlayerMixin {
          ClientInitializer.getEventBus().post(EventUpdate.get());
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "closeScreen()V", at = @At("HEAD"))
    private void daamky$debugClose(CallbackInfo callbackInfo) {
       CLIENTCloseContainer.logCloseContainer();
    }
-// https://t.me/pasterplace
 
    @Inject(method = "tick()V", at = @At("TAIL"))
    private void daamky$onTickTail(CallbackInfo callbackInfo) {
@@ -41,7 +37,6 @@ public abstract class LocalPlayerMixin {
          ClientInitializer.getEventBus().post(EventPostTick.get());
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "sendMovementPackets()V", at = @At("HEAD"))
    private void daamky$onSendPositionHead(CallbackInfo callbackInfo) {
@@ -54,7 +49,6 @@ public abstract class LocalPlayerMixin {
          player.setPitch(motionEvent.pitch());
       }
    }
-// https://t.me/pasterplace
 
    @Inject(method = "sendMovementPackets()V", at = @At("TAIL"))
    private void daamky$onSendPositionTail(CallbackInfo callbackInfo) {

@@ -31,7 +31,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class BlockESP extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiToggleSetting blockSettings = new MultiToggleSetting("Блоки")
       .addOption("Алмазы", true)
       .addOption("Древние обломки", true)
@@ -67,7 +66,6 @@ public final class BlockESP extends ModuleStructure {
    private int scanCursor;
    private BlockPos scanCenter = BlockPos.ORIGIN;
    private int currentScanRadius;
-// https://t.me/pasterplace
 
    public BlockESP() {
       super("BlockESP", "Подсвечивает руды, порталы, безопасные ямы и хранилища", ModuleCategory.RENDER);
@@ -84,7 +82,6 @@ public final class BlockESP extends ModuleStructure {
          this.storageRange
       );
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -93,7 +90,6 @@ public final class BlockESP extends ModuleStructure {
       this.pendingBlockHighlightColors = new HashMap<>();
       this.scanCursor = -1;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onUpdate(EventUpdate eventUpdate) {
@@ -111,7 +107,6 @@ public final class BlockESP extends ModuleStructure {
          int scanMaxY = Math.min(CLIENT.world.getTopYInclusive(), this.scanCenter.getY() + this.currentScanRadius);
          int blocksRemainingThisTick = this.scanBudgetPerTick.getValue().intValue();
          Mutable mutable = new Mutable();
-// https://t.me/pasterplace
 
          while (blocksRemainingThisTick-- > 0 && this.scanCursor < horizontalColumnCount) {
             int scanX = this.scanCenter.getX() - this.currentScanRadius + this.scanCursor % horizontalSideLength;
@@ -133,7 +128,6 @@ public final class BlockESP extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private RgbaColor getBlockHighlightColor(BlockPos position) {
       BlockState blockState = CLIENT.world.getBlockState(position);
@@ -174,7 +168,6 @@ public final class BlockESP extends ModuleStructure {
          return RgbaColor.rgb(90, 230, 255);
       }
    }
-// https://t.me/pasterplace
 
    private RgbaColor getSafeHoleColor(BlockPos position) {
       if (CLIENT.world.getBlockState(position.up()).isAir()
@@ -201,7 +194,6 @@ public final class BlockESP extends ModuleStructure {
          return null;
       }
    }
-// https://t.me/pasterplace
 
    private boolean isSafeHoleMaterial(BlockState blockState) {
       Block block = blockState.getBlock();
@@ -212,7 +204,6 @@ public final class BlockESP extends ModuleStructure {
          || block == Blocks.ENDER_CHEST
          || block == Blocks.NETHERITE_BLOCK;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -249,7 +240,6 @@ public final class BlockESP extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void updateStorageHighlights() {
       if (CLIENT.player != null && this.storageSettings.getEnabledCount() != 0) {
@@ -258,7 +248,6 @@ public final class BlockESP extends ModuleStructure {
          int playerChunkX = CLIENT.player.getBlockPos().getX() >> 4;
          int playerChunkZ = CLIENT.player.getBlockPos().getZ() >> 4;
          float pulsePhase = (float)(Math.sin(AnimatedColorUtils.animationTime() * 3.0F) * 0.5 + 0.5);
-// https://t.me/pasterplace
 
          for (int chunkX = playerChunkX - chunkRadius; chunkX <= playerChunkX + chunkRadius; chunkX++) {
             for (int chunkZ = playerChunkZ - chunkRadius; chunkZ <= playerChunkZ + chunkRadius; chunkZ++) {
@@ -293,13 +282,11 @@ public final class BlockESP extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private Box getStorageBounds(BlockPos position) {
       VoxelShape voxelShape = CLIENT.world.getBlockState(position).getOutlineShape(CLIENT.world, position);
       return voxelShape.isEmpty() ? new Box(position) : voxelShape.getBoundingBox().offset(position);
    }
-// https://t.me/pasterplace
 
    private void renderStorageHighlight(Box box, RgbaColor color, float pulsePhase) {
       boolean throughWalls = this.renderThroughWalls.getValue();
@@ -312,12 +299,10 @@ public final class BlockESP extends ModuleStructure {
          DaamkyWorldRender.drawCameraToPointGradientLine(box.getCenter(), color.withAlpha(30), color.withAlpha(200), 1.2F);
       }
    }
-// https://t.me/pasterplace
 
    private RgbaColor applyStorageColorMode(RgbaColor inputColor) {
       return this.storageColorMode.isSelected("Тема") ? AnimatedColorUtils.getAnimatedAccentColor(0.0F, 255) : inputColor;
    }
-// https://t.me/pasterplace
 
    private RgbaColor getBlockEntityHighlightColor(BlockEntity blockEntity) {
       if (blockEntity instanceof TrappedChestBlockEntity) {

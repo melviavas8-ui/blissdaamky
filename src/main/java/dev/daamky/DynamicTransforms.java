@@ -19,26 +19,21 @@ import net.minecraft.client.util.BufferAllocator;
 import org.jspecify.annotations.Nullable;
 
 public final class DynamicTransforms {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final List<DynamicTransforms.DrawSubmission> pendingDrawSubmissions = new ArrayList<>();
     private static final BufferAllocator bufferAllocator = new BufferAllocator(65536);
     private static final List<GpuBuffer> vertexBuffers = new ArrayList<>();
     private static int nextBufferIndex;
-// https://t.me/pasterplace
 
     private DynamicTransforms() {
     }
-// https://t.me/pasterplace
 
     public static BufferBuilder createBufferBuilder(DrawMode drawMode, VertexFormat vertexFormat) {
         return new BufferBuilder(bufferAllocator, drawMode, vertexFormat);
     }
-// https://t.me/pasterplace
 
     public static void submitDraw(BufferBuilder bufferBuilder, DrawMode drawMode, RenderPipeline renderPipeline, @Nullable GpuTextureView gpuTextureView) {
         submitDraw(bufferBuilder, drawMode, renderPipeline, gpuTextureView, false);
     }
-// https://t.me/pasterplace
 
     public static void submitDraw(
     BufferBuilder bufferBuilder, DrawMode drawMode, RenderPipeline renderPipeline, @Nullable GpuTextureView gpuTextureView, boolean nearestFiltering
@@ -51,7 +46,6 @@ public final class DynamicTransforms {
                     if (builtBuffer == null) {
                         break label73;
                     }
-// https://t.me/pasterplace
 
                     int indexCount = builtBuffer.getDrawParameters().indexCount();
                     if (indexCount <= 0) {
@@ -110,12 +104,10 @@ public final class DynamicTransforms {
             builtBuffer.close();
         }
     }
-// https://t.me/pasterplace
 
     static boolean hasPendingDrawSubmissions() {
         return !pendingDrawSubmissions.isEmpty();
     }
-// https://t.me/pasterplace
 
     static void renderSubmissions(RenderPass renderPass, GpuBufferSlice gpuBufferSlice) {
         for (Object drawSubmission : pendingDrawSubmissions) {
@@ -136,14 +128,12 @@ public final class DynamicTransforms {
             renderPass.drawIndexed(0, 0, ((DynamicTransforms.DrawSubmission)drawSubmission).indexCount(), 1);
         }
     }
-// https://t.me/pasterplace
 
     static void clearSubmissions() {
 
         pendingDrawSubmissions.clear();
         bufferAllocator.clear();
     }
-// https://t.me/pasterplace
 
     private record DrawSubmission(GpuBufferSlice vertexBufferSlice, int indexCount, DrawMode drawMode, RenderPipeline pipeline, @Nullable GpuTextureView textureView, boolean nearestFiltering) {
 

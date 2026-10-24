@@ -17,23 +17,19 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class BackTrack extends ModuleStructure {
-    private static final String pb32a6374 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final FloatSetting l1I1IlllIlI = new FloatSetting("Задержка", 150.0F, 50.0F, 500.0F, 10.0F, "мс");
    private final Deque<BackTrack.QueuedPacket> IllI1l1l1 = new ArrayDeque<>();
    private volatile int l1lll11l1l = -1;
-// https://t.me/pasterplace
 
    public BackTrack() {
       super("BackTrack", "Задерживает движение цели KillAura для лишней дистанции", ModuleCategory.COMBAT);
       this.addSetting(this.l1I1IlllIlI);
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return Math.round(this.l1I1IlllIlI.getValue()) + "мс";
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -50,7 +46,6 @@ public final class BackTrack extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -81,7 +76,6 @@ public final class BackTrack extends ModuleStructure {
       }
 
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -92,7 +86,6 @@ public final class BackTrack extends ModuleStructure {
 
       this.l1lll11l1l = -1;
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -104,7 +97,6 @@ public final class BackTrack extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void II1Il11l111II11IIl(Packet<? super ClientPlayPacketListener> packet) {
       ClientPlayNetworkHandler clientPlayNetworkHandler = CLIENT.getNetworkHandler();
@@ -112,10 +104,8 @@ public final class BackTrack extends ModuleStructure {
          packet.apply(clientPlayNetworkHandler);
       }
    }
-// https://t.me/pasterplace
 
    private record QueuedPacket(Packet<? super ClientPlayPacketListener> packet, long queuedAtNanos) {
-// https://t.me/pasterplace
 
       private QueuedPacket(Packet<? super ClientPlayPacketListener> packet, long queuedAtNanos) {
          this.packet = packet;

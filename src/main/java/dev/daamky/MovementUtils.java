@@ -8,10 +8,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public final class MovementUtils {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private MovementUtils() {
    }
-// https://t.me/pasterplace
 
    public static boolean isMoving() {
       ClientPlayerEntity clientPlayerEntity = MinecraftClient.getInstance().player;
@@ -22,7 +20,6 @@ public final class MovementUtils {
       PlayerInput playerInput = clientPlayerEntity.input.playerInput;
       return playerInput.forward() != playerInput.backward() || playerInput.left() != playerInput.right();
    }
-// https://t.me/pasterplace
 
    public static float getMovementDirectionRadians() {
       ClientPlayerEntity clientPlayerEntity = MinecraftClient.getInstance().player;
@@ -47,7 +44,6 @@ public final class MovementUtils {
 
       return yawDegrees * (float) (Math.PI / 180.0);
    }
-// https://t.me/pasterplace
 
    public static double getHorizontalSpeed() {
       ClientPlayerEntity clientPlayerEntity = MinecraftClient.getInstance().player;
@@ -58,7 +54,6 @@ public final class MovementUtils {
       Vec3d velocity = clientPlayerEntity.getVelocity();
       return Math.sqrt(velocity.x * velocity.x + velocity.z * velocity.z);
    }
-// https://t.me/pasterplace
 
    public static void setHorizontalSpeed(double horizontalSpeed) {
       ClientPlayerEntity clientPlayerEntity = MinecraftClient.getInstance().player;
@@ -72,7 +67,6 @@ public final class MovementUtils {
          }
       }
    }
-// https://t.me/pasterplace
 
    public static double getBaseMovementSpeed() {
       ClientPlayerEntity clientPlayerEntity = MinecraftClient.getInstance().player;
@@ -81,7 +75,6 @@ public final class MovementUtils {
          int speedAmplifier = clientPlayerEntity.getStatusEffect(StatusEffects.SPEED).getAmplifier();
          baseSpeed = 0.2873 * (1.0 + 0.2 * (speedAmplifier + 1));
       }
-// https://t.me/pasterplace
 
       return baseSpeed;
    }

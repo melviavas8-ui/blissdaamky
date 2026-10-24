@@ -14,7 +14,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class ClickPearl extends ModuleStructure {
-    private static final String p363e0b7a = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final int l1I1IlllIlI = 20;
    private final ReallyWorld IllI1l1l1 = new ReallyWorld();
    private final IntSetting l1lll11l1l = new IntSetting("Бинд броска", dev.daamky.KeybindManager.encodeMouseButton(2));
@@ -27,19 +26,16 @@ public final class ClickPearl extends ModuleStructure {
    private int I1l11IIlIIIll1l1lI1II = -1;
    private int I1I1lI111lII1;
    private boolean lIll1Il1lll111l11l1I1llllI;
-// https://t.me/pasterplace
 
    public ClickPearl() {
       super("ClickPearl", "Бросает эндер-жемчуг по бинду", ModuleCategory.PLAYER);
       this.addSettings(this.l1lll11l1l, this.lIIl11l111lIIl1ll, this.l1IIl11lI, this.I1lIIII1III1lIlIl1l, this.IllI1l1l1);
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return this.lIIl11l111lIIl1ll.getValue();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -47,7 +43,6 @@ public final class ClickPearl extends ModuleStructure {
       this.enabled = false;
       this.IIIlll111l111();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -55,7 +50,6 @@ public final class ClickPearl extends ModuleStructure {
       this.enabled = false;
       this.IIIlll111l111();
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -78,7 +72,6 @@ public final class ClickPearl extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void II1Il11l111II11IIl(EventUpdate eventUpdate) {
@@ -102,7 +95,6 @@ public final class ClickPearl extends ModuleStructure {
                      if (this.l1IIl11lI.getValue() && previousHotbarSlot != pearlHotbarSlot) {
                         InventoryUtils.rememberHotbarSlotForRestore(previousHotbarSlot);
                      }
-// https://t.me/pasterplace
 
                      this.l11lIlIIll1III1.reset();
                   } else {
@@ -125,7 +117,6 @@ public final class ClickPearl extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void l1I1IIl111Il1l1l() {
       if (++this.I1I1lI111lII1 > 20 || InventoryUtils.getSelectedHotbarSlot() != this.I1l11IIlIIIll1l1lI1II) {
@@ -148,7 +139,6 @@ public final class ClickPearl extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void IIIlll111l111() {
       this.Ill111IlI11l = -1;

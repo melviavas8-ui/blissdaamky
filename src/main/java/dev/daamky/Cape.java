@@ -12,12 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 public final class Cape {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final int MAX_COSMETIC_MODELS = 128;
    private static final Cape INSTANCE = new Cape();
    private final List<Model> allModels = new ArrayList<>();
    private final Map<Wings, Model> equippedModelsByCategory = new EnumMap<>(Wings.class);
-// https://t.me/pasterplace
 
    private Cape() {
       for (int cosmeticId = 0; cosmeticId < 128; cosmeticId++) {
@@ -35,22 +33,18 @@ public final class Cape {
          }
       }
    }
-// https://t.me/pasterplace
 
    public static Cape getInstance() {
       return INSTANCE;
    }
-// https://t.me/pasterplace
 
    static String getModelResourcePath(int cosmeticId) {
       return "/assets/daamky/cosmetics/models/cosmetic_" + cosmeticId + ".json";
    }
-// https://t.me/pasterplace
 
    public List<Model> getAllModels() {
       return this.allModels;
    }
-// https://t.me/pasterplace
 
    public List<Model> getModelsByCategory(Wings wings) {
       if (wings == null) {
@@ -67,27 +61,22 @@ public final class Cape {
 
       return arrayList;
    }
-// https://t.me/pasterplace
 
    public Collection<Model> getEquippedModels() {
       return this.equippedModelsByCategory.values();
    }
-// https://t.me/pasterplace
 
    public int getEquippedModelCount() {
       return this.equippedModelsByCategory.size();
    }
-// https://t.me/pasterplace
 
    public Model getEquippedModel(Wings wings) {
       return this.equippedModelsByCategory.get(wings);
    }
-// https://t.me/pasterplace
 
    public boolean isEquipped(Model model) {
       return this.equippedModelsByCategory.get(model.getCosmeticType()) == model;
    }
-// https://t.me/pasterplace
 
    public void toggleEquippedModel(Model model) {
       if (this.isEquipped(model)) {
@@ -97,12 +86,10 @@ public final class Cape {
          model.getGeometry();
       }
    }
-// https://t.me/pasterplace
 
    public void clearEquippedModels() {
       this.equippedModelsByCategory.clear();
    }
-// https://t.me/pasterplace
 
    public JsonObject serializeSelection() {
       JsonObject jsonObject = new JsonObject();
@@ -113,7 +100,6 @@ public final class Cape {
 
       return jsonObject;
    }
-// https://t.me/pasterplace
 
    public Map<Wings, Model> parseSelection(JsonObject jsonObject) {
       EnumMap enumMap = new EnumMap<>(Wings.class);
@@ -134,11 +120,9 @@ public final class Cape {
             }
          }
       }
-// https://t.me/pasterplace
 
       return enumMap;
    }
-// https://t.me/pasterplace
 
    public void loadSelection(JsonObject jsonObject) {
       this.equippedModelsByCategory.clear();
@@ -157,13 +141,11 @@ public final class Cape {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static String formatCosmeticName(String modelFileName) {
       String displayName = modelFileName.replaceFirst("^[a-z0-9]+_", "").replace('_', ' ').trim();
       return displayName.isEmpty() ? modelFileName : displayName;
    }
-// https://t.me/pasterplace
 
    private static Wings classifyCosmetic(int cosmeticId, String displayName, String cosmeticType) {
       String lowercaseName = displayName.toLowerCase();

@@ -33,7 +33,6 @@ import net.minecraft.block.TrapdoorBlock;
 import net.minecraft.util.math.BlockPos;
 
 public final class BlockPosReservationManager {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final BlockPosReservationManager INSTANCE = new BlockPosReservationManager();
     private static final List<Class<? extends Block>> INTERACTABLE_BLOCK_TYPES = List.of(
       BlockWithEntity.class,
@@ -62,16 +61,13 @@ public final class BlockPosReservationManager {
       LecternBlock.class
    );
     private final Map<BlockPos, Object> reservations = new HashMap<>();
-// https://t.me/pasterplace
 
    private BlockPosReservationManager() {
    }
-// https://t.me/pasterplace
 
    public static BlockPosReservationManager getInstance() {
       return INSTANCE;
    }
-// https://t.me/pasterplace
 
    public void reservePositions(Object owner, Collection<BlockPos> items) {
       if (owner != null) {
@@ -85,20 +81,17 @@ public final class BlockPosReservationManager {
          }
       }
    }
-// https://t.me/pasterplace
 
    public void releaseReservations(Object owner) {
       if (owner != null) {
          this.reservations.entrySet().removeIf(reservationEntry -> reservationEntry.getValue() == owner);
       }
    }
-// https://t.me/pasterplace
 
    public boolean isReservedByOther(Object owner, BlockPos position) {
       Object reservationOwner = position == null ? null : this.reservations.get(position);
       return reservationOwner != null && reservationOwner != owner;
    }
-// https://t.me/pasterplace
 
    public static boolean isInteractableBlock(BlockState blockState) {
        for (Class<? extends Block> blockClass : INTERACTABLE_BLOCK_TYPES) {
@@ -106,7 +99,6 @@ public final class BlockPosReservationManager {
             return true;
          }
       }
-// https://t.me/pasterplace
 
       return false;
    }

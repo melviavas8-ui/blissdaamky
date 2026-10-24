@@ -12,14 +12,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
 public abstract class WorldProjectionMixin {
-    private static final String pf5216dd8 = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    @Inject(method = "renderWorld", at = @At("HEAD"))
    private void daamky$beginProjectionFrame(CallbackInfo callbackInfo) {
       if (!BotPictureInPictureRenderer.renderingBotWorld) {
          WorldToScreenProjection.markProjectionMatrixUpdated();
       }
    }
-// https://t.me/pasterplace
 
    @ModifyArg(
       method = "renderWorld",
@@ -33,7 +31,6 @@ public abstract class WorldProjectionMixin {
       if (!BotPictureInPictureRenderer.renderingBotWorld) {
          WorldToScreenProjection.setProjectionMatrix(projectionMatrix);
       }
-// https://t.me/pasterplace
 
       return projectionMatrix;
    }

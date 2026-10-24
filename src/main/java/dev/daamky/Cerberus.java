@@ -9,24 +9,19 @@ import net.minecraft.text.Text;
 import net.minecraft.text.StyleSpriteSource.Font;
 
 final class Cerberus {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final Map<Integer, Cerberus.PlayerRank> RANKS_BY_CODE_POINT = new HashMap<>();
    private static final Map<String, Cerberus.PlayerRank> RANKS_BY_GROUP_ID = new HashMap<>();
-// https://t.me/pasterplace
 
    private Cerberus() {
    }
-// https://t.me/pasterplace
 
    private static void registerCodePointRank(int unicodeCodePoint, String rankName, int colorRgb) {
       RANKS_BY_CODE_POINT.put(unicodeCodePoint, new Cerberus.PlayerRank(rankName, 0xFF000000 | colorRgb));
    }
-// https://t.me/pasterplace
 
    private static void registerGroupRank(String groupId, String displayName, int colorRgb) {
       RANKS_BY_GROUP_ID.put("custom:groups/" + groupId, new Cerberus.PlayerRank(displayName, 0xFF000000 | colorRgb));
    }
-// https://t.me/pasterplace
 
    static Cerberus.PlayerRank getPlayerRank(Text component) {
       return component == null ? null : (Cerberus.PlayerRank)component.visit((style, textx) -> {
@@ -50,7 +45,6 @@ final class Cerberus {
          return Optional.empty();
       }, Style.EMPTY).orElse(null);
    }
-// https://t.me/pasterplace
 
    private static Cerberus.PlayerRank getStyleRank(Style style) {
       StyleSpriteSource styleSpriteSource = style.getFont();
@@ -61,7 +55,6 @@ final class Cerberus {
          return null;
       }
    }
-// https://t.me/pasterplace
 
    static {
       registerCodePointRank(42240, "PLAYER", 7895160);
@@ -111,10 +104,8 @@ final class Cerberus {
       registerGroupRank("admin", "Админ", 16711680);
       registerGroupRank("default", "Игрок", 16777215);
    }
-// https://t.me/pasterplace
 
    record PlayerRank(String rankName, int colorArgb) {
-// https://t.me/pasterplace
 
       PlayerRank(String rankName, int colorArgb) {
          this.rankName = rankName;

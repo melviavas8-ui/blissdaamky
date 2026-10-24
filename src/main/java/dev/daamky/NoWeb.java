@@ -18,7 +18,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class NoWeb extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final MultiOptionSetting mode = new MultiOptionSetting("Режим", "Фиксированный", "Фиксированный", "Кастомный", "Игнор");
    private final FloatSetting customHorizontalSpeed = new FloatSetting("Горизонтальная скорость", 0.19175F, 0.01F, 1.5F, 0.001F);
    private final FloatSetting customVerticalSpeed = new FloatSetting("Вертикальная скорость", 0.995F, 0.01F, 1.5F, 0.001F);
@@ -27,7 +26,6 @@ public final class NoWeb extends ModuleStructure {
    private final BooleanSetting ignoreBerryBushes = new BooleanSetting("Ягодные кусты", true);
    private final Mutable searchBlockPosition = new Mutable();
    private boolean sprintStoppedByJumpBypass;
-// https://t.me/pasterplace
 
    public NoWeb() {
       super("NoWeb", "Убирает замедление в паутине", ModuleCategory.MOVEMENT);
@@ -38,32 +36,27 @@ public final class NoWeb extends ModuleStructure {
       this.ignoreBerryBushes.visibleWhen(() -> this.mode.isSelected("Игнор"));
       this.addSettings(this.mode, this.customHorizontalSpeed, this.customVerticalSpeed, this.reallyWorldBypassEnabled, this.jumpBypassEnabled, this.ignoreBerryBushes);
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return this.mode.getValue();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
    protected void onDisable() {
       this.sprintStoppedByJumpBypass = false;
    }
-// https://t.me/pasterplace
 
    private static NoWeb getEnabledModule() {
       NoWeb module = (NoWeb)ModuleRegistry.getInstance().getModuleByClass(NoWeb.class);
       return module != null && module.isEnabled() ? module : null;
    }
-// https://t.me/pasterplace
 
    public static boolean isIgnoreModeEnabled() {
       NoWeb noWeb = getEnabledModule();
       return noWeb != null && noWeb.mode.isSelected("Игнор");
    }
-// https://t.me/pasterplace
 
    public static boolean shouldIgnoreBlock(BlockState blockState) {
       NoWeb noWeb = getEnabledModule();
@@ -71,7 +64,6 @@ public final class NoWeb extends ModuleStructure {
          ? blockState.isOf(Blocks.COBWEB) || noWeb.ignoreBerryBushes.getValue() && blockState.isOf(Blocks.SWEET_BERRY_BUSH)
          : false;
    }
-// https://t.me/pasterplace
 
    public static void sendStopDestroyBlockPacket(BlockPos targetBlockPosition) {
       NoWeb noWeb = getEnabledModule();
@@ -95,7 +87,6 @@ public final class NoWeb extends ModuleStructure {
                   sendPacketException.addSuppressed(closeException);
                }
             }
-// https://t.me/pasterplace
 
             throw sendPacketException;
          }
@@ -105,7 +96,6 @@ public final class NoWeb extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void onUpdate(EventUpdate eventUpdate) {
@@ -141,7 +131,6 @@ public final class NoWeb extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private boolean isCobwebWithinRadius(double searchRadius) {
       double playerX = CLIENT.player.getX();
@@ -173,7 +162,6 @@ public final class NoWeb extends ModuleStructure {
 
       return false;
    }
-// https://t.me/pasterplace
 
    private boolean isPlayerInsideCobweb() {
       Box box = CLIENT.player.getBoundingBox();

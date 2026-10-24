@@ -15,7 +15,6 @@ import net.minecraft.client.input.CharInput;
 import net.minecraft.client.input.KeyInput;
 
 public final class Plus extends MenuBackground {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final float leftPanelWidth = 92.0F;
    private static final float mainPanelWidth = 188.0F;
    private static final float cardCornerRadius = 8.0F;
@@ -36,40 +35,33 @@ public final class Plus extends MenuBackground {
    private final List<Plus.AccountRowAnimation> removingAccountAnimations = new ArrayList<>();
    private String statusMessage = "";
    private long statusMessageStartedAtMillis;
-// https://t.me/pasterplace
 
    public Plus(Screen screen) {
       super("Accounts");
       this.previousScreen = screen;
    }
-// https://t.me/pasterplace
 
    @Override
    protected float getScreenScale() {
       return 1.1F;
    }
-// https://t.me/pasterplace
 
    @Override
    public void close() {
       this.transitionTo(this.previousScreen);
    }
-// https://t.me/pasterplace
 
    private float getAccountPanelLeft() {
       return (this.viewportWidth - 288.0F) * 0.5F;
    }
-// https://t.me/pasterplace
 
    private float getAccountPanelTop() {
       return this.viewportHeight * 0.5F - 62.0F;
    }
-// https://t.me/pasterplace
 
    private float getMenuBlurRadius() {
       return Math.min(Accent.getInstance().getCornerRadius() * 0.5F, 5.0F);
    }
-// https://t.me/pasterplace
 
    private List<Accounts.AccountEntry> getFilteredAccounts() {
       String searchQuery = this.accountFilterInput.getText().trim().toLowerCase(Locale.ROOT);
@@ -81,7 +73,6 @@ public final class Plus extends MenuBackground {
       }
       return accounts;
    }
-// https://t.me/pasterplace
 
    private void addAccountFromInput(String username) {
       if (!this.accountsStore.isValidUsername(username.trim())) {
@@ -92,13 +83,11 @@ public final class Plus extends MenuBackground {
          this.showStatusMessage("Added " + addedAccount.username());
       }
    }
-// https://t.me/pasterplace
 
    private void showStatusMessage(String message) {
       this.statusMessage = message;
       this.statusMessageStartedAtMillis = System.currentTimeMillis();
    }
-// https://t.me/pasterplace
 
    @Override
    protected void drawContent(DrawContext drawContext, float contentAlpha, long currentTimeMillis) {
@@ -183,7 +172,6 @@ public final class Plus extends MenuBackground {
          Accent.getDeepTextColor((int)(80.0F * hintVisibility))
       );
    }
-// https://t.me/pasterplace
 
    private void drawPanelHeader(DrawContext drawContext, String panelTitle, String panelIcon, float panelLeft, float panelTop, float panelWidth, float panelOpacity, float contentOpacity) {
       this.drawGlassPanel(drawContext, panelLeft, panelTop, panelWidth, 15.0F, panelOpacity, contentOpacity, 0.0F);
@@ -199,7 +187,6 @@ public final class Plus extends MenuBackground {
       );
       this.drawCenteredText(drawContext, panelIcon, panelLeft + panelWidth - 8.0F, panelTop + 7.5F, 5.4F, Accent.getDarkerTextColor((int)(200.0F * contentOpacity)));
    }
-// https://t.me/pasterplace
 
    private void drawAddAccountPanel(DrawContext drawContext, float panelLeft, float panelTop, float panelOpacity, float contentOpacity, long currentTimeMillis) {
       this.drawPanelHeader(drawContext, "Account panel", "✿", panelLeft, panelTop, 92.0F, panelOpacity, contentOpacity);
@@ -220,7 +207,6 @@ public final class Plus extends MenuBackground {
       this.drawActionButton(drawContext, "add", "Add", "D", panelLeft + 5.0F, buttonRowTop + 22.0F, panelOpacity, contentOpacity);
       this.drawActionButton(drawContext, "gen", "Generate", "E", panelLeft + 5.0F, buttonRowTop + 39.0F, panelOpacity, contentOpacity);
    }
-// https://t.me/pasterplace
 
    private void drawActionButton(DrawContext drawContext, String actionId, String buttonLabel, String shortcutLabel, float buttonLeft, float buttonTop, float panelOpacity, float contentOpacity) {
       float buttonWidth = 82.0F;
@@ -233,7 +219,6 @@ public final class Plus extends MenuBackground {
             .color(Accent.getAccentColorWithAlpha((int)(255.0F * contentOpacity * buttonHover)))
             .render(drawContext);
       }
-// https://t.me/pasterplace
 
       this.drawText(
          drawContext,
@@ -257,7 +242,6 @@ public final class Plus extends MenuBackground {
       this.popTransformMatrix(drawContext);
       this.popTransformMatrix(drawContext);
    }
-// https://t.me/pasterplace
 
    private void drawActiveSessionPanel(DrawContext drawContext, float panelLeft, float panelTop, float panelOpacity, float contentOpacity) {
       this.drawPanelHeader(drawContext, "Active session", "D", panelLeft, panelTop, 92.0F, panelOpacity, contentOpacity);
@@ -291,7 +275,6 @@ public final class Plus extends MenuBackground {
          Accent.getDeepTextColor((int)(150.0F * contentOpacity))
       );
    }
-// https://t.me/pasterplace
 
    private void drawAccountListPanel(DrawContext drawContext, float panelLeft, float panelTop, float blurRadius, float contentOpacity, long currentTimeMillis) {
       float leftPanelWidth = 92.0F;
@@ -375,7 +358,6 @@ public final class Plus extends MenuBackground {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void drawAccountCard(
       DrawContext drawContext, Accounts.AccountEntry account, float cardLeft, float cardTop, float cardWidth, float cornerRadius, float cardOpacity, float listTop
@@ -396,7 +378,6 @@ public final class Plus extends MenuBackground {
             .color(Accent.getAccentColorWithAlpha((int)(255.0F * activeProgress * cardOpacity)))
             .render(drawContext);
       }
-// https://t.me/pasterplace
 
       PlayerSkinQuadBuilder.at(cardLeft + 4.0F, cardTop + 4.0F, 18.0F)
          .size(account.lastLogin())
@@ -449,7 +430,6 @@ public final class Plus extends MenuBackground {
          .render(drawContext);
       this.popTransformMatrix(drawContext);
    }
-// https://t.me/pasterplace
 
    private void drawRemovingAccountAnimations(DrawContext drawContext, float accountListTop, float cornerRadius, float contentOpacity) {
       Iterator<Plus.AccountRowAnimation> removalAnimationIterator = this.removingAccountAnimations.iterator();
@@ -489,14 +469,12 @@ public final class Plus extends MenuBackground {
          }
       }
    }
-// https://t.me/pasterplace
 
    private float getAccountListContentHeight(int accountCount) {
       int rowCount = (accountCount + 1) / 2;
       float contentHeight = 6.0F + rowCount * 30.0F + 2.0F;
       return Math.max(0.0F, contentHeight - 120.0F);
    }
-// https://t.me/pasterplace
 
    @Override
    protected boolean handleContentClick(float mouseX, float mouseY, int mouseButton) {
@@ -574,13 +552,11 @@ public final class Plus extends MenuBackground {
          return true;
       }
    }
-// https://t.me/pasterplace
 
    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalScrollAmount, double verticalScrollAmount) {
       this.targetScrollOffset -= (float)verticalScrollAmount * 20.0F;
       return true;
    }
-// https://t.me/pasterplace
 
    public boolean keyPressed(KeyInput keyInput) {
       int keyCode = keyInput.getKeycode();
@@ -602,7 +578,6 @@ public final class Plus extends MenuBackground {
          return super.keyPressed(keyInput);
       }
    }
-// https://t.me/pasterplace
 
    public boolean charTyped(CharInput charInput) {
       if (this.nicknameInput.isFocused()) {
@@ -614,7 +589,6 @@ public final class Plus extends MenuBackground {
          return super.charTyped(charInput);
       }
    }
-// https://t.me/pasterplace
 
    private record AccountRowAnimation(Accounts.AccountEntry account, float cardLeft, float cardTop, float alpha, long updatedAtMillis) {
 

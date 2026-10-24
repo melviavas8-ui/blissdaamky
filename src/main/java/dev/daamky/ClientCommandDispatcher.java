@@ -9,19 +9,15 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.InputUtil.Type;
 
 public final class ClientCommandDispatcher {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    public static final String COMMAND_PREFIX = ".";
    private static final ClientCommandDispatcher INSTANCE = new ClientCommandDispatcher();
-// https://t.me/pasterplace
 
    private ClientCommandDispatcher() {
    }
-// https://t.me/pasterplace
 
    public static ClientCommandDispatcher getInstance() {
       return INSTANCE;
    }
-// https://t.me/pasterplace
 
    public boolean dispatch(String commandText) {
       if (commandText != null && commandText.startsWith(".") && commandText.length() != 1) {
@@ -85,7 +81,6 @@ public final class ClientCommandDispatcher {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private static void botCommand(String[] arguments) {
       String subcommand = arguments.length == 0 ? "gui" : arguments[0].toLowerCase(Locale.ROOT);
@@ -118,7 +113,6 @@ public final class ClientCommandDispatcher {
             ClientChatLogger.II1Il11l111II11IIl(".bot gui | pay <nick> [keep] | autopay");
       }
    }
-// https://t.me/pasterplace
 
    private static void printHelp() {
       ClientChatLogger.II1Il11l111II11IIl(".friend add/remove <name> | list | clear");
@@ -131,7 +125,6 @@ public final class ClientCommandDispatcher {
       ClientChatLogger.II1Il11l111II11IIl(".neuro record <имя> | stop | train <имя> [эпохи] | tune <модель> [запись] [эпохи] | play <имя> | list");
       ClientChatLogger.II1Il11l111II11IIl(".tp <nick> | <x> <z> | <x> <y> <z> | stop — teleport through the void (needs /fly)");
    }
-// https://t.me/pasterplace
 
    private static void teleportCommand(String[] arguments) {
       requireArgumentCount(arguments, 1);
@@ -162,7 +155,6 @@ public final class ClientCommandDispatcher {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static void waypointCommand(String[] arguments) {
       WaypointManager waypointManager = WaypointManager.getInstance();
@@ -216,7 +208,6 @@ public final class ClientCommandDispatcher {
                      new WaypointManager.Waypoint(waypointName, Integer.parseInt(arguments[coordinateOffset]), 64, Integer.parseInt(arguments[coordinateOffset + 1]))
                   );
                }
-// https://t.me/pasterplace
 
                ClientChatLogger.II1Il11l111II11IIl("Метка " + waypointName + " поставлена");
          }
@@ -236,7 +227,6 @@ public final class ClientCommandDispatcher {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static void macroCommand(String[] arguments) {
       Key keyManager = Key.getInstance();
@@ -297,12 +287,10 @@ public final class ClientCommandDispatcher {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static boolean isInteger(String value) {
       return value.matches("-?\\d+");
    }
-// https://t.me/pasterplace
 
    private static void friendCommand(String[] arguments) {
       FriendManager friendManager = FriendManager.getInstance();
@@ -332,7 +320,6 @@ public final class ClientCommandDispatcher {
          ClientChatLogger.II1Il11l111II11IIl(friendManager.getFriendNames().isEmpty() ? "Friend list is empty" : "Friends: " + String.join(", ", friendManager.getFriendNames()));
       }
    }
-// https://t.me/pasterplace
 
    private static void bindCommand(String[] arguments) {
       if (arguments.length != 0 && !arguments[0].equalsIgnoreCase("list")) {
@@ -359,13 +346,11 @@ public final class ClientCommandDispatcher {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static void toggleCommand(String[] arguments) {
       requireArgumentCount(arguments, 1);
       getModuleOrThrow(arguments[0]).toggle();
    }
-// https://t.me/pasterplace
 
    private static void configCommand(String[] arguments) {
       requireArgumentCount(arguments, 1);
@@ -379,7 +364,6 @@ public final class ClientCommandDispatcher {
          ClientChatLogger.l1I1IlllIlI("Usage: .config save | load");
       }
    }
-// https://t.me/pasterplace
 
    private static ModuleStructure getModuleOrThrow(String moduleName) {
       ModuleStructure module = ModuleRegistry.getInstance().getModuleByName(moduleName);
@@ -389,14 +373,12 @@ public final class ClientCommandDispatcher {
          return module;
       }
    }
-// https://t.me/pasterplace
 
    private static int parseKeyCode(String keyName) {
       String normalizedKeyName = keyName.toLowerCase(Locale.ROOT).replace('_', '.');
       if (normalizedKeyName.equals("none") || normalizedKeyName.equals("clear")) {
          return 0;
       }
-// https://t.me/pasterplace
 
       if (normalizedKeyName.matches("(mouse|m)[0-9]{1,2}")) {
          int mouseButtonNumber = Integer.parseInt(normalizedKeyName.replaceAll("[^0-9]", ""));
@@ -436,7 +418,6 @@ public final class ClientCommandDispatcher {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static void requireArgumentCount(String[] arguments, int minimumArgumentCount) {
       if (arguments.length < minimumArgumentCount) {

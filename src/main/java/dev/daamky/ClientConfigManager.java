@@ -16,21 +16,17 @@ import java.nio.file.StandardCopyOption;
 import net.fabricmc.loader.api.FabricLoader;
 
 public final class ClientConfigManager {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final ClientConfigManager INSTANCE = new ClientConfigManager();
    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
    private final Path CONFIG_DIRECTORY = FabricLoader.getInstance().getGameDir().resolve("daamky");
    private final Path CONFIG_FILE = this.CONFIG_DIRECTORY.resolve("config.json");
-// https://t.me/pasterplace
 
    private ClientConfigManager() {
    }
-// https://t.me/pasterplace
 
    public static ClientConfigManager getInstance() {
       return INSTANCE;
    }
-// https://t.me/pasterplace
 
    public synchronized void saveConfig() {
       JsonObject configData = this.createConfigJson();
@@ -49,12 +45,10 @@ public final class ClientConfigManager {
          configWriteException.printStackTrace();
       }
    }
-// https://t.me/pasterplace
 
    public synchronized JsonObject createConfigJson() {
       JsonObject rootConfig = new JsonObject();
       JsonObject moduleConfigs = new JsonObject();
-// https://t.me/pasterplace
 
       for (Object module : ModuleRegistry.getInstance().getModules()) {
          JsonObject moduleConfig = new JsonObject();
@@ -80,7 +74,6 @@ public final class ClientConfigManager {
       rootConfig.add("macros", Key.getInstance().toJson());
       return rootConfig;
    }
-// https://t.me/pasterplace
 
    public synchronized void loadConfig() {
       if (Files.isRegularFile(this.CONFIG_FILE)) {
@@ -94,7 +87,6 @@ public final class ClientConfigManager {
                Files.copy(this.CONFIG_FILE, this.CONFIG_DIRECTORY.resolve("config.json.broken"), StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException configBackupException) {
             }
-// https://t.me/pasterplace
 
             return;
          }
@@ -102,12 +94,10 @@ public final class ClientConfigManager {
          this.applyConfig(loadedConfig);
       }
    }
-// https://t.me/pasterplace
 
    public synchronized void applyConfig(JsonObject rootConfig) {
       if (rootConfig.has("friends") && rootConfig.get("friends").isJsonArray()) {
          FriendManager.getInstance().clearFriends();
-// https://t.me/pasterplace
 
           for (JsonElement friendEntry : rootConfig.getAsJsonArray("friends")) {
              if (friendEntry.isJsonPrimitive() && !friendEntry.getAsString().isBlank()) {
@@ -170,7 +160,6 @@ public final class ClientConfigManager {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static void serializeSetting(JsonObject settingsJson, Setting<?> setting) {
       if (setting instanceof MultiToggleSetting multiToggleSetting) {
@@ -193,7 +182,6 @@ public final class ClientConfigManager {
          settingsJson.addProperty(setting.getName(), colorSetting.getValue());
       }
    }
-// https://t.me/pasterplace
 
    private static void applySetting(JsonObject settingsJson, Setting<?> setting) {
       if (settingsJson.has(setting.getName())) {
@@ -228,7 +216,6 @@ public final class ClientConfigManager {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static void migrateLegacyServerHelperSettings(JsonObject moduleConfigs) {
       if (!moduleConfigs.has("ServerHelper")) {
@@ -267,7 +254,6 @@ public final class ClientConfigManager {
          }
       }
    }
-// https://t.me/pasterplace
 
    private static JsonObject getModuleSettings(JsonObject rootConfig, String moduleName) {
       if (rootConfig.has(moduleName) && rootConfig.get(moduleName).isJsonObject()) {

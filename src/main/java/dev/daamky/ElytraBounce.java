@@ -17,7 +17,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class ElytraBounce extends ModuleStructure {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final PlayerInput EMPTY_PLAYER_INPUT = new PlayerInput(false, false, false, false, false, false, false);
    private final MultiOptionSetting mode = new MultiOptionSetting("Режим", "Пакет", "Пакет", "Пакет Old", "Легит", "Прыжок");
    private final BooleanSetting resetSprintWhenUsingItem = new BooleanSetting("Сброс при использовании", false);
@@ -27,20 +26,17 @@ public final class ElytraBounce extends ModuleStructure {
    private boolean userJumpKeyWasPressed;
    private boolean elytraEquippedLastTick;
    private int itemUseDelayTicks;
-// https://t.me/pasterplace
 
    public ElytraBounce() {
       super("ElytraBounce", "Отскок и прыжки на элитрах по земле", ModuleCategory.MOVEMENT);
       this.resetSprintWhenUsingItem.visibleWhen(() -> this.mode.isSelected("Пакет Old"));
       this.addSettings(this.mode, this.resetSprintWhenUsingItem);
    }
-// https://t.me/pasterplace
 
    @Override
    public String getDisplayInfo() {
       return this.mode.getValue();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -50,7 +46,6 @@ public final class ElytraBounce extends ModuleStructure {
       this.userJumpKeyWasPressed = CLIENT.options.jumpKey.isPressed();
       this.glideStartTimer.reset();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -63,7 +58,6 @@ public final class ElytraBounce extends ModuleStructure {
 
       this.elytraEquippedLastTick = false;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -93,7 +87,6 @@ public final class ElytraBounce extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -108,7 +101,6 @@ public final class ElytraBounce extends ModuleStructure {
          CLIENT.player.bodyYaw = CLIENT.player.getYaw();
       }
    }
-// https://t.me/pasterplace
 
    private void tickPacketMode() {
       if (this.hasJumpClearance()) {
@@ -116,7 +108,6 @@ public final class ElytraBounce extends ModuleStructure {
             if (MovementUtils.isMoving() && !CLIENT.player.horizontalCollision) {
                CLIENT.player.setSprinting(true);
             }
-// https://t.me/pasterplace
 
             CLIENT.player.jump();
          } else if (!CLIENT.player.isGliding()) {
@@ -124,7 +115,6 @@ public final class ElytraBounce extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void tickLegacyPacketMode() {
       if (CLIENT.player.isUsingItem() && this.resetSprintWhenUsingItem.getValue()) {
@@ -151,7 +141,6 @@ public final class ElytraBounce extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void tickLegitMode() {
       if (this.hasJumpClearance()) {
@@ -189,7 +178,6 @@ public final class ElytraBounce extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void tickJumpMode() {
       if (CLIENT.player.isOnGround()) {
@@ -212,7 +200,6 @@ public final class ElytraBounce extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void releaseJumpKey() {
       if (this.jumpKeyForcedByModule) {
@@ -220,7 +207,6 @@ public final class ElytraBounce extends ModuleStructure {
          this.jumpKeyForcedByModule = false;
       }
    }
-// https://t.me/pasterplace
 
    private boolean canStartGliding() {
       ItemStack chestArmor = CLIENT.player.getEquippedStack(EquipmentSlot.CHEST);
@@ -230,7 +216,6 @@ public final class ElytraBounce extends ModuleStructure {
          && !CLIENT.player.isSleeping()
          && !CLIENT.player.isInLava();
    }
-// https://t.me/pasterplace
 
    private void startGliding() {
       if (this.canStartGliding()) {
@@ -238,12 +223,10 @@ public final class ElytraBounce extends ModuleStructure {
          CLIENT.player.startGliding();
       }
    }
-// https://t.me/pasterplace
 
    private boolean hasElytraEquipped() {
       return CLIENT.player.getEquippedStack(EquipmentSlot.CHEST).isOf(Items.ELYTRA);
    }
-// https://t.me/pasterplace
 
    private boolean hasJumpClearance() {
       BlockPos playerBlockPos = CLIENT.player.getBlockPos();

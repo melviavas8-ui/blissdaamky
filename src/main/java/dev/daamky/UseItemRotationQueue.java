@@ -10,21 +10,17 @@ import net.minecraft.network.packet.c2s.play.PlayerInteractItemC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 
 public final class UseItemRotationQueue {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final Queue<PlayerInteractItemC2SPacket> queuedItemUsePackets = new ArrayDeque<>();
     private static boolean flushingQueue;
     private static float lastYaw = Float.NaN;
     private static float lastPitch = Float.NaN;
-// https://t.me/pasterplace
 
     private UseItemRotationQueue() {
     }
-// https://t.me/pasterplace
 
     public static boolean hasQueuedPackets() {
         return !queuedItemUsePackets.isEmpty();
     }
-// https://t.me/pasterplace
 
     public static boolean queueIfItemUsePacket(Packet<?> packet) {
         if (flushingQueue || MinecraftClient.getInstance().player == null) {
@@ -39,12 +35,10 @@ public final class UseItemRotationQueue {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     public static void flushQueuedPackets() {
         flushUsingCurrentRotation();
     }
-// https://t.me/pasterplace
 
     private static void flushUsingCurrentRotation() {
         if (!queuedItemUsePackets.isEmpty()) {
@@ -53,7 +47,6 @@ public final class UseItemRotationQueue {
             sendQueuedPacketsWithRotation(yaw, pitch);
         }
     }
-// https://t.me/pasterplace
 
     public static void onPlayerMovePacket(PlayerMoveC2SPacket playerMoveC2SPacket) {
         float yaw;
@@ -70,13 +63,11 @@ public final class UseItemRotationQueue {
             yaw = MinecraftClient.getInstance().player.getYaw();
             pitch = MinecraftClient.getInstance().player.getPitch();
         }
-// https://t.me/pasterplace
 
         if (!queuedItemUsePackets.isEmpty()) {
             sendQueuedPacketsWithRotation(yaw, pitch);
         }
     }
-// https://t.me/pasterplace
 
     private static void sendQueuedPacketsWithRotation(float yaw, float pitch) {
 
@@ -89,7 +80,6 @@ public final class UseItemRotationQueue {
 
         }
     }
-// https://t.me/pasterplace
 
     public static void clearQueue() {
         queuedItemUsePackets.clear();

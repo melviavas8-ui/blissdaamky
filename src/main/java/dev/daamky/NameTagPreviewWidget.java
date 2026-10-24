@@ -6,7 +6,6 @@ import org.joml.Matrix3x2f;
 import org.joml.Vector2f;
 
 public final class NameTagPreviewWidget {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    public static final float PREVIEW_WIDTH = 130.0F;
    private static final float MODEL_HEIGHT_DIVISOR = 3.4F;
    private static final float MODEL_SCALE = 1.05F;
@@ -21,7 +20,6 @@ public final class NameTagPreviewWidget {
    private float previewY;
    private float previewWidth;
    private float previewHeight;
-// https://t.me/pasterplace
 
    public void updateVisibility(float deltaSeconds, boolean visible) {
       float targetVisibility = visible ? 1.0F : 0.0F;
@@ -30,7 +28,6 @@ public final class NameTagPreviewWidget {
          this.modelYaw = 0.0F;
          this.modelPitch = 0.0F;
       }
-// https://t.me/pasterplace
 
       this.visibilityProgress = this.visibilityProgress + (targetVisibility - this.visibilityProgress) * (1.0F - (float)Math.exp(-10.0F * deltaSeconds));
       if (Math.abs(targetVisibility - this.visibilityProgress) < 0.001F) {
@@ -41,17 +38,14 @@ public final class NameTagPreviewWidget {
          this.isDragging = false;
       }
    }
-// https://t.me/pasterplace
 
    public float getVisibilityProgress() {
       return this.visibilityProgress;
    }
-// https://t.me/pasterplace
 
    public boolean isVisible() {
       return this.visibilityProgress > 0.001F;
    }
-// https://t.me/pasterplace
 
    public boolean beginDrag(float mouseX, float mouseY, int mouseButton) {
       if (this.visibilityProgress < 0.5F || mouseButton != 0) {
@@ -68,7 +62,6 @@ public final class NameTagPreviewWidget {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    public void dragTo(float mouseX, float mouseY) {
       if (this.isDragging) {
@@ -78,14 +71,12 @@ public final class NameTagPreviewWidget {
          this.lastMouseY = mouseY;
       }
    }
-// https://t.me/pasterplace
 
    public void endDrag(int mouseButton) {
       if (mouseButton == 0) {
          this.isDragging = false;
       }
    }
-// https://t.me/pasterplace
 
    public void renderPreview(DrawContext drawContext, String playerName, float previewX, float previewY, float previewWidth, float animationProgress) {
       float animatedOpacity = animationProgress * this.visibilityProgress;

@@ -9,20 +9,17 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public final class AimAssist extends ModuleStructure {
-    private static final String pd660394a = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private final FloatSetting l1I1IlllIlI = new FloatSetting("Дистанция", 4.5F, 2.0F, 8.0F, 0.1F, "бл.");
    private final FloatSetting IllI1l1l1 = new FloatSetting("Угол обзора", 60.0F, 10.0F, 180.0F, 5.0F, "°");
    private final FloatSetting l1lll11l1l = new FloatSetting("Скорость", 4.0F, 0.5F, 20.0F, 0.5F, "°");
    private final BooleanSetting lIIl11l111lIIl1ll = new BooleanSetting("По вертикали", false);
    private final BooleanSetting l1IIl11lI = new BooleanSetting("Только при атаке", true);
    private final BooleanSetting I1lIIII1III1lIlIl1l = new BooleanSetting("Только с оружием", false);
-// https://t.me/pasterplace
 
    public AimAssist() {
       super("AimAssist", "Мягко доводит прицел до ближайшего игрока", ModuleCategory.COMBAT);
       this.addSettings(this.l1I1IlllIlI, this.IllI1l1l1, this.l1lll11l1l, this.lIIl11l111lIIl1ll, this.l1IIl11lI, this.I1lIIII1III1lIlIl1l);
    }
-// https://t.me/pasterplace
 
    @EventTarget
    public void II1Il11l111II11IIl(EventUpdate eventUpdate) {
@@ -35,7 +32,6 @@ public final class AimAssist extends ModuleStructure {
                );
                Object targetPlayer = null;
                float bestAngularDistance = this.IllI1l1l1.getValue();
-// https://t.me/pasterplace
 
                 for (PlayerEntity candidatePlayer : CLIENT.world.getPlayers()) {
                   if (candidatePlayer != CLIENT.player

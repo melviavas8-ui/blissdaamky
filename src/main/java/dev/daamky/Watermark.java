@@ -6,7 +6,6 @@ import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.network.PlayerListEntry;
 
 public final class Watermark extends HudElementPosition {
-    private static final String sourceAttributionUrl = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
     private static final float AVATAR_SIZE = 16.0F;
     private static final float HUD_EDGE_PADDING = 7.0F;
     private static final float SETTINGS_PANEL_WIDTH = 118.0F;
@@ -44,7 +43,6 @@ public final class Watermark extends HudElementPosition {
     private float finetuneOverlayVisibility;
     private float recordingOverlayWidth = 70.0F;
     private float finetuneProgress;
-// https://t.me/pasterplace
 
     public Watermark(MultiToggleSetting metricVisibilitySetting, MultiOptionSetting styleSetting, MultiOptionSetting positionSetting) {
         super("Watermark", "watermark", 7.0F, 7.0F);
@@ -54,7 +52,6 @@ public final class Watermark extends HudElementPosition {
         this.elementWidth = this.currentWatermarkWidth;
         this.elementHeight = 16.0F;
     }
-// https://t.me/pasterplace
 
     @Override
     public void updateAnimation(float tickDelta) {
@@ -90,7 +87,6 @@ public final class Watermark extends HudElementPosition {
         this.currentAlignedX = Float.isNaN(this.currentAlignedX) ? targetAlignedX : interpolate(this.currentAlignedX, targetAlignedX, 10.0F, tickDelta);
         this.currentAlignedY = Float.isNaN(this.currentAlignedY) ? targetAlignedY : interpolate(this.currentAlignedY, targetAlignedY, 10.0F, tickDelta);
     }
-// https://t.me/pasterplace
 
     private float getAlignedX() {
         float screenWidth = GuiEventRenderer.getScreenWidth();
@@ -101,13 +97,11 @@ public final class Watermark extends HudElementPosition {
             default -> 7.0F;
         };
     }
-// https://t.me/pasterplace
 
     private float getAlignedY() {
         if (this.positionSetting.getSelectedIndex() != 1) {
             return 7.0F;
         }
-// https://t.me/pasterplace
 
         int bossBarCount = this.getBossBarCount();
         if (bossBarCount == 0) {
@@ -117,38 +111,32 @@ public final class Watermark extends HudElementPosition {
         float windowScale = CLIENT.getWindow().getScaleFactor();
         return (bossBarCount * 19.0F - 2.0F) * windowScale / 2.0F + 1.0F;
     }
-// https://t.me/pasterplace
 
     private int getBossBarCount() {
         return CLIENT.inGameHud != null && !NoRender.II1Il11l111II11IIl("Босс-бар")
         ? ((BossHealthOverlayAccessor)CLIENT.inGameHud.getBossBarHud()).daamky$getEvents().size()
         : 0;
     }
-// https://t.me/pasterplace
 
     @Override
     public float getX() {
         return Float.isNaN(this.currentAlignedX) ? this.getAlignedX() : this.currentAlignedX;
     }
-// https://t.me/pasterplace
 
     @Override
     public float getY() {
         return Float.isNaN(this.currentAlignedY) ? this.getAlignedY() : this.currentAlignedY;
     }
-// https://t.me/pasterplace
 
     @Override
     public boolean isHiddenByPosition() {
         return false;
     }
-// https://t.me/pasterplace
 
     @Override
     public boolean isDraggable() {
         return false;
     }
-// https://t.me/pasterplace
 
     @Override
     public boolean handlePrimaryClick(float mouseX, float mouseY) {
@@ -170,7 +158,6 @@ public final class Watermark extends HudElementPosition {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     @Override
     public boolean handleSecondaryClick(float mouseX, float mouseY) {
@@ -181,12 +168,10 @@ public final class Watermark extends HudElementPosition {
             return false;
         }
     }
-// https://t.me/pasterplace
 
     private static boolean containsRectangle(float pointX, float pointY, float rectangleX, float rectangleY, float rectangleWidth, float rectangleHeight) {
         return pointX >= rectangleX && pointX <= rectangleX + rectangleWidth && pointY >= rectangleY && pointY <= rectangleY + rectangleHeight;
     }
-// https://t.me/pasterplace
 
     private int getPlayerPing() {
         if (CLIENT.getNetworkHandler() != null && CLIENT.player != null) {
@@ -195,17 +180,14 @@ public final class Watermark extends HudElementPosition {
                 return Math.max(0, playerEntry.getLatency());
             }
         }
-// https://t.me/pasterplace
 
         return 0;
     }
-// https://t.me/pasterplace
 
     @Override
     public boolean isVisibleInCurrentScreen(boolean chatScreenOpen) {
         return true;
     }
-// https://t.me/pasterplace
 
     @Override
     public void render(HudRenderContext renderContext, float renderAlpha) {
@@ -245,7 +227,6 @@ public final class Watermark extends HudElementPosition {
             renderContext.postRenderCallbacks().add(() -> this.renderSettingsPanel(drawContext, renderAlpha * this.settingsPanelProgress, watermarkColorArgb));
         }
     }
-// https://t.me/pasterplace
 
     private void renderFinetuneOverlay(DrawContext drawContext, float renderAlpha, float watermarkX, float watermarkY, int accentColorArgb) {
         NeuroRotationController finetuneModule = NeuroRotationController.getInstance();
@@ -329,7 +310,6 @@ public final class Watermark extends HudElementPosition {
             }
         }
     }
-// https://t.me/pasterplace
 
     private void renderSettingsPanel(DrawContext drawContext, float renderAlpha, int watermarkColorArgb) {
         float screenWidth = GuiEventRenderer.getScreenWidth();
@@ -391,7 +371,6 @@ public final class Watermark extends HudElementPosition {
             drawToggle(drawContext, metricVisibility, contentRight, rowY, renderAlpha);
         }
     }
-// https://t.me/pasterplace
 
     private static void drawSettingsLabel(DrawContext drawContext, String label, float x, float y, float alpha) {
         GuiTextBuilder.createAt(Medium.DEFAULT_FONT, label, x + 4.0F + 5.0F + 5.0F, y, 4.8F)
@@ -399,7 +378,6 @@ public final class Watermark extends HudElementPosition {
         .color(Accent.getDarkerTextColor((int)(235.0F * alpha)))
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     private static void drawDecorativeDots(DrawContext drawContext, float x, float y, float alpha) {
         float startY = y - 2.5F;
@@ -411,7 +389,6 @@ public final class Watermark extends HudElementPosition {
             .render(drawContext);
         }
     }
-// https://t.me/pasterplace
 
     private static void drawToggle(DrawContext drawContext, float toggleProgress, float rightEdgeX, float centerY, float alpha) {
         float offLabelWidth = Medium.DEFAULT_FONT.measureWidth("OFF", 4.6F);
@@ -452,7 +429,6 @@ public final class Watermark extends HudElementPosition {
         .color(RgbaColor.rgba(255, 255, 255, (int)(255.0F * alpha)))
         .render(drawContext);
     }
-// https://t.me/pasterplace
 
     private float drawWatermarkMetric(DrawContext drawContext, float x, float y, String iconGlyph, String value, int colorArgb, float alpha) {
         BrokkeIcons.drawVerticalDivider(drawContext, x, y, alpha);
@@ -466,13 +442,11 @@ public final class Watermark extends HudElementPosition {
         BrokkeIcons.drawCenteredText(drawContext, value, x, y, 5.7F, BrokkeIcons.lightGrayWithAlpha(alpha));
         return x + BrokkeIcons.measureTextWidth(value, 5.7F) + 5.5F;
     }
-// https://t.me/pasterplace
 
     private int getStyleColor(float healthRatio, float alpha) {
         Object selectedStyle = this.watermarkStyleSetting.getValue();
 
         {
-// https://t.me/pasterplace
 
             if (false && CLIENT.player != null) {
                 float healthFraction = Math.clamp(CLIENT.player.getHealth() / CLIENT.player.getMaxHealth(), 0.0F, 1.0F);

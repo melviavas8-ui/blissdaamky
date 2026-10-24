@@ -22,7 +22,6 @@ import project.melvi.metadata.Allow2Generation;
 import project.melvi.metadata.Allow2Generation.GenerationLevel;
 
 public final class PlayerHelper extends ModuleStructure {
-    private static final String SOURCE_CHANNEL_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final int HOTBAR_SLOT_INDEX = 8;
    private static final String BOUNCY_BOOTS_NAME = "Попрыгун";
    private static final int SHULKER_HOTBAR_SLOT_INDEX = 8;
@@ -92,7 +91,6 @@ public final class PlayerHelper extends ModuleStructure {
    private int previousSelectedSlot = -1;
    private int previousValuableItemCount;
    private boolean lastMaceMode;
-// https://t.me/pasterplace
 
    public PlayerHelper() {
       super("Player Helper", "Складывает ценности в шалкер и меняет ботинки-попрыгуны", ModuleCategory.PLAYER);
@@ -114,14 +112,12 @@ public final class PlayerHelper extends ModuleStructure {
          this.swapModeSetting
       );
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
    protected void onEnable() {
       this.previousValuableItemCount = !this.hasActiveClientWorld() ? 0 : this.countPlayerItems();
    }
-// https://t.me/pasterplace
 
    @Allow2Generation(level = GenerationLevel.FAST)
    @Override
@@ -130,7 +126,6 @@ public final class PlayerHelper extends ModuleStructure {
       this.storageRequested = false;
       this.lastMaceMode = false;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -138,7 +133,6 @@ public final class PlayerHelper extends ModuleStructure {
       this.storageState = PlayerHelper.InventorySwapState.IDLE;
       this.storageRequested = false;
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -156,7 +150,6 @@ public final class PlayerHelper extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    @EventTarget
    @Allow2Generation(level = GenerationLevel.FAST)
@@ -183,7 +176,6 @@ public final class PlayerHelper extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void updateMaceBoots() {
       boolean holdingMace = CLIENT.player.getMainHandStack().isOf(Items.MACE);
@@ -195,7 +187,6 @@ public final class PlayerHelper extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void startShulkerDeposit() {
       int valuableItemCount = this.countPlayerItems();
@@ -203,7 +194,6 @@ public final class PlayerHelper extends ModuleStructure {
          this.storageRequested = true;
          this.autoStorageTimer.reset();
       }
-// https://t.me/pasterplace
 
       this.previousValuableItemCount = valuableItemCount;
       if (this.storageRequested && CLIENT.currentScreen == null) {
@@ -230,7 +220,6 @@ public final class PlayerHelper extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void openShulkerForDeposit() {
       if (this.hasOpenContainer()) {
@@ -248,7 +237,6 @@ public final class PlayerHelper extends ModuleStructure {
          }
       }
    }
-// https://t.me/pasterplace
 
    private void depositValuableItems() {
       if (this.hasOpenContainer() && !this.autoStorageTimer.hasElapsed(15000L)) {
@@ -273,7 +261,6 @@ public final class PlayerHelper extends ModuleStructure {
          this.closeShulkerAndAdvance();
       }
    }
-// https://t.me/pasterplace
 
    private void closeShulkerAndAdvance() {
       if (this.hasOpenContainer()) {
@@ -283,7 +270,6 @@ public final class PlayerHelper extends ModuleStructure {
       this.storageState = PlayerHelper.InventorySwapState.RESTORING_INVENTORY;
       this.autoStorageTimer.reset();
    }
-// https://t.me/pasterplace
 
    private void restoreInventoryAfterDeposit() {
       if (this.autoStorageTimer.hasElapsed(150L) && (CLIENT.currentScreen == null || this.autoStorageTimer.hasElapsed(3000L))) {
@@ -303,12 +289,10 @@ public final class PlayerHelper extends ModuleStructure {
          this.storageState = PlayerHelper.InventorySwapState.IDLE;
       }
    }
-// https://t.me/pasterplace
 
    private boolean hasOpenContainer() {
       return CLIENT.player.currentScreenHandler != CLIENT.player.playerScreenHandler;
    }
-// https://t.me/pasterplace
 
     private int countPlayerItems() {
       int valuableItemCount = 0;
@@ -321,7 +305,6 @@ public final class PlayerHelper extends ModuleStructure {
 
       return valuableItemCount;
    }
-// https://t.me/pasterplace
 
    private boolean isShulkerOrBackpack(ItemStack stack) {
       if (!InventoryUtils.itemNameContains(stack, "рюкзак")) {
@@ -338,7 +321,6 @@ public final class PlayerHelper extends ModuleStructure {
          return true;
       }
    }
-// https://t.me/pasterplace
 
    private boolean isValuableItem(ItemStack stack) {
       if (!stack.isEmpty() && !this.isShulkerOrBackpack(stack)) {
@@ -354,17 +336,14 @@ public final class PlayerHelper extends ModuleStructure {
          return false;
       }
    }
-// https://t.me/pasterplace
 
    private ItemStack getEquippedBoots() {
       return CLIENT.player.getEquippedStack(EquipmentSlot.FEET);
    }
-// https://t.me/pasterplace
 
    private boolean isBouncyBoots(ItemStack boots) {
       return InventoryUtils.itemNameContains(boots, "Попрыгун");
    }
-// https://t.me/pasterplace
 
    private boolean swapBouncyBoots(boolean wantBouncyBoots) {
       if (!InventoryUtils.canSwapInventorySlots()) {
@@ -389,7 +368,6 @@ public final class PlayerHelper extends ModuleStructure {
       });
       return true;
    }
-// https://t.me/pasterplace
 
    private enum InventorySwapState {
       IDLE,

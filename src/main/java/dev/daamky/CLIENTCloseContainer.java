@@ -17,13 +17,10 @@ import net.minecraft.network.packet.s2c.play.OpenScreenS2CPacket;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
 
 public final class CLIENTCloseContainer {
-    private static final String TELEGRAM_CONTACT_URL = "\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0070\u0061\u0073\u0074\u0065\u0072\u0070\u006c\u0061\u0063\u0065";
    private static final Path LOG_FILE = Path.of("daamky", "container-debug.txt");
-// https://t.me/pasterplace
 
    private CLIENTCloseContainer() {
    }
-// https://t.me/pasterplace
 
    public static void logOutgoingPacket(Packet<?> packet, String direction) {
       if (packet instanceof ClickSlotC2SPacket clickSlotPacket) {
@@ -49,7 +46,6 @@ public final class CLIENTCloseContainer {
          appendLogEntry(direction + " CARRIED slot=" + selectedSlotPacket.getSelectedSlot(), false);
       }
    }
-// https://t.me/pasterplace
 
    public static void logIncomingPacket(Packet<?> packet) {
       if (packet instanceof CloseScreenS2CPacket closeScreenPacket) {
@@ -62,18 +58,15 @@ public final class CLIENTCloseContainer {
          appendLogEntry("RECV SLOT id=" + slotUpdatePacket.getSyncId() + " state=" + slotUpdatePacket.getRevision() + " slot=" + slotUpdatePacket.getSlot(), false);
       }
    }
-// https://t.me/pasterplace
 
    public static void logCloseContainer() {
       appendLogEntry("CLIENT closeContainer", true);
    }
-// https://t.me/pasterplace
 
    private static String getCurrentScreenHandlerState() {
       MinecraftClient client = MinecraftClient.getInstance();
       return client.player == null ? "-" : client.player.currentScreenHandler.syncId + "/" + client.player.currentScreenHandler.getRevision();
    }
-// https://t.me/pasterplace
 
    private static void appendLogEntry(String logMessage, boolean includeStackTrace) {
       StringBuilder stringBuilder = new StringBuilder();
@@ -85,7 +78,6 @@ public final class CLIENTCloseContainer {
             stringBuilder.append("    at ").append(stackTrace[stackTraceIndex]).append('\n');
          }
       }
-// https://t.me/pasterplace
 
       try {
          Files.writeString(LOG_FILE, stringBuilder.toString(), StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
