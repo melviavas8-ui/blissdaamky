@@ -473,7 +473,9 @@ public final class Aura extends ModuleStructure {
       }
 
       CombatUtils.isInCobweb(this.currentTarget);
+      CombatUtils.attackEntity(this.currentTarget);
       this.lastAttackTimeMillis = System.currentTimeMillis();
+      this.restorePreviousHotbarSlot();
    }
 
    private boolean isCurrentElytraTarget() {
