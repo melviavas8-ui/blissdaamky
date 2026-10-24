@@ -67,7 +67,7 @@ public final class CombatUtils {
          || livingEntity.hasStatusEffect(StatusEffects.LEVITATION)
          || livingEntity.hasStatusEffect(StatusEffects.SLOW_FALLING)
          || livingEntity.hasStatusEffect(StatusEffects.BLINDNESS)
-         || isInInvalidCriticalState(livingEntity);
+         || isInCobweb(livingEntity);
    }
 
    public static boolean isFallingForCriticalHit(ClientPlayerEntity livingEntity) {
