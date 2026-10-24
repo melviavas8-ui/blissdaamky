@@ -55,6 +55,8 @@ float fbm(vec3 p) {
     return v;
 }
 
+int lim(int n) { return n + int(ScreenParams.w); }
+
 const vec3 MIST = vec3(0.60, 0.63, 0.67);
 
 bool isSky(float depth) {
@@ -76,9 +78,9 @@ float fogFactor(vec2 uv) {
 vec3 fogBlur(vec2 uv, vec3 scene, float k) {
     vec3 sum = scene * (0.35 + k);
     float total = 0.35 + k;
-    for (int i = 0; i < 28; i++) {
+    for (int i = 0; i < lim(12); i++) {
         float a = float(i) * 2.39996;
-        float r = sqrt((float(i) + 0.5) / 28.0) * 16.0;
+        float r = sqrt((float(i) + 0.5) / 12.0) * 16.0;
         vec2 suv = clamp(uv + vec2(cos(a), sin(a)) * r * ScreenParams.xy, vec2(0.001), vec2(0.999));
         float sk = fogFactor(suv);
         float w = sk * (1.0 - r / 20.0);
@@ -227,14 +229,14 @@ vec4 auroraSky(vec3 dir, float t, vec3 accent) {
     col += starField(dir, t, 0.012, 140.0);
     if (dir.y > 0.0) {
         vec3 aurora = vec3(0.0);
-        for (int i = 0; i < 24; i++) {
-            float h = 0.8 + float(i) * 0.06;
+        for (int i = 0; i < lim(10); i++) {
+            float h = 0.8 + float(i) * 0.144;
             vec2 p = dir.xz / (dir.y + 0.05) * h;
             float n = fbmP(vec3(p * 0.6, t * 0.05 + float(i) * 0.02));
             float band = smoothstep(0.55, 0.75, n) * smoothstep(0.85, 0.6, n);
             float curtain = sin(p.x * 1.2 + n * 6.0 + t * 0.2) * 0.5 + 0.5;
-            vec3 c = mix(vec3(0.1, 1.0, 0.55), mix(accent, vec3(0.6, 0.2, 1.0), 0.5), float(i) / 24.0);
-            aurora += c * band * curtain * exp(-float(i) * 0.08) * 0.09;
+            vec3 c = mix(vec3(0.1, 1.0, 0.55), mix(accent, vec3(0.6, 0.2, 1.0), 0.5), float(i) / 10.0);
+            aurora += c * band * curtain * exp(-float(i) * 0.192) * 0.216;
         }
         col += aurora * smoothstep(0.0, 0.2, dir.y);
     }
@@ -333,16 +335,16 @@ vec3 skyColor(vec3 dir, float time) {
 }
 
 float raysMask(vec2 uv, vec2 sunUv, float jitter) {
-    vec2 stepUv = (sunUv - uv) / 32.0;
+    vec2 stepUv = (sunUv - uv) / 16.0;
     vec2 position = uv + stepUv * jitter;
     float sum = 0.0;
     float weight = 1.0;
     float total = 0.0;
-    for (int i = 0; i < 32; i++) {
+    for (int i = 0; i < lim(16); i++) {
         vec2 sampleUv = clamp(position, vec2(0.001), vec2(0.999));
         sum += (isSky(texture(DepthSampler, sampleUv).r) ? 1.0 : 0.0) * weight;
         total += weight;
-        weight *= 0.955;
+        weight *= 0.91;
         position += stepUv;
     }
     return sum / max(total, 0.0001);
@@ -384,88 +386,6 @@ vec3 sunRays(vec2 uv, float time) {
     return clamp(rayColor * rays * (1.1 + lowSun * 0.6) + sunGlow, vec3(0.0), vec3(1.0));
 }
 
-float snowHeight(vec3 wp) {
-    float h = (fbm(vec3(wp.xz * 3.2, 0.0)) - 0.5) * 0.025 + (noiseJ(wp.xz * 14.0) - 0.5) * 0.006;
-    vec2 wind = vec2(0.8, 0.6);
-    float ripple = sin(dot(wp.xz, wind) * 9.0 + fbmJ(wp.xz * 1.5) * 6.0);
-    h += ripple * 0.004 * smoothstep(0.35, 0.7, noiseJ(wp.xz * 0.8));
-    h += (noiseJ(wp.xz * 41.0) - 0.5) * 0.0025;
-    return h;
-}
-
-vec3 winterGround(vec3 scene, vec2 uv, vec3 wp, vec3 n, vec3 rayDir, float dist, float time, float amount) {
-    float lum = dot(scene, vec3(0.299, 0.587, 0.114));
-    float up = smoothstep(0.55, 0.92, n.y);
-    float drift = fbm(vec3(wp.xz * 0.45, wp.y * 0.2));
-    float side = 1.0 - smoothstep(0.15, 0.45, abs(n.y));
-    float gridY = abs(fract(wp.y * 16.0 + 0.5) - 0.5) / 16.0;
-    float aligned = 1.0 - smoothstep(0.004, 0.012 + dist * 0.0006, gridY);
-    float cover = up * aligned * mix(0.9, 1.0, smoothstep(0.2, 0.5, drift));
-    float sideFrost = side * smoothstep(0.55, 0.8, fbm(wp * 2.2)) * 0.3;
-    float grain = fbm(wp * 5.0);
-    float dayLight = mix(0.22, 1.0, smoothstep(-0.15, 0.25, SunDir.y));
-    float area = 0.0;
-    for (int i = 0; i < 12; i++) {
-        float ang = float(i) * 2.39996;
-        float rad = 6.0 + float(i) * 2.2;
-        vec2 suv = clamp(uv + vec2(cos(ang), sin(ang)) * rad * ScreenParams.xy, vec2(0.001), vec2(0.999));
-        vec3 sc = texture(SceneSampler, suv).rgb;
-        area += max(max(sc.r, sc.g), sc.b);
-    }
-    area /= 12.0;
-    float light = dayLight * clamp(area * 1.9 + 0.25, 0.3, 1.0);
-    vec3 snowCol = vec3(0.0);
-    if (cover > 0.001) {
-        vec2 e = vec2(0.03, 0.0);
-        float h0 = snowHeight(wp);
-        float hx = snowHeight(wp + e.xyy);
-        float hz = snowHeight(wp + e.yyx);
-        vec3 sn = normalize(vec3(-(hx - h0) / e.x, 1.0, -(hz - h0) / e.x));
-        sn = normalize(mix(sn, normalize(n + vec3(0.0, 0.6, 0.0)), side));
-        vec3 sunD = normalize(SunDir.xyz);
-        if (sunD.y < 0.0) sunD = -sunD;
-        float ndl = clamp(dot(sn, sunD), 0.0, 1.0);
-        float wrap = clamp((dot(sn, sunD) + 0.35) / 1.35, 0.0, 1.0);
-        float sss = pow(clamp(1.0 - dot(sn, -rayDir), 0.0, 1.0), 3.0);
-        vec3 skyAmb = vec3(0.58, 0.7, 0.92);
-        vec3 sunCol = vec3(1.0, 0.97, 0.92);
-        float detailFade = 1.0 - smoothstep(4.0, 24.0, dist);
-        float micro = (noiseJ(wp.xz * 60.0) - 0.5) * 0.06 * detailFade;
-        vec3 base = mix(vec3(0.8, 0.84, 0.9), vec3(0.9, 0.92, 0.95), smoothstep(0.3, 0.7, grain)) + micro;
-        snowCol = base * (skyAmb * 0.55 + sunCol * (wrap * 0.35 + ndl * 0.35)) + vec3(0.45, 0.65, 1.0) * sss * 0.12;
-        snowCol *= mix(vec3(0.62, 0.74, 0.95), vec3(1.0), smoothstep(-0.06, 0.0, h0));
-        float spec = pow(max(dot(reflect(rayDir, sn), sunD), 0.0), 60.0);
-        snowCol += sunCol * spec * 0.12;
-        snowCol *= light;
-        float cavity = (1.0 - smoothstep(-0.05, 0.0, h0)) * 0.18;
-        snowCol *= 1.0 - cavity;
-        snowCol = snowCol / (1.0 + snowCol * 0.45) * 1.25;
-        snowCol = mix(snowCol, snowCol * vec3(0.84, 0.9, 1.06), smoothstep(0.55, 0.9, drift) * 0.4);
-    }
-
-    float icePatch = up * smoothstep(0.68, 0.74, fbm(vec3(wp.xz * 0.18, 3.0)));
-    vec3 iceNormal = normalize(vec3((noiseJ(wp.xz * 1.3) - 0.5) * 0.04, 1.0, (noiseJ(wp.zx * 1.3 + 7.0) - 0.5) * 0.04));
-    vec3 refl = reflect(rayDir, iceNormal);
-    vec3 iceSky = Modes.x > 0.5 ? skyColor(refl, time) : mix(vec3(0.55, 0.7, 0.9), vec3(0.85, 0.93, 1.0), clamp(refl.y, 0.0, 1.0));
-    float fresnel = 0.05 + 0.95 * pow(1.0 - max(dot(-rayDir, iceNormal), 0.0), 5.0);
-    vec3 iceCol = mix(scene * vec3(0.55, 0.78, 1.0) + vec3(0.04, 0.1, 0.18), iceSky, clamp(fresnel * 1.4 + 0.25, 0.0, 0.9));
-    float crack = 1.0 - smoothstep(0.0, 0.025, abs(noiseJ(wp.xz * 2.4) - 0.5)) * 1.0;
-    crack = max(crack, 1.0 - smoothstep(0.0, 0.018, abs(noiseJ(wp.xz * 5.1 + 13.0) - 0.5)));
-    iceCol += vec3(0.75, 0.9, 1.0) * crack * 0.35 * light;
-
-    vec3 result = mix(scene, scene * vec3(0.86, 0.94, 1.1) + vec3(0.02, 0.03, 0.05), amount * 0.8);
-    result = mix(result, mix(result, vec3(0.88, 0.94, 1.0) * light, 0.7), sideFrost * amount);
-    float green = smoothstep(0.02, 0.09, scene.g - scene.b) * smoothstep(-0.05, 0.02, scene.g - scene.r);
-    float leafShade = clamp(lum / max(area, 0.05), 0.55, 1.15);
-    vec3 leafSnow = mix(vec3(0.66, 0.72, 0.82), vec3(0.86, 0.89, 0.93), smoothstep(0.2, 0.8, grain)) * light * leafShade;
-    result = mix(result, leafSnow, smoothstep(0.0, 0.6, green) * smoothstep(0.0, 0.3, amount));
-    float coverMask = smoothstep(1.0 - amount, 1.0 - amount + 0.08, cover * mix(0.6, 1.0, drift));
-    result = mix(result, snowCol, max(coverMask, step(0.95, amount) * cover));
-    result = mix(result, iceCol, icePatch * amount * 0.85);
-
-    return result;
-}
-
 vec3 screenBlend(vec3 base, vec3 light) {
     return 1.0 - (1.0 - clamp(base, vec3(0.0), vec3(1.0))) * (1.0 - light);
 }
@@ -477,7 +397,6 @@ void main() {
     vec3 scene = texture(SceneSampler, uv).rgb;
     bool sky = isSky(depth);
     vec3 wp = worldPos(uv, depth);
-    vec3 faceN = cross(dFdx(wp), dFdy(wp));
 
     if (sky) {
         vec3 dir = viewDir(uv);
@@ -522,9 +441,9 @@ void main() {
             float hit = 0.0;
             float stepLen = 0.35 + dist * 0.02;
             vec3 p = wp + normal * 0.02;
-            for (int i = 0; i < 28; i++) {
+            for (int i = 0; i < lim(14); i++) {
                 p += refl * stepLen;
-                stepLen *= 1.12;
+                stepLen *= 1.25;
                 float behind;
                 vec2 suv = projectWorld(p, behind);
                 if (behind > 0.5 || suv.x < 0.0 || suv.x > 1.0 || suv.y < 0.0 || suv.y > 1.0) break;
@@ -540,7 +459,7 @@ void main() {
                 }
             }
             if (hit <= 0.0) {
-                vec3 skyRefl = Modes.x > 0.5 ? skyColor(refl, time) : vec3(0.35, 0.42, 0.55);
+                vec3 skyRefl = mix(vec3(0.35, 0.42, 0.55), vec3(0.62, 0.72, 0.9), clamp(refl.y, 0.0, 1.0));
                 hitColor = skyRefl;
                 hit = 0.6;
             }
@@ -548,12 +467,6 @@ void main() {
             float strength = up * wet * mix(0.35, 1.0, puddle) * clamp(fresnel * 1.6 + 0.15, 0.0, 1.0);
             scene = mix(scene, hitColor, strength * hit);
         }
-    }
-
-    if (SkyColor.w > 0.0 && dist > 1.1) {
-        vec3 wn = dot(faceN, faceN) > 1.0e-12 ? normalize(faceN) : vec3(0.0, 1.0, 0.0);
-        if (dot(wn, rayDir) > 0.0) wn = -wn;
-        scene = winterGround(scene, uv, wp, wn, rayDir, dist, time, SkyColor.w);
     }
 
     if (Modes.w > 0.5) {
@@ -571,14 +484,14 @@ void main() {
         float fogAmount = 1.0 - exp(-dist * 0.045 * density);
         float marchLen = min(dist, 40.0);
         float acc = 0.0;
-        for (int i = 0; i < 10; i++) {
-            float t = (float(i) + 0.5) / 10.0 * marchLen;
+        for (int i = 0; i < lim(6); i++) {
+            float t = (float(i) + 0.5) / 6.0 * marchLen;
             vec3 sp = CameraPos.xyz + rayDir * t;
             float heightFade = exp(-max(sp.y - CameraPos.y + 2.0, 0.0) * 0.12);
             float n = fbm(sp * 0.09 + vec3(time * 0.35, time * 0.05, time * 0.22));
             acc += smoothstep(0.35, 0.75, n) * heightFade;
         }
-        acc = acc / 10.0 * min(marchLen / 20.0, 1.0);
+        acc = acc / 6.0 * min(marchLen / 20.0, 1.0);
         float total = clamp(fogAmount + acc * density * 0.9, 0.0, 0.97);
         scene = mix(scene, MIST, total);
     }
