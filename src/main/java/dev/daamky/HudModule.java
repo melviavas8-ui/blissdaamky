@@ -73,6 +73,25 @@ public final class HudModule extends ModuleStructure {
       return module != null && module.isEnabled() && module.enabledElements.isOptionEnabled(elementDisplayName);
    }
 
+   public static boolean isPointOverEditableElement(float pointX, float pointY) {
+      HudModule module = (HudModule)ModuleRegistry.getInstance().getModuleByClass(HudModule.class);
+      if (module == null || !module.isEnabled()) {
+         return false;
+      }
+
+      if (module.draggedElement != null) {
+         return true;
+      }
+
+      for (HudElementPosition hudElement : module.hudElements) {
+         if (hudElement.isDraggable() && hudElement.getVisibilityAlpha() >= 0.5F && hudElement.containsPoint(pointX, pointY)) {
+            return true;
+         }
+      }
+
+      return false;
+   }
+
    private static float getMouseX(MinecraftClient client) {
       Window window = client.getWindow();
       return (float)(client.mouse.getX() * window.getFramebufferWidth() / Math.max(1, window.getWidth()) / 2.0);
