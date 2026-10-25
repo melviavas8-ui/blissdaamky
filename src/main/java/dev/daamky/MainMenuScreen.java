@@ -186,10 +186,10 @@ public final class MainMenuScreen extends MenuBackground {
                 this.markTextChanged("menu" + entryIndex);
                 switch (entryIndex) {
                 case 0:
-                    this.transitionTo(new MultiplayerScreen(this));
+                    this.transitionTo(new MultiPlayerMenuScreen(this));
                     break;
                 case 1:
-                    this.transitionTo(new SelectWorldScreen(this));
+                    this.transitionTo(new SinglePlayerMenuScreen(this));
                     break;
                 default:
                     this.transitionTo(new Plus(this));
