@@ -1,5 +1,6 @@
 package dev.daamky.mixin.client;
 
+import dev.daamky.FreezeWatchdog;
 import dev.daamky.GuiEventRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.render.state.GuiRenderState;
@@ -29,6 +30,7 @@ public abstract class GuiScreenLayerMixin {
       )
    )
    private void daamky$hudUnderVanilla(RenderTickCounter renderTickCounter, boolean renderOverlay, CallbackInfo callbackInfo) {
+      FreezeWatchdog.beat();
       GuiEventRenderer.dispatchHudLayerEvent(this.client, this.guiState);
    }
 }
