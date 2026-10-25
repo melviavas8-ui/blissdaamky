@@ -70,6 +70,7 @@ public final class UseItemRotationQueue {
     }
 
     private static void sendQueuedPacketsWithRotation(float yaw, float pitch) {
+        flushingQueue = true;
 
         try {
             while (!queuedItemUsePackets.isEmpty()) {
@@ -77,7 +78,7 @@ public final class UseItemRotationQueue {
                 PacketSender.l1I1IlllIlI(new PlayerInteractItemC2SPacket(queuedPacket.getHand(), queuedPacket.getSequence(), yaw, pitch));
             }
         } finally {
-
+            flushingQueue = false;
         }
     }
 
