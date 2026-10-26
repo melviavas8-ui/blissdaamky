@@ -21,10 +21,10 @@ public final class Search {
     private final ClaudeConfig claudeConfig = new ClaudeConfig();
     private final Myid globalsPanel = new Myid();
     private final NameTagPreviewWidget nameTagPreview = new NameTagPreviewWidget();
-    private final float BASE_PANEL_WIDTH = 520.0F;
-    private final float PANEL_HEIGHT = 340.0F;
-    private final float SIDEBAR_WIDTH = 100.0F;
-    private final float HEADER_HEIGHT = 26.0F;
+    private final float BASE_PANEL_WIDTH = 400.0F;
+    private final float PANEL_HEIGHT = 262.0F;
+    private final float SIDEBAR_WIDTH = 84.0F;
+    private final float HEADER_HEIGHT = 22.0F;
     private float panelX = 0.0F;
     private float panelY = 0.0F;
     private float mouseX = 0.0F;
@@ -40,6 +40,14 @@ public final class Search {
 
     public void open() {
         MinecraftClient client = MinecraftClient.getInstance();
+        if (Menu.isDropdownSelected()) {
+            if (client != null && client.inGameHud != null && !(client.currentScreen instanceof DropDownScreen)) {
+                client.setScreen(new DropDownScreen());
+            }
+
+            return;
+        }
+
         if (client != null && client.inGameHud != null && !(client.currentScreen instanceof DaamkyClickGuiScreen)) {
             client.setScreen(new DaamkyClickGuiScreen());
         }
@@ -164,11 +172,11 @@ public final class Search {
         }
 
         if (button == 0) {
-            float previewWidth = this.BASE_PANEL_WIDTH + 130.0F * this.nameTagPreview.getVisibilityProgress();
+            float previewWidth = 400.0F + 130.0F * this.nameTagPreview.getVisibilityProgress();
             if (this.mouseX >= this.panelX
             && this.mouseX <= this.panelX + previewWidth
             && this.mouseY >= this.panelY
-            && this.mouseY <= this.panelY + this.PANEL_HEIGHT) {
+            && this.mouseY <= this.panelY + 262.0F) {
                 return true;
             }
         }
@@ -347,12 +355,12 @@ public final class Search {
     private void renderClickGui(DrawContext drawContext, float animationProgress) {
         float viewportWidth = GuiEventRenderer.getScreenWidth();
         float viewportHeight = GuiEventRenderer.getScreenHeight();
-        float panelWidth = this.BASE_PANEL_WIDTH + 130.0F * this.nameTagPreview.getVisibilityProgress();
+        float panelWidth = 400.0F + 130.0F * this.nameTagPreview.getVisibilityProgress();
         this.panelX = (viewportWidth - panelWidth) / 2.0F;
-        this.panelY = (viewportHeight - this.PANEL_HEIGHT) / 2.0F;
+        this.panelY = (viewportHeight - 262.0F) / 2.0F;
         float transformScale = 0.85F + 0.15F * animationProgress;
         float transformCenterX = this.panelX + panelWidth / 2.0F;
-        float transformCenterY = this.panelY + this.PANEL_HEIGHT / 2.0F;
+        float transformCenterY = this.panelY + 131.0F;
         drawContext.getMatrices().pushMatrix();
         drawContext.getMatrices().translate(transformCenterX, transformCenterY);
         drawContext.getMatrices().scale(transformScale, transformScale);
@@ -363,7 +371,7 @@ public final class Search {
             float blurRadius = accentSettings.getCornerRadius();
             boolean customBlurEnabled = accentSettings.isGlassStyle();
             if (customBlurEnabled) {
-                BlurredRectangleBuilder.create(this.panelX, this.panelY, panelWidth, this.PANEL_HEIGHT)
+                BlurredRectangleBuilder.create(this.panelX, this.panelY, panelWidth, 262.0F)
                 .cornerRadius(blurRadius)
                 .blurMode(KawaseGaussianBlurMode.KAWASE)
                 .blurPasses((int)accentSettings.getBlurRadius())
@@ -371,7 +379,7 @@ public final class Search {
                 .opacity(animationProgress)
                 .render(drawContext);
             } else {
-                KawaseBlurBuilder.create(this.panelX, this.panelY, panelWidth, this.PANEL_HEIGHT)
+                KawaseBlurBuilder.create(this.panelX, this.panelY, panelWidth, 262.0F)
                 .cornerRadius(blurRadius)
                 .blurMode(KawaseGaussianBlurMode.KAWASE)
                 .blurPasses((int)accentSettings.getBlurRadius())
@@ -380,37 +388,37 @@ public final class Search {
                 .render(drawContext);
             }
 
-            RoundedGradientRectBuilder panelBackground = RoundedGradientRectBuilder.at(this.panelX, this.panelY, panelWidth, this.PANEL_HEIGHT)
+            RoundedGradientRectBuilder panelBackground = RoundedGradientRectBuilder.at(this.panelX, this.panelY, panelWidth, 262.0F)
             .cornerRadius(blurRadius);
             if (customBlurEnabled) {
 
             }
 
             panelBackground.color(Accent.getAccentBackgroundColor((int)(36.0F * animationProgress))).render(drawContext);
-            RoundedGradientRectBuilder.at(this.panelX, this.panelY, this.SIDEBAR_WIDTH, this.PANEL_HEIGHT)
+            RoundedGradientRectBuilder.at(this.panelX, this.panelY, 84.0F, 262.0F)
             .cornerRadii(blurRadius, 0.0F, 0.0F, blurRadius)
             .color(Accent.getTextColorWithAlpha((int)(4.0F * animationProgress)))
             .render(drawContext);
-            RoundedRectBuilder.createAt(this.panelX, this.panelY, panelWidth, this.PANEL_HEIGHT)
+            RoundedRectBuilder.createAt(this.panelX, this.panelY, panelWidth, 262.0F)
             .cornerRadius(blurRadius)
             .borderWidth(0.85F)
             .color(Accent.applyOutlineOpacity(Accent.getAccentColorWithAlpha(255), (int)(70.0F * animationProgress)))
             .alpha(animationProgress)
             .render(drawContext);
             int separatorColor = Accent.getTextColorWithAlpha((int)(12.0F * animationProgress)).toArgb();
-            RoundedGradientRectBuilder.at(this.panelX + this.SIDEBAR_WIDTH, this.panelY, 0.75F, this.PANEL_HEIGHT)
+            RoundedGradientRectBuilder.at(this.panelX + 84.0F, this.panelY, 0.75F, 262.0F)
             .cornerRadius(0.0F)
             .color(separatorColor)
             .render(drawContext);
-            RoundedGradientRectBuilder.at(this.panelX + this.SIDEBAR_WIDTH, this.panelY + this.HEADER_HEIGHT, 420.0F, 0.75F)
+            RoundedGradientRectBuilder.at(this.panelX + 84.0F, this.panelY + 22.0F, 316.0F, 0.75F)
             .cornerRadius(0.0F)
             .color(separatorColor)
             .render(drawContext);
             this.renderSidebarFooter(drawContext, animationProgress);
             this.renderHeader(drawContext, animationProgress);
-            float contentLeft = this.panelX + this.SIDEBAR_WIDTH;
-            float contentTop = this.panelY + this.HEADER_HEIGHT;
-            float contentRight = contentLeft + 160.0F;
+            float contentLeft = this.panelX + 84.0F;
+            float contentTop = this.panelY + 22.0F;
+            float contentRight = contentLeft + 132.72F;
             if (this.categorySidebar.getSelectedCategory() == ModuleCategory.COSMETICS) {
                 this.cosmeticsPanel
                 .render(
@@ -420,14 +428,14 @@ public final class Search {
                 contentLeft + 3.0F,
                 contentTop + 4.0F,
                 contentRight - contentLeft - 6.0F,
-                300.0F,
+                230.0F,
                 contentRight + 2.0F,
                 contentTop + 5.0F,
                 this.panelX + panelWidth - contentRight - 2.0F,
-                300.0F,
+                230.0F,
                 animationProgress
                 );
-                RoundedGradientRectBuilder.at(contentRight, contentTop, 0.75F, 310.0F).cornerRadius(0.0F).color(separatorColor).render(drawContext);
+                RoundedGradientRectBuilder.at(contentRight, contentTop, 0.75F, 240.0F).cornerRadius(0.0F).color(separatorColor).render(drawContext);
             } else if (this.categorySidebar.getSelectedCategory() == ModuleCategory.BOTS) {
                 this.botsPanel
                 .render(
@@ -437,14 +445,14 @@ public final class Search {
                 contentLeft + 3.0F,
                 contentTop + 4.0F,
                 contentRight - contentLeft - 6.0F,
-                300.0F,
+                230.0F,
                 contentRight + 2.0F,
                 contentTop + 5.0F,
-                this.panelX + this.BASE_PANEL_WIDTH - contentRight - 2.0F,
-                300.0F,
+                this.panelX + 400.0F - contentRight - 2.0F,
+                230.0F,
                 animationProgress
                 );
-                RoundedGradientRectBuilder.at(contentRight, contentTop, 0.75F, 310.0F).cornerRadius(0.0F).color(separatorColor).render(drawContext);
+                RoundedGradientRectBuilder.at(contentRight, contentTop, 0.75F, 240.0F).cornerRadius(0.0F).color(separatorColor).render(drawContext);
             } else if (this.categorySidebar.getSelectedCategory() == ModuleCategory.CLOUD_CONFIG) {
                 this.claudeConfig
                 .render(
@@ -454,18 +462,18 @@ public final class Search {
                 contentLeft + 3.0F,
                 contentTop + 4.0F,
                 contentRight - contentLeft - 6.0F,
-                300.0F,
+                230.0F,
                 contentRight + 2.0F,
                 contentTop + 5.0F,
                 this.panelX + panelWidth - contentRight - 2.0F,
-                300.0F,
+                230.0F,
                 animationProgress
                 );
-                RoundedGradientRectBuilder.at(contentRight, contentTop, 0.75F, 310.0F).cornerRadius(0.0F).color(separatorColor).render(drawContext);
+                RoundedGradientRectBuilder.at(contentRight, contentTop, 0.75F, 240.0F).cornerRadius(0.0F).color(separatorColor).render(drawContext);
             } else if (this.categorySidebar.getSelectedCategory() == ModuleCategory.GLOBALS) {
                 this.globalsPanel
                 .render(
-                drawContext, this.mouseX, this.mouseY, contentLeft, contentTop, this.panelX + panelWidth - contentLeft, 310.0F, animationProgress
+                drawContext, this.mouseX, this.mouseY, contentLeft, contentTop, this.panelX + panelWidth - contentLeft, 240.0F, animationProgress
                 );
             } else if (this.categorySidebar.getSelectedCategory() == ModuleCategory.THEMES) {
                 this.themePanel
@@ -476,14 +484,14 @@ public final class Search {
                 contentLeft + 3.0F,
                 contentTop + 4.0F,
                 contentRight - contentLeft - 6.0F,
-                300.0F,
+                230.0F,
                 contentRight + 2.0F,
                 contentTop + 5.0F,
                 this.panelX + panelWidth - contentRight - 2.0F,
-                300.0F,
+                230.0F,
                 animationProgress
                 );
-                RoundedGradientRectBuilder.at(contentRight, contentTop, 0.75F, 310.0F).cornerRadius(0.0F).color(separatorColor).render(drawContext);
+                RoundedGradientRectBuilder.at(contentRight, contentTop, 0.75F, 240.0F).cornerRadius(0.0F).color(separatorColor).render(drawContext);
             } else {
                 float moduleListTop = contentTop + 1.0F;
 
@@ -494,8 +502,8 @@ public final class Search {
                 this.mouseY,
                 contentLeft,
                 moduleListTop,
-                420.0F,
-                300.0F,
+                316.0F,
+                238.0F,
                 this.categorySidebar.getDisplayCategory(),
                 this.searchBar.getSearchText(),
                 animationProgress
@@ -505,16 +513,16 @@ public final class Search {
             if (this.nameTagPreview.isVisible()) {
                 ESP espModule = ModuleRegistry.getInstance().getModuleByClass(ESP.class);
                 drawContext.enableScissor(
-                PixelRounding.II1Il11l111II11IIl(this.panelX + this.BASE_PANEL_WIDTH),
+                PixelRounding.II1Il11l111II11IIl(this.panelX + 400.0F),
                 PixelRounding.II1Il11l111II11IIl(this.panelY),
                 PixelRounding.l1I1IlllIlI(this.panelX + panelWidth),
-                PixelRounding.l1I1IlllIlI(this.panelY + this.PANEL_HEIGHT)
+                PixelRounding.l1I1IlllIlI(this.panelY + 262.0F)
                 );
 
                 try {
                     this.nameTagPreview
                     .renderPreview(
-                    drawContext, espModule != null ? espModule.getEntityRenderMode() : "", this.panelX + this.BASE_PANEL_WIDTH, this.panelY, this.PANEL_HEIGHT, animationProgress
+                    drawContext, espModule != null ? espModule.getEntityRenderMode() : "", this.panelX + 400.0F, this.panelY, 262.0F, animationProgress
                     );
                 } finally {
                     drawContext.disableScissor();
@@ -531,7 +539,7 @@ public final class Search {
         .opacity(animationProgress)
         .render(drawContext);
         float footerX = this.panelX + 6.0F;
-        float footerY = this.panelY + this.PANEL_HEIGHT - 20.0F - 6.0F;
+        float footerY = this.panelY + 262.0F - 20.0F - 6.0F;
         RoundedGradientRectBuilder.at(footerX, footerY, 72.0F, 20.0F)
         .cornerRadius(3.5F)
         .color(Accent.getTextColorWithAlpha((int)(10.0F * animationProgress)))
@@ -550,11 +558,11 @@ public final class Search {
         .color(Accent.getDeepTextColor((int)(170.0F * animationProgress)))
         .render(drawContext);
         this.categorySidebar
-        .render(drawContext, this.mouseX, this.mouseY, this.panelX, this.panelY + this.HEADER_HEIGHT + 3.0F, this.SIDEBAR_WIDTH, animationProgress);
+        .render(drawContext, this.mouseX, this.mouseY, this.panelX, this.panelY + 25.0F, 84.0F, animationProgress);
     }
 
     private void renderHeader(DrawContext drawContext, float animationProgress) {
-        float headerX = this.panelX + this.SIDEBAR_WIDTH + 9.0F;
+        float headerX = this.panelX + 84.0F + 9.0F;
         float headerY = this.panelY + 11.0F;
         ModuleCategory moduleCategory = this.categorySidebar.getDisplayCategory();
         boolean searchMode = this.hasModuleListCategory() && !this.searchBar.getSearchText().isBlank();
@@ -580,7 +588,7 @@ public final class Search {
         if (this.supportsModuleSearch()) {
             this.searchBar
             .renderSearchBar(
-            drawContext, this.mouseX, this.mouseY, this.panelX, this.panelY + 0.75F, this.BASE_PANEL_WIDTH, this.PANEL_HEIGHT, animationProgress
+            drawContext, this.mouseX, this.mouseY, this.panelX, this.panelY + 0.75F, 400.0F, 262.0F, animationProgress
             );
         }
     }

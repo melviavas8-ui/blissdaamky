@@ -83,6 +83,7 @@ public final class ModuleRegistry {
       this.registerModule(new NoRender());
       this.registerModule(new CustomFog());
       this.registerModule(new Ambience());
+      this.registerModule(new Menu());
       this.registerModule(new Beautifuly());
       this.registerModule(new ViewModel());
       this.registerModule(new SwingAnimation());
